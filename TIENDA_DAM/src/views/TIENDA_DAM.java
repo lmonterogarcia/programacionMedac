@@ -24,11 +24,15 @@ public class TIENDA_DAM {
 			System.out.println("El usuario no se ha podido insertar.");
 		}
 		
+		if(oUserCtrl.addUsuario(new Usuario("aurelio.lopez@medac.es","123456"))) {
+			System.out.println("El usuario ha sido insertado en la base de datos.");
+		}else {
+			System.out.println("El usuario no se ha podido insertar.");
+		}
+		
 		System.out.println(oUserCtrl.getlUsuarios().size());
 		
 		//cargaDatos();
-		
-		
 	}
 	
 	/*public static void cargaDatos() {

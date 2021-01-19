@@ -2,9 +2,8 @@ package models;
 
 import java.util.regex.Pattern;
 
-public class Cliente {
+public class Cliente implements ICliente {
 
-	private final int MAXCARACTERES = 250;
 	private String sDni; // PK
 	private String sNombre, sApellidos; // NN
 	private String sDireccion, sNumeroDireccion, sTelefono; // N
@@ -113,7 +112,5 @@ public class Cliente {
 			bExito = true;
 		}
 		return bExito;
-	}
-	
-	
+	}	
 }

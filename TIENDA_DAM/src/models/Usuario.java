@@ -1,8 +1,7 @@
 package models;
 
-public class Usuario {
-	
-	private final int MAXCARACTERES = 250;
+public class Usuario implements IUsuario {
+
 	private String sEmail; // PK
 	private String sPassword; // NN
 
@@ -30,16 +29,35 @@ public class Usuario {
 	}
 
 	public void setsPassword(String sPassword) {
-		if(sPassword != null && sPassword.length() > 5 && sPassword.length() < 12) {
-			this.sPassword = sPassword;	
-		}		
+		if (sPassword != null && sPassword.length() > 5 && sPassword.length() < 12) {
+			this.sPassword = sPassword;
+		}
 	}
-	
+
 	public boolean checkUsuario() {
 		boolean bExito = false;
-		if(this.getsEmail() != null && this.getsPassword() != null) {
+		if (this.getsEmail() != null && this.getsPassword() != null) {
 			bExito = true;
 		}
 		return bExito;
 	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((sEmail == null) ? 0 : sEmail.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		boolean bExito = false;
+		Usuario oUser = (Usuario) obj;
+		if (oUser.getsEmail() != null && this.getsEmail() != null && this.getsEmail().equals(oUser.getsEmail())) {
+			bExito = true;
+		}
+		return bExito;
+	}
+
 }

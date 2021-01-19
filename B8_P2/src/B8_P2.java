@@ -4,7 +4,6 @@ public class B8_P2 {
 	public static void main(String[] args) {
 		Punto oPunto1 = new Punto();
 		Punto oPunto2 = new Punto(0.5 , 2.4);
-		double dDistancia;
 
 		oPunto2.borrar();
 		System.out.println(oPunto2.toString());

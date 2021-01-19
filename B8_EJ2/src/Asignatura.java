@@ -11,7 +11,7 @@ public class Asignatura {
 		
 	}
 	
-	public Asignatura(byte bCodigo, String sCurso, String sNombre) {
+	public Asignatura(byte bCodigo, String sNombre, String sCurso) {
 		
 		setbCodigo(bCodigo);
 		setsCurso(sCurso);
@@ -51,6 +51,29 @@ public class Asignatura {
 		if ( sNombre != null && sNombre.length() > 3) {
 			this.sNombre = sNombre;
 		}
+	}
+	
+	public String toString() {
+		String sMensaje = "";
+		if (checkAsignatura()) {
+
+			sMensaje += "Codigo de la asignatura: " + bCodigo + "\n";
+			sMensaje += "Nombre de la asignatura: " + sNombre + "\n";
+			sMensaje += "Curso: " + sCurso + "\n";
+			
+		} else {
+			sMensaje += "Error en la asignatura, verificar los datos.";
+		}
+
+		return sMensaje;
+	}
+	
+	public boolean checkAsignatura() {
+		boolean booExito = false;
+		if (this.getbCodigo() > 0 && this.getsCurso() != null && this.getsNombre() != null) {
+			booExito = true;
+		}
+		return booExito;
 	}
 	
 }

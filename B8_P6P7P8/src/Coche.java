@@ -103,7 +103,7 @@ public class Coche {
 	 * @param sTipoCoche the sTipoCoche to set
 	 */
 	public void setsTipoCoche(String sTipoCoche) {
-		if (sTipoCoche != null) {
+		if (sTipoCoche != null && (sTipoCoche.toUpperCase().contentEquals("MINI") || sTipoCoche.toUpperCase().contentEquals("UTILITARIO") || sTipoCoche.toUpperCase().contentEquals("FAMILIAR") || sTipoCoche.toUpperCase().contentEquals("DEPORTIVO"))) {
 			this.sTipoCoche = sTipoCoche;
 		}
 	}

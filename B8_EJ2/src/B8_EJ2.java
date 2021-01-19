@@ -10,10 +10,7 @@ public class B8_EJ2 {
 		System.out.println(aA.toString());
 		System.out.println(aB.toString());
 		System.out.println(aC.toString());
-		System.out.println(aD.toString());
-		
-		
-		
+		System.out.println(aD.toString());	
 		
 	}
 

@@ -62,5 +62,13 @@ public class Producto {
 	public void disminuirStock(int decremento) {
 		iUnidades = iUnidades - decremento;
 	}
+
+	public boolean checkProducto() {
+		boolean booProductoOk = false;
+		if (this.getfPrecio() > 0 && this.getiUnidades() >= 0 && this.getsNombre() != null) {
+			booProductoOk = true;
+		}
+		return booProductoOk;
+	}
 	
 }

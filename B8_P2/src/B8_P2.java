@@ -12,7 +12,7 @@ public class B8_P2 {
 		System.out.println("Despues del cambio "+oPunto2.toString());
 
 		oPunto1.mover(0.8, 0.4);
-		System.out.println("La distnacia euclidia entre el punto 1 y el punto 2 es "+oPunto1.distanciaEuclidiana(oPunto2));
+		System.out.println("La distancia euclidia entre el punto 1 y el punto 2 es "+oPunto1.distanciaEuclidiana(oPunto2));
 		
 		
 		

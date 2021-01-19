@@ -145,9 +145,29 @@ public class Coche {
 		String sMensaje = "";
 
 		sMensaje += "El modelo del coche es " + this.sModelo + ".";
-		sMensaje += "\nY el color del coche es " + this.sColor + ".";
+		sMensaje += "\nY el color del coche es " + getsColor() + ".";
 
 		return sMensaje;
 	}
 
+	public String toString() {
+		String sMensaje = "";
+
+		sMensaje += "El modelo del coche es " + this.sModelo;
+		sMensaje += " de color " + getsColor();
+		if (booMetalizado) {
+			sMensaje +=" metalizado";
+		}
+		sMensaje += ".\nLa matricula es "+this.sMatricula;
+		sMensaje += ", el tipo de coche es "+this.sTipoCoche;
+		sMensaje += ", fabricado en el año "+ getShAnioFabricacion();
+		sMensaje += ".\nTipo de seguro: ";
+		if (booSeguro) {
+			sMensaje += "a todo riesgo.";
+		} else {
+			sMensaje += "a terceros.";
+		}
+
+		return sMensaje;
+	}
 }

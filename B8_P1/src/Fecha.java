@@ -4,10 +4,9 @@ public class Fecha {
 	private byte bDia; //PK
 	private byte bMes; //PK
 	private short shAnio; //PK
-	private final byte BDIAMAX = diaMaxFecha(getbMes(), esBisiesto(this.shAnio));
 	private final short SHANIOMAX = 9999;
 	
-	public Fecha(byte bDia, byte Mes, short shAnio) {
+	public Fecha(byte bDia, byte bMes, short shAnio) {
 		setbMes(bMes);
 		setShAnio(shAnio);
 		setbDia(bDia);
@@ -17,7 +16,7 @@ public class Fecha {
 		return bDia;
 	}
 	public void setbDia(byte bDia) {
-		if (bDia > 0 && bDia <= BDIAMAX ) {
+		if (bDia > 0 && bDia <= diaMaxFecha(getbMes(), esBisiesto(this.shAnio)) ) {
 			this.bDia = bDia;
 		} else {
 			this.bDia = -1;
@@ -45,7 +44,7 @@ public class Fecha {
 		}
 	}
 	
-	private static byte diaMaxFecha(byte bMes, boolean booBisiesto) {
+	private byte diaMaxFecha(byte bMes, boolean booBisiesto) {
 		byte bDiaMax;
 		
 		if (bMes==2) {
@@ -63,7 +62,7 @@ public class Fecha {
 		return bDiaMax;
 	}
 	
-	private static boolean esBisiesto(short shAnio) {
+	private boolean esBisiesto(short shAnio) {
 		boolean booEsBisiesto;
 
 		if ((shAnio % 4 == 0 && shAnio % 100 != 0) || shAnio % 400 == 0) {
@@ -84,6 +83,11 @@ public class Fecha {
 		return booExito;
 	}
 	
+	public String toString() {
+		String sFecha = "";
+		sFecha += getbDia() +"/"+ getbMes() + "/" + getShAnio();
+		return sFecha;
+	}
 	
 	
 }

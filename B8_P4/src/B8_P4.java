@@ -4,7 +4,8 @@ public class B8_P4 {
 	public static void main(String[] args) {
 		MaquinaExpendedora oMaquina1 = new MaquinaExpendedora((short) 11245);
 
-		oMaquina1.insertarMoneda(2f);
+		oMaquina1.insertarMoneda(22f);
+		oMaquina1.insertarMoneda(1f);
 		oMaquina1.insertarMoneda(2f);
 		oMaquina1.insertarMoneda(0.5f);
 		oMaquina1.insertarMoneda(2f);

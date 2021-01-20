@@ -3,47 +3,53 @@ public class MaquinaExpendedora {
 
 	private short shNumeroSerie; // PK
 	private float fCreditoAcumuladoUsuario; // N
-	private float fCreditoConsumidoUsuario; //N
+	private float fCreditoConsumidoUsuario; // N
 	private float fCantidadDinero; // N
 	private final float FCREDITOMAX = 2500;
-	
+
 	public MaquinaExpendedora(short shNumeroSerie) {
 		setShNumeroSerie(shNumeroSerie);
 	}
-	
-	public MaquinaExpendedora(short shNumeroSerie, float fCreditoAcumuladoUsuario, float fCreditoConsumidoUsuario, float fCantidadDinero) {
+
+	public MaquinaExpendedora(short shNumeroSerie, float fCreditoAcumuladoUsuario, float fCreditoConsumidoUsuario,
+			float fCantidadDinero) {
 		setShNumeroSerie(shNumeroSerie);
 		setfCreditoAcumuladoUsuario(fCreditoAcumuladoUsuario);
 		setfCreditoConsumidoUsuario(fCreditoConsumidoUsuario);
 		setfCantidadDinero(fCantidadDinero);
 	}
-	
+
 	public short getShNumeroSerie() {
 		return shNumeroSerie;
 	}
+
 	public void setShNumeroSerie(short shNumeroSerie) {
-		
+
 		if (shNumeroSerie > 10000 && shNumeroSerie < 31000) {
 			this.shNumeroSerie = shNumeroSerie;
 		} else {
 			this.shNumeroSerie = -1;
 		}
-		
+
 	}
+
 	public float getfCreditoAcumuladoUsuario() {
 		return fCreditoAcumuladoUsuario;
 	}
+
 	public void setfCreditoAcumuladoUsuario(float fCreditoAcumuladoUsuario) {
 		if (fCreditoAcumuladoUsuario > 0 && fCreditoAcumuladoUsuario < FCREDITOMAX) {
 			this.fCreditoAcumuladoUsuario = fCreditoAcumuladoUsuario;
 		} else {
 			this.fCreditoAcumuladoUsuario = 0;
 		}
-		
+
 	}
+
 	public float getfCreditoConsumidoUsuario() {
 		return fCreditoConsumidoUsuario;
 	}
+
 	public void setfCreditoConsumidoUsuario(float fCreditoConsumidoUsuario) {
 		if (fCreditoConsumidoUsuario > 0 && fCreditoConsumidoUsuario < FCREDITOMAX) {
 			this.fCreditoConsumidoUsuario = fCreditoConsumidoUsuario;
@@ -51,56 +57,57 @@ public class MaquinaExpendedora {
 			this.fCreditoConsumidoUsuario = 0;
 		}
 	}
+
 	public float getfCantidadDinero() {
 		return fCantidadDinero;
 	}
+
 	public void setfCantidadDinero(float fCantidadDinero) {
 		this.fCantidadDinero = fCantidadDinero;
 	}
-	
+
 	public void insertarMoneda(float fMoneda) {
 		this.fCreditoAcumuladoUsuario += fMoneda;
 		this.fCantidadDinero += fMoneda;
 	}
-	
+
 	public void pedirProducto(float fPrecio) {
 		this.fCreditoConsumidoUsuario += fPrecio;
 		this.fCreditoAcumuladoUsuario -= fPrecio;
 	}
-	
+
 	public String pedirDevolucion() {
-		String sMensaje = "\nCredito devuelto: " + fCreditoAcumuladoUsuario;
-	
+		String sMensaje = "\nCredito devuelto (" + this.fCreditoAcumuladoUsuario + "): " + calculoDevolucionMoneda();
+
 		this.fCreditoAcumuladoUsuario = 0;
 		setfCreditoAcumuladoUsuario(0f);
-		
-		
+
 		this.fCreditoConsumidoUsuario = 0;
-		
+
 		return sMensaje;
 	}
-	
+
 	public String creditoDisponible() {
 		String sMensaje;
-		
-		sMensaje = "El credito disponible es "+getfCreditoAcumuladoUsuario();
-		
+
+		sMensaje = "El credito disponible es " + getfCreditoAcumuladoUsuario();
+
 		return sMensaje;
 	}
-	
+
 	public String toString() {
 		String sMensaje = "";
-		
+
 		sMensaje += "Maquina con numero de serie: " + getShNumeroSerie();
 		sMensaje += "\nCredito acumulado: " + getfCreditoAcumuladoUsuario();
 		sMensaje += "\nCredito Consumido: " + getfCreditoConsumidoUsuario();
 		sMensaje += "\nDinero recaudado: " + getfCantidadDinero();
-		
+
 		return sMensaje;
 	}
-	
+
 	public String calculoDevolucionMoneda() {
-		float fCredito = this.fCreditoAcumuladoUsuario, fcreditoRestante;
+		float fCredito = this.fCreditoAcumuladoUsuario;
 		String sMensaje = "";
 		final byte BMONEDA2E = 2;
 		final byte BMONEDA1E = 1;
@@ -110,11 +117,40 @@ public class MaquinaExpendedora {
 		final float FMONEDA5C = 0.05f;
 		final float FMONEDA2C = 0.02f;
 		final float FMONEDA1C = 0.01f;
-		
-		if ((short)(fCredito / BMONEDA2E) > 0 ) {
-			
+
+		if ((short) (fCredito / BMONEDA2E) > 0) {
+			sMensaje += "\n" + (short) (fCredito / BMONEDA2E) + " moneda de 2 euros";
+			fCredito = fCredito % BMONEDA2E;
 		}
-		
+		if ((byte) (fCredito / BMONEDA1E) > 0) {
+			sMensaje += "\n" + (byte) (fCredito / BMONEDA1E) + " moneda de 1 euros";
+			fCredito = fCredito % BMONEDA1E;
+		}
+		if ((byte) (fCredito / FMONEDA50C) > 0) {
+			sMensaje += "\n" + (byte) (fCredito / FMONEDA50C) + " moneda de 50 centimos";
+			fCredito = fCredito % FMONEDA50C;
+		}
+		if ((byte) (fCredito / FMONEDA20C) > 0) {
+			sMensaje += "\n" + (byte) (fCredito / FMONEDA20C) + " moneda de 20 centimos";
+			fCredito = fCredito % FMONEDA20C;
+		}
+		if ((byte) (fCredito / FMONEDA10C) > 0) {
+			sMensaje += "\n" + (byte) (fCredito / FMONEDA10C) + " moneda de 10 centimos";
+			fCredito = fCredito % FMONEDA10C;
+		}
+		if ((byte) (fCredito / FMONEDA5C) > 0) {
+			sMensaje += "\n" + (byte) (fCredito / FMONEDA5C) + " moneda de 5 centimos";
+			fCredito = fCredito % FMONEDA5C;
+		}
+		if ((byte) (fCredito / FMONEDA2C) > 0) {
+			sMensaje += "\n" + (byte) (fCredito / FMONEDA2C) + " moneda de 2 centimos";
+			fCredito = fCredito % FMONEDA2C;
+		}
+		if ((byte) (fCredito / FMONEDA1C) > 0) {
+			sMensaje += "\n" + (byte) (fCredito / FMONEDA1C) + " moneda de 1 centimos";
+			fCredito = fCredito % FMONEDA1C;
+		}
+
 		return sMensaje;
 	}
 }

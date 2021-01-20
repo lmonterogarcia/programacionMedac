@@ -1,20 +1,34 @@
 
 public class AireAcondicionado {
-
+	private short shNumeroSerie; // PK
 	private boolean booEncendido; // NN
 	private float fTemperaturaActual; // NN
-	private float fTemperaturaDeseada; // PK
+	private float fTemperaturaDeseada; // NN
 	private final float FTEMPERATURAMAX = 30f;
 	private final float FTEMPERATURAMIN = 15f;
+	private final float FTEMPERATURAMINIMAREAL = -90f;
+	private final float FTEMPERATURAMAXIMAREAL = 60f;
 
-	public AireAcondicionado(float fTemperaturaDeseada) {
-		setfTemperaturaDeseada(fTemperaturaDeseada);
+	public AireAcondicionado(short shNumeroSerie) {
+		setShNumeroSerie(shNumeroSerie);
 	}
 
-	public AireAcondicionado(float fTemperaturaDeseada, float fTemperaturaActual, boolean booEncendido) {
+	public AireAcondicionado(short shNumeroSerie, float fTemperaturaDeseada, float fTemperaturaActual,
+			boolean booEncendido) {
+		setShNumeroSerie(shNumeroSerie);
 		setfTemperaturaDeseada(fTemperaturaDeseada);
 		setfTemperaturaActual(fTemperaturaActual);
 		setBooEncendido(booEncendido);
+	}
+
+	public short getShNumeroSerie() {
+		return shNumeroSerie;
+	}
+
+	public void setShNumeroSerie(short shNumeroSerie) {
+		if (shNumeroSerie > 10000 && shNumeroSerie < 30000) {
+			this.shNumeroSerie = shNumeroSerie;
+		}
 	}
 
 	public boolean isBooEncendido() {
@@ -22,14 +36,14 @@ public class AireAcondicionado {
 	}
 
 	public void setBooEncendido(boolean booEncendido) {
-		if (this.fTemperaturaDeseada >= FTEMPERATURAMIN && this.fTemperaturaDeseada <= FTEMPERATURAMAX) {
+		if ((this.fTemperaturaDeseada >= FTEMPERATURAMIN && this.fTemperaturaDeseada <= FTEMPERATURAMAX)
+				&& (this.fTemperaturaActual <= FTEMPERATURAMAXIMAREAL
+						&& this.fTemperaturaActual >= FTEMPERATURAMINIMAREAL)) {
 			this.booEncendido = booEncendido;
 		}
 
 		if (this.booEncendido) {
-			System.out.println("Aire acondicionado encendido\n");
-		} else {
-			System.out.println("Aire acondicionado apagado\n");
+			activar();
 		}
 
 	}
@@ -41,7 +55,18 @@ public class AireAcondicionado {
 	public void setfTemperaturaActual(float fTemperaturaActual) {
 		boolean booEstadoAire = this.booEncendido;
 		this.booEncendido = false;
-		this.fTemperaturaActual = fTemperaturaActual;
+		if (fTemperaturaActual > FTEMPERATURAMAXIMAREAL) {
+			System.out.println(
+					"No estas tan cerca del SOL, temperatura seteada al maximo registrado en el planeta TIERRA.");
+			this.fTemperaturaActual = FTEMPERATURAMAXIMAREAL;
+		} else if (fTemperaturaActual < FTEMPERATURAMINIMAREAL) {
+			System.out.println(
+					"¿Te crees que estas en Pluton?, temperatura seteada al minimo registrado en el planeta TIERRA.");
+			this.fTemperaturaActual = FTEMPERATURAMINIMAREAL;
+		} else {
+			this.fTemperaturaActual = fTemperaturaActual;
+		}
+
 		System.out.println("Temperatura de la habitacion " + this.fTemperaturaActual + "\n");
 		this.booEncendido = booEstadoAire;
 	}
@@ -54,8 +79,10 @@ public class AireAcondicionado {
 		boolean booEstadoAire = this.booEncendido;
 		this.booEncendido = false;
 		if (fTemperaturaDeseada < FTEMPERATURAMIN) {
+			System.out.println("La temperatura se ha seteado a minimo permitido.");
 			this.fTemperaturaDeseada = FTEMPERATURAMIN;
 		} else if (fTemperaturaDeseada > FTEMPERATURAMAX) {
+			System.out.println("La temperatura se ha seteado a maximo permitido.");
 			this.fTemperaturaDeseada = FTEMPERATURAMAX;
 		} else {
 			this.fTemperaturaDeseada = fTemperaturaDeseada;
@@ -65,9 +92,12 @@ public class AireAcondicionado {
 	}
 
 	public void activar() {
-		System.out.println("\nControl automatico de la maquina programado.");
+		System.out.println("Control automatico de la maquina programado.");
 		if (getfTemperaturaDeseada() > getfTemperaturaActual()) {
-			setBooEncendido(true);
+			System.out.println("Maquina activada.\n");
+			if (!isBooEncendido()) {
+				this.booEncendido = true;
+			}
 			while (isBooEncendido()) {
 				if (getfTemperaturaDeseada() <= getfTemperaturaActual()) {
 					desactivar();
@@ -77,7 +107,10 @@ public class AireAcondicionado {
 
 			}
 		} else if (getfTemperaturaDeseada() < getfTemperaturaActual()) {
-			setBooEncendido(true);
+			System.out.println("Maquina activada.\n");
+			if (!isBooEncendido()) {
+				this.booEncendido = true;
+			}
 			while (isBooEncendido()) {
 				if (getfTemperaturaDeseada() >= getfTemperaturaActual()) {
 					desactivar();
@@ -87,13 +120,14 @@ public class AireAcondicionado {
 
 			}
 		} else {
-			System.out.println("La temperatura de la habitacion es la misma que la deseada. No se va a encender el Aire Acondicionado.");
+			System.out.println(
+					"La temperatura de la habitacion es la misma que la deseada. No se va a encender el Aire Acondicionado.");
 		}
 	}
 
 	public void desactivar() {
 		setBooEncendido(false);
-		System.out.println("Se ha llegado a la temperatura seteada.");
+		System.out.println("Se ha llegado a la temperatura seteada.\n");
 	}
 
 	private void enfriar() {

@@ -22,9 +22,14 @@ public class AireAcondicionado {
 	}
 
 	public void setBooEncendido(boolean booEncendido) {
-		if ((this.fTemperaturaDeseada > FTEMPERATURAMIN && this.fTemperaturaDeseada < FTEMPERATURAMAX)
-				&& (this.fTemperaturaActual > FTEMPERATURAMIN && this.fTemperaturaActual < FTEMPERATURAMAX)) {
+		if (this.fTemperaturaDeseada > FTEMPERATURAMIN && this.fTemperaturaDeseada < FTEMPERATURAMAX) {
 			this.booEncendido = booEncendido;
+		}
+
+		if (this.booEncendido) {
+			System.out.println("Aire acondicionado encendido\n");
+		} else {
+			System.out.println("Aire acondicionado apagado\n");
 		}
 
 	}
@@ -37,6 +42,7 @@ public class AireAcondicionado {
 		boolean booEstadoAire = this.booEncendido;
 		this.booEncendido = false;
 		this.fTemperaturaActual = fTemperaturaActual;
+		System.out.println("Temperatura de la habitacion " + this.fTemperaturaActual + "\n");
 		this.booEncendido = booEstadoAire;
 	}
 
@@ -54,10 +60,50 @@ public class AireAcondicionado {
 		} else {
 			this.fTemperaturaDeseada = fTemperaturaDeseada;
 		}
-		
+		System.out.println("Temperatura seteada a " + this.fTemperaturaDeseada + "\n");
 		this.booEncendido = booEstadoAire;
 	}
 
-	
-	
+	public void activar() {
+		System.out.println("\nControl automatico de la maquina programado.");
+		if (getfTemperaturaDeseada() > getfTemperaturaActual()) {
+			setBooEncendido(true);
+			while (isBooEncendido()) {
+				if (getfTemperaturaDeseada() <= getfTemperaturaActual()) {
+					desactivar();
+				} else {
+					calentar();
+				}
+
+			}
+		} else if (getfTemperaturaDeseada() < getfTemperaturaActual()) {
+			setBooEncendido(true);
+			while (isBooEncendido()) {
+				if (getfTemperaturaDeseada() >= getfTemperaturaActual()) {
+					desactivar();
+				} else {
+					enfriar();
+				}
+
+			}
+		} else {
+			System.out.println("La temperatura de la habitacion es la misma que la deseada. No se va a encender el Aire Acondicionado.");
+		}
+	}
+
+	public void desactivar() {
+		setBooEncendido(false);
+		System.out.println("Se ha llegado a la temperatura seteada.");
+	}
+
+	private void enfriar() {
+		this.fTemperaturaActual -= 0.5;
+		System.out.println("Temperatura de la habitacion " + this.fTemperaturaActual + ".\n");
+	}
+
+	private void calentar() {
+		this.fTemperaturaActual += 0.5;
+		System.out.println("Temperatura de la habitacion " + this.fTemperaturaActual + ".\n");
+	}
+
 }

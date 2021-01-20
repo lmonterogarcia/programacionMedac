@@ -22,7 +22,7 @@ public class AireAcondicionado {
 	}
 
 	public void setBooEncendido(boolean booEncendido) {
-		if (this.fTemperaturaDeseada > FTEMPERATURAMIN && this.fTemperaturaDeseada < FTEMPERATURAMAX) {
+		if (this.fTemperaturaDeseada >= FTEMPERATURAMIN && this.fTemperaturaDeseada <= FTEMPERATURAMAX) {
 			this.booEncendido = booEncendido;
 		}
 
@@ -98,12 +98,12 @@ public class AireAcondicionado {
 
 	private void enfriar() {
 		this.fTemperaturaActual -= 0.5;
-		System.out.println("Temperatura de la habitacion " + this.fTemperaturaActual + ".\n");
+		System.out.println("Temperatura de la habitacion " + this.fTemperaturaActual + "\n");
 	}
 
 	private void calentar() {
 		this.fTemperaturaActual += 0.5;
-		System.out.println("Temperatura de la habitacion " + this.fTemperaturaActual + ".\n");
+		System.out.println("Temperatura de la habitacion " + this.fTemperaturaActual + "\n");
 	}
 
 }

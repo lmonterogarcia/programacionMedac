@@ -8,21 +8,48 @@ public class Semaforo {
 		return bColor;
 	}
 	public void setbColor(byte bColor) {
-		if (bColor > 0 && bColor <= 2) {
-			this.bColor = bColor;
-		} else {
-			this.bColor = -1;
-		}
+
+			switch (bColor) {
+			case 0:
+				if (getbColor() == 1 && !isBooParpadeando()) {
+					this.bColor = bColor;
+					imprimir();
+				} else {
+					System.out.println("\nAsigancion de color incorrecto.\nEl semaforo se queda en " + colorSemaforo());
+				}
+				break;
+			case 1:
+				if (getbColor() == 2 && !isBooParpadeando()) {
+					this.bColor = bColor;
+					setBooParpadeando(true);
+				} else {
+					System.out.println("\nAsigancion de color incorrecto.\nEl semaforo se queda en " + colorSemaforo());
+				}
+				break;
+			default:
+				if (getbColor() == 0 && !isBooParpadeando()) {
+					this.bColor = bColor;
+					imprimir();
+				} else {
+					System.out.println("\nAsigancion de color incorrecto.\nEl semaforo se queda en " + colorSemaforo());
+				}
+			}
 	}
 	public boolean isBooParpadeando() {
 		return booParpadeando;
 	}
 	
 	public void setBooParpadeando(boolean booParpadeando) {
-		if (this.bColor == 1 && booParpadeando == true) {
+		if (this.bColor == 1 && booParpadeando == true && this.booParpadeando == true) {
+			System.out.println("\nEl semaforo ya esta en AMBAR PARPADEANDO");
+		} else if (this.bColor == 1 && booParpadeando == true) {
 			this.booParpadeando = booParpadeando;
+			imprimir();
+		} else if (this.bColor == 1 && booParpadeando == false) {
+			this.booParpadeando = booParpadeando;
+			imprimir();
 		} else {
-			this.booParpadeando = false;
+			System.out.println("\nAsigancion de parpadeo incorrecto.\nEl semaforo se queda en " + colorSemaforo());
 		}
 	}
 	
@@ -31,7 +58,7 @@ public class Semaforo {
 		
 		switch (this.bColor) {
 		case -1:
-			sColorSemaforo = "Error en el semaforo. Llame a un tecnico e informe a la policia.";
+			sColorSemaforo = "\nError en el semaforo. Llame a un tecnico e informe a la policia.";
 			break;
 		case 0:
 			sColorSemaforo = "ROJO";
@@ -50,24 +77,34 @@ public class Semaforo {
 	}
 	
 	public void imprimir() {
-		System.out.println("Semaforo en " + colorSemaforo());
+		System.out.println("\nSemaforo en " + colorSemaforo());
 	}
+	
 	
 	public void cambia() {
 		switch (this.bColor) {
 		case 0:
-			setbColor((byte)2);
+			this.bColor = 2;
+			imprimir();
 			break;
 		case 1:
 			if (isBooParpadeando()) {
-				setBooParpadeando(false);
+				this.booParpadeando = false;
+				imprimir();
 			} else {
-				setbColor((byte)0);
+				this.bColor = 0;
+				imprimir();
 			}
 			break;
 		default:
-			setbColor((byte)1);
-			setBooParpadeando(false);
+			this.bColor = 1;
+			this.booParpadeando = true;
+			imprimir();
 		}
+	}
+	
+	public void copiaSemaforo(Semaforo oSemaforo) {
+		this.bColor = oSemaforo.getbColor();
+		this.booParpadeando = oSemaforo.isBooParpadeando();
 	}
 }

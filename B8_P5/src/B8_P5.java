@@ -5,7 +5,9 @@ public class B8_P5 {
 		ProgramadorBombillas oBombillasSalon = new ProgramadorBombillas((byte) 6);
 		
 		oBombillasSalon.programa1();
-		System.out.println(oBombillasSalon );
+		oBombillasSalon.programa2();
+		oBombillasSalon.programa3();
+		
 
 	}
 

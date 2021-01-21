@@ -12,13 +12,29 @@ public class B8_P4 {
 		
 		System.out.println(oMaquina1);
 		
-		oMaquina1.pedirProducto(4.7f);
+		oMaquina1.pedirProducto(1.2f);
 		
 		System.out.println("\n" + oMaquina1);
 		
 		System.out.println(oMaquina1.pedirDevolucion());
 		
 		System.out.println("\n" + oMaquina1);
+		
+		oMaquina1.insertarMoneda(2f);
+		oMaquina1.insertarMoneda(2f);
+		oMaquina1.insertarMoneda(2f);
+		oMaquina1.insertarMoneda(2f);
+		oMaquina1.insertarMoneda(2f);
+		
+		oMaquina1.pedirProducto(1.2f);
+		
+		System.out.println("\n" + oMaquina1);
+		
+		System.out.println(oMaquina1.pedirDevolucion());
+		
+		System.out.println("\n" + oMaquina1);
+		
+		
 	}
 
 }

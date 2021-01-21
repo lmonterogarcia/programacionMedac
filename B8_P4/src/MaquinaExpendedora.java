@@ -79,9 +79,9 @@ public class MaquinaExpendedora {
 	public String pedirDevolucion() {
 		String sMensaje = "\nCredito devuelto (" + this.fCreditoAcumuladoUsuario + "): " + calculoDevolucionMoneda();
 
+		this.fCantidadDinero -= this.fCreditoAcumuladoUsuario;
 		this.fCreditoAcumuladoUsuario = 0;
-		setfCreditoAcumuladoUsuario(0f);
-
+//		setfCreditoAcumuladoUsuario(0f);
 		this.fCreditoConsumidoUsuario = 0;
 
 		return sMensaje;

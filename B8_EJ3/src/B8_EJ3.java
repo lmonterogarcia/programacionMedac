@@ -21,6 +21,7 @@ public class B8_EJ3 {
 		// 8
 		Semaforo oSemaforo2 = new Semaforo();
 		oSemaforo2.copiaSemaforo(oSemaforo1);
+		System.out.println("\nSemaforo 2\n------------");
 		oSemaforo2.imprimir();
 	}
 

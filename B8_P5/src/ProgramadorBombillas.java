@@ -32,7 +32,7 @@ public class ProgramadorBombillas {
 		if (!checkBombillaApagada()) {
 			apagarTodo();
 		}
-		System.out.println("Programa 1\n------------");
+		System.out.println("Programa 1\n-----------");
 		for (byte bContador = 0; bContador < this.aBombillas.length; bContador++) {
 			if (bContador % 2 == 0) {
 				aBombillas[bContador].encender();
@@ -45,7 +45,7 @@ public class ProgramadorBombillas {
 			aBombillas[bContador].cambiar();
 		}
 		System.out.println(toString());
-		System.out.println("------------");
+		System.out.println("-----------");
 		apagarTodo();
 	}
 	
@@ -53,7 +53,7 @@ public class ProgramadorBombillas {
 		if (!checkBombillaApagada()) {
 			apagarTodo();
 		}
-		System.out.println("Programa 2\n------------");
+		System.out.println("Programa 2\n-----------");
 		for (byte bContador = 0; bContador < this.aBombillas.length; bContador++) {
 			if (bContador  != 0) {
 				aBombillas[bContador - 1].apagar();
@@ -61,7 +61,7 @@ public class ProgramadorBombillas {
 			aBombillas[bContador].encender();
 			System.out.println(toString());
 		}
-		System.out.println("------------");
+		System.out.println("-----------");
 		apagarTodo();
 	}
 	
@@ -69,7 +69,7 @@ public class ProgramadorBombillas {
 		if (!checkBombillaApagada()) {
 			apagarTodo();
 		}
-		System.out.println("Programa 3\n------------");
+		System.out.println("Programa 3\n-----------");
 		for (byte bVeces = 0; bVeces < 2; bVeces++) {
 			for (byte bContador = 0; bContador < this.aBombillas.length; bContador++) {
 				aBombillas[bContador].cambiar();
@@ -83,7 +83,7 @@ public class ProgramadorBombillas {
 				System.out.println(toString());
 			}
 		}
-		System.out.println("------------");
+		System.out.println("-----------");
 	}
 	
 	public String toString() {

@@ -4,6 +4,7 @@ public class B8_EJ3 {
 	public static void main(String[] args) {
 		// 1
 		Semaforo oSemaforo1 = new Semaforo();
+		oSemaforo1.imprimir();
 		// 2
 		oSemaforo1.setbColor((byte) 1);
 		// 3

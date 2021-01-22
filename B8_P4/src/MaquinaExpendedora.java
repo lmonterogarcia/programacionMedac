@@ -5,21 +5,18 @@ public class MaquinaExpendedora {
 	private float fCreditoAcumuladoUsuario; // N
 	private float fCreditoConsumidoUsuario; // N
 	private float fCantidadDinero; // N
-	private float[] aMonedasParaCambio; // N
-	private float[] aMonedasUsuario; // N
+	private short[] aMonedasParaCambio; // NN
+	private short[] aMonedasUsuario; // N
 	
-	private final short SHCREDITOMAX = 2500;
-	private final byte BMONEDA2E = 2;
-	private final byte BMONEDA1E = 1;
-	private final float FMONEDA50C = 0.5f;
-	private final float FMONEDA20C = 0.2f;
-	private final float FMONEDA10C = 0.1f;
-	private final float FMONEDA5C = 0.05f;
-	private final float FMONEDA2C = 0.02f;
-	private final float FMONEDA1C = 0.01f;
+	private final short SHCREDITOMAX = 200;
+	private final byte BVALORPARACADAMONEDACAMBIO = 50;
+	private final float[] AVALORESMONEDAS = {2f,1f,0.5f,0.2f,0.10f,0.05f,0.02f,0.01f};
 
 	public MaquinaExpendedora(short shNumeroSerie) {
 		setShNumeroSerie(shNumeroSerie);
+		crearOrResetCambioMaquina();
+		this.aMonedasUsuario = new short[AVALORESMONEDAS.length];
+		
 	}
 
 	public MaquinaExpendedora(short shNumeroSerie, float fCreditoAcumuladoUsuario, float fCreditoConsumidoUsuario,
@@ -28,6 +25,8 @@ public class MaquinaExpendedora {
 		setfCreditoAcumuladoUsuario(fCreditoAcumuladoUsuario);
 		setfCreditoConsumidoUsuario(fCreditoConsumidoUsuario);
 		setfCantidadDinero(fCantidadDinero);
+		crearOrResetCambioMaquina();
+		this.aMonedasUsuario = new short[AVALORESMONEDAS.length];
 	}
 
 	public short getShNumeroSerie() {
@@ -77,38 +76,84 @@ public class MaquinaExpendedora {
 		this.fCantidadDinero = fCantidadDinero;
 	}
 
-	public float[] getaMonedasParaCambio() {
+	public short[] getaMonedasParaCambio() {
 		return aMonedasParaCambio;
 	}
 
-	public void setaMonedasParaCambio(float[] aMonedasParaCambio) {
+	public void setaMonedasParaCambio(short[] aMonedasParaCambio) {
 		this.aMonedasParaCambio = aMonedasParaCambio;
 	}
 
-	public float[] getaMonedasUsuario() {
+	public short[] getaMonedasUsuario() {
 		return aMonedasUsuario;
 	}
 
-	public void setaMonedasUsuario(float[] aMonedasUsuario) {
+	public void setaMonedasUsuario(short[] aMonedasUsuario) {
 		this.aMonedasUsuario = aMonedasUsuario;
 	}
 
-	public void insertarMoneda(float fMoneda) {
-		this.fCreditoAcumuladoUsuario += fMoneda;
-		this.fCantidadDinero += fMoneda;
-	}
-
-	public void pedirProducto(float fPrecio) {
-		this.fCreditoConsumidoUsuario += fPrecio;
-		this.fCreditoAcumuladoUsuario -= fPrecio;
+	public void crearOrResetCambioMaquina() {
+		this.aMonedasParaCambio = new short[AVALORESMONEDAS.length];
+		for (int bContador = 0; bContador < this.aMonedasParaCambio.length; bContador++) {
+			this.aMonedasParaCambio[bContador] = (short) (BVALORPARACADAMONEDACAMBIO / this.AVALORESMONEDAS[bContador]);
+		}
 	}
 	
+	public boolean insertarMoneda(float fMoneda) {
+		boolean bExito = false;
+		byte bContador = 0;
+		while (bExito && bContador < this.aMonedasUsuario.length) {
+			if (fMoneda == this.AVALORESMONEDAS[bContador]) {
+				bExito = true;
+			} else {
+				bContador++;
+			}
+		}
+		
+		if (bExito) {
+			this.fCreditoAcumuladoUsuario += fMoneda;
+			aMonedasUsuario[bContador] += fMoneda;
+		}
+		
+		return bExito;
+	}
+
+	public float valorArrayMonedas(short[] aMonedas) {
+		float fValor = 0;
+		for (byte bContador = 0; bContador < aMonedas.length; bContador++) {
+			if (aMonedas[bContador] != 0) {
+				fValor += aMonedas[bContador] * this.AVALORESMONEDAS[bContador];
+			}
+		}
+		return fValor;
+	}
+	
+	public boolean pedirProducto(float fPrecio) {
+		boolean booExito = true;
+		if (fPrecio <= valorArrayMonedas(aMonedasUsuario)) {
+			this.fCreditoConsumidoUsuario += fPrecio;
+			this.fCantidadDinero += fPrecio;
+			this.fCreditoAcumuladoUsuario -= fPrecio;
+			ponerToCeroaMonedasUsuario(); //Pasa a la caja de recaudaccion.
+			
+		}
+		
+		
+		return booExito;
+	}
+	
+	public void ponerToCeroaMonedasUsuario() {
+		for (byte bContador = 0; bContador < this.aMonedasUsuario.length; bContador++) {
+			if (this.aMonedasUsuario[bContador] != 0) {
+				this.aMonedasUsuario[bContador] = 0;
+			}
+		}
+	}
 	
 
 	public String pedirDevolucion() {
 		String sMensaje = "\nCredito devuelto (" + this.fCreditoAcumuladoUsuario + "): " + calculoDevolucionMoneda();
 
-		this.fCantidadDinero -= this.fCreditoAcumuladoUsuario;
 		this.fCreditoAcumuladoUsuario = 0;
 		this.fCreditoConsumidoUsuario = 0;
 
@@ -137,48 +182,21 @@ public class MaquinaExpendedora {
 	public String calculoDevolucionMoneda() {
 		float fCredito = this.fCreditoAcumuladoUsuario;
 		String sMensaje = "";
+		boolean booQuedadinero = true;
+		byte bContador = 0;
 		
-//		final byte BMONEDA2E = 2;
-//		final byte BMONEDA1E = 1;
-//		final float FMONEDA50C = 0.5f;
-//		final float FMONEDA20C = 0.2f;
-//		final float FMONEDA10C = 0.1f;
-//		final float FMONEDA5C = 0.05f;
-//		final float FMONEDA2C = 0.02f;
-//		final float FMONEDA1C = 0.01f;
-
-		if ((short) (fCredito / BMONEDA2E) > 0) {
-			sMensaje += "\n" + (short) (fCredito / BMONEDA2E) + " moneda de 2 euros";
-			fCredito = fCredito % BMONEDA2E;
-		}
-		if ((byte) (fCredito / BMONEDA1E) > 0) {
-			sMensaje += "\n" + (byte) (fCredito / BMONEDA1E) + " moneda de 1 euros";
-			fCredito = fCredito % BMONEDA1E;
-		}
-		if ((byte) (fCredito / FMONEDA50C) > 0) {
-			sMensaje += "\n" + (byte) (fCredito / FMONEDA50C) + " moneda de 50 centimos";
-			fCredito = fCredito % FMONEDA50C;
-		}
-		if ((byte) (fCredito / FMONEDA20C) > 0) {
-			sMensaje += "\n" + (byte) (fCredito / FMONEDA20C) + " moneda de 20 centimos";
-			fCredito = fCredito % FMONEDA20C;
-		}
-		if ((byte) (fCredito / FMONEDA10C) > 0) {
-			sMensaje += "\n" + (byte) (fCredito / FMONEDA10C) + " moneda de 10 centimos";
-			fCredito = fCredito % FMONEDA10C;
-		}
-		if ((byte) (fCredito / FMONEDA5C) > 0) {
-			sMensaje += "\n" + (byte) (fCredito / FMONEDA5C) + " moneda de 5 centimos";
-			fCredito = fCredito % FMONEDA5C;
-		}
-		if ((byte) (fCredito / FMONEDA2C) > 0) {
-			sMensaje += "\n" + (byte) (fCredito / FMONEDA2C) + " moneda de 2 centimos";
-			fCredito = fCredito % FMONEDA2C;
-		}
-		if ((byte) (fCredito / FMONEDA1C) > 0) {
-			sMensaje += "\n" + (byte) (fCredito / FMONEDA1C) + " moneda de 1 centimos";
-			fCredito = fCredito % FMONEDA1C;
-		}
+			while (booQuedadinero && bContador < AVALORESMONEDAS.length) {
+				if (fCredito > 0) {
+					if (fCredito / AVALORESMONEDAS[bContador] > 0) {
+						sMensaje +="\n" + (short) (fCredito / AVALORESMONEDAS[bContador]) + "monedas de " + AVALORESMONEDAS[bContador] + "euros.";
+						aMonedasParaCambio[bContador] -= (short) (fCredito / aMonedasParaCambio[bContador]);
+						fCredito = fCredito % AVALORESMONEDAS[bContador];
+					}
+					bContador++;
+				} else {
+					booQuedadinero = false;
+				}
+			}
 
 		return sMensaje;
 	}

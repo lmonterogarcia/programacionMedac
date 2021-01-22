@@ -7,15 +7,16 @@ public class Semaforo {
 	public byte getbColor() {
 		return bColor;
 	}
-	public void setbColor(byte bColor) {
+	
+	public boolean setbColor(byte bColor) {
 
+		boolean bExito = true;
 			switch (bColor) {
 			case 0:
 				if (getbColor() == 1 && !isBooParpadeando()) {
 					this.bColor = bColor;
-					imprimir();
-				} else {
-					System.out.println("\nAsigancion de color incorrecto.\nEl semaforo se queda en " + colorSemaforo());
+				}else {
+					bExito = false;
 				}
 				break;
 			case 1:
@@ -23,18 +24,19 @@ public class Semaforo {
 					this.bColor = bColor;
 					setBooParpadeando(true);
 				} else {
-					System.out.println("\nAsigancion de color incorrecto.\nEl semaforo se queda en " + colorSemaforo());
+					bExito = false;
 				}
 				break;
 			default:
 				if (getbColor() == 0 && !isBooParpadeando()) {
 					this.bColor = bColor;
-					imprimir();
-				} else {
-					System.out.println("\nAsigancion de color incorrecto.\nEl semaforo se queda en " + colorSemaforo());
+				}else {
+					bExito = false;
 				}
 			}
+		return bExito;
 	}
+	
 	public boolean isBooParpadeando() {
 		return booParpadeando;
 	}
@@ -76,8 +78,8 @@ public class Semaforo {
 		return sColorSemaforo;
 	}
 	
-	public void imprimir() {
-		System.out.println("\nSemaforo en " + colorSemaforo());
+	public String imprimir() {
+		return "\nSemaforo en " + colorSemaforo();
 	}
 	
 	

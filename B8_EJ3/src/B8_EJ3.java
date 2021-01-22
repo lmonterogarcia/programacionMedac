@@ -6,15 +6,24 @@ public class B8_EJ3 {
 		Semaforo oSemaforo1 = new Semaforo();
 		oSemaforo1.imprimir();
 		// 2
-		oSemaforo1.setbColor((byte) 1);
+		if(oSemaforo1.setbColor((byte) 1)) {
+			System.out.println(oSemaforo1.imprimir());
+		}else {
+			System.out.println("El color es incorrecto.");
+		}
+		
 		// 3
 		oSemaforo1.setbColor((byte) 2);
+		oSemaforo1.imprimir();
 		// 4
 		oSemaforo1.setBooParpadeando(true);
+		oSemaforo1.imprimir();
 		// 5
 		oSemaforo1.setbColor((byte) 1);
+		oSemaforo1.imprimir();
 		// 6
 		oSemaforo1.setBooParpadeando(true);
+		oSemaforo1.imprimir();
 		// 7
 		for (byte bContador = 0; bContador < 5; bContador++) {
 			oSemaforo1.cambia();

@@ -20,6 +20,13 @@ public class AireAcondicionado {
 		setfTemperaturaActual(fTemperaturaActual);
 		setBooEncendido(booEncendido);
 	}
+	
+	public AireAcondicionado(short shNumeroSerie, float fTemperaturaDeseada, float fTemperaturaActual) {
+		setShNumeroSerie(shNumeroSerie);
+		setfTemperaturaDeseada(fTemperaturaDeseada);
+		setfTemperaturaActual(fTemperaturaActual);
+		setBooEncendido(false);
+	}
 
 	public short getShNumeroSerie() {
 		return shNumeroSerie;
@@ -56,11 +63,11 @@ public class AireAcondicionado {
 		boolean booEstadoAire = this.booEncendido;
 		this.booEncendido = false;
 		if (fTemperaturaActual > FTEMPERATURAMAXIMAREAL) {
-			System.out.println(
+			System.err.println(
 					"No estas tan cerca del SOL, temperatura seteada al maximo registrado en el planeta TIERRA.");
 			this.fTemperaturaActual = FTEMPERATURAMAXIMAREAL;
 		} else if (fTemperaturaActual < FTEMPERATURAMINIMAREAL) {
-			System.out.println(
+			System.err.println(
 					"¿Te crees que estas en Pluton?, temperatura seteada al minimo registrado en el planeta TIERRA.");
 			this.fTemperaturaActual = FTEMPERATURAMINIMAREAL;
 		} else {

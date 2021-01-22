@@ -6,7 +6,7 @@ public class Coche {
 	private String sColor; // NN
 	private boolean booMetalizado; // N
 	private String sMatricula; // N
-	private String sTipoCoche; // N
+	private byte bTipoCoche; // N
 	private short shAnioFabricacion; // N
 	private boolean booSeguro; // true = todo riesgo, false = a terceros // N
 
@@ -19,13 +19,13 @@ public class Coche {
 		setsColor(sColor);
 	}
 
-	public Coche(String sModelo, String sColor, boolean booMetalizado, String sMatricula, String sTipoCoche,
+	public Coche(String sModelo, String sColor, boolean booMetalizado, String sMatricula, byte bTipoCoche,
 			short shAnioFabricacion, boolean booSegudo) {
 		setsModelo(sModelo);
 		setsColor(sColor);
 		setBooMetalizado(booMetalizado);
 		setsMatricula(sMatricula);
-		setsTipoCoche(sTipoCoche);
+		setbTipoCoche(bTipoCoche);
 		setShAnioFabricacion(shAnioFabricacion);
 		setBooSeguro(booSegudo);
 	}
@@ -93,18 +93,18 @@ public class Coche {
 	}
 
 	/**
-	 * @return the sTipoCoche
+	 * @return the bTipoCoche
 	 */
-	public String getsTipoCoche() {
-		return sTipoCoche;
+	public byte getbTipoCoche() {
+		return bTipoCoche;
 	}
 
 	/**
-	 * @param sTipoCoche the sTipoCoche to set
+	 * @param bTipoCoche the bTipoCoche to set
 	 */
-	public void setsTipoCoche(String sTipoCoche) {
-		if (sTipoCoche != null && (sTipoCoche.toUpperCase().contentEquals("MINI") || sTipoCoche.toUpperCase().contentEquals("UTILITARIO") || sTipoCoche.toUpperCase().contentEquals("FAMILIAR") || sTipoCoche.toUpperCase().contentEquals("DEPORTIVO"))) {
-			this.sTipoCoche = sTipoCoche;
+	public void setbTipoCoche(byte bTipoCoche) {
+		if (bTipoCoche <= 1 && bTipoCoche <= 4) {
+			this.bTipoCoche = bTipoCoche;
 		}
 	}
 
@@ -145,7 +145,12 @@ public class Coche {
 		String sMensaje = "";
 
 		sMensaje += "El modelo del coche es " + this.sModelo + ".";
-		sMensaje += "\nY el color del coche es " + getsColor() + ".";
+		sMensaje += "\nY el color del coche es " + getsColor();
+		if (booMetalizado) {
+			sMensaje += " metalizado.";
+		} else {
+			sMensaje += ".";
+		}
 
 		return sMensaje;
 	}
@@ -156,11 +161,25 @@ public class Coche {
 		sMensaje += "El modelo del coche es " + this.sModelo;
 		sMensaje += " de color " + getsColor();
 		if (booMetalizado) {
-			sMensaje +=" metalizado";
+			sMensaje += " metalizado";
 		}
-		sMensaje += ".\nLa matricula es "+this.sMatricula;
-		sMensaje += ", el tipo de coche es "+this.sTipoCoche;
-		sMensaje += ", fabricado en el año "+ getShAnioFabricacion();
+		sMensaje += ".\nLa matricula es " + this.sMatricula;
+		sMensaje += ", el tipo de coche es ";
+		switch (this.bTipoCoche) {
+		case 1:
+			sMensaje += "Mini";
+			break;
+		case 2:
+			sMensaje += "Utilitario";
+			break;
+		case 3:
+			sMensaje += "Familiar";
+			break;
+
+		default:
+			sMensaje += "Deportivo";
+		}
+		sMensaje += ", fabricado en el anio " + getShAnioFabricacion();
 		sMensaje += ".\nTipo de seguro: ";
 		if (booSeguro) {
 			sMensaje += "a todo riesgo.";

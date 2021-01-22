@@ -36,7 +36,7 @@ public class Bombilla {
 	}
 	
 	public String mostrar() {
-		String sBombilla = "Â·";
+		String sBombilla = "·";
 		if (this.booEncendida) {
 			sBombilla = "*"; 
 		}

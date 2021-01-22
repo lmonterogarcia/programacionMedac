@@ -28,11 +28,12 @@ public class ProgramadorBombillas {
 	 * ######## # CRUD # ########
 	 */
 	
-	public void programa1() {
+	public String programa1() {
+		String sMensaje = "";
 		if (!checkBombillaApagada()) {
 			apagarTodo();
 		}
-		System.out.println("Programa 1\n-----------");
+		sMensaje += "Programa 1\n-----------";
 		for (byte bContador = 0; bContador < this.aBombillas.length; bContador++) {
 			if (bContador % 2 == 0) {
 				aBombillas[bContador].encender();
@@ -40,50 +41,57 @@ public class ProgramadorBombillas {
 				aBombillas[bContador].apagar();
 			}
 		}
-		System.out.println(toString());
+		sMensaje += "\n" + toString();
 		for (byte bContador = 0; bContador < this.aBombillas.length; bContador++) {
 			aBombillas[bContador].cambiar();
 		}
-		System.out.println(toString());
-		System.out.println("-----------");
+		sMensaje += "\n" +toString();
+		sMensaje += "\n-----------";
 		apagarTodo();
+		
+		return sMensaje;
 	}
 	
-	public void programa2() {
+	public String programa2() {
+		String sMensaje = "";
+		
 		if (!checkBombillaApagada()) {
 			apagarTodo();
 		}
-		System.out.println("Programa 2\n-----------");
+		sMensaje += "Programa 2\n-----------";
 		for (byte bContador = 0; bContador < this.aBombillas.length; bContador++) {
 			if (bContador  != 0) {
 				aBombillas[bContador - 1].apagar();
 			} 
 			aBombillas[bContador].encender();
-			System.out.println(toString());
+			sMensaje += "\n" + toString();
 		}
-		System.out.println("-----------");
+		sMensaje += "\n-----------";
 		apagarTodo();
+		
+		return sMensaje;
 	}
 	
-	public void programa3() {
+	public String programa3() {
+	String sMensaje = "";
 		if (!checkBombillaApagada()) {
 			apagarTodo();
 		}
-		System.out.println("Programa 3\n-----------");
+		sMensaje += "Programa 3\n-----------";
 		for (byte bVeces = 0; bVeces < 2; bVeces++) {
 			for (byte bContador = 0; bContador < this.aBombillas.length; bContador++) {
 				aBombillas[bContador].cambiar();
-//				System.out.println(mostrarBombillas(aBombillas));
-				System.out.println(toString());
+				sMensaje += "\n" + toString();
 			}
 		}
 		for (byte bVeces = 0; bVeces < 2; bVeces++) {
 			for (byte bContador = (byte) (this.aBombillas.length - 1); bContador >=  0 ; bContador--) {
 				aBombillas[bContador].cambiar();
-				System.out.println(toString());
+				sMensaje += "\n" +toString();
 			}
 		}
-		System.out.println("-----------");
+		sMensaje += "\n-----------";
+		return sMensaje;
 	}
 	
 	public String toString() {

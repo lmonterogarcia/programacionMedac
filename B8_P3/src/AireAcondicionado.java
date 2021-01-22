@@ -1,13 +1,15 @@
 
 public class AireAcondicionado {
+	
 	private short shNumeroSerie; // PK
 	private boolean booEncendido; // NN
 	private float fTemperaturaActual; // NN
 	private float fTemperaturaDeseada; // NN
-	private final float FTEMPERATURAMAX = 30f;
-	private final float FTEMPERATURAMIN = 15f;
-	private final float FTEMPERATURAMINIMAREAL = -90f;
-	private final float FTEMPERATURAMAXIMAREAL = 60f;
+	
+	private final byte FTEMPERATURAMAX = 30;
+	private final byte FTEMPERATURAMIN = 15;
+	private final byte FTEMPERATURAMINIMAREAL = -90;
+	private final byte FTEMPERATURAMAXIMAREAL = 60;
 
 	public AireAcondicionado(short shNumeroSerie) {
 		setShNumeroSerie(shNumeroSerie);
@@ -59,43 +61,42 @@ public class AireAcondicionado {
 		return fTemperaturaActual;
 	}
 
-	public void setfTemperaturaActual(float fTemperaturaActual) {
-		boolean booEstadoAire = this.booEncendido;
+	public boolean setfTemperaturaActual(float fTemperaturaActual) {
+		boolean booEstadoAire = this.booEncendido, booExito = true;
 		this.booEncendido = false;
 		if (fTemperaturaActual > FTEMPERATURAMAXIMAREAL) {
-			System.err.println(
-					"No estas tan cerca del SOL, temperatura seteada al maximo registrado en el planeta TIERRA.");
+			booExito = false;
 			this.fTemperaturaActual = FTEMPERATURAMAXIMAREAL;
 		} else if (fTemperaturaActual < FTEMPERATURAMINIMAREAL) {
-			System.err.println(
-					"¿Te crees que estas en Pluton?, temperatura seteada al minimo registrado en el planeta TIERRA.");
+			booExito = false;
 			this.fTemperaturaActual = FTEMPERATURAMINIMAREAL;
 		} else {
 			this.fTemperaturaActual = fTemperaturaActual;
 		}
-
-		System.out.println("Temperatura de la habitacion " + this.fTemperaturaActual + "\n");
+		
 		this.booEncendido = booEstadoAire;
+		return booExito;
 	}
 
 	public float getfTemperaturaDeseada() {
 		return fTemperaturaDeseada;
 	}
 
-	public void setfTemperaturaDeseada(float fTemperaturaDeseada) {
-		boolean booEstadoAire = this.booEncendido;
+	public boolean setfTemperaturaDeseada(float fTemperaturaDeseada) {
+		boolean booEstadoAire = this.booEncendido, booExito = true;
 		this.booEncendido = false;
 		if (fTemperaturaDeseada < FTEMPERATURAMIN) {
-			System.out.println("La temperatura se ha seteado a minimo permitido.");
+			booExito = false;
 			this.fTemperaturaDeseada = FTEMPERATURAMIN;
 		} else if (fTemperaturaDeseada > FTEMPERATURAMAX) {
-			System.out.println("La temperatura se ha seteado a maximo permitido.");
+			booExito = false;
 			this.fTemperaturaDeseada = FTEMPERATURAMAX;
 		} else {
 			this.fTemperaturaDeseada = fTemperaturaDeseada;
 		}
-		System.out.println("Temperatura seteada a " + this.fTemperaturaDeseada + "\n");
+
 		this.booEncendido = booEstadoAire;
+		return booExito;
 	}
 
 	public void activar() {

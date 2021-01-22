@@ -62,9 +62,9 @@ public class AireAcondicionado {
 	}
 
 	public boolean setfTemperaturaActual(float fTemperaturaActual) {
-		boolean booEstadoAire = this.booEncendido, booExito = true;
-		this.booEncendido = false;
-		if (fTemperaturaActual > FTEMPERATURAMAXIMAREAL) {
+		boolean booExito = true;
+		if (!booEncendido) {
+			if (fTemperaturaActual > FTEMPERATURAMAXIMAREAL) {
 			booExito = false;
 			this.fTemperaturaActual = FTEMPERATURAMAXIMAREAL;
 		} else if (fTemperaturaActual < FTEMPERATURAMINIMAREAL) {
@@ -73,8 +73,11 @@ public class AireAcondicionado {
 		} else {
 			this.fTemperaturaActual = fTemperaturaActual;
 		}
+		} else {
+			booExito = false;
+		}
 		
-		this.booEncendido = booEstadoAire;
+		
 		return booExito;
 	}
 
@@ -99,53 +102,63 @@ public class AireAcondicionado {
 		return booExito;
 	}
 
-	public void activar() {
-		System.out.println("Control automatico de la maquina programado.");
+	public String activar() {
+		String sAcciones = "";
+		
+		sAcciones += "\nControl automatico de la maquina programado.\n";
 		if (getfTemperaturaDeseada() > getfTemperaturaActual()) {
-			System.out.println("Maquina activada.\n");
+			sAcciones += "Maquina activada.\n";
 			if (!isBooEncendido()) {
 				this.booEncendido = true;
 			}
 			while (isBooEncendido()) {
 				if (getfTemperaturaDeseada() <= getfTemperaturaActual()) {
-					desactivar();
+					sAcciones += desactivar();
 				} else {
-					calentar();
+					sAcciones += calentar();
 				}
 
 			}
 		} else if (getfTemperaturaDeseada() < getfTemperaturaActual()) {
-			System.out.println("Maquina activada.\n");
+			sAcciones += "Maquina activada.\n";
 			if (!isBooEncendido()) {
 				this.booEncendido = true;
 			}
 			while (isBooEncendido()) {
 				if (getfTemperaturaDeseada() >= getfTemperaturaActual()) {
-					desactivar();
+					sAcciones += desactivar();
 				} else {
-					enfriar();
+					sAcciones += enfriar();
 				}
 
 			}
 		} else {
-			System.out.println(
-					"La temperatura de la habitacion es la misma que la deseada. No se va a encender el Aire Acondicionado.");
+			sAcciones += 
+					"La temperatura de la habitacion es la misma que la deseada. No se va a encender el Aire Acondicionado.";
 		}
+		
+		return sAcciones;
 	}
 
-	public void desactivar() {
+	public String desactivar() {
+		String sAviso;
 		setBooEncendido(false);
-		System.out.println("Se ha llegado a la temperatura seteada.\n");
+		sAviso = "\nSe ha llegado a la temperatura seteada.\n";
+		return sAviso;
 	}
 
-	private void enfriar() {
+	private String enfriar() {
+		String sAviso;
 		this.fTemperaturaActual -= 0.5;
-		System.out.println("Temperatura de la habitacion " + this.fTemperaturaActual + "\n");
+		sAviso = "Temperatura de la habitacion " + this.fTemperaturaActual + "\n";
+		return sAviso;
 	}
 
-	private void calentar() {
+	private String calentar() {
+		String sAviso;
 		this.fTemperaturaActual += 0.5;
-		System.out.println("Temperatura de la habitacion " + this.fTemperaturaActual + "\n");
+		sAviso = "Temperatura de la habitacion " + this.fTemperaturaActual + "\n";
+		return sAviso;
 	}
 
 }

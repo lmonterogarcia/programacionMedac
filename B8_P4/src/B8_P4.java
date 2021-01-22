@@ -26,8 +26,6 @@ public class B8_P4 {
 		oMaquina1.insertarMoneda(2f);
 		oMaquina1.insertarMoneda(2f);
 		
-		oMaquina1.pedirProducto(1.2f);
-		
 		System.out.println("\n" + oMaquina1);
 		
 		System.out.println(oMaquina1.pedirDevolucion());

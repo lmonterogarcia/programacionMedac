@@ -8,7 +8,7 @@ public class MaquinaExpendedora {
 	private short[] aMonedasParaCambio; // NN
 	private short[] aMonedasUsuario; // N
 	
-	private final short SHCREDITOMAX = 200;
+	private final short SHCREDITOMAX = 100;
 	private final byte BVALORPARACADAMONEDACAMBIO = 50;
 	private final float[] AVALORESMONEDAS = {2f,1f,0.5f,0.2f,0.10f,0.05f,0.02f,0.01f};
 
@@ -102,7 +102,7 @@ public class MaquinaExpendedora {
 	public boolean insertarMoneda(float fMoneda) {
 		boolean bExito = false;
 		byte bContador = 0;
-		while (bExito && bContador < this.aMonedasUsuario.length) {
+		while (!bExito && bContador < this.aMonedasUsuario.length) {
 			if (fMoneda == this.AVALORESMONEDAS[bContador]) {
 				bExito = true;
 			} else {
@@ -112,7 +112,7 @@ public class MaquinaExpendedora {
 		
 		if (bExito) {
 			this.fCreditoAcumuladoUsuario += fMoneda;
-			aMonedasUsuario[bContador] += fMoneda;
+			aMonedasUsuario[bContador]++;
 		}
 		
 		return bExito;
@@ -130,12 +130,14 @@ public class MaquinaExpendedora {
 	
 	public boolean pedirProducto(float fPrecio) {
 		boolean booExito = true;
-		if (fPrecio <= valorArrayMonedas(aMonedasUsuario)) {
+		if ((fPrecio <= valorArrayMonedas(aMonedasUsuario)) && (valorArrayMonedas(aMonedasParaCambio) >= (this.fCreditoAcumuladoUsuario - fPrecio))) {
 			this.fCreditoConsumidoUsuario += fPrecio;
 			this.fCantidadDinero += fPrecio;
 			this.fCreditoAcumuladoUsuario -= fPrecio;
 			ponerToCeroaMonedasUsuario(); //Pasa a la caja de recaudaccion.
 			
+		} else {
+			booExito = false;
 		}
 		
 		
@@ -184,20 +186,66 @@ public class MaquinaExpendedora {
 		String sMensaje = "";
 		boolean booQuedadinero = true;
 		byte bContador = 0;
-		
-			while (booQuedadinero && bContador < AVALORESMONEDAS.length) {
+		short shNumeroMonedas;
+			if (haGastado()) {
+				while (booQuedadinero && bContador < AVALORESMONEDAS.length) {
 				if (fCredito > 0) {
-					if (fCredito / AVALORESMONEDAS[bContador] > 0) {
-						sMensaje +="\n" + (short) (fCredito / AVALORESMONEDAS[bContador]) + "monedas de " + AVALORESMONEDAS[bContador] + "euros.";
-						aMonedasParaCambio[bContador] -= (short) (fCredito / aMonedasParaCambio[bContador]);
-						fCredito = fCredito % AVALORESMONEDAS[bContador];
+					shNumeroMonedas = (short) (fCredito / AVALORESMONEDAS[bContador]);
+					if (shNumeroMonedas > 0) {
+						if (shNumeroMonedas > aMonedasParaCambio[bContador]) {
+							sMensaje +="\n" + aMonedasParaCambio[bContador] + " monedas de " + AVALORESMONEDAS[bContador] + " euros.";
+							aMonedasParaCambio[bContador] -= aMonedasParaCambio[bContador];
+							fCredito = fCredito % AVALORESMONEDAS[bContador];
+						} else {
+							sMensaje +="\n" + shNumeroMonedas + " monedas de " + AVALORESMONEDAS[bContador] + " euros.";
+							aMonedasParaCambio[bContador] -= shNumeroMonedas;
+							fCredito = fCredito % AVALORESMONEDAS[bContador];
+						}
+						
 					}
 					bContador++;
 				} else {
 					booQuedadinero = false;
 				}
 			}
+			} else {
+				for (byte bcontador = 0; bcontador < aMonedasUsuario.length; bcontador++) {
+					if (aMonedasUsuario[bContador] != 0) {
+						sMensaje +="\n" + aMonedasUsuario[bContador] + " monedas de " + AVALORESMONEDAS[bContador] + " euros.";
+						aMonedasUsuario[bContador] = 0;
+					}
+				}
+			}
+			
 
 		return sMensaje;
 	}
+	
+	public boolean hayCambio() {
+		boolean booHayCambio = true;
+		byte bContador = 0;
+		
+		while (booHayCambio && bContador < aMonedasParaCambio.length) {
+			if (aMonedasParaCambio[bContador] == 0) {
+				booHayCambio = false;
+			}
+		}
+		
+		return booHayCambio;
+	}
+	
+	public boolean haGastado() {
+		boolean booHaGastado = true;
+		byte bContador = 0;
+		
+		while (booHaGastado && bContador < aMonedasUsuario.length) {
+			if (aMonedasUsuario[bContador] != 0) {
+				booHaGastado = false;
+			} else {
+				bContador++;
+			}
+		}
+		return booHaGastado;
+	}
+	
 }

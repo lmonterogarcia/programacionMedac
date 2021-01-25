@@ -50,7 +50,7 @@ public class Producto {
 	}
 
 	public float valorEnStock() {
-		return iUnidades * fPrecio;
+		return iUnidades * fPrecio; 
 	}
 
 	public void incrementarStock(int incremento) {

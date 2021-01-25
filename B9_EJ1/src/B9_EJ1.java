@@ -8,7 +8,7 @@ public class B9_EJ1 {
 		System.out.println(oSemaforo2);
 		System.out.println(oSemaforo3);
 		
-		System.out.println(cambioColor(oSemaforo1, (byte) 2));
+		System.out.println(cambioColor(oSemaforo1, (byte) 5));
 		System.out.println(cambioColor(oSemaforo2, (byte) 2));
 		System.out.println(cambioColor(oSemaforo3, (byte) 1));
 
@@ -20,7 +20,7 @@ public class B9_EJ1 {
 		if(oSemaforo.setbColor(bColor)) {
 			sMensaje = oSemaforo.toString();
 		}else {
-			sMensaje = "\nEl seteo de  color es incorrecto.";
+			sMensaje = "\nEl seteo de  color es incorrecto." + oSemaforo.toString();
 		}
 		return sMensaje;
 	}

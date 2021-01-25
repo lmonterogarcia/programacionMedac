@@ -5,7 +5,7 @@ public class Semaforo {
 	private boolean booInicializado; // N
 
 	public Semaforo() {
-		setbColor((byte)1);
+		setbColor((byte) 1);
 		setBooInicializado(true);
 
 	}
@@ -21,40 +21,45 @@ public class Semaforo {
 
 	public boolean setbColor(byte bColor) {
 		boolean bExito = true;
-		if (isBooInicializado()) {
-			switch (bColor) {
-			case 0:
-				if (getbColor() == 1 && !isBooParpadeando()) {
-					this.bColor = bColor;
-				} else {
-					bExito = false;
+		if (bColor >= 0 && bColor<= 2) {
+			if (isBooInicializado()) {
+				switch (bColor) {
+				case 0:
+					if (getbColor() == 1 && !isBooParpadeando()) {
+						this.bColor = bColor;
+					} else {
+						bExito = false;
+					}
+					break;
+				case 1:
+					if (getbColor() == 2 && !isBooParpadeando()) {
+						this.bColor = bColor;
+						setBooParpadeando(true);
+					} else {
+						bExito = false;
+					}
+					break;
+				default:
+					if (getbColor() == 0 && !isBooParpadeando()) {
+						this.bColor = bColor;
+					} else {
+						bExito = false;
+					}
 				}
-				break;
-			case 1:
-				if (getbColor() == 2 && !isBooParpadeando()) {
-					this.bColor = bColor;
-					setBooParpadeando(true);
-				} else {
-					bExito = false;
-				}
-				break;
-			default:
-				if (getbColor() == 0 && !isBooParpadeando()) {
-					this.bColor = bColor;
-				} else {
-					bExito = false;
+			} else {
+				this.bColor = bColor;
+				if (bColor == 1) {
+					this.booParpadeando = true;
+					bExito = true;
 				}
 			}
 		} else {
-			this.bColor = bColor;
-			if (bColor == 1) {
-				this.booParpadeando = true;
-				bExito = true;
-
-			}
+			bExito = false;
 		}
+		
 
 		return bExito;
+
 	}
 
 	public boolean isBooParpadeando() {

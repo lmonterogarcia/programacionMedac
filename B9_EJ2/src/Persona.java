@@ -109,7 +109,7 @@ public class Persona {
 				}
 				break;
 			case 2:
-				if (this.getbEstado() == 1 || this.getbEstado() == 5) {
+				if (this.getbEstado() == 1 || this.getbEstado() == 4 || this.getbEstado() == 5) {
 					this.bEstado = bEstado;
 					booExito = true;
 				}
@@ -127,15 +127,13 @@ public class Persona {
 				}
 				break;
 			default:
-				if (this.getbEstado() > 1) {
+				if (this.getbEstado() == 2 || this.getbEstado() == 3) {
 					this.bEstado = bEstado;
 					booExito = true;
 				}
 				break;
 			}
 		}
-		this.bEstado = bEstado;
-		booExito = true;
 		return booExito;
 	}
 

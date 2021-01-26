@@ -13,6 +13,15 @@ public class Persona {
 		setsApellido1(sApellido1);
 		setsApellido2(sApellido2);
 	}
+	public Persona(String sNombre, String sApellido1, String sApellido2, short shEdad, float eEstatura, float fPeso, byte bEstado) {
+		setsNombre(sNombre);
+		setsApellido1(sApellido1);
+		setsApellido2(sApellido2);
+		setShEdad(shEdad);
+		setfEstatura(eEstatura);
+		setfPeso(fPeso);
+		setbEstado(bEstado);
+	}
 
 	public String getsNombre() {
 		return sNombre;

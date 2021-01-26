@@ -7,6 +7,11 @@ public class B9_EJ2 {
 		// por lo que las reglas no pueden ser violadas.
 
 		Persona oPersona1 = new Persona("Luis", "Montero", "Garcia-Manjarón");
+		demostrarClase(oPersona1);
+		
+	}
+
+	private static void demostrarClase(Persona oPersona1) {
 		System.out.println(cambioEdad((short) 36, oPersona1));
 		System.out.println(cambioEdad((short) 36, oPersona1));
 		System.out.println(cambioEdad((short) 250, oPersona1));
@@ -18,13 +23,10 @@ public class B9_EJ2 {
 		System.out.println(cambioEstado((byte) 5, oPersona1));
 		System.out.println(cambioEstado((byte) 2, oPersona1));
 		System.out.println(cambioEstado((byte) 6, oPersona1));
-		
-		
-
 	}
-
+	
 	private static String cambioEdad(short shEdad, Persona oPersona) {
-		String sMensaje = "";
+		String sMensaje = "\n";
 
 		if (oPersona.setShEdad(shEdad)) {
 			sMensaje += "La edad de la persona se ha cambiado a " + shEdad + ".";
@@ -36,7 +38,7 @@ public class B9_EJ2 {
 	}
 
 	private static String cambioPeso(float fPeso, Persona oPersona) {
-		String sMensaje = "";
+		String sMensaje = "\n";
 
 		if (oPersona.setfPeso(fPeso)) {
 			sMensaje += "El peso de la persona se ha cambiado a " + fPeso + ".";
@@ -48,7 +50,7 @@ public class B9_EJ2 {
 	}
 
 	private static String cambioEstatura(float fEstatura, Persona oPersona) {
-		String sMensaje = "";
+		String sMensaje = "\n";
 
 		if (oPersona.setfEstatura(fEstatura)) {
 			sMensaje += "La estatura de la persona se ha cambiado a " + fEstatura + ".";
@@ -60,7 +62,7 @@ public class B9_EJ2 {
 	}
 
 	private static String cambioEstado(byte bEstado, Persona oPersona) {
-		String sMensaje = "";
+		String sMensaje = "\n";
 
 		if (oPersona.setbEstado(bEstado)) {
 			sMensaje += "El estado ha sido cambiado a ";

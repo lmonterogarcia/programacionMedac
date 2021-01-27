@@ -6,7 +6,7 @@ public class B9_EJ2 {
 		// acceder
 		// por lo que las reglas no pueden ser violadas.
 
-		Persona oPersona1 = new Persona("Luis", "Montero", "Garcia-Manjarón");
+		Persona oPersona1 = new Persona("Luis", "Montero", "Garcia-Manjarï¿½n");
 		demostrarClase(oPersona1);
 		
 	}
@@ -16,7 +16,7 @@ public class B9_EJ2 {
 		System.out.println(cambioEdad((short) 36, oPersona1));
 		System.out.println(cambioEdad((short) 250, oPersona1));
 		System.out.println(cambioPeso(88.5f, oPersona1));
-		System.out.println(cambioPeso(250.5f, oPersona1));
+		System.out.println(cambioPeso(350.5f, oPersona1));
 		System.out.println(cambioEstatura(1.69f, oPersona1));
 		System.out.println(cambioEstatura(7.69f, oPersona1));
 		System.out.println(cambioEstado((byte) 1, oPersona1));
@@ -65,23 +65,7 @@ public class B9_EJ2 {
 		String sMensaje = "\n";
 
 		if (oPersona.setbEstado(bEstado)) {
-			sMensaje += "El estado ha sido cambiado a ";
-			switch (bEstado) {
-			case 1:
-				sMensaje += "soltero.";
-				break;
-			case 2:
-				sMensaje += "casado.";
-				break;
-			case 3:
-				sMensaje += "separado.";
-				break;
-			case 4:
-				sMensaje += "divorciado.";
-				break;
-			default:
-				sMensaje += "viudo.";
-			}
+			sMensaje += "El estado ha sido cambiado a " + oPersona.nombreEstado();
 		} else {
 			sMensaje += "El estado de la persona no ha sido cambiado";
 		}

@@ -146,4 +146,25 @@ public class Persona {
 		return booExito;
 	}
 
+	
+	public String nombreEstado() {
+		String sMensaje;
+		switch (this.bEstado) {
+		case 1:
+			sMensaje = "soltero.";
+			break;
+		case 2:
+			sMensaje = "casado.";
+			break;
+		case 3:
+			sMensaje = "separado.";
+			break;
+		case 4:
+			sMensaje = "divorciado.";
+			break;
+		default:
+			sMensaje = "viudo.";
+		}
+		return sMensaje;
+	}
 }

@@ -145,7 +145,6 @@ public class Persona {
 		}
 		return booExito;
 	}
-
 	
 	public String nombreEstado() {
 		String sMensaje;

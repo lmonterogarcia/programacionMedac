@@ -1,9 +1,7 @@
 
 public class Numero {
 	private double dNumero;
-	private int iNumero;
-	private long lNumero;
-	private float fNumero;
+
 	//instance of 
 	public Numero(double dNumero) {
 		setdNumero(dNumero);

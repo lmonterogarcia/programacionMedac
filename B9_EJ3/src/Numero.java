@@ -2,49 +2,46 @@
 public class Numero {
 	private double dNumero;
 
+<<<<<<< HEAD
+=======
 	//instance of 
+>>>>>>> branch 'boletin09' of https://github.com/opius2001/programacionMedac.git
 	public Numero(double dNumero) {
 		setdNumero(dNumero);
 	}
-	public Numero(int iNumero) {
-		double dNumero = iNumero;
-		setdNumero(dNumero);
-	}
-	public Numero(long lNumero) {
-		double dNumero = lNumero;
-		setdNumero(dNumero);
-	}
 	public Numero(float fNumero) {
-		double dNumero = fNumero;
-		setdNumero(dNumero);
+		setdNumero(fNumero);
 	}
 	
+	public Numero(long lNumero) {
+		setdNumero(lNumero);
+	}
+	
+	public Numero(int iNumero) {
+		setdNumero(iNumero);
+	}
 	
 	public double getdNumero() {
 		return dNumero;
 	}
+
 	public void setdNumero(double dNumero) {
 		this.dNumero = dNumero;
 	}
-	public int getiNumero() {
-		return iNumero;
+	public void setdNumero(float fNumero) {
+		this.dNumero = fNumero;
+		this.dNumero = (float)dNumero;
 	}
-	public void setiNumero(int iNumero) {
-		this.iNumero = iNumero;
+	public void setdNumero(long lNumero) {
+		this.dNumero = lNumero;
+		this.dNumero = (long)dNumero;
 	}
-	public long getlNumero() {
-		return lNumero;
+	public void setdNumero(int iNumero) {
+		this.dNumero = iNumero;
+		this.dNumero = (int)dNumero;
 	}
-	public void setlNumero(long lNumero) {
-		this.lNumero = lNumero;
-	}
-	public float getfNumero() {
-		return fNumero;
-	}
-	public void setfNumero(float fNumero) {
-		this.fNumero = fNumero;
-	}
-	
+
+	//instance of 
 	
 }
 

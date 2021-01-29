@@ -26,6 +26,6 @@ public class Casa {
 		this.lAparatos = lAparato;
 	}
 	
-	
+	// EMPECE ESTA CLASE PERO AL CONOCER QUE NO HACIA FALTA LA DEJE SIN TERMINAR. Solo con un booleando en el main ya vale.
 	
 }

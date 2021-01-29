@@ -2,10 +2,6 @@
 public class Numero {
 	private double dNumero;
 
-<<<<<<< HEAD
-=======
-	//instance of 
->>>>>>> branch 'boletin09' of https://github.com/opius2001/programacionMedac.git
 	public Numero(double dNumero) {
 		setdNumero(dNumero);
 	}

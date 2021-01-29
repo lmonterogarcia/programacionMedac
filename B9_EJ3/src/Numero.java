@@ -1,6 +1,7 @@
 
 public class Numero {
 	private double dNumero;
+	private double prueba;
 
 	public Numero(double dNumero) {
 		setdNumero(dNumero);

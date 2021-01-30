@@ -133,17 +133,17 @@ public class Cliente {
 
 	}
 
-	public String mostarCarrito() {
+	public String mostrarCarrito() {
 		String sMensaje = "";
 		return sMensaje;
 	}
 
-	public String mostarHistorial() {
+	public String mostrarHistorial() {
 		String sMensaje = "";
 		return sMensaje;
 	}
 
-	public String mostarSaldo() {
+	public String mostrarSaldo() {
 		String sMensaje = "";
 		return sMensaje;
 	}

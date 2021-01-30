@@ -3,14 +3,14 @@ public class B9_P4 {
 
 	public static void main(String[] args) {
 		// Creamos tienda, llenamos el almacen y mostramos el inventario:
-		Tienda oTienda = new Tienda();
+		Tienda oTienda = new Tienda(1);
 		oTienda.llenarAlmacen();
 		oTienda.mostrarInventario();
 
 		// Creamos cliente, lo registramos en la tienda y mostramos su saldo:
-		Cliente oCliente = new Cliente("Pedro", 1000);
+		Cliente oCliente = new Cliente(1, "Pedro", 1000);
 		oTienda.aniadirCliente(oCliente);
-		c.mostrarSaldo();
+		oCliente.mostrarSaldo();
 
 		// Obtenemos array de articulos en la tienda:
 		Articulo[] articulos = oTienda.obtenerArticulos();

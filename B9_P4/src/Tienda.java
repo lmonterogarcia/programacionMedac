@@ -86,7 +86,6 @@ public class Tienda {
 	 * ### METODOS ###
 	 * ###############
 	 */
-	
 	public void llenarAlmacen() {
 
 	}

@@ -1,27 +1,27 @@
 
 public class Articulo {
 
-	private int iId; //PK
+	private int iIdArticulo; //PK
 	private String sNombre; // NN
 	private double dPrecio; // NN
 	
-	public Articulo(int iId) {
-		getiId();
+	public Articulo(int iIdArticulo) {
+		getiIdArticulo();
 	}
 	
-	public Articulo(int iId, String sNombre, double dPrecio) {
-		getiId();
+	public Articulo(int iIdArticulo, String sNombre, double dPrecio) {
+		getiIdArticulo();
 		getsNombre();
 		getdPrecio();
 	}
 	
-	public int getiId() {
-		return iId;
+	public int getiIdArticulo() {
+		return iIdArticulo;
 	}
-	public boolean setiId(int iId) {
+	public boolean setiIdArticulo(int iIdArticulo) {
 		boolean booExito = false;
-		if (iId > 0 && iId < Integer.MAX_VALUE) {
-			this.iId = iId;
+		if (iIdArticulo > 0 && iIdArticulo < Integer.MAX_VALUE) {
+			this.iIdArticulo = iIdArticulo;
 			booExito = true;
 		}
 		return booExito;

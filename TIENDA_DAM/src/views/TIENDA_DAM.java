@@ -4,6 +4,7 @@ import controllers.*;
 public class TIENDA_DAM {
 
 	public static void main(String[] args) {
+				
 		UsuarioController oUserCtrl = new UsuarioController();
 		
 		if(oUserCtrl.addUsuario(new Usuario("kkkkk@mmm.com","12"))) {
@@ -31,6 +32,27 @@ public class TIENDA_DAM {
 		}
 		
 		System.out.println(oUserCtrl.getlUsuarios().size());
+		
+		oUserCtrl.updateUsuario(new Usuario("aurelio.lopez@medac.es","ABCDEFGDE"));
+		for(Usuario oUsuario: oUserCtrl.getlUsuarios()) {
+			System.out.println(oUsuario.getsEmail()+" "+oUsuario.getsPassword());
+		}
+		
+		/*if(oUserCtrl.removeUsuario(new Usuario("aurelio.lopez@medac.es"))) {
+			System.out.println("El usuario ha sido eliminado en la base de datos.");
+		}else {
+			System.out.println("El usuario no se ha podido eliminar.");
+		}
+		
+		System.out.println(oUserCtrl.getlUsuarios().size());
+		
+		if(oUserCtrl.removeUsuario(new Usuario("aurelio.lopez@mekkkdac.es"))) {
+			System.out.println("El usuario ha sido eliminado en la base de datos.");
+		}else {
+			System.out.println("El usuario no se ha podido eliminar.");
+		}*/
+		
+		
 		
 		//cargaDatos();
 	}

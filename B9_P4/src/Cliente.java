@@ -23,20 +23,22 @@ public class Cliente {
 		setiIdCliente(iIdCliente);
 		setsNombre(sNombre);
 		setdSaldo(dSaldo);
+		lHistorialArticulos = new ArrayList<Articulo>();
+		lHistorialFechas = new ArrayList<Calendar>();
+		lCarrito = new ArrayList<Articulo>();
 	}
 
 	public Cliente(int iIdCliente, String sNombre, double dSaldo, List<Articulo> lHistorialArticulos,
-			List<Calendar> lHistorialFechas, List<Articulo> lCarrito, Tienda oTienda, int iTamanioCarrito,
-			int iTamanioHistorial) {
+			List<Calendar> lHistorialFechas, List<Articulo> lCarrito, Tienda oTienda) {
 		setiIdCliente(iIdCliente);
 		setsNombre(sNombre);
 		setdSaldo(dSaldo);
-		setlHistorialArticulos(lHistorialArticulos);
-		setlHistorialFechas(lHistorialFechas);
-		setlCarrito(lCarrito);
+		lHistorialArticulos = new ArrayList<Articulo>();
+		lHistorialFechas = new ArrayList<Calendar>();
+		lCarrito = new ArrayList<Articulo>();
 		setoTienda(oTienda);
-		setiTamanioCarrito(iTamanioCarrito);
-		setiTamanioHistorial(iTamanioHistorial);
+		setiTamanioCarrito();
+		setiTamanioHistorial();
 	}
 
 	/*
@@ -46,24 +48,41 @@ public class Cliente {
 		return iIdCliente;
 	}
 
-	public void setiIdCliente(int iIdCliente) {
-		this.iIdCliente = iIdCliente;
+	public boolean setiIdCliente(int iIdCliente) {
+		boolean booExito = false;
+		if (iIdCliente > 0 && iIdCliente < Integer.MAX_VALUE) {
+			this.iIdCliente = iIdCliente;
+			booExito = true;
+		}
+		return booExito;
 	}
 
 	public String getsNombre() {
 		return sNombre;
 	}
 
-	public void setsNombre(String sNombre) {
-		this.sNombre = sNombre;
+	public boolean setsNombre(String sNombre) {
+		boolean booExito = false;
+		if (sNombre != null && sNombre.length() > 3) {
+			this.sNombre = sNombre;
+			booExito = true;
+		}
+		return booExito;
+
 	}
 
 	public double getdSaldo() {
 		return dSaldo;
 	}
 
-	public void setdSaldo(double dSaldo) {
-		this.dSaldo = dSaldo;
+	public boolean setdSaldo(double dSaldo) {
+		boolean booExito = false;
+		if (iIdCliente > 0 && iIdCliente < Double.MAX_VALUE) {
+			this.dSaldo = dSaldo;
+			booExito = true;
+		}
+		return booExito;
+
 	}
 
 	public List<Articulo> getlHistorialArticulos() {
@@ -102,27 +121,27 @@ public class Cliente {
 		return iTamanioCarrito;
 	}
 
-	public void setiTamanioCarrito(int iTamanioCarrito) {
-		this.iTamanioCarrito = iTamanioCarrito;
+	public void setiTamanioCarrito() {
+		this.iTamanioCarrito = lCarrito.size();
 	}
 
 	public int getiTamanioHistorial() {
 		return iTamanioHistorial;
 	}
 
-	public void setiTamanioHistorial(int iTamanioHistorial) {
-		this.iTamanioHistorial = iTamanioHistorial;
+	public void setiTamanioHistorial() {
+		this.iTamanioHistorial = lHistorialArticulos.size();
 	}
 
 	/*
 	 * ############### ### METODOS ### ###############
 	 */
 	public void aumentarSaldo(double dSaldo) {
-
+		this.dSaldo += dSaldo;
 	}
 
 	public void disminuirSaldo(double dSaldo) {
-
+		this.dSaldo -= dSaldo;
 	}
 
 	public void meterAlCarrito(Articulo oArticulo) {

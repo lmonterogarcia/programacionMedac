@@ -30,5 +30,39 @@ public class UsuarioController {
 		}
 		return bExito;
 	}
+	
+	public boolean removeUsuario(Usuario oUsuario) {
+		boolean bExito = false;
+		if(oUsuario != null && oUsuario.getsEmail() != null) {
+			bExito = this.getlUsuarios().remove(oUsuario); 
+		}
+		return bExito;
+	}
+	
+	public boolean updateUsuario(Usuario oUsuario) {
+		boolean bExito = false;
+		if(oUsuario != null) {
+			Usuario oUsuarioModificado = this.getlUsuarios().set(searchUsuario(oUsuario), oUsuario);
+			if(oUsuarioModificado != null && oUsuarioModificado.equals(oUsuario)) {
+				bExito = true;
+			}
+		}	
+		return bExito;
+	}
+	
+	
+	public int searchUsuario(Usuario oUsuario) {
+		int iPosicion = -1;
+		int iContador = 0;
+		while(iContador < this.getlUsuarios().size() && iPosicion == -1) {
+			if(this.getlUsuarios().get(iContador).equals(oUsuario)) {
+				iPosicion = iContador;
+			}
+			iContador++;
+		}
+		return iPosicion;
+	}
+	
+	
 
 }

@@ -10,9 +10,7 @@ public class Tienda {
 	private int iNumClientes; // N
 
 	/*
-	 * #####################
-	 * ### Constructores ###
-	 * #####################
+	 * ##################### ### Constructores ### #####################
 	 */
 	public Tienda(int iIdTienda) {
 		setiIdTienda(iIdTienda);
@@ -21,17 +19,15 @@ public class Tienda {
 	public Tienda(int iIdTienda, List<Articulo> lArticulos, List<Integer> lCantidades, List<Cliente> lClientes,
 			int iNumArticulos, int iNumClientes) {
 		setiIdTienda(iIdTienda);
-		setlArticulos(lArticulos);
-		setlCantidades(lCantidades);
-		setlClientes(lClientes);
+		lArticulos = new ArrayList<Articulo>();
+		lCantidades = new ArrayList<Integer>();
+		lClientes = new ArrayList<Cliente>();
 		setiNumArticulos(iNumArticulos);
 		setiNumClientes(iNumClientes);
 	}
-	
+
 	/*
-	 * ###################
-	 * ### Get and Set ###
-	 * ###################
+	 * ################### ### Get and Set ### ###################
 	 */
 	public int getiIdTienda() {
 		return iIdTienda;
@@ -82,11 +78,9 @@ public class Tienda {
 	}
 
 	/*
-	 * ###############
-	 * ### METODOS ###
-	 * ###############
+	 * ############### ### METODOS ### ###############
 	 */
-	
+
 	public void llenarAlmacen() {
 
 	}
@@ -95,8 +89,8 @@ public class Tienda {
 
 	}
 
-	public Articulo obtenerArticulos() {
-		Articulo oArticulo = new Articulo(21);
+	public Articulo[] obtenerArticulos() {
+		Articulo[] oArticulo = new Articulo[21];
 		return oArticulo;
 	}
 
@@ -107,11 +101,11 @@ public class Tienda {
 	public void meterAlCarrito(Articulo oArticulo, Cliente oCliente) {
 
 	}
-	
+
 	public void venderCarrito(Cliente oCliente) {
 
 	}
-	
+
 	public void vender(Articulo oArticulo, Cliente oCliente) {
 
 	}

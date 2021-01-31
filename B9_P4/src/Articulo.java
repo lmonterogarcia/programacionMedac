@@ -1,7 +1,7 @@
 
 public class Articulo {
 
-	private int iIdArticulo; //PK
+	private int iIdArticulo; // PK
 	private String sNombre; // NN
 	private double dPrecio; // NN
 	

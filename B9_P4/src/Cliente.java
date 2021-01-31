@@ -145,7 +145,8 @@ public class Cliente {
 	}
 
 	public void meterAlCarrito(Articulo oArticulo) {
-
+		lCarrito.add(oArticulo);
+		setiTamanioCarrito();
 	}
 
 	public void aniadirAHistorial(Articulo oArticulo, Calendar oFecha) {

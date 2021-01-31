@@ -1,5 +1,6 @@
 import java.util.*;
 
+
 public class Tienda {
 
 	private int iIdTienda; // PK
@@ -84,7 +85,7 @@ public class Tienda {
 	 */
 
 	public void llenarAlmacen() {
-		
+
 //		Articulo oArticulo = new Articulo();
 //		do {
 //			oArticulo.setiIdArticulo((int) (Libreria.leer("\nId del articulo: ", 0, 5000000, -1, -1, (byte) 3)));
@@ -94,9 +95,10 @@ public class Tienda {
 //			lCantidades.add((int) (Libreria.leer("Cantidad del articulo: ", 0, 50000000, -1, -1, (byte) 3)));
 //			setiNumArticulos();
 //		} while ((byte) Libreria.leer("\nQuiere seguir introduciendo articulos?\n1. Si\n0. Terminar", 0, 1, -1, -1, (byte) 1) == 1);
-		
-		// Para no estar todo el rato introduciendo datos se ha llenado el Almacen con lo siguiente.
-		
+
+		// Para no estar todo el rato introduciendo datos se ha llenado el Almacen con
+		// lo siguiente.
+
 		Articulo oArticulo0 = new Articulo(0, "Cero", 10);
 		lArticulos.add(oArticulo0);
 		Articulo oArticulo1 = new Articulo(1, "Uno", 20);
@@ -109,8 +111,8 @@ public class Tienda {
 		lArticulos.add(oArticulo4);
 		Articulo oArticulo5 = new Articulo(5, "Cinco", 99);
 		lArticulos.add(oArticulo5);
-		
-		lCantidades = Arrays.asList(12,9,10,15,4,1);
+
+		lCantidades = Arrays.asList(12, 9, 10, 15, 4, 1);
 		setiNumArticulos();
 	}
 
@@ -120,7 +122,8 @@ public class Tienda {
 		if (getiNumArticulos() > 0) {
 			sInventario += "Mostrando inventario de la tienda:\n--------------------------------------------------\n";
 			for (Articulo oArticulo : lArticulos) {
-				sInventario += "[ " + iPosicion + "] Articulo: " + oArticulo.getsNombre() + " (ref. " + iPosicion + "), " + oArticulo.getdPrecio() + " euros + iva\n";
+				sInventario += "[ " + iPosicion + "] Articulo: " + oArticulo.getsNombre() + " (ref. " + iPosicion
+						+ "), " + oArticulo.getdPrecio() + " euros + iva\n";
 				sInventario += "Cantidad en stock: " + lCantidades.get(iPosicion) + "\n";
 				sInventario += "--------------------------------------------------\n";
 				iPosicion++;
@@ -147,15 +150,46 @@ public class Tienda {
 		}
 	}
 
-	public void meterAlCarrito(Articulo oArticulo, Cliente oCliente) {
-
+	public boolean meterAlCarrito(Articulo oArticulo, Cliente oCliente) {
+		boolean booExito = false;
+		if (lArticulos.contains(oArticulo) && lCantidades.get(searchArticulo(oArticulo)) >= 1 && lClientes.contains(oCliente) ) {
+			oCliente.meterAlCarrito(oArticulo);;
+			booExito = true;
+		}
+		return booExito;
 	}
 
-	public void venderCarrito(Cliente oCliente) {
-
-	}
-
-	public void vender(Articulo oArticulo, Cliente oCliente) {
+	public boolean venderCarrito(Cliente oCliente) {
+		boolean booExito = false;
+		double dTotal = 0;
 		
+		for (Articulo oArticulo : oCliente.getlCarrito()) {
+			dTotal += oArticulo.getdPrecio();
+		}
+		if (lClientes.contains(oCliente) && dTotal <= oCliente.getdSaldo()) {
+			
+			booExito = true;
+		}
+		return booExito;
+	}
+
+	public boolean vender(Articulo oArticulo, Cliente oCliente) {
+		boolean booExito = false;
+		if (lArticulos.contains(oArticulo) && lClientes.contains(oCliente)) {
+			booExito = true;
+		}
+		return booExito;
+	}
+	
+	public int searchArticulo(Articulo oArticulo) {
+		int iPosicion = -1;
+		int iContador = 0;
+		while(iContador < this.getlArticulos().size() && iPosicion == -1) {
+			if(this.getlArticulos().get(iContador).equals(oArticulo)) {
+				iPosicion = iContador;
+			}
+			iContador++;
+		}
+		return iPosicion;
 	}
 }

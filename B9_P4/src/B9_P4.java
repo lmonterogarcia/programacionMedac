@@ -13,43 +13,79 @@ public class B9_P4 {
 		System.out.println(oCliente.mostrarSaldo());
 
 		// Obtenemos array de articulos en la tienda:
-		//Esta funcion no tiene mucho sentido si se trabaja con ArrayList...
+		// Esta funcion no tiene mucho sentido si se trabaja con ArrayList...
 //		Articulo[] aArticulos = oTienda.obtenerArticulos();
 
 		// Ejemplo de venta directa:
-		oTienda.vender(oTienda.getlArticulos().get(0), oCliente);
+		System.out.println(vender(oTienda, oTienda.getlArticulos().get(0), oCliente));
 
 		// Mostramos el estado del inventario, el saldo y el historial del
 		// cliente despues de la compra:
-		oTienda.mostrarInventario();
-		oCliente.mostrarSaldo();
-		oCliente.mostrarHistorial();
+		System.out.println(oTienda.mostrarInventario());
+		System.out.println(oCliente.mostrarSaldo());
+		System.out.println(oCliente.mostrarHistorial());
 
 		// Ejemplo de venta mediante el carrito:
-		oTienda.meterAlCarrito(oTienda.getlArticulos().get(1), oCliente);
-		oTienda.meterAlCarrito(oTienda.getlArticulos().get(3), oCliente);
-		oCliente.mostrarCarrito();
-		oTienda.venderCarrito(oCliente);
+//		oTienda.meterAlCarrito(oTienda.getlArticulos().get(1), oCliente);
+		System.out.println(meterCarrito(oTienda, oTienda.getlArticulos().get(1), oCliente));
+//		oTienda.meterAlCarrito(oTienda.getlArticulos().get(3), oCliente);
+		System.out.println(meterCarrito(oTienda, oTienda.getlArticulos().get(3), oCliente));
+		System.out.println(oCliente.mostrarCarrito());
+		System.out.println(oTienda.venderCarrito(oCliente));
 
 		// Mostramos el estado del inventario,el saldo y el historial del
 		// cliente despues de la compra:
-		oTienda.mostrarInventario();
-		oCliente.mostrarSaldo();
-		oCliente.mostrarHistorial();
+		System.out.println(oTienda.mostrarInventario());
+		System.out.println(oCliente.mostrarSaldo());
+		System.out.println(oCliente.mostrarHistorial());
 
 		// ----------------------------------------------------------------------
 		// Algunas opciones que no deberían hacerse:
 		// ----------------------------------------------------------------------
 
 		// 1. Intentamos meter al carrito un articulo que no esta en el inventario:
-		oTienda.meterAlCarrito(new Articulo(99, "ArticuloTrampa", 0), oCliente);
+		System.out.println(meterCarrito(oTienda, new Articulo(99, "ArticuloTrampa", 0), oCliente));
 
 		// 2. Intentamos comprar un articulo que no esta en el inventario:
-		oTienda.vender(new Articulo(99, "ArticuloTrampa", 0), oCliente);
+		System.out.println(vender(oTienda, new Articulo(99, "ArticuloTrampa", 0), oCliente));
 
-		// 3. Un cliente no registrado intenta comprar en la
-		// tienda:t.vender(articulos[0],new Cliente("ClienteNoRegistrado"));
+		// 3. Un cliente no registrado intenta comprar en la tienda:
+		System.out.println(vender(oTienda, oTienda.getlArticulos().get(3), new Cliente(2, "NoRegistrado", 1000)));
 
+	}
+
+	private static String meterCarrito(Tienda oTienda, Articulo oArticulo, Cliente oCliente) {
+		String sMensaje = "\n";
+		if (oTienda.meterAlCarrito(oArticulo, oCliente)) {
+			sMensaje += "Articulo " + oArticulo.getsNombre() + " añadido al carrtio del cliente " + oCliente.getsNombre() + ".";
+		} else {
+			if (!oTienda.getlArticulos().contains(oArticulo)) {
+				sMensaje += "--Error: Articulo no existe en la tienda.";
+			} else if(!oTienda.getlClientes().contains(oCliente)) {
+				sMensaje += "--Error: Cliente no esta registrado en la tienda.";
+			} else {
+				sMensaje += "--Error: No hay suficiente cantidad del producto.";
+			}
+			
+		}
+		return sMensaje;
+	}
+	
+	private static String vender(Tienda oTienda, Articulo oArticulo, Cliente oCliente) {
+		String sMensaje = "\n";
+		if (oTienda.vender(oArticulo, oCliente)) {
+			sMensaje += "Articulo " + oArticulo.getsNombre() + " vendido al cliente " + oCliente.getsNombre() + ".";
+		} else {
+			if (!oTienda.getlArticulos().contains(oArticulo)) {
+				sMensaje += "--Error: Articulo no existe en la tienda.";
+			} else if(!oTienda.getlClientes().contains(oCliente)) {
+				sMensaje += "--Error: Cliente no esta registrado en la tienda.";
+			} else {
+				sMensaje += "--Error: No hay suficiente cantidad del producto.";
+			}
+			
+		}
+		return sMensaje;
 	}
 
 }

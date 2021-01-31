@@ -111,18 +111,17 @@ public class Tienda {
 		lArticulos.add(oArticulo4);
 		Articulo oArticulo5 = new Articulo(5, "Cinco", 99);
 		lArticulos.add(oArticulo5);
-
 		lCantidades = Arrays.asList(12, 9, 10, 15, 4, 1);
 		setiNumArticulos();
 	}
 
 	public String mostrarInventario() {
-		String sInventario = "";
+		String sInventario = "\n";
 		int iPosicion = 0;
 		if (getiNumArticulos() > 0) {
 			sInventario += "Mostrando inventario de la tienda:\n--------------------------------------------------\n";
 			for (Articulo oArticulo : lArticulos) {
-				sInventario += "[ " + iPosicion + "] Articulo: " + oArticulo.getsNombre() + " (ref. " + iPosicion
+				sInventario += "[ " + iPosicion + "] Articulo: " + oArticulo.getsNombre() + " (ref. " + oArticulo.getiIdArticulo()
 						+ "), " + oArticulo.getdPrecio() + " euros + iva\n";
 				sInventario += "Cantidad en stock: " + lCantidades.get(iPosicion) + "\n";
 				sInventario += "--------------------------------------------------\n";
@@ -153,29 +152,37 @@ public class Tienda {
 	public boolean meterAlCarrito(Articulo oArticulo, Cliente oCliente) {
 		boolean booExito = false;
 		if (lArticulos.contains(oArticulo) && lCantidades.get(searchArticulo(oArticulo)) >= 1 && lClientes.contains(oCliente) ) {
-			oCliente.meterAlCarrito(oArticulo);;
+			oCliente.meterAlCarrito(oArticulo);
+			lCantidades.set(searchArticulo(oArticulo), (lCantidades.get(searchArticulo(oArticulo)) - 1));
 			booExito = true;
 		}
 		return booExito;
 	}
 
-	public boolean venderCarrito(Cliente oCliente) {
-		boolean booExito = false;
+	public String venderCarrito(Cliente oCliente) {
+		String sMensaje = "";
 		double dTotal = 0;
 		
 		for (Articulo oArticulo : oCliente.getlCarrito()) {
 			dTotal += oArticulo.getdPrecio();
 		}
 		if (lClientes.contains(oCliente) && dTotal <= oCliente.getdSaldo()) {
-			
-			booExito = true;
+			for (Articulo oArticulo : oCliente.getlCarrito()) {
+				sMensaje += "Articulo " + oArticulo.getsNombre() + " vendido al cliente " + oCliente.getsNombre() + ".\n";
+				oCliente.aniadirAHistorial(oArticulo, Calendar.getInstance());
+			}
+			oCliente.limpiarElCarrito();
 		}
-		return booExito;
+		oCliente.setdSaldo(oCliente.getdSaldo() - dTotal);
+		return sMensaje;
 	}
 
 	public boolean vender(Articulo oArticulo, Cliente oCliente) {
 		boolean booExito = false;
-		if (lArticulos.contains(oArticulo) && lClientes.contains(oCliente)) {
+		if (lArticulos.contains(oArticulo) && lCantidades.get(searchArticulo(oArticulo)) >= 1 && lClientes.contains(oCliente)) {
+			lCantidades.set(searchArticulo(oArticulo), (lCantidades.get(searchArticulo(oArticulo)) - 1));
+			oCliente.disminuirSaldo((lArticulos.get(searchArticulo(oArticulo)).getdPrecio()));
+			oCliente.aniadirAHistorial(oArticulo, Calendar.getInstance());
 			booExito = true;
 		}
 		return booExito;

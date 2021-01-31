@@ -148,23 +148,60 @@ public class Cliente {
 		lCarrito.add(oArticulo);
 		setiTamanioCarrito();
 	}
+	
+	public void limpiarElCarrito() {
+		lCarrito.clear();
+		setiTamanioCarrito();
+	}
 
 	public void aniadirAHistorial(Articulo oArticulo, Calendar oFecha) {
-
+		lHistorialArticulos.add(oArticulo);
+		lHistorialFechas.add(oFecha);
 	}
 
 	public String mostrarCarrito() {
-		String sMensaje = "";
-		return sMensaje;
+		String sCarrito = "\n";
+		int iPosicion = 0;
+		if (getiTamanioCarrito() > 0) {
+			sCarrito += "Contenido del carrito de " + getsNombre() + ":\n--------------------------------------------------\n";
+			for (Articulo oArticulo : lCarrito) {
+				sCarrito += "-- " + oArticulo.getsNombre() + " (ref. " + oArticulo.getiIdArticulo() + "), " + oArticulo.getdPrecio() + " euros + iva\n";
+				iPosicion++;
+			}
+			sCarrito += "--------------------------------------------------";
+		}
+		return sCarrito;
 	}
 
 	public String mostrarHistorial() {
-		String sMensaje = "";
-		return sMensaje;
+		String sHistorial = "\n";
+		int iPosicion = 0;
+		if (lHistorialArticulos.size() > 0) {
+			sHistorial += "Historial de compras de " + getsNombre() + ":\n--------------------------------------------------\n";
+			for (Articulo oArticulo : lHistorialArticulos) {
+				sHistorial += oArticulo.getsNombre() + " (ref. " + oArticulo.getiIdArticulo() + "), " + oArticulo.getdPrecio() + " euros + iva ";
+				sHistorial += "comprado en " +lHistorialFechas.get(searchArticulo(oArticulo)).getTime().toString() +  "\n";
+				sHistorial += "--------------------------------------------------\n";
+				iPosicion++;
+			}
+		}
+		return sHistorial;
 	}
 
 	public String mostrarSaldo() {
 		String sMensaje = "Saldo actual de de " + getsNombre() + ": " + getdSaldo();
 		return sMensaje;
+	}
+	
+	public int searchArticulo(Articulo oArticulo) {
+		int iPosicion = -1;
+		int iContador = 0;
+		while(iContador < this.getlHistorialArticulos().size() && iPosicion == -1) {
+			if(this.getlHistorialArticulos().get(iContador).equals(oArticulo)) {
+				iPosicion = iContador;
+			}
+			iContador++;
+		}
+		return iPosicion;
 	}
 }

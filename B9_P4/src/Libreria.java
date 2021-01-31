@@ -1,7 +1,7 @@
 
 public class Libreria {
 
-	private static String deNumeroToLetrasHasta9999(short shNumero) {
+	public static String deNumeroToLetrasHasta9999(short shNumero) {
 		String sNumero = "";
 		byte bUnidad, bDecena, bCentena, bMillar;
 

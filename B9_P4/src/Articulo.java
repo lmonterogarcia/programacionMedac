@@ -6,13 +6,13 @@ public class Articulo {
 	private double dPrecio; // NN
 	
 	public Articulo(int iIdArticulo) {
-		getiIdArticulo();
+		setiIdArticulo(iIdArticulo);
 	}
 	
 	public Articulo(int iIdArticulo, String sNombre, double dPrecio) {
-		getiIdArticulo();
-		getsNombre();
-		getdPrecio();
+		setiIdArticulo(iIdArticulo);
+		setsNombre(sNombre);
+		setdPrecio(dPrecio);
 	}
 	
 	public int getiIdArticulo() {
@@ -20,7 +20,7 @@ public class Articulo {
 	}
 	public boolean setiIdArticulo(int iIdArticulo) {
 		boolean booExito = false;
-		if (iIdArticulo > 0 && iIdArticulo < Integer.MAX_VALUE) {
+		if (iIdArticulo >= 0 && iIdArticulo < Integer.MAX_VALUE) {
 			this.iIdArticulo = iIdArticulo;
 			booExito = true;
 		}
@@ -31,7 +31,7 @@ public class Articulo {
 	}
 	public boolean setsNombre(String sNombre) {
 		boolean booExito = false;
-		if (sNombre != null && sNombre.length() > 5) {
+		if (sNombre != null && sNombre.length() > 2) {
 			this.sNombre = sNombre;
 			booExito = true;
 		}

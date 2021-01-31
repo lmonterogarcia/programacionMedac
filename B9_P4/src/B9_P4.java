@@ -5,7 +5,7 @@ public class B9_P4 {
 		// Creamos tienda, llenamos el almacen y mostramos el inventario:
 		Tienda oTienda = new Tienda(1);
 		oTienda.llenarAlmacen();
-		oTienda.mostrarInventario();
+		System.out.println(oTienda.mostrarInventario());
 
 		// Creamos cliente, lo registramos en la tienda y mostramos su saldo:
 		Cliente oCliente = new Cliente(1, "Pedro", 1000);

@@ -50,7 +50,7 @@ public class Cliente {
 
 	public boolean setiIdCliente(int iIdCliente) {
 		boolean booExito = false;
-		if (iIdCliente > 0 && iIdCliente < Integer.MAX_VALUE) {
+		if (iIdCliente >= 0 && iIdCliente < Integer.MAX_VALUE) {
 			this.iIdCliente = iIdCliente;
 			booExito = true;
 		}
@@ -63,7 +63,7 @@ public class Cliente {
 
 	public boolean setsNombre(String sNombre) {
 		boolean booExito = false;
-		if (sNombre != null && sNombre.length() > 3) {
+		if (sNombre != null && sNombre.length() > 2) {
 			this.sNombre = sNombre;
 			booExito = true;
 		}
@@ -77,7 +77,7 @@ public class Cliente {
 
 	public boolean setdSaldo(double dSaldo) {
 		boolean booExito = false;
-		if (iIdCliente > 0 && iIdCliente < Double.MAX_VALUE) {
+		if (dSaldo >= 0 && dSaldo < Double.MAX_VALUE) {
 			this.dSaldo = dSaldo;
 			booExito = true;
 		}
@@ -163,7 +163,7 @@ public class Cliente {
 	}
 
 	public String mostrarSaldo() {
-		String sMensaje = "";
+		String sMensaje = "Saldo actual de de " + getsNombre() + ": " + getdSaldo();
 		return sMensaje;
 	}
 }

@@ -5,6 +5,9 @@ public class Articulo {
 	private String sNombre; // NN
 	private double dPrecio; // NN
 	
+	public Articulo() {
+		
+	}
 	public Articulo(int iIdArticulo) {
 		setiIdArticulo(iIdArticulo);
 	}

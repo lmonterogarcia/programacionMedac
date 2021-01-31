@@ -10,13 +10,14 @@ public class B9_P4 {
 		// Creamos cliente, lo registramos en la tienda y mostramos su saldo:
 		Cliente oCliente = new Cliente(1, "Pedro", 1000);
 		oTienda.aniadirCliente(oCliente);
-		oCliente.mostrarSaldo();
+		System.out.println(oCliente.mostrarSaldo());
 
 		// Obtenemos array de articulos en la tienda:
-		Articulo[] articulos = oTienda.obtenerArticulos();
+		//Esta funcion no tiene mucho sentido si se trabaja con ArrayList...
+//		Articulo[] aArticulos = oTienda.obtenerArticulos();
 
 		// Ejemplo de venta directa:
-		oTienda.vender(articulos[0], oCliente);
+		oTienda.vender(oTienda.getlArticulos().get(0), oCliente);
 
 		// Mostramos el estado del inventario, el saldo y el historial del
 		// cliente despues de la compra:
@@ -25,8 +26,8 @@ public class B9_P4 {
 		oCliente.mostrarHistorial();
 
 		// Ejemplo de venta mediante el carrito:
-		oTienda.meterAlCarrito(articulos[1], oCliente);
-		oTienda.meterAlCarrito(articulos[3], oCliente);
+		oTienda.meterAlCarrito(oTienda.getlArticulos().get(1), oCliente);
+		oTienda.meterAlCarrito(oTienda.getlArticulos().get(3), oCliente);
 		oCliente.mostrarCarrito();
 		oTienda.venderCarrito(oCliente);
 

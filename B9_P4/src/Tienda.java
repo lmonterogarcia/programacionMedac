@@ -84,7 +84,19 @@ public class Tienda {
 	 */
 
 	public void llenarAlmacen() {
-		// Para no estar todo el rato introduciendo datos se ha llenado el Almacen con arrays.
+		
+//		Articulo oArticulo = new Articulo();
+//		do {
+//			oArticulo.setiIdArticulo((int) (Libreria.leer("\nId del articulo: ", 0, 5000000, -1, -1, (byte) 3)));
+//			oArticulo.setsNombre((String) (Libreria.leer("Nombre del articulo ", -1, 255, -1, -1, (byte) 10)));
+//			oArticulo.setdPrecio((double) (Libreria.leer("Precio del articulo: ", -1, -1, 0, 5000000, (byte) 6)));
+//			lArticulos.add(oArticulo);
+//			lCantidades.add((int) (Libreria.leer("Cantidad del articulo: ", 0, 50000000, -1, -1, (byte) 3)));
+//			setiNumArticulos();
+//		} while ((byte) Libreria.leer("\nQuiere seguir introduciendo articulos?\n1. Si\n0. Terminar", 0, 1, -1, -1, (byte) 1) == 1);
+		
+		// Para no estar todo el rato introduciendo datos se ha llenado el Almacen con lo siguiente.
+		
 		Articulo oArticulo0 = new Articulo(0, "Cero", 10);
 		lArticulos.add(oArticulo0);
 		Articulo oArticulo1 = new Articulo(1, "Uno", 20);
@@ -95,7 +107,7 @@ public class Tienda {
 		lArticulos.add(oArticulo3);
 		Articulo oArticulo4 = new Articulo(4, "Cuatro", 105);
 		lArticulos.add(oArticulo4);
-		Articulo oArticulo5 = new Articulo(5, "Cintoc", 99);
+		Articulo oArticulo5 = new Articulo(5, "Cinco", 99);
 		lArticulos.add(oArticulo5);
 		
 		lCantidades = Arrays.asList(12,9,10,15,4,1);
@@ -106,11 +118,11 @@ public class Tienda {
 		String sInventario = "";
 		int iPosicion = 0;
 		if (getiNumArticulos() > 0) {
-			sInventario += "Mostrando inventario de la tienda:\n------------------------------------------------------------\n";
+			sInventario += "Mostrando inventario de la tienda:\n--------------------------------------------------\n";
 			for (Articulo oArticulo : lArticulos) {
 				sInventario += "[ " + iPosicion + "] Articulo: " + oArticulo.getsNombre() + " (ref. " + iPosicion + "), " + oArticulo.getdPrecio() + " euros + iva\n";
 				sInventario += "Cantidad en stock: " + lCantidades.get(iPosicion) + "\n";
-				sInventario += "------------------------------------------------------------\n";
+				sInventario += "--------------------------------------------------\n";
 				iPosicion++;
 			}
 		}
@@ -118,12 +130,21 @@ public class Tienda {
 	}
 
 	public Articulo[] obtenerArticulos() {
-		Articulo[] oArticulo = new Articulo[21];
-		return oArticulo;
+		Articulo[] aArticulo = new Articulo[this.lArticulos.size()];
+		int iPosicion = 0;
+		for (Articulo oArticulo : lArticulos) {
+			aArticulo[iPosicion] = oArticulo;
+			iPosicion++;
+		}
+		return aArticulo;
 	}
 
 	public void aniadirCliente(Cliente oCliente) {
-		
+		if (oCliente != null && !lClientes.contains(oCliente)) {
+			lClientes.add(oCliente);
+			oCliente.setoTienda(this);
+			setiNumClientes();
+		}
 	}
 
 	public void meterAlCarrito(Articulo oArticulo, Cliente oCliente) {
@@ -135,6 +156,6 @@ public class Tienda {
 	}
 
 	public void vender(Articulo oArticulo, Cliente oCliente) {
-
+		
 	}
 }

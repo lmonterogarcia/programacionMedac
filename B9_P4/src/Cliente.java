@@ -161,12 +161,10 @@ public class Cliente {
 
 	public String mostrarCarrito() {
 		String sCarrito = "\n";
-		int iPosicion = 0;
 		if (getiTamanioCarrito() > 0) {
 			sCarrito += "Contenido del carrito de " + getsNombre() + ":\n--------------------------------------------------\n";
 			for (Articulo oArticulo : lCarrito) {
 				sCarrito += "-- " + oArticulo.getsNombre() + " (ref. " + oArticulo.getiIdArticulo() + "), " + oArticulo.getdPrecio() + " euros + iva\n";
-				iPosicion++;
 			}
 			sCarrito += "--------------------------------------------------";
 		}
@@ -175,14 +173,12 @@ public class Cliente {
 
 	public String mostrarHistorial() {
 		String sHistorial = "\n";
-		int iPosicion = 0;
 		if (lHistorialArticulos.size() > 0) {
 			sHistorial += "Historial de compras de " + getsNombre() + ":\n--------------------------------------------------\n";
 			for (Articulo oArticulo : lHistorialArticulos) {
 				sHistorial += oArticulo.getsNombre() + " (ref. " + oArticulo.getiIdArticulo() + "), " + oArticulo.getdPrecio() + " euros + iva ";
 				sHistorial += "comprado en " +lHistorialFechas.get(searchArticulo(oArticulo)).getTime().toString() +  "\n";
 				sHistorial += "--------------------------------------------------\n";
-				iPosicion++;
 			}
 		}
 		return sHistorial;

@@ -121,7 +121,7 @@ public class Tienda {
 		if (getiNumArticulos() > 0) {
 			sInventario += "Mostrando inventario de la tienda:\n--------------------------------------------------\n";
 			for (Articulo oArticulo : lArticulos) {
-				sInventario += "[ " + iPosicion + "] Articulo: " + oArticulo.getsNombre() + " (ref. " + oArticulo.getiIdArticulo()
+				sInventario += "[ " + oArticulo.getiIdArticulo() + "] Articulo: " + oArticulo.getsNombre() + " (ref. " + oArticulo.getiIdArticulo()
 						+ "), " + oArticulo.getdPrecio() + " euros + iva\n";
 				sInventario += "Cantidad en stock: " + lCantidades.get(iPosicion) + "\n";
 				sInventario += "--------------------------------------------------\n";

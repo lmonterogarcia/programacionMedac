@@ -1,7 +1,8 @@
 public interface IAeronave {
 
-	public final int IVOLANDO = 1;
-	public final int IENTIERRA = 2;
+	public final String SVOLANDO = "Volando";
+	public final String SENTIERRA = "En tierra";
+	
     public void aumentarAlturaDeVuelo(int aumento);
     public void disminuirAlturaDeVuelo(int descenso);
     public int obtenerAlturaDeVuelo();
@@ -10,4 +11,7 @@ public interface IAeronave {
     public void aterrizar();
     public String obtenerIdentificacion();
     public void establecerIdentificacion(String identificacion);
+    
+    public String consultarEstado(); //Solo se puede crear un metodo con un mismo nombre y sin
+    
 }

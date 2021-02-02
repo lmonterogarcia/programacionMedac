@@ -1,7 +1,7 @@
 public interface IAeronave {
 
-	public final String SVOLANDO = "Volando";
-	public final String SENTIERRA = "En tierra";
+	public final String SVOLANDO = "volando";
+	public final String SENTIERRA = "en tierra";
 	
     public void aumentarAlturaDeVuelo(int aumento);
     public void disminuirAlturaDeVuelo(int descenso);

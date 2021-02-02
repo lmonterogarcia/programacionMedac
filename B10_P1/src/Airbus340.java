@@ -66,7 +66,7 @@ public class Airbus340 implements IAeronave,IAvion{
 
     
     public void establecerIdentificacion(String identificacion){
-        mensaje("Cambio de número de vuelo a" + identificacion);
+        mensaje("Cambio de nï¿½mero de vuelo a" + identificacion);
         id = identificacion;
     }
 
@@ -96,16 +96,14 @@ public class Airbus340 implements IAeronave,IAvion{
         return pasajeros;
     }
 
-	public String consultarEstado() {
-		String sEstado;
-		if (this.bEstado == 1 ) {
-			mensaje("Estamos en el aire!");
-			sEstado = IAeronave.SVOLANDO;
+    public String consultarEstado() {
+		String sMensaje;
+		if (obtenerAlturaDeVuelo() > 0) {
+			sMensaje = "Estamos en el " + IAeronave.SVOLANDO;
 		} else {
-			mensaje("Estamos en tierra!");
-			sEstado = IAeronave.SENTIERRA;
+			sMensaje = "Estamos en " + IAeronave.SENTIERRA;
 		}
-		return sEstado;
+		return sMensaje;
 	}
     
     

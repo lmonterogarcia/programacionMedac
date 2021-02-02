@@ -60,19 +60,17 @@ public class Globo implements IAeronave {
    
     
     public void despegar(){
-        mensaje("¡Preparaos para despegar!");
+        mensaje("ï¿½Preparaos para despegar!");
         aumentarAlturaDeVuelo(150);
-        //mensaje("¡Ya estamos en el aire!");
-        this.bEstado = 1;
-        consultarEstado();
+        //mensaje("ï¿½Ya estamos en el aire!");
+        mensaje(consultarEstado());
     }
 
     public void aterrizar(){
         mensaje("Vamos a aterrizar !Agarraos!");
         variarAlturaDeVuelo(0);
         //mensaje("Ya estamos en tierra firme");
-        this.bEstado = 2;
-        consultarEstado();
+        mensaje(consultarEstado());
     }
 
 
@@ -83,7 +81,7 @@ public class Globo implements IAeronave {
 
     
     public void establecerIdentificacion(String identificacion){
-        mensaje("Cambio de número de vuelo a" + identificacion);
+        mensaje("Cambio de nï¿½mero de vuelo a" + identificacion);
         id = identificacion;
     }
 
@@ -95,16 +93,13 @@ public class Globo implements IAeronave {
     }
 
 	public String consultarEstado() {
-		byte bEstado;
-		String sEstado;
-		if (this.bEstado == 1 ) {
-			mensaje("Estamos en el aire!");
-			sEstado = IAeronave.SVOLANDO;
+		String sMensaje;
+		if (obtenerAlturaDeVuelo() > 0) {
+			sMensaje = "Estamos en el " + IAeronave.SVOLANDO;
 		} else {
-			mensaje("Estamos en tierra!");
-			sEstado = IAeronave.SENTIERRA;
+			sMensaje = "Estamos en " + IAeronave.SENTIERRA;
 		}
-		return sEstado;
+		return sMensaje;
 	}
 
 }

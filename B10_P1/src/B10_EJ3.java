@@ -4,17 +4,17 @@ public class B10_EJ3 {
 	public static void main(String[] args) {
 		//a
 		IAeronave oAn;
-		// Instancia del objeto, con la clase de implementación
+		// Instancia del objeto, con la clase de implementaciï¿½n
 		Airbus340 oAv = new Airbus340("XW432", 200);
 		Globo oGl = new Globo("CH221");
 		// Funcionan como aeronaves
-		oAn = oAv; // el avión
+		oAn = oAv; // el aviï¿½n
 		oAn.despegar();
 		oAn = oGl; // el globo
 		oAn.despegar();
-		// Como avión tiene sus propias métodos
-		((IAvion) oAv).cerrarTrenDeAterrizaje();// el avión
-		// Sólo como globo tiene sus métodos
+		// Como aviï¿½n tiene sus propias mï¿½todos
+		((IAvion) oAv).cerrarTrenDeAterrizaje();// el aviï¿½n
+		// Sï¿½lo como globo tiene sus mï¿½todos
 		oGl.calentarAire(10);
 		oGl.expulsarAire(12);
 		System.out.println("Actualemente el vuelo " + oAv.obtenerIdentificacion() + " vuela a "
@@ -23,18 +23,19 @@ public class B10_EJ3 {
 		// ((IAvion) oGl).cerrarTrenDeAterrizaje(); La clase Globo no es un IAvion es un IAeronave. Ademas dentro de la Interfas de IAeronave no existe el metodo cerrarTrenDeAterrizaje().
 		
 		//c
-		oAn = oAv; // el avión
+		oAn = oAv; // el aviï¿½n
 		((IAvion) oAn).abrirTrenDeAterrizaje(); //Para que funcione hay que especificar que la Interfas es la de IAvion y no la de IAeronave.
 		
 		//d
 		System.out.println("\nApartado d\n");
 		Globo oGl2 = new Globo("HHH100");
-		oGl2.despegar();
-		oGl2.aumentarAlturaDeVuelo(100);
-		System.out.println("Actualemente el vuelo " + oGl2.obtenerIdentificacion() + " vuela a "
+		oAn = oGl2;
+		oAn.despegar();
+		oAn.aumentarAlturaDeVuelo(100);
+		System.out.println("Actualemente el vuelo " + oAn.obtenerIdentificacion() + " vuela a "
 				+ oGl2.obtenerAlturaDeVuelo() + " pies de altura.");
-		oGl2.aterrizar();
-		oGl2.consultarEstado();
+		oAn.aterrizar();
+		oAn.consultarEstado();
 		oGl2.expulsarAire(1000);
 
 	}

@@ -34,14 +34,24 @@ public class Satelite implements ITelefono{
 	public byte getbCobertura() {
 		return bCobertura;
 	}
-	public void setbCobertura(byte bCobertura) {
-		this.bCobertura = bCobertura;
+	public boolean setbCobertura(byte bCobertura) {
+		boolean booExito = false;
+		if (bCobertura >= 0 && bCobertura <= 5) {
+			this.bCobertura = bCobertura;
+			booExito = true;
+		}
+		return booExito;
 	}
 	public byte getbSatelites() {
 		return bSatelites;
 	}
-	public void setbSatelites(byte bSatelites) {
-		this.bSatelites = bSatelites;
+	public boolean setbSatelites(byte bSatelites) {
+		boolean booExito = false;
+		if (bSatelites >= 0 && bSatelites <= 120) {
+			booExito = true;
+			this.bSatelites = bSatelites;
+		}
+		return booExito;
 	}
 	
 	public int consultarNumero() {
@@ -74,11 +84,6 @@ public class Satelite implements ITelefono{
 			booExito = true;
 		}
 		return booExito;
-		
 	}
-	
-	
-	
-	
-	
+
 }

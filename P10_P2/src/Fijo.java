@@ -5,6 +5,9 @@ public class Fijo implements ITelefono{
 	private boolean boollamando;
 	private boolean booAltavozActivo;
 	
+	public Fijo(int iNumTel) {
+		setiNumTel(iNumTel);
+	}
 	
 	public int getiNumTel() {
 		return iNumTel;

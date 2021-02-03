@@ -7,6 +7,9 @@ public class Satelite implements ITelefono{
 	private byte bCobertura;
 	private byte bSatelites;
 	
+	public Satelite(int iNumTel) {
+		setiNumTel(iNumTel);
+	}
 	
 	public int getiNumTel() {
 		return iNumTel;

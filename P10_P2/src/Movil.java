@@ -6,6 +6,9 @@ public class Movil implements ITelefono{
 	private boolean booAltavozActivo;
 	private byte bCobertura;
 	
+	public Movil(int iNumTel) {
+		setiNumTel(iNumTel);
+	}
 	
 	public int getiNumTel() {
 		return iNumTel;

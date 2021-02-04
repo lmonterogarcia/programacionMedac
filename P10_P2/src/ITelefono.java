@@ -2,9 +2,9 @@
 public interface ITelefono {
 	public int consultarNumero();
 	public String marcar(int iNumTelefono);
-	public void colgar();
-	public void activarAltavoz();
-	public void desactivarAltavoz();
+	public String colgar();
+	public String activarAltavoz();
+	public String desactivarAltavoz();
 	public boolean sonarTimbre();
 	
 }

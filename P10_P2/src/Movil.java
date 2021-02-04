@@ -25,14 +25,26 @@ public class Movil implements ITelefono{
 	public boolean isBoollamando() {
 		return boollamando;
 	}
-	public void setBoollamando(boolean boollamando) {
-		this.boollamando = boollamando;
+	public boolean setBoollamando(boolean boollamando) {
+		boolean booExito = false;
+		if (boollamando != this.boollamando) {
+			this.boollamando = boollamando;
+			booExito = true;
+		}
+	
+		return booExito;
 	}
 	public boolean isBooAltavozActivo() {
 		return booAltavozActivo;
 	}
-	public void setBooAltavozActivo(boolean booAltavozActivo) {
-		this.booAltavozActivo = booAltavozActivo;
+	public boolean setBooAltavozActivo(boolean booAltavozActivo) {
+		boolean booExito = false;
+		if (booAltavozActivo != this.booAltavozActivo) {
+			this.booAltavozActivo = booAltavozActivo;
+			booExito = true;
+		}
+	
+		return booExito;	
 	}
 	public byte getbCobertura() {
 		return bCobertura;
@@ -52,22 +64,31 @@ public class Movil implements ITelefono{
 
 	public String marcar(int iNumTelefono) {
 		setBoollamando(true);
-		return "Llamando a " + iNumTelefono;
+		return "Llamando a " + iNumTelefono + "desde el telefono " + STIPODETEL;
 	}
 
-	public void colgar() {
-		setBoollamando(false);
-		
+	public String colgar() {
+		String sMensaje = "No se ha podido colgar, ya que no está descalgado";
+		if (setBoollamando(false)) {
+			sMensaje = "Se acaba de colgar  el telefono " + STIPODETEL;
+		}
+		return sMensaje;
 	}
 
-	public void activarAltavoz() {
-		setBooAltavozActivo(true);
-		
+	public String activarAltavoz() {
+		String sMensaje = "No se ha podido activar porque ya esta activado";
+		if (setBooAltavozActivo(true)) {
+			sMensaje = "Se acaba activar el altavoz";
+		}
+		return sMensaje;
 	}
 
-	public void desactivarAltavoz() {
-		setBooAltavozActivo(false);
-		
+	public String desactivarAltavoz() {
+		String sMensaje = "No se ha podido activar porque ya esta activo";
+		if (setBooAltavozActivo(false)) {
+			sMensaje = "Se acaba de desactivar el altavoz";
+		}
+		return sMensaje;
 	}
 
 	public boolean sonarTimbre() {

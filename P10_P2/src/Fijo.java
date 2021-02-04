@@ -4,6 +4,7 @@ public class Fijo implements ITelefono{
 	private int iNumTel;
 	private boolean boollamando;
 	private boolean booAltavozActivo;
+	private final String STIPODETEL = "fijo";
 	
 	public Fijo(int iNumTel) {
 		setiNumTel(iNumTel);

@@ -5,6 +5,7 @@ public class Movil implements ITelefono{
 	private boolean boollamando;
 	private boolean booAltavozActivo;
 	private byte bCobertura;
+	private final String STIPODETEL = "movil";
 	
 	public Movil(int iNumTel) {
 		setiNumTel(iNumTel);

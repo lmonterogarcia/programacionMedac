@@ -6,6 +6,7 @@ public class Satelite implements ITelefono{
 	private boolean booAltavozActivo;
 	private byte bCobertura;
 	private byte bSatelites;
+	private final String STIPODETEL = "satelite";
 	
 	public Satelite(int iNumTel) {
 		setiNumTel(iNumTel);

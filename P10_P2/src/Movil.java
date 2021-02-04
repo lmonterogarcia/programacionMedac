@@ -4,8 +4,9 @@ public class Movil implements ITelefono{
 	private int iNumTel;
 	private boolean boollamando;
 	private boolean booAltavozActivo;
-	private byte bCobertura;
 	private final String STIPODETEL = "movil";
+	private byte bCobertura;
+	
 	
 	public Movil(int iNumTel) {
 		setiNumTel(iNumTel);
@@ -46,6 +47,9 @@ public class Movil implements ITelefono{
 	
 		return booExito;	
 	}
+	public String getSTIPODETEL() {
+		return STIPODETEL;
+	}
 	public byte getbCobertura() {
 		return bCobertura;
 	}
@@ -58,35 +62,35 @@ public class Movil implements ITelefono{
 		return booExito;
 	}
 	
-	public int consultarNumero() {
-		return getiNumTel();
+	public String consultarNumero() {
+		return "El telefono " + STIPODETEL + " es " + getiNumTel();
 	}
 
 	public String marcar(int iNumTelefono) {
 		setBoollamando(true);
-		return "Llamando a " + iNumTelefono + "desde el telefono " + STIPODETEL;
+		return "Telefono " + STIPODETEL + ": Llamando a " + iNumTelefono;
 	}
 
 	public String colgar() {
-		String sMensaje = "No se ha podido colgar, ya que no está descalgado";
+		String sMensaje = "Telefono " + STIPODETEL + ": No se ha podido colgar, ya que no está descalgado";
 		if (setBoollamando(false)) {
-			sMensaje = "Se acaba de colgar  el telefono " + STIPODETEL;
+			sMensaje = "Telefono " + STIPODETEL + ": Se acaba de colgar el telefono ";
 		}
 		return sMensaje;
 	}
 
 	public String activarAltavoz() {
-		String sMensaje = "No se ha podido activar porque ya esta activado";
+		String sMensaje = "Telefono " + STIPODETEL + ": No se ha podido activar porque ya esta activado";
 		if (setBooAltavozActivo(true)) {
-			sMensaje = "Se acaba activar el altavoz";
+			sMensaje = "Telefono " + STIPODETEL + ": Se acaba activar el altavoz";
 		}
 		return sMensaje;
 	}
 
 	public String desactivarAltavoz() {
-		String sMensaje = "No se ha podido activar porque ya esta activo";
+		String sMensaje = "Telefono " + STIPODETEL + ": No se ha podido activar porque ya esta activo";
 		if (setBooAltavozActivo(false)) {
-			sMensaje = "Se acaba de desactivar el altavoz";
+			sMensaje = "Telefono " + STIPODETEL + ": Se acaba de desactivar el altavoz";
 		}
 		return sMensaje;
 	}

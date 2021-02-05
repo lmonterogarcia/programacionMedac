@@ -1,5 +1,5 @@
 
-public class Tarjeta {
+public class Tarjeta implements ITarjetaDebito, ITarjetaMonedero{
 
 	private String sId;
 	private String sDniTitular;
@@ -61,16 +61,20 @@ public class Tarjeta {
 	}
 	
 	public void comprar(float fImporte, String sDni) {
-		//RELLENAR
+		if (sDni == getsDniTitular()) {
+			cargo(fImporte);
+		}
 	}
 	
 	public void retirarCajero(float fImporte, int iPin) {
-		//RELLENAR
+		if (iPin == this.iPin) {
+			cargo(fImporte);
+		}
 	}
 	
 	private boolean cargo(float fImporte) {
 		boolean booExito = false;
-		if (booExito) {
+		if (fImporte <= this.fSaldo) {
 			booExito = true;
 		}
 		return booExito;

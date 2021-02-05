@@ -1,11 +1,11 @@
 import java.util.Calendar;
 
-public class Revista implements IPublicacion{
+public class Revista implements IPublicacion,IConsultable{
 	private int iCodigo;
 	private String sAutor;
 	private String sTitulo;
 	private short shAnnoPublicacion;
-	private boolean booPrestado;
+	private boolean booConsulta;
 	private final String STIPO = "revista";
 	
 	public Revista(int iCodigo) {
@@ -16,7 +16,7 @@ public class Revista implements IPublicacion{
 		setsAutor(sAutor);
 		setsTitulo(sTitulo);
 		setShAnnoPublicacion(shAnnoPublicacion);
-		setBooPrestado(false);
+		setBooConsulta(false);
 	}
 	
 	public int getiCodigo() {
@@ -58,17 +58,34 @@ public class Revista implements IPublicacion{
 	public boolean setShAnnoPublicacion(short shAnnoPublicacion) {
 		boolean booExito = false;
 		Calendar.getInstance();
-		if (shAnnoPublicacion >= 1440 && shAnnoPublicacion <= (short) (Calendar.getInstance()).get(Calendar.YEAR)) {
+		if (shAnnoPublicacion >= SHANNOMINPUBLIC && shAnnoPublicacion <= (short) (Calendar.getInstance()).get(Calendar.YEAR)) {
 			this.shAnnoPublicacion = shAnnoPublicacion;
 			booExito = true;
 		}
 		return booExito;
 	}
-	public boolean isBooPrestado() {
-		return booPrestado;
+	private boolean isBooConsulta() {
+		return booConsulta;
 	}
-	public void setBooPrestado(boolean booPrestado) {
-		this.booPrestado = booPrestado;
+	private void setBooConsulta(boolean booConsulta) {
+		this.booConsulta = booConsulta;
+	}
+	public String getSTIPO() {
+		return STIPO;
+	}
+	
+	public void retirar() {
+		if (!estaConsultando()) {
+			setBooConsulta(true);
+		}
+	}
+	public void devolverConsulta() {
+		if (estaConsultando()) {
+			setBooConsulta(false);
+		}
+	}
+	public boolean estaConsultando() {
+		return isBooConsulta();
 	}
 	
 	public String toString() {
@@ -82,13 +99,13 @@ public class Revista implements IPublicacion{
 		if (getsTitulo() != null) {
 			sMensaje +="Titulo: " + getsTitulo() + "\n";
 		}
-		if (getShAnnoPublicacion() >= 1440) {
+		if (getShAnnoPublicacion() >= SHANNOMINPUBLIC) {
 			sMensaje +="Anno de publicacion: " + getShAnnoPublicacion() + "\n";
 		}
-		if (booPrestado) {
-			sMensaje +="Prestado: SI" + "\n\n";
+		if (estaConsultando()) {
+			sMensaje +="Consultando: SI" + "\n\n";
 		} else {
-			sMensaje +="Prestado: NO" + "\n\n";
+			sMensaje +="Consultando: NO" + "\n\n";
 		}
 		return sMensaje;
 	}

@@ -1,11 +1,12 @@
 import java.util.Calendar;
 
-public class Libro implements IPublicacion{
+public class Libro implements IPublicacion, IPrestable, IConsultable{
 	private int iCodigo;
 	private String sAutor;
 	private String sTitulo;
 	private short shAnnoPublicacion;
 	private boolean booPrestado;
+	private boolean booConsulta;
 	private final String STIPO = "libro";
 	
 	public Libro(int iCodigo) {
@@ -17,6 +18,7 @@ public class Libro implements IPublicacion{
 		setsTitulo(sTitulo);
 		setShAnnoPublicacion(shAnnoPublicacion);
 		setBooPrestado(false);
+		setBooConsulta(false);
 	}
 	
 	public int getiCodigo() {
@@ -57,17 +59,54 @@ public class Libro implements IPublicacion{
 	}
 	public boolean setShAnnoPublicacion(short shAnnoPublicacion) {
 		boolean booExito = false;
-		if (shAnnoPublicacion >= 1440 && shAnnoPublicacion <= (short) (Calendar.getInstance()).get(Calendar.YEAR)) {
+		if (shAnnoPublicacion >= SHANNOMINPUBLIC && shAnnoPublicacion <= (short) (Calendar.getInstance()).get(Calendar.YEAR)) {
 			this.shAnnoPublicacion = shAnnoPublicacion;
 			booExito = true;
 		}
 		return booExito;
 	}
-	public boolean isBooPrestado() {
+	private boolean isBooPrestado() {
 		return booPrestado;
 	}
-	public void setBooPrestado(boolean booPrestado) {
+	private void setBooPrestado(boolean booPrestado) {
 		this.booPrestado = booPrestado;
+	}
+	private boolean isBooConsulta() {
+		return booConsulta;
+	}
+	private void setBooConsulta(boolean booConsulta) {
+		this.booConsulta = booConsulta;
+	}
+	public String getSTIPO() {
+		return STIPO;
+	}
+	
+	public void prestar() {
+		if (!estaPrestado() && !estaConsultando()) {
+			setBooPrestado(true);
+		}
+	}
+	public void devolverPrestamo() {
+		if (estaPrestado() && !estaConsultando()) {
+			setBooPrestado(false);
+		}
+	}
+	public boolean estaPrestado() {
+		return isBooPrestado();
+	}
+	
+	public void retirar() {
+		if (!estaPrestado() && !estaConsultando()) {
+			setBooConsulta(true);
+		}
+	}
+	public void devolverConsulta() {
+		if (!estaPrestado() && estaConsultando()) {
+			setBooConsulta(false);
+		}
+	}
+	public boolean estaConsultando() {
+		return isBooConsulta();
 	}
 	
 	public String toString() {
@@ -81,13 +120,18 @@ public class Libro implements IPublicacion{
 		if (getsTitulo() != null) {
 			sMensaje +="Titulo: " + getsTitulo() + "\n";
 		}
-		if (getShAnnoPublicacion() >= 1440) {
+		if (getShAnnoPublicacion() >= SHANNOMINPUBLIC) {
 			sMensaje +="Anno de publicacion: " + getShAnnoPublicacion() + "\n";
 		}
-		if (booPrestado) {
-			sMensaje +="Prestado: SI" + "\n\n";
+		if (estaPrestado()) {
+			sMensaje +="Prestado: SI" + "\n";
 		} else {
-			sMensaje +="Prestado: NO" + "\n\n";
+			sMensaje +="Prestado: NO" + "\n";
+		}
+		if (estaConsultando()) {
+			sMensaje +="Consultado: SI" + "\n\n";
+		} else {
+			sMensaje +="Consultado: NO" + "\n\n";
 		}
 		return sMensaje;
 	}

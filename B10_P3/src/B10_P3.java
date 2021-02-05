@@ -1,5 +1,3 @@
-import java.util.Calendar;
-
 public class B10_P3 {
 
 	public static void main(String[] args) {
@@ -12,25 +10,29 @@ public class B10_P3 {
 		System.out.println(oPublicacion);
 		oPublicacion.setShAnnoPublicacion((short)3254); //No debe cambiar
 		oPublicacion.setsTitulo("La reina del sur");
-		oPublicacion.setBooPrestado(true);
+		((IPrestable)oPublicacion).prestar();
+		((IConsultable)oPublicacion).retirar(); //No debe cambiar
 		System.out.println(oPublicacion);
 		
 		oPublicacion = oRevista;
 		System.out.println(oPublicacion);
 		oPublicacion.setShAnnoPublicacion((short)2012); 
 		oPublicacion.setiCodigo(354789);//No debe cambiar
-		oPublicacion.setBooPrestado(true);
+		((IConsultable)oPublicacion).retirar();
 		System.out.println(oPublicacion);
 		
 		oPublicacion = oDisco;
 		System.out.println(oPublicacion);
 		oPublicacion.setsAutor(""); //No debe cambiar
 		oPublicacion.setsTitulo("Blood Sugar Sex Magik");
-		oPublicacion.setBooPrestado(true);
+		((IPrestable)oPublicacion).prestar();
 		System.out.println(oPublicacion);
 
 	
 	
 	}
 
+	
+	
+	
 }

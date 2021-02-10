@@ -6,7 +6,7 @@ public class B9_EJ2 {
 		// acceder
 		// por lo que las reglas no pueden ser violadas.
 
-		Persona oPersona1 = new Persona("Luis", "Montero", "Garcia-Manjar�n");
+		Persona oPersona1 = new Persona("Luis", "Montero", "Garcia-Manjarón");
 		demostrarClase(oPersona1);
 		
 	}

@@ -3,5 +3,6 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="src" path="MaterialPractica10/src"/>
 	<classpathentry kind="lib" path="MaterialPractica10/dist/MaterialEPD04.jar"/>
+	<classpathentry kind="src" path="B11_EJ1"/>
 	<classpathentry kind="output" path="MaterialPractica10/build/classes"/>
 </classpath>

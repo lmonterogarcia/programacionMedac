@@ -183,7 +183,7 @@ public class ReproductorPortatil implements IReproductorPortatil {
     }
 
     public String toString() {
-        String sMensaje = "\nReproductor Portatil\n";
+        String sMensaje = "\nReproductor Portatil\n\n";
         sMensaje += "Marca: " + getsMarca();
         sMensaje += "\nModelo: " + getsModelo();
         sMensaje += "\nTipo de almacenamiento: ";

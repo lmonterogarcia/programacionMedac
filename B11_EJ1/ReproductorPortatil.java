@@ -6,6 +6,10 @@ public class ReproductorPortatil implements IReproductorPortatil {
     private int iCapacidadDeAlmacenamiento;
     private float fPeso, fAncho, fAlto, fGrosor;
 
+    public ReproductorPortatil(String sModelo){
+        setsModelo(sModelo);
+    }
+    
     public ReproductorPortatil(String sMarca, String sModelo, byte bTipoDeAlmacenamiento) {
         setsMarca(sMarca);
         setsModelo(sModelo);

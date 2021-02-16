@@ -36,7 +36,7 @@ public interface IReproductorPortatil {
     public boolean setbAutonomia(byte bAutonomia);
     
     public int getiCapacidadDeAlmacenamiento();
-    public boolean setiCapacidadDeAlmacenamiento(short shCapacidadDeAlmacenamiento);
+    public boolean setiCapacidadDeAlmacenamiento(int shCapacidadDeAlmacenamiento);
     
     public float getfPeso();
     public boolean setfPeso(float fPeso);

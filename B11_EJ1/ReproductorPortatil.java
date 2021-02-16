@@ -125,7 +125,7 @@ public class ReproductorPortatil implements IReproductorPortatil {
         return iCapacidadDeAlmacenamiento;
     }
 
-    public boolean setiCapacidadDeAlmacenamiento(short iCapacidadDeAlmacenamiento) {
+    public boolean setiCapacidadDeAlmacenamiento(int iCapacidadDeAlmacenamiento) {
         boolean booExito = false;
         if (iCapacidadDeAlmacenamiento >= 1 && iCapacidadDeAlmacenamiento <= 100000) {
             this.iCapacidadDeAlmacenamiento = iCapacidadDeAlmacenamiento;
@@ -234,25 +234,25 @@ public class ReproductorPortatil implements IReproductorPortatil {
             sMensaje += "Ninguna";
         }
         if (bAutonomia >= 1 && bAutonomia <= 100) {
-            sMensaje += "\nAutonomia: " + getbAutonomia();
+            sMensaje += "\nAutonomia: " + getbAutonomia() + " horas";
         }
         if (iCapacidadDeAlmacenamiento >= 1 && iCapacidadDeAlmacenamiento <= 100000) {
-            sMensaje += "\nCapacidad de almacenamiento: " + getiCapacidadDeAlmacenamiento();
+            sMensaje += "\nCapacidad de almacenamiento: " + getiCapacidadDeAlmacenamiento() + " Mb";
         }
         if (fPeso >= 1 && fPeso <= 1000) {
-            sMensaje += "\nPeso: " + getfPeso();
+            sMensaje += "\nPeso: " + getfPeso() + " gr";
         }
         if ((fAncho >= 1 && fAncho <= 1000) || (fAlto >= 1 && fAlto <= 1000) ||(fGrosor >= 1 && fGrosor <= 1000)) {
             sMensaje += "\nMedidas";
         }
         if (fAncho >= 1 && fAncho <= 1000) {
-            sMensaje += "\nAncho: " + getfAncho();
+            sMensaje += "\nAncho: " + getfAncho() + " cm";
         }
         if (fAlto >= 1 && fAlto <= 1000) {
-            sMensaje += "\nAlto: " + getfAlto();
+            sMensaje += "\nAlto: " + getfAlto() + " cm";
         }
         if (fGrosor >= 1 && fGrosor <= 1000) {
-            sMensaje += "\nGrosor: " + getfGrosor();
+            sMensaje += "\nGrosor: " + getfGrosor() + " cm";
         }
         return sMensaje;
     }

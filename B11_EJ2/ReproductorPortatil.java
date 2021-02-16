@@ -1,4 +1,4 @@
-public class ReproductorPortatil implements IReproductorPortatil {
+abstract class ReproductorPortatil implements IReproductorPortatil {
 
     private String sMarca, sModelo;
     private boolean booReproduceSonido, booReproduceVideo;
@@ -6,11 +6,11 @@ public class ReproductorPortatil implements IReproductorPortatil {
     private int iCapacidadDeAlmacenamiento;
     private float fPeso, fAncho, fAlto, fGrosor;
 
-    public ReproductorPortatil(String sModelo){
+    protected ReproductorPortatil(String sModelo){
         setsModelo(sModelo);
     }
     
-    public ReproductorPortatil(String sMarca, String sModelo, byte bTipoDeAlmacenamiento) {
+    protected ReproductorPortatil(String sMarca, String sModelo, byte bTipoDeAlmacenamiento) {
         setsMarca(sMarca);
         setsModelo(sModelo);
         setbTipoDeAlmacenamiento(bTipoDeAlmacenamiento);

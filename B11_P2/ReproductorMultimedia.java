@@ -111,9 +111,13 @@ public class ReproductorMultimedia extends ReproductorPortatil implements IRepro
     
     public boolean setbooReproduceAudioCDs(boolean booReproduceAudioCDs) {
         boolean booExito = false;
-        if ( super.getbTipoDeAlmacenamiento() == BCD && booReproduceAudioCDs != this.booReproduceAudioCDs) {
-            this.booReproduceAudioCDs = booReproduceAudioCDs;
-            booExito = true;
+        if ( super.getbTipoDeAlmacenamiento() == BCD){
+            if (booReproduceAudioCDs != this.booReproduceAudioCDs) {
+                this.booReproduceAudioCDs = booReproduceAudioCDs;
+                booExito = true;
+            }
+        } else {
+            this.booReproduceAudioCDs = false;
         }
         return booExito;
     }

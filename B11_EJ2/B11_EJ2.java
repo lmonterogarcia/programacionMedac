@@ -7,7 +7,6 @@ public class B11_EJ2 {
         ReproductorDeAudio oRa = new ReproductorDeAudio("Sony", "NM-WM1Z", (byte) 1, true, true, true, false);
         
         oRa.setbAutonomia((byte) 20);
-        oRa.setbTipoDeAlmacenamiento((byte) 3);
         oRa.setBooReproduceVideo(true);
         oRa.setbPantalla((byte) 3);
         oRa.setbTipoDeBateria((byte) 2);

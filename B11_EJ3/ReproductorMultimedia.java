@@ -1,6 +1,6 @@
-// He decidido que herede de reproductor portatil. Otra opcion podria ser que heredase de Reproductor de audio o video
+// He decidido que herede de reproductor portatil e implemente las interfacez de audio y video. Otra opcion podria ser que heredase de Reproductor de audio o video
 // y que implementance la que no se ha heredado. Se puede hacer de varias maneras.
-// No he creado una interfaz especifica, ay que tengo todo lo necesario en las otras dos.
+// No he creado una interfaz especifica, ya que tengo todo lo necesario en las otras dos.
 
 public class ReproductorMultimedia extends ReproductorPortatil implements IReproductorAudio, IReproductorVideo {
     private boolean booReproduceAudioCDs;

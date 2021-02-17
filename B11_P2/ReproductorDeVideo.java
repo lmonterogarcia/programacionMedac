@@ -127,7 +127,7 @@ public class ReproductorDeVideo extends ReproductorPortatil implements IReproduc
     }
     
     public String toString(){
-        String sMensaje = super.toString();
+        String sMensaje = "\n### Reproductor de Video ###" + super.toString();
         if (isbooReproduceWMV() || isbooReproduceDIVX() || isbooReporduceMPG() || isbooReproduceDVD() || isbooReproduceJPG() || getbTamnioDeLaPantalla() > 0 || isbooTelevision()) {
             sMensaje += "\n\nCARACTERISTICAS de video";
             if (isbooReproduceWMV()) {

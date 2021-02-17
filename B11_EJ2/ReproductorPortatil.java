@@ -187,8 +187,8 @@ abstract class ReproductorPortatil implements IReproductorPortatil {
     }
 
     public String toString() {
-        String sMensaje = "\n### Reproductor Portatil ###\n\n";
-        sMensaje += "Marca: " + getsMarca();
+        String sMensaje = "";
+        sMensaje += "\n\nMarca: " + getsMarca();
         sMensaje += "\nModelo: " + getsModelo();
         sMensaje += "\nTipo de almacenamiento: ";
         switch (getbTipoDeAlmacenamiento()) {

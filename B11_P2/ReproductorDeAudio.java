@@ -126,7 +126,7 @@ public class ReproductorDeAudio extends ReproductorPortatil implements IReproduc
     }
     
     public String toString(){
-        String sMensaje = super.toString();
+        String sMensaje = "\n### Reproductor de Audio ###" + super.toString();
         if (isbooReproduceAudioCDs() || isbooReproduceMP3() || isbooReporduceWMA() || isbooReproduceVorbis() || isbooAcesoPorCarpetas() || isbooRadio() || isbooGrabacionDeVoz()) {
             sMensaje += "\n\nCARACTERISTICAS de audio";
             if (isbooReproduceAudioCDs()) {

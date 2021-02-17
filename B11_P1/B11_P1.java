@@ -4,7 +4,7 @@
 public class B11_P1 {
 
     public static void main(String[] args) {
-        ReproductorDeVideo oRv = new ReproductorDeVideo("Sony", "NM-WM1Z", (byte) 1, (byte) 21);
+        ReproductorDeVideo oRv = new ReproductorDeVideo("Sony", "NM-WM1Z", (byte) 21);
         
         oRv.setbAutonomia((byte) 20);
         oRv.setbTipoDeAlmacenamiento((byte) 3);

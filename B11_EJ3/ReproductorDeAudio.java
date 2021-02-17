@@ -14,13 +14,24 @@ public class ReproductorDeAudio extends ReproductorPortatil implements IReproduc
     }
 
     public ReproductorDeAudio(String sMarca, String sModelo, byte bTipoDeAlmacenamiento, boolean booReproduceAudioCDs, boolean booReproduceMP3, boolean booReporduceWMA, boolean booReproduceVorbis){
-        super(sMarca, sModelo, bTipoDeAlmacenamiento);
+        super(sModelo);
+        super.setsMarca(sMarca);
+        setbTipoDeAlmacenamiento(bTipoDeAlmacenamiento);
         setbooReproduceAudioCDs(booReproduceAudioCDs);
         setbooReproduceMP3(booReproduceMP3);
         setbooReporduceWMA(booReporduceWMA);
         setbooReproduceVorbis(booReproduceVorbis);
     }
     
+    public boolean setbTipoDeAlmacenamiento(byte bTipoDeAlmacenamiento){
+        boolean booExito = super.setbTipoDeAlmacenamiento(bTipoDeAlmacenamiento);
+        if (super.getbTipoDeAlmacenamiento() != BCD) {
+            this.booReproduceAudioCDs = false;
+        }
+        return booExito;
+    }
+
+
     public boolean isbooAcesoPorCarpetas() {
         return this.booAcesoPorCarpetas;
     }
@@ -115,7 +126,7 @@ public class ReproductorDeAudio extends ReproductorPortatil implements IReproduc
         return booExito;
     }
 
-    
+
     public boolean setbooReproduceVorbis(boolean booReproduceVorbis) {
         boolean booExito = false;
         if (booReproduceVorbis != this.booReproduceVorbis) {

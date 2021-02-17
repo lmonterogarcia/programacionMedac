@@ -12,11 +12,10 @@ public class ReproductorDeVideo extends ReproductorPortatil implements IReproduc
     public ReproductorDeVideo(String sModelo){
         super(sModelo);
     }
-    //¡¡¡¡¡¡¡¡ Para poder crear el constructor hay que llamar a un constructor
-    // de la clase super. Por lo que tb hay que incluir bTipoDeAlmacenamiento en
-    // en los atributos necesarios para crear un ReproductorDeVideo!!!!!!!!!!!!
-    public ReproductorDeVideo(String sMarca, String sModelo,byte bTipoDeAlmacenamiento,  byte bTamnioDeLaPantalla){
-        super(sMarca, sModelo, bTipoDeAlmacenamiento);
+
+    public ReproductorDeVideo(String sMarca, String sModelo, byte bTamnioDeLaPantalla){
+        super(sModelo);
+        super.setsMarca(sMarca);
         setbTamnioDeLaPantalla(bTamnioDeLaPantalla);
         super.setBooReproduceVideo(true);
 

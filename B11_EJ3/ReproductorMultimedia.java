@@ -24,15 +24,26 @@ public class ReproductorMultimedia extends ReproductorPortatil implements IRepro
     }
     
     public ReproductorMultimedia(String sMarca, String sModelo,byte bTipoDeAlmacenamiento, boolean booReproduceAudioCDs, boolean booReproduceMP3, boolean booReporduceWMA, boolean booReproduceVorbis, byte bTamnioDeLaPantalla){
-        super(sMarca, sModelo, bTipoDeAlmacenamiento);
+        super(sModelo);
+        super.setsMarca(sMarca);
+        setbTipoDeAlmacenamiento(bTipoDeAlmacenamiento);
         setbooReproduceAudioCDs(booReproduceAudioCDs);
         setbooReproduceMP3(booReproduceMP3);
         setbooReporduceWMA(booReporduceWMA);
         setbooReproduceVorbis(booReproduceVorbis);
         setbTamnioDeLaPantalla(bTamnioDeLaPantalla);
         super.setBooReproduceVideo(true);
-
     }
+
+
+    public boolean setbTipoDeAlmacenamiento(byte bTipoDeAlmacenamiento){
+        boolean booExito = super.setbTipoDeAlmacenamiento(bTipoDeAlmacenamiento);
+        if (super.getbTipoDeAlmacenamiento() != BCD) {
+            this.booReproduceAudioCDs = false;
+        }
+        return booExito;
+    }
+
 
     public boolean isbooAcesoPorCarpetas() {
         return this.booAcesoPorCarpetas;

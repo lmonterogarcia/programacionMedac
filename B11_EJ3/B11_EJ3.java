@@ -1,7 +1,7 @@
 public class B11_EJ3 {
     public static void main(String[] args) {
         ReproductorDeAudio oRa = new ReproductorDeAudio("Apple", "HomePod", (byte) 3, false, true, true, false);
-        ReproductorDeVideo oRv = new ReproductorDeVideo("Philips", "Hy45-Hyu", (byte) 4, (byte) 5);
+        ReproductorDeVideo oRv = new ReproductorDeVideo("Philips", "Hy45-Hyu", (byte) 5);
         ReproductorMultimedia oRm = new ReproductorMultimedia("Sony", "NM-WM1Z", (byte) 1, true, true, false, false, (byte) 21);
         
         oRa.setbAutonomia((byte) 0);

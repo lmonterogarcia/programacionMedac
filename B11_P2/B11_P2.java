@@ -4,6 +4,7 @@ public class B11_P2 {
         
         oRm.setbAutonomia((byte) 20);
         oRm.setBooReproduceVideo(true);
+        //oRm.setbTipoDeAlmacenamiento((byte) 3);
         oRm.setbPantalla((byte) 3);
         oRm.setbTipoDeBateria((byte) 2);
         oRm.setiCapacidadDeAlmacenamiento(20000);

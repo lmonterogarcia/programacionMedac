@@ -8,6 +8,7 @@ public class B11_EJ2 {
         
         oRa.setbAutonomia((byte) 20);
         oRa.setBooReproduceVideo(true);
+        //oRa.setbTipoDeAlmacenamiento((byte) 3);
         oRa.setbPantalla((byte) 3);
         oRa.setbTipoDeBateria((byte) 2);
         oRa.setiCapacidadDeAlmacenamiento(20000);

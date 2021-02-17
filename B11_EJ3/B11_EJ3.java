@@ -6,6 +6,7 @@ public class B11_EJ3 {
         
         oRa.setbAutonomia((byte) 0);
         oRa.setBooReproduceVideo(false);
+        //oRa.setbTipoDeAlmacenamiento((byte) 3);
         oRa.setbPantalla((byte) 1);
         oRa.setbTipoDeBateria((byte) 2);
         oRa.setiCapacidadDeAlmacenamiento(60000);
@@ -23,6 +24,7 @@ public class B11_EJ3 {
 
         oRm.setbAutonomia((byte) 90);
         oRm.setBooReproduceVideo(true);
+        //oRm.setbTipoDeAlmacenamiento((byte) 3);
         oRm.setbPantalla((byte) 2);
         oRm.setbTipoDeBateria((byte) 1);
         oRm.setiCapacidadDeAlmacenamiento(20000);

@@ -1,7 +1,7 @@
 public class BonoDiezViajes extends BonoBus implements IBonoBus {
     
-    private boolean booValido;
-    private byte bViajesRealizados;
+    protected boolean booValido;
+    protected byte bViajesRealizados;
 
     public BonoDiezViajes(int idBonoBus){
         super(idBonoBus);
@@ -13,7 +13,7 @@ public class BonoDiezViajes extends BonoBus implements IBonoBus {
         return booValido;
     }
 
-    private void setBooValido(boolean booValido) {
+    protected void setBooValido(boolean booValido) {
         this.booValido = booValido;
     }
 
@@ -21,7 +21,7 @@ public class BonoDiezViajes extends BonoBus implements IBonoBus {
         return bViajesRealizados;
     }
 
-    private boolean setbViajesRealizados(byte bViajesRealizados) {
+    protected boolean setbViajesRealizados(byte bViajesRealizados) {
         boolean booExito = false;
         if (isBooValido() && bViajesRealizados > this.bViajesRealizados) {
             this.bViajesRealizados = bViajesRealizados;
@@ -30,7 +30,7 @@ public class BonoDiezViajes extends BonoBus implements IBonoBus {
         return booExito;
     }
 
-    private boolean bonoBusAcabado () {
+    protected boolean bonoBusAcabado () {
         boolean booExito = false;
         if (this.bViajesRealizados < 10) {
            booExito = true;

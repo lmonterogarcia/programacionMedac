@@ -2,21 +2,76 @@ import java.util.GregorianCalendar;
 
 public class BonoTarifaPlana extends BonoBus implements IBonoBus {
 
-    GregorianCalendar oCaducidad;
-    
-
-    public BonoTarifaPlana(int idBonoBus){
-        super(idBonoBus);
-    }
+    protected GregorianCalendar oCaducidad;
+    private byte bDiaCaducidad;
+    private byte bMesCaducidad;
+    private short shAnioCaducidad;
+    private byte bHorasCaducidad;
+    private byte bMinutosCaducidad;
 
     public BonoTarifaPlana(int idBonoBus) {
         super(idBonoBus);
-        oCaducidad = (GregorianCalendar) GregorianCalendar.getInstance();
-        oCaducidad.add((GregorianCalendar.MONTH), 1);
-        
     }
 
-    @Override
+    public BonoTarifaPlana(int idBonoBus, GregorianCalendar oCaducidad, byte bDiaCaducidad, byte bMesCaducidad, short shAnioCaducidad, byte bHoraCaducidad, byte bMinutoCaducidad) {
+        super(idBonoBus);
+        setbDiaCaducidad(bDiaCaducidad);
+        setbMesCaducidad(bMesCaducidad);
+        this.shAnioCaducidad = shAnioCaducidad;
+        this.bHorasCaducidad = bHorasCaducidad;
+        this.bMinutosCaducidad = bMinutosCaducidad;
+        this.oCaducidad = new GregorianCalendar(this.shAnioCaducidad, this.bMesCaducidad, this.bDiaCaducidad, this.bHorasCaducidad, this.bMinutosCaducidad);
+
+    }
+
+    public GregorianCalendar getoCaducidad() {
+        return oCaducidad;
+    }
+
+    protected void setoCaducidad(GregorianCalendar oCaducidad) {
+        this.oCaducidad = oCaducidad;
+    }
+
+    public byte getbDiaCaducidad() {
+        return bDiaCaducidad;
+    }
+
+    protected void setbDiaCaducidad(byte bDiaCaducidad) {
+        this.bDiaCaducidad = bDiaCaducidad;
+    }
+
+    public byte getbMesCaducidad() {
+        return bMesCaducidad;
+    }
+
+    protected void setbMesCaducidad(byte bMesCaducidad) {
+        this.bMesCaducidad = bMesCaducidad;
+    }
+
+    public short getShAnioCaducidad() {
+        return shAnioCaducidad;
+    }
+
+    protected void setShAnioCaducidad(short shAnioCaducidad) {
+        this.shAnioCaducidad = shAnioCaducidad;
+    }
+
+    public byte getbHorasCaducidad() {
+        return bHorasCaducidad;
+    }
+
+    protected void setbHorasCaducidad(byte bHorasCaducidad) {
+        this.bHorasCaducidad = bHorasCaducidad;
+    }
+
+    public byte getbMinutosCaducidad() {
+        return bMinutosCaducidad;
+    }
+
+    protected void setbMinutosCaducidad(byte bMinutosCaducidad) {
+        this.bMinutosCaducidad = bMinutosCaducidad;
+    }
+
     public boolean picarViaje(short shLineaBus, byte bDia, byte bMes, short shAnio, byte bHora, byte bMinuto) {
         boolean booExito = false;
         GregorianCalendar oFechaViaje = new GregorianCalendar(shAnio, bMes, bDia, bHora, bMinuto);

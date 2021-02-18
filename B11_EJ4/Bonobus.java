@@ -16,7 +16,7 @@ abstract class BonoBus {
 		return idBonoBus;
 	}
 
-	public boolean setIdBonoBus(int idBonoBus) {
+	protected boolean setIdBonoBus(int idBonoBus) {
 		boolean booExito = false;
         if (idBonoBus > 1000000 && idBonoBus <= 999999999) {
            this.idBonoBus = idBonoBus; 
@@ -29,7 +29,7 @@ abstract class BonoBus {
 		return shLineaBus;
 	}  
 
-	public boolean setShLineaBus(short shLineaBus) {
+	protected boolean setShLineaBus(short shLineaBus) {
         boolean booExito = false;
         if (idBonoBus > 0 && idBonoBus <= 10) {
             this.shLineaBus = shLineaBus; 
@@ -42,7 +42,7 @@ abstract class BonoBus {
 		return bDia;
 	}
     
-	public boolean setbDia(byte bDia) {
+	protected boolean setbDia(byte bDia) {
 		boolean booExito = false;
         if (bDia > 0 && bDia <= diaMaxFecha(getbMes(), esBisiesto(this.shAnio)) ) {
 			this.bDia = bDia;
@@ -57,7 +57,7 @@ abstract class BonoBus {
 		return bMes;
 	}
 
-	public boolean setbMes(byte bMes) {
+	protected boolean setbMes(byte bMes) {
 		boolean booExito = false;
         if (bMes > 0 && bMes <= 12 ) {
 			this.bMes = bMes;
@@ -72,7 +72,7 @@ abstract class BonoBus {
 		return shAnio;
 	}
 
-	public boolean setShAnio(short shAnio) {
+	protected boolean setShAnio(short shAnio) {
 		boolean booExito = false;
         if (shAnio > 1 && shAnio < SHANIOMAX) {
 			this.shAnio = shAnio;
@@ -87,7 +87,7 @@ abstract class BonoBus {
 		return bHoras;
 	}
 
-	public boolean setbHoras(byte bHoras) {
+	protected boolean setbHoras(byte bHoras) {
 		boolean booExito = false;
 		if (bHoras >= 0 && bHoras <= 23) {
 			this.bHoras = bHoras;
@@ -100,7 +100,7 @@ abstract class BonoBus {
 		return bMinutos;
 	}
 
-	public boolean setbMinutos(byte bMinutos) {
+	protected boolean setbMinutos(byte bMinutos) {
 		boolean booExito = false;
 		if (bMinutos >= 0 && bMinutos <= 59) {
 			this.bMinutos = bMinutos;
@@ -143,9 +143,4 @@ abstract class BonoBus {
 		return "### Id Bonobus " + idBonoBus + " ###\n\n";
 	}
 
-	public void BonoBus(int idBonoBus2) {
-	}
-	
-    
-    
 }

@@ -1,12 +1,13 @@
 import java.util.*;
 
-public class BonoTarifaPlanaUnDia extends BonoTarifaPlana {
-    
+
+public class BonoTarifaPlanaUnAnio extends BonoTarifaPlana {
+
     private final int ICADUCIDAD = 1;
-    private final int ITIPOFECHA = Calendar.DAY_OF_MONTH;
+    private final int ITIPOFECHA = Calendar.YEAR;
     private boolean booPrimerViaje;
 
-    public BonoTarifaPlanaUnDia(int idBonoBus) {
+    public BonoTarifaPlanaUnAnio(int idBonoBus) {
         super(idBonoBus);
         booPrimerViaje = true;
     }

@@ -1,12 +1,19 @@
-import java.util.Calendar;
+import java.util.*;
 
 public class BonoDiezViajesConTrasbordo extends BonoDiezViajes {
    
-    private Calendar oUltimoViaje;
-    private final int IUNAHORA = 3600000;
+    private GregorianCalendar oUltimoViaje;
 
     public BonoDiezViajesConTrasbordo(int idBonoBus) {
         super(idBonoBus);
+    }
+
+    public GregorianCalendar getoUltimoViaje() {
+        return oUltimoViaje;
+    }
+
+    public void setoUltimoViaje(GregorianCalendar oUltimoViaje) {
+        this.oUltimoViaje = oUltimoViaje;
     }
 
     public boolean picarViaje(short shLineaBus, byte bDia, byte bMes, short shAnio, byte bHora, byte bMinuto) {
@@ -21,7 +28,8 @@ public class BonoDiezViajesConTrasbordo extends BonoDiezViajes {
             if (super.setShLineaBus(shLineaBus) && super.setbDia(bDia) && super.setbMes(bMes) && super.setShAnio(shAnio) && super.setbHoras(bHora) && super.setbMinutos(bMinuto)) {
                 setbViajesRealizados((byte) (this.bViajesRealizados + 1));
                 setBooValido(bonoBusAcabado());
-                oUltimoViaje.set(shAnio, bMes, bDia, bHora, bMinuto);
+                oUltimoViaje = new GregorianCalendar(shAnio, bMes, bDia, bHora, bMinuto);
+                oUltimoViaje.add(Calendar.HOUR_OF_DAY , 1);
                 booExito = true;
             }
         }
@@ -30,15 +38,15 @@ public class BonoDiezViajesConTrasbordo extends BonoDiezViajes {
 
     private boolean transbordo(short shLineaBus, byte bDia, byte bMes, short shAnio, byte bHora, byte bMinuto) {
         boolean booExito = false;
-        Calendar oFechaViaje = Calendar.getInstance();
-        oFechaViaje.set(shAnio, bMes, bDia, bHora, bMinuto);
+        GregorianCalendar oFechaViaje = new GregorianCalendar(shAnio, bMes, bDia, bHora, bMinuto);
 
-        if (super.getbViajesRealizados() > 0 && super.getbViajesRealizados() >= 10 && shLineaBus != super.getShLineaBus()) {
-            if (oUltimoViaje.compareTo(oFechaViaje) >= 0 && oUltimoViaje.compareTo(oFechaViaje) <= IUNAHORA) {
+        if (super.getbViajesRealizados() > 0 && super.getbViajesRealizados() <= 10 && shLineaBus != super.getShLineaBus()) {
+            if (oFechaViaje.before(getoUltimoViaje())) {
                 booExito = true;
             }
         }
         return booExito;
     }
 
+    
 }

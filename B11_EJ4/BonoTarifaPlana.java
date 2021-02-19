@@ -1,8 +1,8 @@
-import java.util.GregorianCalendar;
+import java.util.*;
 
-public class BonoTarifaPlana extends BonoBus implements IBonoBus {
+abstract class BonoTarifaPlana extends BonoBus implements IBonoBus {
 
-    protected GregorianCalendar oCaducidad;
+    protected GregorianCalendar oCaducidad; // en vez de crear 5 atributos, he creado un objeto de la clase Calendar. Se simplifica todo muchisimo.
     private byte bDiaCaducidad;
     private byte bMesCaducidad;
     private short shAnioCaducidad;
@@ -13,15 +13,14 @@ public class BonoTarifaPlana extends BonoBus implements IBonoBus {
         super(idBonoBus);
     }
 
-    public BonoTarifaPlana(int idBonoBus, GregorianCalendar oCaducidad, byte bDiaCaducidad, byte bMesCaducidad, short shAnioCaducidad, byte bHoraCaducidad, byte bMinutoCaducidad) {
+    public BonoTarifaPlana(int idBonoBus, byte bDiaCaducidad, byte bMesCaducidad, short shAnioCaducidad, byte bHoraCaducidad, byte bMinutoCaducidad) {
         super(idBonoBus);
         setbDiaCaducidad(bDiaCaducidad);
         setbMesCaducidad(bMesCaducidad);
         this.shAnioCaducidad = shAnioCaducidad;
-        this.bHorasCaducidad = bHorasCaducidad;
-        this.bMinutosCaducidad = bMinutosCaducidad;
+        this.bHorasCaducidad = bHoraCaducidad;
+        this.bMinutosCaducidad = bMinutoCaducidad;
         this.oCaducidad = new GregorianCalendar(this.shAnioCaducidad, this.bMesCaducidad, this.bDiaCaducidad, this.bHorasCaducidad, this.bMinutosCaducidad);
-
     }
 
     public GregorianCalendar getoCaducidad() {
@@ -82,5 +81,10 @@ public class BonoTarifaPlana extends BonoBus implements IBonoBus {
         }
         return booExito;
     }
-    
+ 
+    public String toString(){
+        String sMensaje = super.toString();
+        sMensaje += "\nValido hasta " + oCaducidad.get(Calendar.DAY_OF_MONTH) + "/" + oCaducidad.get(Calendar.MONTH) + "/" + oCaducidad.get(Calendar.YEAR) + " " + oCaducidad.get(Calendar.HOUR_OF_DAY) + ":" + oCaducidad.get(Calendar.MINUTE) + "\n";
+        return sMensaje;
+    }
 }

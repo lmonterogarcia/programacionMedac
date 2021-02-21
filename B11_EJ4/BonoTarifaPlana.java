@@ -3,7 +3,7 @@ import java.time.*;
 
 abstract class BonoTarifaPlana extends BonoBus implements IBonoBus {
 
-    private LocalDateTime oCaducidad; // en vez de crear 5 atributos, he creado un objeto de la clase Calendar. Se simplifica todo muchisimo.
+    private LocalDateTime oCaducidad; // en vez de crear 5 atributos, he creado un objeto de la clase LocalDateTime. Se simplifica todo muchisimo.
 
 
     protected BonoTarifaPlana(int idBonoBus) {

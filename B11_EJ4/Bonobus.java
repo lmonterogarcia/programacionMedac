@@ -8,7 +8,7 @@ abstract class BonoBus {
     private byte bMinutos;
     private final short SHANIOMAX = 9999;
 
-    public BonoBus(int idBonoBus) {
+    protected BonoBus(int idBonoBus) {
 		setIdBonoBus(idBonoBus);
 	}
 

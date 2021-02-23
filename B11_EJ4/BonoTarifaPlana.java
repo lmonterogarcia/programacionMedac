@@ -1,86 +1,68 @@
-import java.util.GregorianCalendar;
 
-public class BonoTarifaPlana extends BonoBus implements IBonoBus {
+import java.time.*;
 
-    protected GregorianCalendar oCaducidad;
-    private byte bDiaCaducidad;
-    private byte bMesCaducidad;
-    private short shAnioCaducidad;
-    private byte bHorasCaducidad;
-    private byte bMinutosCaducidad;
+abstract class BonoTarifaPlana extends BonoBus implements IBonoBus {
 
-    public BonoTarifaPlana(int idBonoBus) {
+    private LocalDateTime oCaducidad; // en vez de crear 5 atributos, he creado un objeto de la clase LocalDateTime. Se simplifica todo muchisimo.
+
+
+    protected BonoTarifaPlana(int idBonoBus) {
         super(idBonoBus);
     }
 
-    public BonoTarifaPlana(int idBonoBus, GregorianCalendar oCaducidad, byte bDiaCaducidad, byte bMesCaducidad, short shAnioCaducidad, byte bHoraCaducidad, byte bMinutoCaducidad) {
+    protected BonoTarifaPlana(int idBonoBus, LocalDateTime oCaducidad) {
         super(idBonoBus);
-        setbDiaCaducidad(bDiaCaducidad);
-        setbMesCaducidad(bMesCaducidad);
-        this.shAnioCaducidad = shAnioCaducidad;
-        this.bHorasCaducidad = bHorasCaducidad;
-        this.bMinutosCaducidad = bMinutosCaducidad;
-        this.oCaducidad = new GregorianCalendar(this.shAnioCaducidad, this.bMesCaducidad, this.bDiaCaducidad, this.bHorasCaducidad, this.bMinutosCaducidad);
-
+        setoCaducidad(oCaducidad);    
     }
 
-    public GregorianCalendar getoCaducidad() {
+    public LocalDateTime getoCaducidad() {
         return oCaducidad;
     }
 
-    protected void setoCaducidad(GregorianCalendar oCaducidad) {
-        this.oCaducidad = oCaducidad;
-    }
-
-    public byte getbDiaCaducidad() {
-        return bDiaCaducidad;
-    }
-
-    protected void setbDiaCaducidad(byte bDiaCaducidad) {
-        this.bDiaCaducidad = bDiaCaducidad;
-    }
-
-    public byte getbMesCaducidad() {
-        return bMesCaducidad;
-    }
-
-    protected void setbMesCaducidad(byte bMesCaducidad) {
-        this.bMesCaducidad = bMesCaducidad;
-    }
-
-    public short getShAnioCaducidad() {
-        return shAnioCaducidad;
-    }
-
-    protected void setShAnioCaducidad(short shAnioCaducidad) {
-        this.shAnioCaducidad = shAnioCaducidad;
-    }
-
-    public byte getbHorasCaducidad() {
-        return bHorasCaducidad;
-    }
-
-    protected void setbHorasCaducidad(byte bHorasCaducidad) {
-        this.bHorasCaducidad = bHorasCaducidad;
-    }
-
-    public byte getbMinutosCaducidad() {
-        return bMinutosCaducidad;
-    }
-
-    protected void setbMinutosCaducidad(byte bMinutosCaducidad) {
-        this.bMinutosCaducidad = bMinutosCaducidad;
+    public boolean setoCaducidad(LocalDateTime oCaducidad) {
+        boolean booExito;
+        try {
+            this.oCaducidad = oCaducidad;
+            booExito = true;
+        } catch (Exception e) {
+            booExito = false;
+        }
+        return booExito;
     }
 
     public boolean picarViaje(short shLineaBus, byte bDia, byte bMes, short shAnio, byte bHora, byte bMinuto) {
         boolean booExito = false;
-        GregorianCalendar oFechaViaje = new GregorianCalendar(shAnio, bMes, bDia, bHora, bMinuto);
-        if (oFechaViaje.before(oCaducidad)) {
-            if (super.setShLineaBus(shLineaBus) && super.setbDia(bDia) && super.setbMes(bMes) && super.setShAnio(shAnio) && super.setbHoras(bHora) && super.setbMinutos(bMinuto)) {
-                booExito = true;
+        LocalDateTime oFechaViaje;
+        if (checkFechaValida(bDia, bMes, shAnio, bHora, bMinuto)) {
+            oFechaViaje = LocalDateTime.of(shAnio, bMes, bDia, bHora, bMinuto);
+            if (oFechaViaje.isBefore(oCaducidad)) {
+                if (super.setShLineaBus(shLineaBus) && super.setShAnio(shAnio) && super.setbMes(bMes) && super.setbDia(bDia) && super.setbHoras(bHora) && super.setbMinutos(bMinuto)) {
+                    booExito = true;
+                }
             }
+        }
+        
+        return booExito;
+    }
+
+    protected boolean checkFechaValida(byte bDia, byte bMes, short shAnio, byte bHora, byte bMinuto) {
+        boolean booExito;
+        LocalDateTime oFecha;
+        try {
+            oFecha = LocalDateTime.of(shAnio, bMes, bDia, bHora, bMinuto);
+            booExito = true;
+        } catch (Exception e) {
+            oFecha = null;
+            booExito = false;
         }
         return booExito;
     }
+
+    public String toString(){
+        String sMensaje = super.toString();
+        sMensaje += "\nValido hasta " + oCaducidad.getDayOfMonth() + "/" + oCaducidad.getMonthValue() + "/" + oCaducidad.getYear() + " " + oCaducidad.getHour() + ":" + oCaducidad.getMinute() + "\n";
+        return sMensaje;
+    }
+
     
 }

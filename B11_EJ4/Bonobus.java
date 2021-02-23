@@ -1,14 +1,14 @@
 abstract class BonoBus {
     private int idBonoBus;
     private short shLineaBus;
+	private short shAnio;
+	private byte bMes;
     private byte bDia;
-    private byte bMes;
-    private short shAnio;
     private byte bHoras;
     private byte bMinutos;
     private final short SHANIOMAX = 9999;
 
-    public BonoBus(int idBonoBus) {
+    protected BonoBus(int idBonoBus) {
 		setIdBonoBus(idBonoBus);
 	}
 
@@ -31,7 +31,7 @@ abstract class BonoBus {
 
 	protected boolean setShLineaBus(short shLineaBus) {
         boolean booExito = false;
-        if (idBonoBus > 0 && idBonoBus <= 10) {
+        if (shLineaBus > 0 && shLineaBus <= 100) {
             this.shLineaBus = shLineaBus; 
            booExito = true;
         }
@@ -140,7 +140,7 @@ abstract class BonoBus {
 	}
 
 	public String toString() {
-		return "### Id Bonobus " + idBonoBus + " ###\n\n";
+		return "\n### Id Bonobus " + idBonoBus + " ###";
 	}
 
 }

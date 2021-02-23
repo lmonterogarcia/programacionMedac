@@ -1,11 +1,11 @@
 import java.time.*;
 
-public class BonoTarifaPlanaUnDia extends BonoTarifaPlana {
+public class BonoTarifaPlanaTresDias extends BonoTarifaPlana{
     
-    private final int IPERIODOCADUCIDAD = 1;
+    private final int IPERIODOCADUCIDAD = 3;
     private boolean booPrimerViaje;
 
-    public BonoTarifaPlanaUnDia(int idBonoBus) {
+    public BonoTarifaPlanaTresDias(int idBonoBus) {
         super(idBonoBus);
         booPrimerViaje = true;
     }

@@ -33,7 +33,7 @@ abstract class BonoBus {
         boolean booExito = false;
         if (idBonoBus > 0 && idBonoBus <= 10) {
             this.shLineaBus = shLineaBus; 
-           booExito = true;
+        	booExito = true;
         }
         return booExito;
 	}

@@ -1,15 +1,15 @@
 package models.personas;
 
-public class Usuario implements IUsuario {
+public class Usuarios implements IUsuarios {
 
     private String sEmail; //PK
     private String sPassword; //NN
 
     //Contructores
-    public Usuario(String sEmail){
+    public Usuarios(String sEmail){
         setsEmail(sEmail);
     }
-    public Usuario(String sEmail, String sPassword) {
+    public Usuarios(String sEmail, String sPassword) {
         setsEmail(sEmail);
         setsPassword(sPassword);
     }
@@ -50,7 +50,7 @@ public class Usuario implements IUsuario {
     
     public boolean equals(Object obj) {
 		boolean bExito = false;
-		Usuario oUser = (Usuario) obj;
+		Usuarios oUser = (Usuarios) obj;
 		if (oUser.getsEmail() != null && this.getsEmail() != null && this.getsEmail().equals(oUser.getsEmail())) {
 			bExito = true;
 		}

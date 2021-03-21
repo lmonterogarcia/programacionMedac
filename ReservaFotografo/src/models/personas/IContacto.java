@@ -1,5 +1,5 @@
 package models.personas;
 
-public interface IPersonas {
+public interface IContacto {
     
 }

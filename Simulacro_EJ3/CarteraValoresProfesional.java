@@ -1,3 +1,0 @@
-public class CarteraValoresProfesional {
-    //ESTA CLASE SOLO SE HA CREADO PARA QUE FUNCIONE LA CLASE CLIENTE INVERSOR
-}

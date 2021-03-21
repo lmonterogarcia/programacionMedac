@@ -8,5 +8,7 @@ public interface IUsuario {
 	public String getsPassword();
 	public void setsPassword(String sPassword);
 	public boolean checkUsuario();
+    public int hashCode();
+    public boolean equals(Object obj);
 
 }

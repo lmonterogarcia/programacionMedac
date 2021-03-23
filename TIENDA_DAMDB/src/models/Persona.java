@@ -138,7 +138,6 @@ public abstract class Persona implements IPersona {
 		result = prime * result + ((sDni == null) ? 0 : sDni.hashCode());
 		return result;
 	}
-
 	@Override
 	public boolean equals(Object obj) {
 		boolean bExito = false;

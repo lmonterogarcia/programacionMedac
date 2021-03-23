@@ -11,7 +11,7 @@ abstract class Contacto implements IContacto {
     private LocalDateTime oFechaCreacion;
     private String sNombreContacto;
     // N
-    private String sDniContacto, sApellido1Contacto, sApellido2contacto, sTelefonoContacto;
+    private String sDniContacto, sApellido1Contacto, setsApellido2Contacto, sTelefonoContacto;
     private LocalDate oFechaNacimientoContacto;
     private byte bEdad;
 
@@ -27,14 +27,14 @@ abstract class Contacto implements IContacto {
     }
 
     public Contacto(String sIdContacto, LocalDateTime oFechaCreacion, String sNombreContacto,
-            String sDniContacto, String sApellido1Contacto, String sApellido2contacto, String sTelefonoContacto,
+            String sDniContacto, String sApellido1Contacto, String setsApellido2Contacto, String sTelefonoContacto,
             LocalDate oFechaNacimientoContacto, byte bEdad) {
         setsIdContacto(sIdContacto);
         setoFechaCreacion(oFechaCreacion);
         setsNombreContacto(sNombreContacto);
         setsDniContacto(sDniContacto);
         setsApellido1Contacto(sApellido1Contacto);
-        setsApellido2contacto(sApellido2contacto);
+        setsetsApellido2Contacto(setsApellido2Contacto);
         setsTelefonoContacto(sTelefonoContacto);
         setoFechaNacimientoContacto(oFechaNacimientoContacto);
         setbEdad(bEdad);
@@ -81,12 +81,12 @@ abstract class Contacto implements IContacto {
         this.sApellido1Contacto = sApellido1Contacto;
     }
 
-    public String getsApellido2contacto() {
-        return sApellido2contacto;
+    public String getsetsApellido2Contacto() {
+        return setsApellido2Contacto;
     }
 
-    public void setsApellido2contacto(String sApellido2contacto) {
-        this.sApellido2contacto = sApellido2contacto;
+    public void setsetsApellido2Contacto(String setsApellido2Contacto) {
+        this.setsApellido2Contacto = setsApellido2Contacto;
     }
 
     public String getsTelefonoContacto() {
@@ -113,5 +113,61 @@ abstract class Contacto implements IContacto {
         this.bEdad = bEdad;
     }
     // Metodos de esta clase
+
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((sIdContacto == null) ? 0 : sIdContacto.hashCode());
+        return result;
+    }
+
+    public boolean equals(Object obj) {
+        boolean booExito = false;
+        Contacto oContacto = (Contacto) obj;
+        if (oContacto != null && this.sIdContacto != null && this.sIdContacto.equals(oContacto.getsIdContacto())) {
+            booExito = true;
+        }
+        return booExito;
+    }
+
+    @Override
+    public String toString() {
+        String sMensaje = "";
+        if (this.sIdContacto != null) {
+            sMensaje +="\n Id: " + getsIdContacto();
+            sMensaje +="\n Nombre: " + getsNombreContacto();
+            if (this.sApellido1Contacto != null) {
+                sMensaje +="\n Primer apellido: " + getsApellido1Contacto();
+            }
+            if (this.setsApellido2Contacto != null) {
+                sMensaje +="\n Segundo apellido: " + getsetsApellido2Contacto();
+            }
+            if (this.sDniContacto != null) {
+                sMensaje +="\n DNI: " + getsDniContacto();
+            }
+            if (this.sTelefonoContacto != null) {
+                sMensaje +="\n Telefono: " + getsTelefonoContacto();
+            }
+            if (this.oFechaNacimientoContacto != null) {
+                sMensaje +="\n Fecha de nacimiento: " + this.oFechaNacimientoContacto.getDayOfMonth() + "/" + this.oFechaNacimientoContacto.getMonth() + "/" + this.oFechaNacimientoContacto.getYear();
+            }
+            if (this.oFechaNacimientoContacto != null) {
+                sMensaje +="\n DNI: " + getsDniContacto();
+            }
+            if (this.sDniContacto != null) {
+                sMensaje +="\n DNI: " + getsDniContacto();
+            }
+
+            if (this.sDniContacto != null) {
+                sMensaje +="\n DNI: " + getsDniContacto();
+            }
+            if (this.sDniContacto != null) {
+                sMensaje +="\n DNI: " + getsDniContacto();
+            }
+        } else {
+            sMensaje = "El contacto esta vacio o tiene algún error";
+        }
+        return sMensaje;
+    }
 
 }

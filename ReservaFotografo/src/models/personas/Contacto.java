@@ -113,6 +113,11 @@ abstract class Contacto implements IContacto {
     }
     // Metodos de esta clase
 
+    public boolean checkContacto(Contacto oContacto){
+        boolean booExito = false;
+        return booExito;
+    }
+    
     public int hashCode() {
         final int prime = 31;
         int result = 1;
@@ -129,11 +134,11 @@ abstract class Contacto implements IContacto {
         return booExito;
     }
 
-    @Override
     public String toString() {
         String sMensaje = "";
         if (this.sIdContacto != null) {
             sMensaje +="\n Id: " + getsIdContacto();
+            sMensaje +="\n Fecha de creacion: " + this.oFechaCreacion.getDayOfMonth() + "/" + this.oFechaCreacion.getMonth() + "/" + this.oFechaCreacion.getYear() + " a las " + oFechaCreacion.getHour() + ":" + oFechaCreacion.getMinute() + ":" + oFechaCreacion.getSecond() ;
             sMensaje +="\n Nombre: " + getsNombreContacto();
             if (this.sApellido1Contacto != null) {
                 sMensaje +="\n Primer apellido: " + getsApellido1Contacto();
@@ -149,19 +154,6 @@ abstract class Contacto implements IContacto {
             }
             if (this.oFechaNacimientoContacto != null) {
                 sMensaje +="\n Fecha de nacimiento: " + this.oFechaNacimientoContacto.getDayOfMonth() + "/" + this.oFechaNacimientoContacto.getMonth() + "/" + this.oFechaNacimientoContacto.getYear();
-            }
-            if (this.oFechaNacimientoContacto != null) {
-                sMensaje +="\n DNI: " + getsDniContacto();
-            }
-            if (this.sDniContacto != null) {
-                sMensaje +="\n DNI: " + getsDniContacto();
-            }
-
-            if (this.sDniContacto != null) {
-                sMensaje +="\n DNI: " + getsDniContacto();
-            }
-            if (this.sDniContacto != null) {
-                sMensaje +="\n DNI: " + getsDniContacto();
             }
         } else {
             sMensaje = "El contacto esta vacio o tiene algún error";

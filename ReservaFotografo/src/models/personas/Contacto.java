@@ -1,7 +1,6 @@
 package models.personas;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
+import java.time.*;
 
 abstract class Contacto implements IContacto {
 

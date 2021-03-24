@@ -1,5 +1,5 @@
 package models.lugar;
 
-public interface ILugares {
+public class PaisProvincia {
     
 }

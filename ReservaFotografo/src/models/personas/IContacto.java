@@ -8,7 +8,6 @@ public interface IContacto {
     public String getsIdContacto();
     public void setsIdContacto(String sIdContacto);
     public LocalDateTime getoFechaCreacion();
-    public void setoFechaCreacion(LocalDateTime oFechaCreacion);
     public String getsNombreContacto();
     public void setsNombreContacto(String sNombreContacto);
     public String getsDniContacto();

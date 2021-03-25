@@ -44,20 +44,26 @@ abstract class Contacto implements IContacto {
         return sIdContacto;
     }
 
+    /* #### Se auto genera en la base de datos
     public void setsIdContacto(String sIdContacto) {
         this.sIdContacto = sIdContacto;
     }
+    */
 
     public LocalDateTime getoFechaCreacion() {
         return oFechaCreacion;
     }
 
-    public void setoFechaCreacion(LocalDateTime oFechaCreacion) {
-        this.oFechaCreacion = oFechaCreacion;
+    // #### Es private por que solo se va a utilizar en la creacion del dato, depsue sno se puede cambiar.
+    private void setoFechaCreacion(LocalDateTime oFechaCreacion) {
+        if (oFechaCreacion != null) {
+        this.oFechaCreacion = oFechaCreacion;  
+        }
     }
+    
 
     public String getsNombreContacto() {
-        return sNombreContacto;
+        return sNombreContacto; 
     }
 
     public void setsNombreContacto(String sNombreContacto) {

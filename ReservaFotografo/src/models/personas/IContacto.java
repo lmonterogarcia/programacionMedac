@@ -5,8 +5,7 @@ import java.time.*;
 public interface IContacto {
     public final String SLETRACLIENTE = "C";
 
-    public String getsIdContacto();
-    public void setsIdContacto(String sIdContacto);
+    public int getiIdContacto();
     public LocalDateTime getoFechaCreacion();
     public String getsNombreContacto();
     public void setsNombreContacto(String sNombreContacto);
@@ -20,8 +19,6 @@ public interface IContacto {
     public void setsTelefonoContacto(String sTelefonoContacto);
     public LocalDate getoFechaNacimientoContacto();
     public void setoFechaNacimientoContacto(LocalDate oFechaNacimientoContacto);
-    public byte getbEdad();
-    public void setbEdad(byte bEdad);
 
     public boolean checkContacto(Contacto oContacto);
     public int hashCode();

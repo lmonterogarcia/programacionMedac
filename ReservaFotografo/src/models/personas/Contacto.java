@@ -5,7 +5,7 @@ import java.util.regex.Pattern;
 
 import models.IMaxCaract;
 
-abstract class Contacto implements IContacto, IMaxCaract {
+public class Contacto implements IContacto, IMaxCaract {
 
     // PK
     private int iIdContacto;
@@ -28,7 +28,7 @@ abstract class Contacto implements IContacto, IMaxCaract {
         setsNombreContacto(sNombreContacto);
     }
 
-    public Contacto(String sNombreContacto, String sDniContacto, String sApellido1Contacto,
+    public Contacto(String sDniContacto,String sNombreContacto, String sApellido1Contacto,
             String setsApellido2Contacto, String sTelefonoContacto, LocalDate oFechaNacimientoContacto) {
         this.iIdContacto = 1;
         setoFechaCreacion();
@@ -77,8 +77,8 @@ abstract class Contacto implements IContacto, IMaxCaract {
     }
 
     public void setsDniContacto(String sDniContacto) {
-        //String sPatron = "\\d{8}[A-za-z]";
-        if (sDniContacto != null && !sDniContacto.isEmpty() && sDniContacto.length() < BMAXDNI && Pattern.matches("\\d{8}[A-za-z]", sDniContacto) ){
+        String sPatron = "\\d{8}[A-za-z]";
+        if (sDniContacto != null && !sDniContacto.isEmpty() && sDniContacto.length() <= BMAXDNI && Pattern.matches(sPatron, sDniContacto) ){
             this.sDniContacto = sDniContacto;
         }
         
@@ -110,7 +110,8 @@ abstract class Contacto implements IContacto, IMaxCaract {
     }
 
     public void setsTelefonoContacto(String sTelefonoContacto) {
-        if (sTelefonoContacto != null && !sTelefonoContacto.isEmpty() && sTelefonoContacto.length() < BMAXTELEFONO && Pattern.matches("(6|7|8|9){1}\\d{8}", sTelefonoContacto)){
+        String sPatron = "(6|7|8|9){1}\\d{8}";
+        if (sTelefonoContacto != null && !sTelefonoContacto.isEmpty() && sTelefonoContacto.length() <= BMAXTELEFONO && Pattern.matches(sPatron, sTelefonoContacto)){
             this.sTelefonoContacto = sTelefonoContacto;
         }
     }

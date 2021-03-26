@@ -1,16 +1,19 @@
 package views;
 
+import java.sql.Connection;
 import java.time.LocalDate;
 
 import models.personas.*;
+import controllers.*;
 
 public class App {
     public static void main(String[] args) throws Exception {
-        Contacto oContacto = new Contacto("Javier");
-        LocalDate oFecha = LocalDate.of(2010, 04, 16);
-        Contacto oContacto2 = new Contacto("Jesus", "28818263G", "Montero",
-        "Lopez", "647583947", oFecha);
-        System.out.println(oContacto);
-        System.out.println(oContacto2);
+        Controller oCtrl = new Controller();
+
+        if (oCtrl.init()) {
+            System.out.println("Se ha conectado");
+        } else {
+            System.out.println("Nabo");
+        }
     }
 }

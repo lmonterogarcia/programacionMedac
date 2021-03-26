@@ -1,38 +1,36 @@
 package models.personas;
 
 import java.time.*;
-import java.util.concurrent.atomic.AtomicInteger;
+import java.util.regex.Pattern;
 
-public class Contacto implements IContacto {
+import models.IMaxCaract;
 
-    private AtomicInteger oAutoN = new AtomicInteger(0);
+abstract class Contacto implements IContacto, IMaxCaract {
+
     // PK
     private int iIdContacto;
     // NN
     private LocalDateTime oFechaCreacion;
     private String sNombreContacto;
     // N
-    private String sDniContacto, sApellido1Contacto, setsApellido2Contacto, sTelefonoContacto;
+    private String sDniContacto, sApellido1Contacto, sApellido2Contacto, sTelefonoContacto;
     private LocalDate oFechaNacimientoContacto;
 
-    // Contructores
-    public Contacto() {
-        this.iIdContacto = oAutoN.incrementAndGet();
-    }
+    // ###Contructores###
 
     public Contacto(int iIdContacto) {
         setiIdContacto(iIdContacto);
     }
 
     public Contacto(String sNombreContacto) {
-        this.iIdContacto = oAutoN.incrementAndGet();
+        this.iIdContacto = 1;
         setoFechaCreacion();
         setsNombreContacto(sNombreContacto);
     }
 
     public Contacto(String sNombreContacto, String sDniContacto, String sApellido1Contacto,
             String setsApellido2Contacto, String sTelefonoContacto, LocalDate oFechaNacimientoContacto) {
-        this.iIdContacto = oAutoN.incrementAndGet();
+        this.iIdContacto = 1;
         setoFechaCreacion();
         setsNombreContacto(sNombreContacto);
         setsDniContacto(sDniContacto);
@@ -42,11 +40,13 @@ public class Contacto implements IContacto {
         setoFechaNacimientoContacto(oFechaNacimientoContacto);
     }
 
-    // GET and SET
+    // ###GET and SET###
+
     public int getiIdContacto() {
         return iIdContacto;
     }
 
+    // Es private por que solo se va a utilizar para la busqueda
     private void setiIdContacto(int iIdContacto) {
         this.iIdContacto = iIdContacto;
     }
@@ -55,7 +55,7 @@ public class Contacto implements IContacto {
         return oFechaCreacion;
     }
 
-    // #### Es private por que solo se va a utilizar en la creacion del dato,
+    // Es private por que solo se va a utilizar en la creacion del dato,
     // despues no se puede cambiar.
     private void setoFechaCreacion() {
             this.oFechaCreacion = LocalDateTime.now();
@@ -66,7 +66,10 @@ public class Contacto implements IContacto {
     }
 
     public void setsNombreContacto(String sNombreContacto) {
-        this.sNombreContacto = sNombreContacto;
+        if (sNombreContacto != null && !sNombreContacto.isEmpty() && sNombreContacto.length() < BMAXNOMBRE ){
+            this.sNombreContacto = sNombreContacto;
+        }
+        
     }
 
     public String getsDniContacto() {
@@ -74,7 +77,11 @@ public class Contacto implements IContacto {
     }
 
     public void setsDniContacto(String sDniContacto) {
-        this.sDniContacto = sDniContacto;
+        //String sPatron = "\\d{8}[A-za-z]";
+        if (sDniContacto != null && !sDniContacto.isEmpty() && sDniContacto.length() < BMAXDNI && Pattern.matches("\\d{8}[A-za-z]", sDniContacto) ){
+            this.sDniContacto = sDniContacto;
+        }
+        
     }
 
     public String getsApellido1Contacto() {
@@ -82,15 +89,20 @@ public class Contacto implements IContacto {
     }
 
     public void setsApellido1Contacto(String sApellido1Contacto) {
-        this.sApellido1Contacto = sApellido1Contacto;
+        if (sApellido1Contacto != null && !sApellido1Contacto.isEmpty() && sApellido1Contacto.length() < BMAXAPELLIDOS ){
+            this.sApellido1Contacto = sApellido1Contacto;
+        }
+        
     }
 
     public String getsetsApellido2Contacto() {
-        return setsApellido2Contacto;
+        return sApellido2Contacto;
     }
 
-    public void setsetsApellido2Contacto(String setsApellido2Contacto) {
-        this.setsApellido2Contacto = setsApellido2Contacto;
+    public void setsetsApellido2Contacto(String sApellido2Contacto) {
+        if (sApellido1Contacto != null && !sApellido1Contacto.isEmpty() && sApellido1Contacto.length() < BMAXAPELLIDOS ){
+            this.sApellido2Contacto = sApellido2Contacto;
+        }
     }
 
     public String getsTelefonoContacto() {
@@ -98,7 +110,9 @@ public class Contacto implements IContacto {
     }
 
     public void setsTelefonoContacto(String sTelefonoContacto) {
-        this.sTelefonoContacto = sTelefonoContacto;
+        if (sTelefonoContacto != null && !sTelefonoContacto.isEmpty() && sTelefonoContacto.length() < BMAXTELEFONO && Pattern.matches("(6|7|8|9){1}\\d{8}", sTelefonoContacto)){
+            this.sTelefonoContacto = sTelefonoContacto;
+        }
     }
 
     public LocalDate getoFechaNacimientoContacto() {
@@ -106,14 +120,17 @@ public class Contacto implements IContacto {
     }
 
     public void setoFechaNacimientoContacto(LocalDate oFechaNacimientoContacto) {
-        this.oFechaNacimientoContacto = oFechaNacimientoContacto;
+        if (oFechaNacimientoContacto != null){
+            this.oFechaNacimientoContacto = oFechaNacimientoContacto;
+        }
     }
-    // Metodos de esta clase
+
+    // ###Metodos de esta clase###
 
     public boolean checkContacto(Contacto oContacto) {
         boolean booExito = false;
-        if (booExito) {
-
+        if (getiIdContacto() < 0 && getiIdContacto() > 999999 && getoFechaCreacion() != null && getsNombreContacto() != null) {
+            booExito = true;
         }
         return booExito;
     }
@@ -125,11 +142,10 @@ public class Contacto implements IContacto {
         return result;
     }
 
-    public boolean TTTequals(Object obj) {
+    public boolean equals(Object obj) {
         boolean booExito = false;
         Contacto oContacto = (Contacto) obj;
-        if (oContacto != null && this.iIdContacto > 0 && this.iIdContacto <= 999999
-                && this.iIdContacto == oContacto.getiIdContacto()) {
+        if (oContacto != null && this.iIdContacto > 0 && this.iIdContacto <= 999999 && this.iIdContacto == oContacto.getiIdContacto()) {
             booExito = true;
         }
         return booExito;
@@ -146,7 +162,7 @@ public class Contacto implements IContacto {
             if (this.sApellido1Contacto != null) {
                 sMensaje += "\n Primer apellido: " + getsApellido1Contacto();
             }
-            if (this.setsApellido2Contacto != null) {
+            if (this.sApellido2Contacto != null) {
                 sMensaje += "\n Segundo apellido: " + getsetsApellido2Contacto();
             }
             if (this.sDniContacto != null) {

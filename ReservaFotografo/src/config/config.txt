@@ -1,0 +1,5 @@
+SERVER: luismontero.dynamic-dns.net
+PORT: 8889
+DB: reservaFotografo
+USER: luis
+PASSWORD: informedac

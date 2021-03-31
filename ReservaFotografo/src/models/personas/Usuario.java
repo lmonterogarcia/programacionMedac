@@ -22,7 +22,7 @@ public class Usuario implements IUsuario, IPlantilla {
         return this.sEmail;
     }
     public void setsEmail(String sEmail) {
-        if (sEmail != null && !sEmail.isEmpty() && sEmail.length() < MAXCARACTERES && Pattern.matches(SPATRONEMAIL, sEmail)) {
+        if (sEmail != null && !sEmail.isEmpty() && sEmail.length() < BMAXEMAIL && Pattern.matches(SPATRONEMAIL, sEmail)) {
 			this.sEmail = sEmail;
 		}
     }

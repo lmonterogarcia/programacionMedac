@@ -2,7 +2,6 @@ package models.personas;
 
 public interface IUsuario {
     
-    public final int MAXCARACTERES = 255;
 	public String getsEmail();
 	public void setsEmail(String sEmail);
 	public String getsPassword();

@@ -154,7 +154,6 @@ abstract class Contacto implements IContacto, IPlantilla {
     public String toString() {
         String sMensaje = "";
         if (this.iIdContacto >= 0 && this.iIdContacto <= IMAXIDS) {
-            sMensaje += "\n Id: " + getiIdContacto();
             sMensaje += "\n Fecha de creacion: " + this.oFechaCreacion.getDayOfMonth() + "/"
                     + this.oFechaCreacion.getMonth() + "/" + this.oFechaCreacion.getYear() + " a las "
                     + oFechaCreacion.getHour() + ":" + oFechaCreacion.getMinute() + ":" + oFechaCreacion.getSecond();

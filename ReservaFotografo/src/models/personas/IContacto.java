@@ -3,7 +3,6 @@ package models.personas;
 import java.time.*;
 
 public interface IContacto {
-    public final String SLETRACLIENTE = "C";
 
     public int getiIdContacto();
     public LocalDateTime getoFechaCreacion();

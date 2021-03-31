@@ -1,6 +1,6 @@
 package models.personas;
 
-public interface IUsuarios {
+public interface IUsuario {
     
     public final int MAXCARACTERES = 255;
 	public String getsEmail();
@@ -10,5 +10,6 @@ public interface IUsuarios {
 	public boolean checkUsuario();
     public int hashCode();
     public boolean equals(Object obj);
+	public String toString();
 
 }

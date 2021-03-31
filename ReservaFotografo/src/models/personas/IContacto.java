@@ -20,7 +20,7 @@ public interface IContacto {
     public LocalDate getoFechaNacimientoContacto();
     public void setoFechaNacimientoContacto(LocalDate oFechaNacimientoContacto);
 
-    public boolean checkContacto(Contacto oContacto);
+    public boolean checkContacto();
     public int hashCode();
     public boolean equals(Object obj);
     public String toString();

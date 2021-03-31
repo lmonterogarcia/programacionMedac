@@ -2,10 +2,9 @@ package models.personas;
 
 import java.time.*;
 import java.util.regex.Pattern;
+import models.IPlantilla;
 
-import models.IMaxCaract;
-
-public class Contacto implements IContacto, IMaxCaract {
+abstract class Contacto implements IContacto, IPlantilla {
 
     // PK
     private int iIdContacto;
@@ -48,7 +47,9 @@ public class Contacto implements IContacto, IMaxCaract {
 
     // Es private por que solo se va a utilizar para la busqueda
     private void setiIdContacto(int iIdContacto) {
-        this.iIdContacto = iIdContacto;
+        if (this.iIdContacto >= 0 && this.iIdContacto <= IMAXIDS) {
+            this.iIdContacto = iIdContacto;
+        }
     }
 
     public LocalDateTime getoFechaCreacion() {
@@ -77,8 +78,7 @@ public class Contacto implements IContacto, IMaxCaract {
     }
 
     public void setsDniContacto(String sDniContacto) {
-        String sPatron = "\\d{8}[A-za-z]";
-        if (sDniContacto != null && !sDniContacto.isEmpty() && sDniContacto.length() <= BMAXDNI && Pattern.matches(sPatron, sDniContacto) ){
+        if (sDniContacto != null && !sDniContacto.isEmpty() && sDniContacto.length() <= BMAXDNI && Pattern.matches(SPATRONDNI, sDniContacto) ){
             this.sDniContacto = sDniContacto;
         }
         
@@ -110,8 +110,7 @@ public class Contacto implements IContacto, IMaxCaract {
     }
 
     public void setsTelefonoContacto(String sTelefonoContacto) {
-        String sPatron = "(6|7|8|9){1}\\d{8}";
-        if (sTelefonoContacto != null && !sTelefonoContacto.isEmpty() && sTelefonoContacto.length() <= BMAXTELEFONO && Pattern.matches(sPatron, sTelefonoContacto)){
+        if (sTelefonoContacto != null && !sTelefonoContacto.isEmpty() && sTelefonoContacto.length() <= BMAXTELEFONO && Pattern.matches(SPATRONTELEFONO, sTelefonoContacto)){
             this.sTelefonoContacto = sTelefonoContacto;
         }
     }
@@ -128,9 +127,9 @@ public class Contacto implements IContacto, IMaxCaract {
 
     // ###Metodos de esta clase###
 
-    public boolean checkContacto(Contacto oContacto) {
+    public boolean checkContacto() {
         boolean booExito = false;
-        if (getiIdContacto() < 0 && getiIdContacto() > 999999 && getoFechaCreacion() != null && getsNombreContacto() != null) {
+        if (getiIdContacto() < 0 && getiIdContacto() > IMAXIDS && getoFechaCreacion() != null && getsNombreContacto() != null) {
             booExito = true;
         }
         return booExito;
@@ -154,7 +153,7 @@ public class Contacto implements IContacto, IMaxCaract {
 
     public String toString() {
         String sMensaje = "";
-        if (this.iIdContacto >= 0 && this.iIdContacto <= 999999) {
+        if (this.iIdContacto >= 0 && this.iIdContacto <= IMAXIDS) {
             sMensaje += "\n Id: " + getiIdContacto();
             sMensaje += "\n Fecha de creacion: " + this.oFechaCreacion.getDayOfMonth() + "/"
                     + this.oFechaCreacion.getMonth() + "/" + this.oFechaCreacion.getYear() + " a las "

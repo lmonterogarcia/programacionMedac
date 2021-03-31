@@ -1,25 +1,28 @@
 package models.personas;
 
-public class Usuarios implements IUsuarios {
+import java.util.regex.Pattern;
+import models.IPlantilla;
+
+public class Usuario implements IUsuario, IPlantilla {
 
     private String sEmail; //PK
     private String sPassword; //NN
 
-    //Contructores
-    public Usuarios(String sEmail){
+    // ###Contructores###
+    public Usuario(String sEmail){
         setsEmail(sEmail);
     }
-    public Usuarios(String sEmail, String sPassword) {
+    public Usuario(String sEmail, String sPassword) {
         setsEmail(sEmail);
         setsPassword(sPassword);
     }
 
-    //GET and SET
+    // ###GET and SET###
     public String getsEmail() {
         return this.sEmail;
     }
     public void setsEmail(String sEmail) {
-        if (sEmail != null && !sEmail.isEmpty() && sEmail.contains("@") && sEmail.length() < MAXCARACTERES) {
+        if (sEmail != null && !sEmail.isEmpty() && sEmail.length() < MAXCARACTERES && Pattern.matches(SPATRONEMAIL, sEmail)) {
 			this.sEmail = sEmail;
 		}
     }
@@ -27,12 +30,12 @@ public class Usuarios implements IUsuarios {
         return this.sPassword;
     }
     public void setsPassword(String sPassword) {
-        if (sPassword != null && !sPassword.isEmpty() && sPassword.length() > 5 && sPassword.length() < 15) {
+        if (sPassword != null && !sPassword.isEmpty() && sPassword.length() > BMINPASSW && sPassword.length() < BMAXPASSW) {
 			this.sPassword = sPassword;
 		}
     }
 
-    //Metodos de la clase
+    //// ###Metodos de esta clase###
     public boolean checkUsuario() {
         boolean bExito = false;
 		if (this.getsEmail() != null && this.getsPassword() != null) {
@@ -50,10 +53,19 @@ public class Usuarios implements IUsuarios {
     
     public boolean equals(Object obj) {
 		boolean bExito = false;
-		Usuarios oUser = (Usuarios) obj;
+		Usuario oUser = (Usuario) obj;
 		if (oUser.getsEmail() != null && this.getsEmail() != null && this.getsEmail().equals(oUser.getsEmail())) {
 			bExito = true;
 		}
 		return bExito;
 	}
+
+    public String toString(){
+        String sMensaje = "";
+        if (getsEmail() != null) {
+            sMensaje += "\n Email: " + getsEmail();
+            sMensaje += "\n Contaseña: **********";
+        }
+        return sMensaje;
+    }
 }

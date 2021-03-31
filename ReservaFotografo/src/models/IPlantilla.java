@@ -36,4 +36,16 @@ public interface IPlantilla {
     public final String SLETRAPRODUCTO = "P";
     public final String SLETRAPACK = "X";
 
+    //PK
+
+    //NN
+
+    //N
+    
+    // ###Contructores###
+
+    // ###GET and SET###
+
+    // ###Metodos de esta clase###
+
 }

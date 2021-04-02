@@ -15,7 +15,6 @@ public class Empresa implements IEmpresa, IPlantilla{
     private String sEmailEmpresa;
     private String sTelefonoEmrpesa;
     
-    
     // ###Contructores###
     public Empresa(String sCifNif) {
         setsCifNif(sCifNif);
@@ -27,7 +26,7 @@ public class Empresa implements IEmpresa, IPlantilla{
         setoLugar(oLugar);
     }
 
-    public Empresa(String sCifNif, String sNombreEmpresa, Lugar oLugar, String sEmailEmpresa, String sTelefonoEmrpesa) {
+    public Empresa(String sCifNif, String sNombreEmpresa, String sEmailEmpresa, String sTelefonoEmrpesa, Lugar oLugar) {
         setsCifNif(sCifNif);
         setsNombreEmpresa(sNombreEmpresa);
         setoLugar(oLugar);
@@ -83,7 +82,7 @@ public class Empresa implements IEmpresa, IPlantilla{
     }
 
     public void setsTelefonoEmrpesa(String sTelefonoEmrpesa) {
-        if (sTelefonoEmrpesa != null && !sTelefonoEmrpesa.isEmpty() && sTelefonoEmrpesa.length() < BMAXTELEFONO && Pattern.matches(SPATRONTELEFONO, sTelefonoEmrpesa)){
+        if (sTelefonoEmrpesa != null && !sTelefonoEmrpesa.isEmpty() && sTelefonoEmrpesa.length() == BMAXTELEFONO && Pattern.matches(SPATRONTELEFONO, sTelefonoEmrpesa)){
             this.sTelefonoEmrpesa = sTelefonoEmrpesa;
         }
     }
@@ -118,13 +117,13 @@ public class Empresa implements IEmpresa, IPlantilla{
         String sMensaje = "";
         if (checkEmpresa()) {
             sMensaje += "## Empresa ##";
-            sMensaje += " Cif o Nif: " + getsCifNif();
-            sMensaje += " Nombre: " + getsNombreEmpresa();
+            sMensaje += "\n Cif o Nif: " + getsCifNif();
+            sMensaje += "\n Nombre: " + getsNombreEmpresa();
             if (sEmailEmpresa != null) {
-                sMensaje += " Email: " + getsEmailEmpresa();
+                sMensaje += "\n Email: " + getsEmailEmpresa();
             }
             if (sTelefonoEmrpesa != null) {
-                sMensaje += " Telefono: " + getsTelefonoEmrpesa();
+                sMensaje += "\n Telefono: " + getsTelefonoEmrpesa();
             }
             sMensaje += " #Dirección# " + oLugar.toString();
         }

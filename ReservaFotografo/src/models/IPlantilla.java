@@ -27,7 +27,7 @@ public interface IPlantilla {
     public final String SPATRONTELEFONO = "(6|7|8|9){1}\\d{8}";
     public final String SPATRONEMAIL = "^[A-Za-z0-9+_.-]+@(.+)$";
 
-    //LETRAS PARA LOS IDS
+    // ### LETRAS PARA LOS IDS ###
     public final String SLETRACLIENTE = "C";
     public final String SLETRAPARTICIPANTE = "P";
     public final String SLETRASESION = "S";

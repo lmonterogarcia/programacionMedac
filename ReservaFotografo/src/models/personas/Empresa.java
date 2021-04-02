@@ -91,7 +91,7 @@ public class Empresa implements IEmpresa, IPlantilla{
 
     public boolean checkEmpresa(){
         boolean booExito = false;
-        if (this.sCifNif != null && this.sNombreEmpresa != null && this.oLugar != null) {
+        if (this.getsCifNif() != null && !this.getsCifNif().isEmpty() && this.getsNombreEmpresa() != null && !this.getsNombreEmpresa().isEmpty() && this.oLugar != null) {
             booExito = true;
         }
         return booExito;

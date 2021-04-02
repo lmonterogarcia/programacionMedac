@@ -129,7 +129,7 @@ abstract class Contacto implements IContacto, IPlantilla {
 
     public boolean checkContacto() {
         boolean booExito = false;
-        if (getiIdContacto() < 0 && getiIdContacto() > IMAXIDS && getoFechaCreacion() != null && getsNombreContacto() != null) {
+        if (getiIdContacto() < 0 && getiIdContacto() > IMAXIDS && getoFechaCreacion() != null && getsNombreContacto() != null && !this.getsNombreContacto().isEmpty()){
             booExito = true;
         }
         return booExito;

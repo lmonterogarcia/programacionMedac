@@ -48,7 +48,7 @@ public class Fotografo implements IFotografo, IPlantilla{
     
     public boolean checkFotografo(){
         boolean booExito = false;
-        if (sDniFotografo != null && !sDniFotografo.isEmpty()) {
+        if (this.getsDniFotografo() != null && !this.getsDniFotografo().isEmpty() && this.getsNombreFotografo() != null && !this.getsNombreFotografo().isEmpty()) {
             booExito = true;
         }
         return booExito;

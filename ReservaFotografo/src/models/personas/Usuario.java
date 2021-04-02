@@ -38,7 +38,7 @@ public class Usuario implements IUsuario, IPlantilla {
     //// ###Metodos de esta clase###
     public boolean checkUsuario() {
         boolean bExito = false;
-		if (this.getsEmail() != null && this.getsPassword() != null) {
+		if (this.getsEmail() != null && !this.getsEmail().isEmpty() && this.getsPassword() != null) {
 			bExito = true;
 		}
 		return bExito;

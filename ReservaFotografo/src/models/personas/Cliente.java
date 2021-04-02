@@ -55,7 +55,7 @@ public class Cliente extends Contacto implements ICliente {
 
     public boolean checkCliente() {
 		boolean booExito = false;
-        if (super.checkContacto() && oUsuario.checkUsuario()){
+        if (super.checkContacto() && this.getoUsuario().checkUsuario()){
             booExito = true;
         }
         return booExito;

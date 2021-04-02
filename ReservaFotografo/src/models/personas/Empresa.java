@@ -1,8 +1,10 @@
 package models.personas;
 
+import java.util.regex.Pattern;
+import models.IPlantilla;
 import models.lugar.Lugar;
 
-public class Empresa {
+public class Empresa implements IEmpresa, IPlantilla{
     
     //PK
     private String sCifNif;
@@ -16,21 +18,21 @@ public class Empresa {
     
     // ###Contructores###
     public Empresa(String sCifNif) {
-        this.sCifNif = sCifNif;
+        setsCifNif(sCifNif);
     }
 
     public Empresa(String sCifNif, String sNombreEmpresa, Lugar oLugar) {
-        this.sCifNif = sCifNif;
-        this.sNombreEmpresa = sNombreEmpresa;
-        this.oLugar = oLugar;
+        setsCifNif(sCifNif);
+        setsNombreEmpresa(sNombreEmpresa);
+        setoLugar(oLugar);
     }
 
     public Empresa(String sCifNif, String sNombreEmpresa, Lugar oLugar, String sEmailEmpresa, String sTelefonoEmrpesa) {
-        this.sCifNif = sCifNif;
-        this.sNombreEmpresa = sNombreEmpresa;
-        this.oLugar = oLugar;
-        this.sEmailEmpresa = sEmailEmpresa;
-        this.sTelefonoEmrpesa = sTelefonoEmrpesa;
+        setsCifNif(sCifNif);
+        setsNombreEmpresa(sNombreEmpresa);
+        setoLugar(oLugar);
+        setsEmailEmpresa(sEmailEmpresa);
+        setsTelefonoEmrpesa(sTelefonoEmrpesa);
     }
     
     // ###GET and SET###
@@ -40,6 +42,9 @@ public class Empresa {
     }
 
     public void setsCifNif(String sCifNif) {
+        if (sCifNif != null && !sCifNif.isEmpty() && sCifNif.length() <= BMAXDNI && Pattern.matches(SPATRONDNI, sCifNif) ){
+            this.sCifNif = sCifNif;
+        }
         this.sCifNif = sCifNif;
     }
 
@@ -48,7 +53,9 @@ public class Empresa {
     }
 
     public void setsNombreEmpresa(String sNombreEmpresa) {
-        this.sNombreEmpresa = sNombreEmpresa;
+        if (sNombreEmpresa != null && !sNombreEmpresa.isEmpty() && sNombreEmpresa.length() < BMAXNOMBRELARGO ){
+            this.sNombreEmpresa = sNombreEmpresa;
+        }
     }
 
     public Lugar getoLugar() {
@@ -56,7 +63,9 @@ public class Empresa {
     }
 
     public void setoLugar(Lugar oLugar) {
-        this.oLugar = oLugar;
+        if (oLugar !=null) {
+            this.oLugar = oLugar;  
+        }
     }
 
     public String getsEmailEmpresa() {
@@ -64,7 +73,9 @@ public class Empresa {
     }
 
     public void setsEmailEmpresa(String sEmailEmpresa) {
-        this.sEmailEmpresa = sEmailEmpresa;
+        if (sEmailEmpresa != null && !sEmailEmpresa.isEmpty() && sEmailEmpresa.length() < BMAXEMAIL && Pattern.matches(SPATRONEMAIL, sEmailEmpresa)) {
+            this.sEmailEmpresa = sEmailEmpresa;
+        }
     }
 
     public String getsTelefonoEmrpesa() {
@@ -72,12 +83,21 @@ public class Empresa {
     }
 
     public void setsTelefonoEmrpesa(String sTelefonoEmrpesa) {
-        this.sTelefonoEmrpesa = sTelefonoEmrpesa;
+        if (sTelefonoEmrpesa != null && !sTelefonoEmrpesa.isEmpty() && sTelefonoEmrpesa.length() < BMAXTELEFONO && Pattern.matches(SPATRONTELEFONO, sTelefonoEmrpesa)){
+            this.sTelefonoEmrpesa = sTelefonoEmrpesa;
+        }
     }
 
     // ###Metodos de esta clase###
 
-    @Override
+    public boolean checkEmpresa(){
+        boolean booExito = false;
+        if (this.sCifNif != null && this.sNombreEmpresa != null && this.oLugar != null) {
+            booExito = true;
+        }
+        return booExito;
+    }
+
     public int hashCode() {
         final int prime = 31;
         int result = 1;
@@ -85,20 +105,29 @@ public class Empresa {
         return result;
     }
 
-    @Override
     public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (obj == null)
-            return false;
-        if (getClass() != obj.getClass())
-            return false;
-        Empresa other = (Empresa) obj;
-        if (sCifNif == null) {
-            if (other.sCifNif != null)
-                return false;
-        } else if (!sCifNif.equals(other.sCifNif))
-            return false;
-        return true;
+        boolean booExito = false;
+        Empresa oEmpresa = (Empresa) obj;
+        if (oEmpresa != null && getsCifNif() != null && getsCifNif().equals(oEmpresa.getsCifNif())) {
+            booExito = true;
+        }
+        return booExito;
+    }
+
+    public String toString() {
+        String sMensaje = "";
+        if (checkEmpresa()) {
+            sMensaje += "## Empresa ##";
+            sMensaje += " Cif o Nif: " + getsCifNif();
+            sMensaje += " Nombre: " + getsNombreEmpresa();
+            if (sEmailEmpresa != null) {
+                sMensaje += " Email: " + getsEmailEmpresa();
+            }
+            if (sTelefonoEmrpesa != null) {
+                sMensaje += " Telefono: " + getsTelefonoEmrpesa();
+            }
+            sMensaje += " #Dirección# " + oLugar.toString();
+        }
+        return sMensaje;
     }
 }

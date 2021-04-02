@@ -54,7 +54,11 @@ public class Cliente extends Contacto implements ICliente {
     // ###Metodos de esta clase###
 
     public boolean checkCliente() {
-		return super.checkContacto();
+		boolean booExito = false;
+        if (super.checkContacto() && oUsuario.checkUsuario()){
+            booExito = true;
+        }
+        return booExito;
 	}
 	
 	public boolean equals(Object obj) {

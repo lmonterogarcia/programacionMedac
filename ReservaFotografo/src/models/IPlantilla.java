@@ -16,6 +16,7 @@ public interface IPlantilla {
     public final byte BMAXCODIGOPOSTAL = 20;
     public final byte BMAXCODIGOINT = 3;
     public final byte BMAXNOMBRELUGAR = 100;
+    public final byte BMAXNUMEROLUGAR = 10;
     public final byte BMAXDURACION = 3;
     public final byte BMAXSIGLASPAIS = 2;
     public final byte BMAXPRECIOENTERO = 10;

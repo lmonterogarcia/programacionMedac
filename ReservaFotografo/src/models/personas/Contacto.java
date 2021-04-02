@@ -145,7 +145,7 @@ abstract class Contacto implements IContacto, IPlantilla {
     public boolean equals(Object obj) {
         boolean booExito = false;
         Contacto oContacto = (Contacto) obj;
-        if (oContacto != null && this.iIdContacto > 0 && this.iIdContacto <= 999999 && this.iIdContacto == oContacto.getiIdContacto()) {
+        if (oContacto != null && this.iIdContacto > 0 && this.iIdContacto <= IMAXIDS && this.iIdContacto == oContacto.getiIdContacto()) {
             booExito = true;
         }
         return booExito;

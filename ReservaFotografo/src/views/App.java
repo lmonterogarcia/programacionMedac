@@ -1,7 +1,5 @@
 package views;
 
-import java.time.LocalDate;
-import models.lugar.Lugar;
 import models.personas.*;
 import controllers.*;
 

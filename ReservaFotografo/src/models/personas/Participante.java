@@ -3,7 +3,6 @@ package models.personas;
 import java.time.LocalDate;
 import java.util.regex.Pattern;
 
-
 public class Participante extends Contacto implements IParticipante{
     
     //N

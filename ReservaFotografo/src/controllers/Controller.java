@@ -26,7 +26,6 @@ public class Controller implements IController{
 			try {
 				oConnection.close();
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
@@ -71,7 +70,6 @@ public class Controller implements IController{
 
 	@Override
 	public Connection getConnection() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 }

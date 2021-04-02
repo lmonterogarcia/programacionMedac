@@ -1,7 +1,6 @@
 package models.personas;
 
 import java.util.regex.Pattern;
-
 import models.IPlantilla;
 
 public class Fotografo implements IFotografo, IPlantilla{

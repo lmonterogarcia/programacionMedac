@@ -88,7 +88,7 @@ public class Lugar implements ILugar, IPlantilla{
     }
 
     public void setfLatitud(float fLatitud) {
-        if (fLatitud < 1000000 && fLatitud > -1000000) {
+        if (fLatitud < IMAXLATITUD && fLatitud > IMINLATITUD) {
             BigDecimal bigVariable = new BigDecimal(fLatitud).setScale(4, RoundingMode.UP);
         this.fLatitud = bigVariable.floatValue();
         }
@@ -99,7 +99,7 @@ public class Lugar implements ILugar, IPlantilla{
     }
 
     public void setfLongitud(float fLongitud) {
-        if (fLongitud < 10000000 && fLongitud > -10000000) {
+        if (fLongitud < IMAXLONGITUD && fLongitud > IMINLONGITUD) {
             BigDecimal bigVariable = new BigDecimal(fLongitud).setScale(4, RoundingMode.UP);
         this.fLongitud = bigVariable.floatValue();
         }
@@ -153,10 +153,10 @@ public class Lugar implements ILugar, IPlantilla{
             if (this.getsGoogleMapLink() != null) {
                 sMensaje += "\n Google Maps Link: " + this.getsGoogleMapLink();
             }
-            if (this.getfLatitud() < 1000000 && this.getfLatitud() > -1000000) {
+            if (this.getfLatitud() < IMAXLATITUD && this.getfLatitud() > IMINLATITUD) {
                 sMensaje += "\n Latitud: " + this.getfLatitud();
             }
-            if (this.getfLongitud() < 10000000 && this.getfLongitud() > -10000000) {
+            if (this.getfLongitud() < IMAXLONGITUD && this.getfLongitud() > IMINLONGITUD) {
                 sMensaje += "\n Longitud: " + this.getfLongitud();
             }
             if (this.getsCalleLugar() != null) {

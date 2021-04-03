@@ -17,9 +17,13 @@ public interface IPlantilla {
     public final byte BMAXCODIGOINT = 3;
     public final byte BMAXNOMBRELUGAR = 100;
     public final byte BMAXNUMEROLUGAR = 10;
-    public final byte BMAXDURACION = 3;
     public final byte BMAXSIGLASPAIS = 2;
-    public final byte BMAXPRECIOENTERO = 10;
+    public final int IMAXLATITUD = 1000000;
+    public final int IMINLATITUD = -1000000;
+    public final int IMAXLONGITUD = 10000000;
+    public final int IMINLONGITUD = -10000000;
+    public final byte BMAXDURACION = 3;
+    public final int IMAXPRECIO = 100000;
     public final byte BMAXPRECIODECIMAL = 2;
     public final short BMAX255 = 255;
 
@@ -27,6 +31,7 @@ public interface IPlantilla {
     public final String SPATRONDNI = "\\d{8}[A-za-z]";
     public final String SPATRONTELEFONO = "(6|7|8|9){1}\\d{8}";
     public final String SPATRONEMAIL = "^[A-Za-z0-9+_.-]+@(.+)$";
+    public final String SPATRONIDTOSTRING = "%06d";
 
     // ### LETRAS PARA LOS IDS ###
     public final String SLETRACLIENTE = "C";

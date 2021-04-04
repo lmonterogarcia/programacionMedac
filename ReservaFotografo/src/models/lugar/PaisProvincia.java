@@ -35,7 +35,7 @@ public class PaisProvincia implements IPaisProvincia {
 
     // ###Metodos de esta clase###
 
-    public boolean checkPaisProvincia(){
+    public boolean checkPaisProvincia() {
         boolean booExito = false;
         if (this.getoProvincia().checkProvincia() && this.getoPais().checkPais()) {
             booExito = true;

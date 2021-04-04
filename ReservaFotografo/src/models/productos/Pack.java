@@ -88,7 +88,6 @@ public class Pack implements IPack, IPlantilla{
         return booExito;
     }
 
-    @Override
     public int hashCode() {
         final int prime = 31;
         int result = 1;
@@ -96,7 +95,6 @@ public class Pack implements IPack, IPlantilla{
         return result;
     }
 
-    @Override
     public boolean equals(Object obj) {
         boolean booExito = false;
         Pack oPack = (Pack) obj;

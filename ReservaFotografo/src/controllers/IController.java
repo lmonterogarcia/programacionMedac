@@ -5,7 +5,6 @@ import java.sql.*;
 import java.util.*;
 
 public interface IController {
-    // public final String PATH = "/home/dam/vscode-workspace/TIENDA_DAMDB"; // ### LINUX ###
     // public final String PATH = "/Users/luis/Documents/git-repositorio/programacionMedac/ReservaFotografo"; // ### MACBOOK ###
     // public final String PATH = "/Users/luis/Documents/git-repositories/programacionMedac/ReservaFotografo"; // ### IMAC ###
     public final String PATH = "C:/Users/Usuario/git-repositorios/programacionMedac/ReservaFotografo"; // ### Windows ###

@@ -2,5 +2,5 @@ package models.sesion;
 
 public class Pedido {
     
-    private
+    private int iIdPedido;
 }

@@ -41,6 +41,7 @@ public class Pedido implements IPedido, IPlantilla{
 
     public void setBooPagado(boolean booPagado) {
         if (booPagado != this.isBooPagado()) {
+            this.booPagado = booPagado;
         }
     }
 
@@ -53,8 +54,6 @@ public class Pedido implements IPedido, IPlantilla{
             this.oEmpresa = oEmpresa;
         }
     }
-
-    
 
     // ###Metodos de esta clase###
 

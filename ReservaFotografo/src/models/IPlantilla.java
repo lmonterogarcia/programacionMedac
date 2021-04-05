@@ -25,6 +25,7 @@ public interface IPlantilla {
     public final short SHMAXDURACION = 999;
     public final int IMAXPRECIO = 100000;
     public final byte BMAXPRECIODECIMAL = 2;
+    public final byte BMAXORDEN = 30;
     public final short BMAX255 = 255;
 
     // ### PATRONES ###

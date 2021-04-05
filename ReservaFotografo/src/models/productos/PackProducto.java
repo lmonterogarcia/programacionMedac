@@ -1,6 +1,7 @@
 package models.productos;
 
 public class PackProducto implements IPackProducto {
+    
     // PK
     private Pack oPack;
     private Producto oProducto;

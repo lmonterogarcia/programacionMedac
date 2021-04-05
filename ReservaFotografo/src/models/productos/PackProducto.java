@@ -61,11 +61,4 @@ public class PackProducto implements IPackProducto {
         return booExito;
     }
 
-    public String toString() {
-        String sMensaje = "";
-        if (this.checkPackProducto()) {
-            sMensaje += oPack.toString() + oProducto.toString();
-        }
-        return sMensaje;
-    }
 }

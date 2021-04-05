@@ -10,5 +10,4 @@ public interface IPackProducto {
     public boolean checkPackProducto();
     public int hashCode();
     public boolean equals(Object obj);
-    public String toString();
 }

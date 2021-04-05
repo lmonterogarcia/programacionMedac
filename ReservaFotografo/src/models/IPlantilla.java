@@ -22,7 +22,7 @@ public interface IPlantilla {
     public final int IMINLATITUD = -1000000;
     public final int IMAXLONGITUD = 10000000;
     public final int IMINLONGITUD = -10000000;
-    public final byte BMAXDURACION = 3;
+    public final short SHMAXDURACION = 999;
     public final int IMAXPRECIO = 100000;
     public final byte BMAXPRECIODECIMAL = 2;
     public final short BMAX255 = 255;

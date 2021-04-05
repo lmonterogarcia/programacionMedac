@@ -140,7 +140,7 @@ public class Producto implements IProducto, IPlantilla {
             if (this.getsProveedroProducto() != null && this.getsProveedroProducto().isEmpty()) {
                 sMensaje += "\n Proveedor: " + this.getsProveedroProducto();
             }
-            if (this.getsDescripcionProducto() != null && this.getsDescripcionProducto().isEmpty()) {
+            if (this.getsDescripcionProducto() != null && !this.getsDescripcionProducto().isEmpty()) {
                 sMensaje += "\n Descripcion: " + this.getsDescripcionProducto();
             }
         }

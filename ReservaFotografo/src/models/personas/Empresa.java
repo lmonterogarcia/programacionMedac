@@ -116,7 +116,7 @@ public class Empresa implements IEmpresa, IPlantilla{
     public String toString() {
         String sMensaje = "";
         if (checkEmpresa()) {
-            sMensaje += "## Empresa ##";
+            sMensaje += "\n## Empresa ##";
             sMensaje += "\n Cif o Nif: " + getsCifNif();
             sMensaje += "\n Nombre: " + getsNombreEmpresa();
             if (sEmailEmpresa != null) {
@@ -125,7 +125,7 @@ public class Empresa implements IEmpresa, IPlantilla{
             if (sTelefonoEmrpesa != null) {
                 sMensaje += "\n Telefono: " + getsTelefonoEmrpesa();
             }
-            sMensaje += " #Dirección# " + oLugar.toString();
+            sMensaje += oLugar.toString();
         }
         return sMensaje;
     }

@@ -143,7 +143,7 @@ public class Sesion implements ISesion, IPlantilla{
     public String toString() {
         String sMensaje = "";
         if (checkSesion()) {
-            sMensaje += "\n## Sesion ##";
+            sMensaje += "\n### Sesion ###";
             sMensaje += oPedido.toString();
             sMensaje += oCliente.toString();
             if (oFechaSesion != null) {

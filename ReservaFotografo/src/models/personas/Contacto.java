@@ -27,7 +27,7 @@ abstract class Contacto implements IContacto, IPlantilla {
         setsNombreContacto(sNombreContacto);
     }
 
-    public Contacto(String sDniContacto,String sNombreContacto, String sApellido1Contacto,
+    public Contacto(String sDniContacto, String sNombreContacto, String sApellido1Contacto,
             String setsApellido2Contacto, String sTelefonoContacto, LocalDate oFechaNacimientoContacto) {
         this.iIdContacto = 1;
         setoFechaCreacion();
@@ -59,7 +59,7 @@ abstract class Contacto implements IContacto, IPlantilla {
     // Es private por que solo se va a utilizar en la creacion del dato,
     // despues no se puede cambiar.
     private void setoFechaCreacion() {
-            this.oFechaCreacion = LocalDateTime.now();
+        this.oFechaCreacion = LocalDateTime.now();
     }
 
     public String getsNombreContacto() {
@@ -67,10 +67,10 @@ abstract class Contacto implements IContacto, IPlantilla {
     }
 
     public void setsNombreContacto(String sNombreContacto) {
-        if (sNombreContacto != null && !sNombreContacto.isEmpty() && sNombreContacto.length() < BMAXNOMBRE){
+        if (sNombreContacto != null && !sNombreContacto.isEmpty() && sNombreContacto.length() < BMAXNOMBRE) {
             this.sNombreContacto = sNombreContacto;
         }
-        
+
     }
 
     public String getsDniContacto() {
@@ -78,10 +78,11 @@ abstract class Contacto implements IContacto, IPlantilla {
     }
 
     public void setsDniContacto(String sDniContacto) {
-        if (sDniContacto != null && !sDniContacto.isEmpty() && sDniContacto.length() <= BMAXDNI && Pattern.matches(SPATRONDNI, sDniContacto) ){
+        if (sDniContacto != null && !sDniContacto.isEmpty() && sDniContacto.length() <= BMAXDNI
+                && Pattern.matches(SPATRONDNI, sDniContacto)) {
             this.sDniContacto = sDniContacto;
         }
-        
+
     }
 
     public String getsApellido1Contacto() {
@@ -89,10 +90,11 @@ abstract class Contacto implements IContacto, IPlantilla {
     }
 
     public void setsApellido1Contacto(String sApellido1Contacto) {
-        if (sApellido1Contacto != null && !sApellido1Contacto.isEmpty() && sApellido1Contacto.length() < BMAXAPELLIDOS ){
+        if (sApellido1Contacto != null && !sApellido1Contacto.isEmpty()
+                && sApellido1Contacto.length() < BMAXAPELLIDOS) {
             this.sApellido1Contacto = sApellido1Contacto;
         }
-        
+
     }
 
     public String getsetsApellido2Contacto() {
@@ -100,7 +102,8 @@ abstract class Contacto implements IContacto, IPlantilla {
     }
 
     public void setsetsApellido2Contacto(String sApellido2Contacto) {
-        if (sApellido1Contacto != null && !sApellido1Contacto.isEmpty() && sApellido1Contacto.length() < BMAXAPELLIDOS ){
+        if (sApellido1Contacto != null && !sApellido1Contacto.isEmpty()
+                && sApellido1Contacto.length() < BMAXAPELLIDOS) {
             this.sApellido2Contacto = sApellido2Contacto;
         }
     }
@@ -110,7 +113,8 @@ abstract class Contacto implements IContacto, IPlantilla {
     }
 
     public void setsTelefonoContacto(String sTelefonoContacto) {
-        if (sTelefonoContacto != null && !sTelefonoContacto.isEmpty() && sTelefonoContacto.length() <= BMAXTELEFONO && Pattern.matches(SPATRONTELEFONO, sTelefonoContacto)){
+        if (sTelefonoContacto != null && !sTelefonoContacto.isEmpty() && sTelefonoContacto.length() <= BMAXTELEFONO
+                && Pattern.matches(SPATRONTELEFONO, sTelefonoContacto)) {
             this.sTelefonoContacto = sTelefonoContacto;
         }
     }
@@ -120,7 +124,7 @@ abstract class Contacto implements IContacto, IPlantilla {
     }
 
     public void setoFechaNacimientoContacto(LocalDate oFechaNacimientoContacto) {
-        if (oFechaNacimientoContacto != null){
+        if (oFechaNacimientoContacto != null) {
             this.oFechaNacimientoContacto = oFechaNacimientoContacto;
         }
     }
@@ -129,7 +133,8 @@ abstract class Contacto implements IContacto, IPlantilla {
 
     public boolean checkContacto() {
         boolean booExito = false;
-        if (getiIdContacto() < 0 && getiIdContacto() > IMAXIDS && getoFechaCreacion() != null && getsNombreContacto() != null && !this.getsNombreContacto().isEmpty()){
+        if (getiIdContacto() < 0 && getiIdContacto() > IMAXIDS && getoFechaCreacion() != null
+                && getsNombreContacto() != null && !this.getsNombreContacto().isEmpty()) {
             booExito = true;
         }
         return booExito;
@@ -145,7 +150,8 @@ abstract class Contacto implements IContacto, IPlantilla {
     public boolean equals(Object obj) {
         boolean booExito = false;
         Contacto oContacto = (Contacto) obj;
-        if (oContacto != null && this.iIdContacto > 0 && this.iIdContacto <= IMAXIDS && this.iIdContacto == oContacto.getiIdContacto()) {
+        if (oContacto != null && this.iIdContacto > 0 && this.iIdContacto <= IMAXIDS
+                && this.iIdContacto == oContacto.getiIdContacto()) {
             booExito = true;
         }
         return booExito;

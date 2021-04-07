@@ -89,7 +89,7 @@ public class Lugar implements ILugar, IPlantilla{
 
     public void setfLatitud(float fLatitud) {
         if (fLatitud < IMAXLATITUD && fLatitud > IMINLATITUD) {
-            BigDecimal bigVariable = new BigDecimal(fLatitud).setScale(4, RoundingMode.UP);
+            BigDecimal bigVariable = new BigDecimal(fLatitud).setScale(BMAXDECIMALLAT, RoundingMode.UP);
         this.fLatitud = bigVariable.floatValue();
         }
     }
@@ -100,7 +100,7 @@ public class Lugar implements ILugar, IPlantilla{
 
     public void setfLongitud(float fLongitud) {
         if (fLongitud < IMAXLONGITUD && fLongitud > IMINLONGITUD) {
-            BigDecimal bigVariable = new BigDecimal(fLongitud).setScale(4, RoundingMode.UP);
+            BigDecimal bigVariable = new BigDecimal(fLongitud).setScale(BMAXDECIMALLONG, RoundingMode.UP);
         this.fLongitud = bigVariable.floatValue();
         }
     }

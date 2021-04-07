@@ -85,4 +85,12 @@ public class EstadoTipoSesion implements IEstadoTipoSesion, IPlantilla {
         return booExito;
     }
 
+    public String toString() {
+        String sMensaje = "";
+        if (checkEstadoTipoSesion()) {
+            sMensaje += oTipoSesion.toString() + oEstado.toString();
+            sMensaje += "\n Orden: " + this.getShOrden();
+        }
+        return sMensaje;
+    }
 }

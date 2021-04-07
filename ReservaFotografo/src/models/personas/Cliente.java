@@ -68,7 +68,7 @@ public class Cliente extends Contacto implements ICliente {
     public String toString() {
         String sMensaje ="";
         if (getiIdContacto() >= 0 && getiIdContacto() <= IMAXIDS) {
-            sMensaje ="\nInformacion del Cliente" + "\n Id: " + SLETRACLIENTE + String.format(SPATRONIDTOSTRING , this.getiIdContacto()) + super.toString();
+            sMensaje ="\n## Cliente ##" + "\n Id: " + SLETRACLIENTE + String.format(SPATRONIDTOSTRING , this.getiIdContacto()) + super.toString();
             if (this.oUsuario != null) {
                 sMensaje += oUsuario.toString();
             }

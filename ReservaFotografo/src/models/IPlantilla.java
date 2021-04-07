@@ -18,10 +18,12 @@ public interface IPlantilla {
     public final byte BMAXNOMBRELUGAR = 100;
     public final byte BMAXNUMEROLUGAR = 10;
     public final byte BMAXSIGLASPAIS = 2;
-    public final int IMAXLATITUD = 1000000;
-    public final int IMINLATITUD = -1000000;
-    public final int IMAXLONGITUD = 10000000;
-    public final int IMINLONGITUD = -10000000;
+    public final int IMAXLATITUD = 100;
+    public final int IMINLATITUD = -100;
+    public final byte BMAXDECIMALLAT = 7;
+    public final int IMAXLONGITUD = 100;
+    public final int IMINLONGITUD = -100;
+    public final byte BMAXDECIMALLONG = 7;
     public final short SHMAXDURACION = 999;
     public final int IMAXPRECIO = 100000;
     public final byte BMAXPRECIODECIMAL = 2;

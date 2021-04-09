@@ -138,12 +138,10 @@ public class Lugar implements ILugar, IPlantilla {
     public boolean equals(Object obj) {
         boolean booExito = false;
         Lugar oLugar = (Lugar) obj;
-        if ((oLugar != null && this.getiIdLugar() > 0 && this.getiIdLugar() <= IMAXIDS
-                && this.getiIdLugar() == oLugar.getiIdLugar())
-                && ((oLugar.getsNombreLugar() != null && this.getsNombreLugar() != null
-                        && this.getsNombreLugar().equals(oLugar.getsNombreLugar()))
-                        || (oLugar.getsCalleLugar() != null && this.getsCalleLugar() != null
-                                && this.getsCalleLugar().equals(oLugar.getsCalleLugar())))) {
+        if ((oLugar != null && ((oLugar.getsNombreLugar() != null && this.getsNombreLugar() != null
+                && this.getsNombreLugar().equals(oLugar.getsNombreLugar()))
+                || (oLugar.getsCalleLugar() != null && this.getsCalleLugar() != null
+                        && this.getsCalleLugar().equals(oLugar.getsCalleLugar()))))) {
             booExito = true;
         }
         return booExito;

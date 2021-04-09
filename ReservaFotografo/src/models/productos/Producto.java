@@ -24,14 +24,14 @@ public class Producto implements IProducto, IPlantilla {
         setiIdProducto(iIdProducto);
     }
 
-    public Producto(int iIdProducto, String sNombreProducto, float fPrecioProducto) {
-        setiIdProducto(iIdProducto);
+    public Producto(String sNombreProducto, float fPrecioProducto) {
+        this.iIdProducto = 1;
         setsNombreProducto(sNombreProducto);
         setfPrecioProducto(fPrecioProducto);
     }
 
-    public Producto(int iIdProducto, String sNombreProducto, float fPrecioProducto, String sDescripcionProducto) {
-        setiIdProducto(iIdProducto);
+    public Producto(String sNombreProducto, float fPrecioProducto, String sDescripcionProducto) {
+        this.iIdProducto = 1;
         setsNombreProducto(sNombreProducto);
         setfPrecioProducto(fPrecioProducto);
         setsDescripcionProducto(sDescripcionProducto);

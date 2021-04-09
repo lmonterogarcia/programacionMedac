@@ -19,9 +19,9 @@ public class Lugar implements ILugar, IPlantilla{
         setiIdLugar(iIdLugar);
     }
 
-    public Lugar(int iIdLugar, String sNombreLugar, String sGoogleMapLink, String sCalleLugar, String sNumeroLugar,
+    public Lugar(String sNombreLugar, String sGoogleMapLink, String sCalleLugar, String sNumeroLugar,
             float fLatitud, float fLongitud, CodigoPostalLocalidadPaisProvincia oCodigoPostalLocalidadPaisProvincia) {
-        setiIdLugar(iIdLugar);
+        this.iIdLugar = 1;
         setsNombreLugar(sNombreLugar);
         setsGoogleMapLink(sGoogleMapLink);
         setsCalleLugar(sCalleLugar);

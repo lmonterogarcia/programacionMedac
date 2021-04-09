@@ -21,14 +21,14 @@ public class Pack implements IPack, IPlantilla{
         setiIdPack(iIdPack);
     }
 
-    public Pack(int iIdPack, String sNombrePack, float fPrecioPack) {
-        setiIdPack(iIdPack);
+    public Pack(String sNombrePack, float fPrecioPack) {
+        this.iIdPack = 1;
         setsNombrePack(sNombrePack);
         setfPrecioPack(fPrecioPack);
     }
 
-    public Pack(int iIdPack, String sNombrePack, float fPrecioPack, String sDescripcionPack) {
-        setiIdPack(iIdPack);
+    public Pack(String sNombrePack, float fPrecioPack, String sDescripcionPack) {
+        this.iIdPack = 1;
         setsNombrePack(sNombrePack);
         setfPrecioPack(fPrecioPack);
         setsDescripcionPack(sDescripcionPack);

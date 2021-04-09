@@ -17,7 +17,7 @@ public class ReservaFotografo {
         CodigoPostal oCodigoPostal = new CodigoPostal("41007");
         CodigoPostalLocalidadPaisProvincia oCodigoPostalLocalidadPaisProvincia = new CodigoPostalLocalidadPaisProvincia(
                 oLocalidad, oCodigoPostal, oPaisProvincia);
-        Lugar oLugar = new Lugar(123, "Prueba",
+        Lugar oLugar = new Lugar("Prueba",
                 "https://www.google.es/maps/place/MEDAC+Sevilla+Este+-+Formación+Profesional/@37.4122534,-5.9596897,15z/data=!4m8!1m2!2m1!1smedac+sevilla!3m4!1s0x0:0xe78091d604579c0c!8m2!3d37.4064864!4d-5.9330383",
                 "Calle Falsa", "12B", 37.406630f, -5.932992f, oCodigoPostalLocalidadPaisProvincia);
         Usuario oUsuario = new Usuario("elmio@gmail.com", "qweqwe");
@@ -29,10 +29,10 @@ public class ReservaFotografo {
         TipoSesion oTipoSesion = new TipoSesion("Comunion", (short)240);
         Estado oEstado = new Estado("Presesion");
         EstadoTipoSesion oEstadoTipoSesion = new EstadoTipoSesion(oEstado, oTipoSesion, (byte) 1);
-        Producto oProducto = new Producto(475, "Copias 10x15", 25f, "Mate y con borde");
-        Pack oPack = new Pack(147, "Sesion Comunion", 250f, "2 horas de sesion mas iglesia");
+        Producto oProducto = new Producto("Copias 10x15", 25f, "Mate y con borde");
+        Pack oPack = new Pack("Sesion Comunion", 250f, "2 horas de sesion mas iglesia");
         PackProducto oPackProducto = new PackProducto(oPack, oProducto);
-        Pedido oPedido = new Pedido(587, false, oEmpresa);
+        Pedido oPedido = new Pedido(false, oEmpresa);
         Sesion oSesion = new Sesion(874, oCliente, oPedido, LocalDate.of(2021, 4, 12), LocalTime.of(18, 00), oLugar, oEstadoTipoSesion);
         PackSesion oPackSesion = new PackSesion(oPack, oSesion);
         ProductoSesion oProductoSesion = new ProductoSesion(oSesion, oProducto);

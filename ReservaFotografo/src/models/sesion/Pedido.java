@@ -17,7 +17,7 @@ public class Pedido implements IPedido, IPlantilla{
         this.setiIdPedido(iIdPedido);
     }
 
-    public Pedido(int iIdPedido, boolean booPagado, Empresa oEmpresa) {
+    public Pedido(boolean booPagado, Empresa oEmpresa) {
         this.setiIdPedido(1);
         this.setBooPagado(booPagado);
         this.setoEmpresa(oEmpresa);

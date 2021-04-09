@@ -25,7 +25,7 @@ public class Sesion implements ISesion, IPlantilla{
         setiIdSesion(iIdSesion);
     }
 
-    public Sesion(int iIdSesion, Cliente oCliente, Pedido oPedido) {
+    public Sesion(Cliente oCliente, Pedido oPedido) {
         setiIdSesion(1);
         setoCliente(oCliente);
         setoPedido(oPedido);

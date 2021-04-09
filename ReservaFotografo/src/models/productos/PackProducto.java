@@ -1,7 +1,7 @@
 package models.productos;
 
 public class PackProducto implements IPackProducto {
-    
+
     // PK
     private Pack oPack;
     private Producto oProducto;
@@ -54,9 +54,9 @@ public class PackProducto implements IPackProducto {
     public boolean equals(Object obj) {
         boolean booExito = false;
         PackProducto oPackProducto = (PackProducto) obj;
-        if (oPackProducto.getoPack() != null && oPackProducto.getoProducto() != null
-                && this.getoPack().getiIdPack() == oPackProducto.getoPack().getiIdPack()
-                && this.getoProducto().getiIdProducto() == oPackProducto.getoProducto().getiIdProducto()) {
+        if (oPackProducto.getoPack() != null && oPackProducto.getoProducto() != null && this.getoPack() != null
+                && this.getoProducto() != null && oPackProducto.getoProducto().equals(this.getoProducto())
+                && oPackProducto.getoPack().equals(this.getoPack())) {
             booExito = true;
         }
         return booExito;

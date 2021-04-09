@@ -2,8 +2,8 @@ package models.sesion;
 
 import models.productos.Pack;
 
-public class PackSesion implements IPackSesion{
-    
+public class PackSesion implements IPackSesion {
+
     // PK
     private Pack oPack;
     private Sesion oSesion;
@@ -56,9 +56,9 @@ public class PackSesion implements IPackSesion{
     public boolean equals(Object obj) {
         boolean booExito = false;
         PackSesion oPackSesion = (PackSesion) obj;
-        if (oPackSesion.getoPack() != null && oPackSesion.getoSesion() != null
-                && this.getoPack().getiIdPack() == oPackSesion.getoPack().getiIdPack()
-                && this.getoSesion().getiIdSesion() == oPackSesion.getoSesion().getiIdSesion()) {
+        if (oPackSesion.getoPack() != null && oPackSesion.getoSesion() != null && this != null
+                && oPackSesion.getoPack().equals(this.getoPack())
+                && oPackSesion.getoSesion().equals(this.getoSesion())) {
             booExito = true;
         }
         return booExito;

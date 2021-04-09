@@ -4,23 +4,25 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import models.IPlantilla;
 
-public class Lugar implements ILugar, IPlantilla{
-    
-    //PK
+public class Lugar implements ILugar, IPlantilla {
+
+    // PK
     private int iIdLugar;
-    //N
+    // N
     private String sNombreLugar, sGoogleMapLink, sCalleLugar, sNumeroLugar;
     private float fLatitud, fLongitud;
     private CodigoPostalLocalidadPaisProvincia oCodigoPostalLocalidadPaisProvincia;
 
     // ###Contructores###
 
-    public Lugar(int iIdLugar) {
+    public Lugar(int iIdLugar, String sNombreLugar, String sCalleLugar) {
         setiIdLugar(iIdLugar);
+        setsNombreLugar(sNombreLugar);
+        setsCalleLugar(sCalleLugar);
     }
 
-    public Lugar(String sNombreLugar, String sGoogleMapLink, String sCalleLugar, String sNumeroLugar,
-            float fLatitud, float fLongitud, CodigoPostalLocalidadPaisProvincia oCodigoPostalLocalidadPaisProvincia) {
+    public Lugar(String sNombreLugar, String sGoogleMapLink, String sCalleLugar, String sNumeroLugar, float fLatitud,
+            float fLongitud, CodigoPostalLocalidadPaisProvincia oCodigoPostalLocalidadPaisProvincia) {
         this.iIdLugar = 1;
         setsNombreLugar(sNombreLugar);
         setsGoogleMapLink(sGoogleMapLink);
@@ -48,7 +50,7 @@ public class Lugar implements ILugar, IPlantilla{
     }
 
     public void setsNombreLugar(String sNombreLugar) {
-        if (sNombreLugar != null && !sNombreLugar.isEmpty() && sNombreLugar.length() < BMAXNOMBRELUGAR ){
+        if (sNombreLugar != null && !sNombreLugar.isEmpty() && sNombreLugar.length() < BMAXNOMBRELUGAR) {
             this.sNombreLugar = sNombreLugar;
         }
     }
@@ -58,7 +60,7 @@ public class Lugar implements ILugar, IPlantilla{
     }
 
     public void setsGoogleMapLink(String sGoogleMapLink) {
-        if (sGoogleMapLink != null && !sGoogleMapLink.isEmpty() && sGoogleMapLink.length() < BMAX255 ){
+        if (sGoogleMapLink != null && !sGoogleMapLink.isEmpty() && sGoogleMapLink.length() < BMAX255) {
             this.sGoogleMapLink = sGoogleMapLink;
         }
     }
@@ -68,7 +70,7 @@ public class Lugar implements ILugar, IPlantilla{
     }
 
     public void setsCalleLugar(String sCalleLugar) {
-        if (sCalleLugar != null && !sCalleLugar.isEmpty() && sCalleLugar.length() < BMAXNOMBRELUGAR ){
+        if (sCalleLugar != null && !sCalleLugar.isEmpty() && sCalleLugar.length() < BMAXNOMBRELUGAR) {
             this.sCalleLugar = sCalleLugar;
         }
     }
@@ -78,7 +80,7 @@ public class Lugar implements ILugar, IPlantilla{
     }
 
     public void setsNumeroLugar(String sNumeroLugar) {
-        if (sNumeroLugar != null && !sNumeroLugar.isEmpty() && sNumeroLugar.length() < BMAXNUMEROLUGAR ){
+        if (sNumeroLugar != null && !sNumeroLugar.isEmpty() && sNumeroLugar.length() < BMAXNUMEROLUGAR) {
             this.sNumeroLugar = sNumeroLugar;
         }
     }
@@ -90,7 +92,7 @@ public class Lugar implements ILugar, IPlantilla{
     public void setfLatitud(float fLatitud) {
         if (fLatitud < IMAXLATITUD && fLatitud > IMINLATITUD) {
             BigDecimal bigVariable = new BigDecimal(fLatitud).setScale(BMAXDECIMALLAT, RoundingMode.UP);
-        this.fLatitud = bigVariable.floatValue();
+            this.fLatitud = bigVariable.floatValue();
         }
     }
 
@@ -101,7 +103,7 @@ public class Lugar implements ILugar, IPlantilla{
     public void setfLongitud(float fLongitud) {
         if (fLongitud < IMAXLONGITUD && fLongitud > IMINLONGITUD) {
             BigDecimal bigVariable = new BigDecimal(fLongitud).setScale(BMAXDECIMALLONG, RoundingMode.UP);
-        this.fLongitud = bigVariable.floatValue();
+            this.fLongitud = bigVariable.floatValue();
         }
     }
 
@@ -118,7 +120,7 @@ public class Lugar implements ILugar, IPlantilla{
 
     // ###Metodos de esta clase###
 
-    public boolean checkLugar(){
+    public boolean checkLugar() {
         boolean booExito = false;
         if (this != null && this.getiIdLugar() > 0 && this.getiIdLugar() <= IMAXIDS) {
             booExito = true;
@@ -136,7 +138,12 @@ public class Lugar implements ILugar, IPlantilla{
     public boolean equals(Object obj) {
         boolean booExito = false;
         Lugar oLugar = (Lugar) obj;
-        if (oLugar != null && this.getiIdLugar() > 0 && this.getiIdLugar() <= IMAXIDS && this.getiIdLugar() == oLugar.getiIdLugar()) {
+        if ((oLugar != null && this.getiIdLugar() > 0 && this.getiIdLugar() <= IMAXIDS
+                && this.getiIdLugar() == oLugar.getiIdLugar())
+                && ((oLugar.getsNombreLugar() != null && this.getsNombreLugar() != null
+                        && this.getsNombreLugar().equals(oLugar.getsNombreLugar()))
+                        || (oLugar.getsCalleLugar() != null && this.getsCalleLugar() != null
+                                && this.getsCalleLugar().equals(oLugar.getsCalleLugar())))) {
             booExito = true;
         }
         return booExito;

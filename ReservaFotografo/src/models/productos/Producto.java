@@ -121,7 +121,7 @@ public class Producto implements IProducto, IPlantilla {
     public boolean equals(Object obj) {
         boolean booExito = false;
         Producto oProducto = (Producto) obj;
-        if (oProducto != null && this.getiIdProducto() > 0 && this.getiIdProducto() < IMAXIDS && oProducto.getiIdProducto() == this.getiIdProducto()) {
+        if (oProducto.checkProducto() && this.checkProducto() && oProducto.getsNombreProducto().equals(this.getsNombreProducto())) {
             booExito = true;
         }
         return booExito;

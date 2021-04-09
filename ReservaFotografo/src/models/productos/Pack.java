@@ -98,7 +98,7 @@ public class Pack implements IPack, IPlantilla{
     public boolean equals(Object obj) {
         boolean booExito = false;
         Pack oPack = (Pack) obj;
-        if (oPack != null && this.getiIdPack() > 0 && this.getiIdPack() < IMAXIDS && oPack.getiIdPack() == this.getiIdPack()) {
+        if (oPack.checkPack() && this.checkPack() && this.getsNombrePack().equals(oPack.getsNombrePack())){
             booExito = true;
         }
         return booExito;

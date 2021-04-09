@@ -2,8 +2,8 @@ package models.sesion;
 
 import models.personas.Participante;
 
-public class ParticipanteSesion implements IParticipanteSesion{
-    
+public class ParticipanteSesion implements IParticipanteSesion {
+
     // PK
     private Participante oParticipante;
     private Sesion oSesion;
@@ -56,9 +56,9 @@ public class ParticipanteSesion implements IParticipanteSesion{
     public boolean equals(Object obj) {
         boolean booExito = false;
         ParticipanteSesion oParticipanteSesion = (ParticipanteSesion) obj;
-        if (oParticipanteSesion.getoParticipante() != null && oParticipanteSesion.getoSesion() != null
-                && this.getoParticipante().getiIdContacto() == oParticipanteSesion.getoParticipante().getiIdContacto()
-                && this.getoSesion().getiIdSesion() == oParticipanteSesion.getoSesion().getiIdSesion()) {
+        if (oParticipanteSesion.getoParticipante() != null && oParticipanteSesion.getoSesion() != null && this != null
+                && oParticipanteSesion.getoParticipante().equals(this.getoParticipante())
+                && oParticipanteSesion.getoSesion().equals(this.getoSesion())) {
             booExito = true;
         }
         return booExito;

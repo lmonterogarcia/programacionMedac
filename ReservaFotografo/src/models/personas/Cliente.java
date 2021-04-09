@@ -24,7 +24,7 @@ public class Cliente extends Contacto implements ICliente {
     public Cliente(String sDniContacto, String sNombreContacto, String sApellido1Contacto, String setsApellido2Contacto,
             String sTelefonoContacto, LocalDate oFechaNacimientoContacto, Usuario oUsuario, Lugar oLugar) {
         super(sDniContacto, sNombreContacto, sApellido1Contacto, setsApellido2Contacto, sTelefonoContacto,
-            oFechaNacimientoContacto);
+                oFechaNacimientoContacto);
         setoUsuario(oUsuario);
         setoLugar(oLugar);
     }
@@ -54,21 +54,28 @@ public class Cliente extends Contacto implements ICliente {
     // ###Metodos de esta clase###
 
     public boolean checkCliente() {
-		boolean booExito = false;
-        if (super.checkContacto() && this.getoUsuario().checkUsuario()){
+        boolean booExito = false;
+        if (super.checkContacto() && this.getoUsuario().checkUsuario()) {
             booExito = true;
         }
         return booExito;
-	}
-	
-	public boolean equals(Object obj) {
-		return super.equals(obj);
-	}
+    }
+
+    public boolean equals(Object obj) {
+        boolean booExito = false;
+        Cliente oCliente = (Cliente) obj;
+        if (oCliente.getoUsuario().getsEmail() != null && this.getoUsuario().getsEmail() != null
+                && this.getoUsuario().getsEmail().equals(oCliente.getoUsuario().getsEmail())) {
+            booExito = true;
+        }
+        return booExito;
+    }
 
     public String toString() {
-        String sMensaje ="";
+        String sMensaje = "";
         if (getiIdContacto() >= 0 && getiIdContacto() <= IMAXIDS) {
-            sMensaje ="\n## Cliente ##" + "\n Id: " + SLETRACLIENTE + String.format(SPATRONIDTOSTRING , this.getiIdContacto()) + super.toString();
+            sMensaje = "\n## Cliente ##" + "\n Id: " + SLETRACLIENTE
+                    + String.format(SPATRONIDTOSTRING, this.getiIdContacto()) + super.toString();
             if (this.oUsuario != null) {
                 sMensaje += oUsuario.toString();
             }

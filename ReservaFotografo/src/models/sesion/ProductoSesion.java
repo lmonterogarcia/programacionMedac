@@ -2,8 +2,8 @@ package models.sesion;
 
 import models.productos.Producto;
 
-public class ProductoSesion implements IProductoSesion{
-    
+public class ProductoSesion implements IProductoSesion {
+
     // PK
     private Sesion oSesion;
     private Producto oProducto;
@@ -56,9 +56,9 @@ public class ProductoSesion implements IProductoSesion{
     public boolean equals(Object obj) {
         boolean booExito = false;
         ProductoSesion oSesionProducto = (ProductoSesion) obj;
-        if (oSesionProducto.getoSesion() != null && oSesionProducto.getoProducto() != null
-                && this.getoSesion().getiIdSesion() == oSesionProducto.getoSesion().getiIdSesion()
-                && this.getoProducto().getiIdProducto() == oSesionProducto.getoProducto().getiIdProducto()) {
+        if (oSesionProducto.getoSesion() != null && oSesionProducto.getoProducto() != null && this != null
+                && oSesionProducto.getoSesion().equals(this.getoSesion())
+                && oSesionProducto.getoProducto().equals(this.getoProducto())) {
             booExito = true;
         }
         return booExito;

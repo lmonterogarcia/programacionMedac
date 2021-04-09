@@ -54,7 +54,8 @@ public class PaisProvincia implements IPaisProvincia {
     public boolean equals(Object obj) {
         boolean booExito = false;
         PaisProvincia oPaisProvincia = (PaisProvincia) obj;
-        if (oPaisProvincia.getoProvincia() != null && oPaisProvincia.getoPais() != null
+        if (oPaisProvincia.getoProvincia() != null && oPaisProvincia.getoPais() != null && this.getoProvincia() != null
+                && this.getoPais() != null
                 && this.getoProvincia().getsNombreProvincia()
                         .equals(oPaisProvincia.getoProvincia().getsNombreProvincia())
                 && this.getoPais().getsNombrePais().equals(oPaisProvincia.getoPais().getsNombrePais())) {

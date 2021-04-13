@@ -98,5 +98,5 @@ public class Controller implements IController {
 	public Cliente searchCliente(Cliente oCliente) {
 		return oPersonasCtrl.searchCliente(oCliente, oConnection);
 	}
-
+	
 }

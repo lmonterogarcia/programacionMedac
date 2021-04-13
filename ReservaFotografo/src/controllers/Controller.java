@@ -1,7 +1,5 @@
 package controllers;
 
-//import models.Cliente;
-//import controllers.personas.*;
 import java.sql.*;
 import java.util.*;
 import java.io.*;
@@ -9,6 +7,10 @@ import java.io.*;
 public class Controller implements IController{
     private Connection oConnection;
 	
+	public Connection getConnection() {
+		return oConnection;
+	}
+
     /*
 	 * # DB METHODS
 	 */
@@ -68,8 +70,4 @@ public class Controller implements IController{
 		return conn;
 	}
 
-	@Override
-	public Connection getConnection() {
-		return null;
-	}
 }

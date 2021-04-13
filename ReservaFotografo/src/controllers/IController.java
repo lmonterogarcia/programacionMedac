@@ -7,8 +7,9 @@ import java.util.*;
 public interface IController {
     // public final String PATH = "/Users/luis/Documents/git-repositorio/programacionMedac/ReservaFotografo"; // ### MACBOOK ###
     // public final String PATH = "/Users/luis/Documents/git-repositories/programacionMedac/ReservaFotografo"; // ### IMAC ###
-    public final String PATH = "C:/Users/Usuario/git-repositorios/programacionMedac/ReservaFotografo"; // ### Windows ###
-    public final String CONFIG_URL = PATH + "/src/config/config.txt";
+    // public final String PATH = "C:/Users/Usuario/git-repositorios/programacionMedac/ReservaFotografo"; // ### Windows ###
+    // public final String CONFIG_URL = PATH + "/src/config/config.txt";
+    public final String CONFIG_URL = "src/config/config.txt";
 
     // public PersonasController getoPersonasCtrl();
 

@@ -1,13 +1,13 @@
 package views;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
+// import java.time.LocalDate;
+// import java.time.LocalTime;
 
 import controllers.Controller;
-import models.lugar.*;
-import models.sesion.*;
-import models.productos.*;
-import models.personas.*;
+// import models.lugar.*;
+// import models.sesion.*;
+// import models.productos.*;
+// import models.personas.*;
 
 public class ReservaFotografo {
         public static void main(String[] args) throws Exception {
@@ -96,19 +96,20 @@ public class ReservaFotografo {
                 Controller oCtrl = new Controller();
 
                 if (oCtrl.init()) {
-                        do {
-				bOpcion = menu();
+                        // do {
+			// 	bOpcion = menu();
 
-				switch (bOpcion) {
-				case 1: // Gestion de clientes
-					ClienteView.gestionClientes(oCtrl);
-					break;
-				default:
-					System.out.println("Hasta luego.");
-				}
+			// 	switch (bOpcion) {
+			// 	case 1: // Gestion de clientes
+			// 		ClienteView.gestionClientes(oCtrl);
+			// 		break;
+			// 	default:
+			// 		System.out.println("Hasta luego.");
+			// 	}
 
-			} while (bOpcion != 2);
-			oCtrl.closeDb();
+			// } while (bOpcion != 2);
+			// oCtrl.closeDb();
+                        System.out.println("Conectado");
                 } else {
                         System.out.println("Error al conectar con la base de datos.");
                 }

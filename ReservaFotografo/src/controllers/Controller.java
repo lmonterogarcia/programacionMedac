@@ -4,8 +4,12 @@ import java.sql.*;
 import java.util.*;
 import java.io.*;
 
+import controllers.personas.PersonasController;
+import models.personas.Cliente;
+
 public class Controller implements IController{
     private Connection oConnection;
+	private PersonasController oPersonasCtrl;
 	
 	public Connection getConnection() {
 		return oConnection;
@@ -68,6 +72,22 @@ public class Controller implements IController{
 		}
 
 		return conn;
+	}
+
+	public boolean addCliente(Cliente oCliente) {
+		return oPersonasCtrl.addCliente(oCliente, oConnection);
+	}
+
+	public boolean removeCliente(Cliente oCliente) {
+		return oPersonasCtrl.removeCliente(oCliente, oConnection);
+	}
+
+	public boolean updateCliente(Cliente oCliente) {
+		return oPersonasCtrl.getoClientCtrl().update(oCliente, oConnection);
+	}
+
+	public Cliente searchCliente(Cliente oCliente) {
+		return oPersonasCtrl.searchCliente(oCliente, oConnection);
 	}
 
 }

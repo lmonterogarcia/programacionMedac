@@ -12,8 +12,8 @@ public interface IContacto {
     public void setsDniContacto(String sDniContacto);
     public String getsApellido1Contacto();
     public void setsApellido1Contacto(String sApellido1Contacto);
-    public String getsetsApellido2Contacto();
-    public void setsetsApellido2Contacto(String setsApellido2Contacto);
+    public String getsApellido2Contacto();
+    public void setsApellido2Contacto(String setsApellido2Contacto);
     public String getsTelefonoContacto();
     public void setsTelefonoContacto(String sTelefonoContacto);
     public LocalDate getoFechaNacimientoContacto();

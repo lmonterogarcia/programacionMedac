@@ -34,7 +34,7 @@ abstract class Contacto implements IContacto, IPlantilla {
         setsNombreContacto(sNombreContacto);
         setsDniContacto(sDniContacto);
         setsApellido1Contacto(sApellido1Contacto);
-        setsetsApellido2Contacto(setsApellido2Contacto);
+        setsApellido2Contacto(setsApellido2Contacto);
         setsTelefonoContacto(sTelefonoContacto);
         setoFechaNacimientoContacto(oFechaNacimientoContacto);
     }
@@ -58,6 +58,9 @@ abstract class Contacto implements IContacto, IPlantilla {
 
     // Es private por que solo se va a utilizar en la creacion del dato,
     // despues no se puede cambiar.
+    public void setoFechaCreacion(LocalDateTime oFechaCreacion2) {
+        this.oFechaCreacion = oFechaCreacion2;
+    }
     private void setoFechaCreacion() {
         this.oFechaCreacion = LocalDateTime.now();
     }
@@ -97,11 +100,11 @@ abstract class Contacto implements IContacto, IPlantilla {
 
     }
 
-    public String getsetsApellido2Contacto() {
+    public String getsApellido2Contacto() {
         return sApellido2Contacto;
     }
 
-    public void setsetsApellido2Contacto(String sApellido2Contacto) {
+    public void setsApellido2Contacto(String sApellido2Contacto) {
         if (sApellido1Contacto != null && !sApellido1Contacto.isEmpty()
                 && sApellido1Contacto.length() < BMAXAPELLIDOS) {
             this.sApellido2Contacto = sApellido2Contacto;
@@ -168,7 +171,7 @@ abstract class Contacto implements IContacto, IPlantilla {
                 sMensaje += "\n Primer apellido: " + getsApellido1Contacto();
             }
             if (this.sApellido2Contacto != null) {
-                sMensaje += "\n Segundo apellido: " + getsetsApellido2Contacto();
+                sMensaje += "\n Segundo apellido: " + getsApellido2Contacto();
             }
             if (this.sDniContacto != null) {
                 sMensaje += "\n DNI: " + getsDniContacto();

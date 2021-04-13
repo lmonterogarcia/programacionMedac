@@ -37,7 +37,7 @@ public class ClienteView implements IPlantilla {
 			}
 			break;
 		case 3: // Buscar
-			Cliente oCliente = searchByDni(oCtrl);
+			Cliente oCliente = searchByEmail(oCtrl);
 			if (oCliente != null) {
 				System.out.println("El cliente buscado existe en la base de datos.");
 				System.out.println(oCliente);
@@ -55,7 +55,7 @@ public class ClienteView implements IPlantilla {
 		}
 	}
 
-	private static boolean create(Controller oCtrl) {
+	private static boolean create(Controller oCtrl) { //############POR AQUIIIIIIII###########
 		String sDni, sNombre, sApellido1, sApellido2, sDireccion, sNumeroDireccion, sTelefono, sTarjeta, sEmail, sPass;
 
 		System.out.println("Introduce los datos basicos del cliente: ");
@@ -79,7 +79,7 @@ public class ClienteView implements IPlantilla {
 				new Usuario(sEmail, sPass), sTarjeta));
 	}
 
-	private static boolean update(Controller oCtrl) { //############POR AQUIIIIIIII###########
+	private static boolean update(Controller oCtrl) { 
 		String sDni, sNombre, sApellidos, sDireccion, sNumeroDireccion, sTelefono, sTarjeta;
 		boolean bExito = false;
 		String sEmailCliente = String.valueOf(Libreria.leer("Introduce un email", 1, 100, -1, -1, (byte) 6));

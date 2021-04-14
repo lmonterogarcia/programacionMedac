@@ -2,6 +2,8 @@ package models.lugar;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.regex.Pattern;
+
 import models.IPlantilla;
 
 public class Lugar implements ILugar, IPlantilla {
@@ -60,7 +62,7 @@ public class Lugar implements ILugar, IPlantilla {
     }
 
     public void setsGoogleMapLink(String sGoogleMapLink) {
-        if (sGoogleMapLink != null && !sGoogleMapLink.isEmpty() && sGoogleMapLink.length() < BMAX255) {
+        if (sGoogleMapLink != null && !sGoogleMapLink.isEmpty() && sGoogleMapLink.length() < BMAX255 && Pattern.matches(SPATRONWEB, sGoogleMapLink)) {
             this.sGoogleMapLink = sGoogleMapLink;
         }
     }

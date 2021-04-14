@@ -27,8 +27,10 @@ public class Libreria {
 			break;
 		case 7:
 			oNumero = pideChar(sMensaje);
+			break;
 		default:
 			oNumero = -1;
+			break;
 		}
 		return oNumero;
 	}

@@ -89,8 +89,9 @@ public class ClienteController implements controllers.ICrudController<Cliente> {
 				} else {
 					sSQL += "NULL";
 				}
+				sSQL += ",";
 
-				if (oCliente.getoLugar().getiIdLugar() != -1) {
+				if (oCliente.getoLugar() != null && oCliente.getoLugar().getiIdLugar() != -1) {
 					sSQL += "'" + oCliente.getoLugar().getiIdLugar() + "'";
 				} else {
 					sSQL += "NULL";
@@ -103,6 +104,7 @@ public class ClienteController implements controllers.ICrudController<Cliente> {
 				}
 				stmt.close();
 			} catch (SQLException e) {
+				System.out.println(e);
 				bExito = false;
 			}
 		}
@@ -116,7 +118,7 @@ public class ClienteController implements controllers.ICrudController<Cliente> {
 			try {
 				Statement stmt = oConnection.createStatement();
 
-				String sSQL = "DELETE FROM Cliente WHERE dni = ";
+				String sSQL = "DELETE FROM Cliente WHERE emailUsuario = ";
 				if (oCliente.getoUsuario().getsEmail() != null) {
 					sSQL += "'" + oCliente.getoUsuario().getsEmail() + "'";
 				} else {
@@ -233,16 +235,16 @@ public class ClienteController implements controllers.ICrudController<Cliente> {
 			Statement stmt = oConnection.createStatement();
 			ResultSet rs = stmt.executeQuery(sSQL);
 			if (rs.next()) {
-				oClienteResult = new Cliente(Integer.parseInt(rs.getString(1)));
+				oClienteResult = new Cliente(rs.getInt(1));
 				oClienteResult.setoFechaCreacion(rs.getTimestamp(2).toLocalDateTime()); 
 				oClienteResult.setsDniContacto(rs.getString(3));
 				oClienteResult.setsNombreContacto(rs.getString(4));
 				oClienteResult.setsApellido1Contacto(rs.getString(5));
-                oClienteResult.setsApellido2Contacto(rs.getString(2));
-                oClienteResult.setsTelefonoContacto(rs.getString(2));
-                oClienteResult.setoFechaNacimientoContacto(rs.getDate(2).toLocalDate());
-				oClienteResult.setoUsuario(new Usuario(rs.getString(6)));
-				oClienteResult.setoLugar(new Lugar(Integer.parseInt(rs.getString(7)), null, null));
+                oClienteResult.setsApellido2Contacto(rs.getString(6));
+                oClienteResult.setsTelefonoContacto(rs.getString(7));
+                oClienteResult.setoFechaNacimientoContacto(rs.getDate(8) != null ? rs.getDate(8).toLocalDate() : null);
+				oClienteResult.setoUsuario(new Usuario(rs.getString(9)));
+				oClienteResult.setoLugar(new Lugar(rs.getInt(10), null, null));
 			}
 			stmt.close();
 		} catch (SQLException e) {

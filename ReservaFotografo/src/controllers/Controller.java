@@ -11,6 +11,14 @@ public class Controller implements IController{
     private Connection oConnection;
 	private PersonasController oPersonasCtrl;
 	
+	public Controller() {
+		oPersonasCtrl = new PersonasController();
+	}
+
+	public PersonasController getoPersonasCtrl() {
+		return oPersonasCtrl;
+	}
+
 	public Connection getConnection() {
 		return oConnection;
 	}

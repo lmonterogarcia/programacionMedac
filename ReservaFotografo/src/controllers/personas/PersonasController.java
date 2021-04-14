@@ -38,8 +38,14 @@ public class PersonasController {
 
     public boolean removeCliente(Cliente oCliente, Connection oConnection) {
         boolean bExito = false;
+        Cliente oClienteRecuperado = searchCliente(oCliente, oConnection);
         if (oClientCtrl.remove(oCliente, oConnection)) {
-            bExito = true;
+            if (oUserCtrl.remove(oClienteRecuperado.getoUsuario(), oConnection)) {
+                bExito = true;
+            } else {
+                addCliente(oClienteRecuperado, oConnection);
+            }
+            
         }
         return bExito;
     }

@@ -25,6 +25,7 @@ public class ClienteView implements IPlantilla {
 	public static void gestionClientes(Controller oCtrl) {
 		switch (ClienteView.subMenuClientes()) {
 		case 1: // Alta de cliente
+			// boolean quepasa = create(oCtrl);
 			if (create(oCtrl)) {
 				System.out.println("El cliente ha sido creado con exito.");
 			} else {
@@ -60,8 +61,9 @@ public class ClienteView implements IPlantilla {
 	private static boolean create(Controller oCtrl) {
 		// LAS VARIABLES DE LA CLASE LUGAR AUN NO SE VAN A
 		// PEDIR!!!!!!!!#######################################################################
-		String sDniContacto, sNombreContacto, sApellido1Contacto, setsApellido2Contacto, sTelefonoContacto, sEmailUsuario, sPassword, sNombreLugar, sGoogleLink, sCalle,
-				sNumeroCalle, sCodigoPostal, sLocalidda, sProvincia, sPais;
+		String sDniContacto, sNombreContacto, sApellido1Contacto, sApellido2Contacto, sTelefonoContacto, sEmailUsuario,
+				sPassword, sNombreLugar, sGoogleLink, sCalle, sNumeroCalle, sCodigoPostal, sLocalidda, sProvincia,
+				sPais;
 		char cFechaNacimiento;
 		int iDia, iMes, iAnio;
 		LocalDate oFechaNacimientoContacto = null;
@@ -78,31 +80,35 @@ public class ClienteView implements IPlantilla {
 					.valueOf(Libreria.leer("Introduce el primer apellido", 0, BMAXAPELLIDOS, -1, -1, (byte) 6));
 		} while (!sApellido1Contacto.isEmpty() && sApellido1Contacto.length() > BMAXAPELLIDOS);
 		do {
-			setsApellido2Contacto = String
+			sApellido2Contacto = String
 					.valueOf(Libreria.leer("Introduce el segundo apellido", 0, BMAXAPELLIDOS, -1, -1, (byte) 6));
-		} while (!setsApellido2Contacto.isEmpty() && setsApellido2Contacto.length() > BMAXAPELLIDOS);
+		} while (!sApellido2Contacto.isEmpty() && sApellido2Contacto.length() > BMAXAPELLIDOS);
 		do {
 			sTelefonoContacto = String.valueOf(Libreria.leer("Introduce un telefono", 0, 9, -1, -1, (byte) 6));
 		} while (!sTelefonoContacto.isEmpty() && sTelefonoContacto.length() != 9);
-		if ((char) (Libreria.leer("¿Quiere introducir la fecha de nacimiento? (s/n) ", -1, -1, -1, -1,
-				(byte) 7)) == 's') {
+		String pozi = String
+				.valueOf(Libreria.leer("¿Quiere introducir la fecha de nacimiento? (s/n) ", -1, -1, -1, -1, (byte) 7));
+		System.out.println(pozi);
+		boolean bExito = pozi.equalsIgnoreCase("s");
+		if (bExito) {
 			do {
 				try {
-					iDia = (int)Libreria.leer("Introduce el dia (1-31)", 1, 31, -1, -1, (byte) 3);
-					iMes = (int) Libreria.leer("Introduce el mes (1-12)", 1, 12, -1, -1, (byte) 3);
-					iAnio = (int) Libreria.leer(
-							"Introduce el annio (" + (LocalDate.now().getYear() - 150) + "-" + LocalDate.now().getYear()
-									+ ") ",
-							LocalDate.now().getYear() - 150, LocalDate.now().getYear(), -1, -1, (byte) 3);
-							oFechaNacimientoContacto = LocalDate.of(iAnio, iMes, iDia);
+					iDia = (int) Libreria.leer("Introduce el dia ", 1, 31, -1, -1, (byte) 3);
+					iMes = (int) Libreria.leer("Introduce el mes ", 1, 12, -1, -1, (byte) 3);
+					iAnio = (int) Libreria.leer("Introduce el annio ", (LocalDate.now().getYear() - 100),
+							LocalDate.now().getYear(), -1, -1, (byte) 3);
+					oFechaNacimientoContacto = LocalDate.of(iAnio, iMes, iDia);
 					booFecha = true;
 				} catch (Exception e) {
 					System.out.println("\nHa introducido mal la fecha, vuelva a introducirla");
 				}
-			} while (booFecha);
+			} while (!booFecha);
 		}
-			// ######## NO IMPLEMENTADO HASTA QUE NO SE CREE EL CONTROLADOR DE LUGAR ############
-		if ((char) (Libreria.leer("¿Quiere introducir una direccion? (s/n) ", -1, -1, -1, -1, (byte) 7)) == 's') {
+		// ######## NO IMPLEMENTADO HASTA QUE NO SE CREE EL CONTROLADOR DE LUGAR
+		// ############
+		if (String.valueOf(
+				Libreria.leer("¿Quiere introducir una direccion o localizacion? (s/n) ", -1, -1, -1, -1, (byte) 7))
+				.equalsIgnoreCase("s")) {
 			do {
 				try {
 					sNombreLugar = String.valueOf(
@@ -136,45 +142,138 @@ public class ClienteView implements IPlantilla {
 		sEmailUsuario = String.valueOf(Libreria.leer("Introduce un email", 1, BMAXEMAIL, -1, -1, (byte) 6));
 		sPassword = String.valueOf(Libreria.leer("Introduce una contrasena", BMINPASSW, BMAXPASSW, -1, -1, (byte) 6));
 
-		return oCtrl.addCliente(new Cliente(sDniContacto, sNombreContacto,sApellido1Contacto, setsApellido2Contacto, sTelefonoContacto, oFechaNacimientoContacto,new Usuario(sEmailUsuario,sPassword) , null));
+		return oCtrl.addCliente(new Cliente(sDniContacto, sNombreContacto, sApellido1Contacto, sApellido2Contacto,
+				sTelefonoContacto, oFechaNacimientoContacto, new Usuario(sEmailUsuario, sPassword), null));
 	}
 
 	private static boolean update(Controller oCtrl) {
-		String sDni, sNombre, sApellidos, sDireccion, sNumeroDireccion, sTelefono, sTarjeta;
-		boolean bExito = false;
-		/*
+		String sDniContacto, sNombreContacto, sApellido1Contacto, sApellido2Contacto, sTelefonoContacto, sEmailUsuario,
+				sPassword, sNombreLugar, sGoogleLink, sCalle, sNumeroCalle, sCodigoPostal, sLocalidda, sProvincia,
+				sPais;
+		char cFechaNacimiento;
+		int iDia, iMes, iAnio;
+		LocalDate oFechaNacimientoContacto = null;
+		float fLatitud, fLongitud;
+		boolean booExito = false, booFecha = false, booLugar = false;
+
 		String sEmailCliente = String.valueOf(Libreria.leer("Introduce un email", 1, 100, -1, -1, (byte) 6));
 		Cliente oCliente = oCtrl.searchCliente(new Cliente(null, new Usuario(sEmailCliente)));
-		if (oCliente != null) {
+		if (oCliente != null && oCliente.checkCliente()) {
 
-			sNombre = String.valueOf(
-					Libreria.leer("Introduce un nombre (" + oCliente.getsNombre() + ")", 0, 250, -1, -1, (byte) 6));
-			oCliente.setsNombre(sNombre);
+			System.out.println("Modifica los datos basicos del cliente: ");
 
-			sApellidos = String.valueOf(Libreria.leer("Introduce unos apellidos (" + oCliente.getsApellidos() + ")", 0,
-					250, -1, -1, (byte) 6));
-			oCliente.setsApellidos(sApellidos);
+			do {
+				sDniContacto = String.valueOf(Libreria.leer("Introduce un dni (" + oCliente.getsDniContacto() + ")", 0,
+						BMAXDNI, -1, -1, (byte) 6));
+			} while (!sDniContacto.isEmpty() && sDniContacto.length() != BMAXDNI);
+			oCliente.setsDniContacto(sDniContacto);
 
-			sDireccion = String.valueOf(Libreria.leer("Introduce una direccion (" + oCliente.getsDireccion() + ")", 0,
-					250, -1, -1, (byte) 6));
-			oCliente.setsDireccion(sDireccion);
+			do {
+				sNombreContacto = String
+						.valueOf(Libreria.leer("Introduce un nombre (" + oCliente.getsNombreContacto() + ")", 0,
+								BMAXNOMBRE, -1, -1, (byte) 6));
+			} while (!sNombreContacto.isEmpty() && sNombreContacto.length() > BMAXNOMBRE);
+			oCliente.setsNombreContacto(sNombreContacto);
 
-			sNumeroDireccion = String
-					.valueOf(Libreria.leer("Introduce un numero de direccion (" + oCliente.getsNumeroDireccion() + ")",
-							0, 250, -1, -1, (byte) 6));
-			oCliente.setsNumeroDireccion(sNumeroDireccion);
+			do {
+				sApellido1Contacto = String.valueOf(
+						Libreria.leer("Introduce el primer apellido (" + oCliente.getsApellido1Contacto() + ")", 0,
+								BMAXAPELLIDOS, -1, -1, (byte) 6));
+			} while (!sApellido1Contacto.isEmpty() && sApellido1Contacto.length() > BMAXAPELLIDOS);
+			oCliente.setsApellido1Contacto(sApellido1Contacto);
 
-			sTelefono = String.valueOf(
-					Libreria.leer("Introduce un telefono (" + oCliente.getsTelefono() + ")", 0, 9, -1, -1, (byte) 6));
-			oCliente.setsTelefono(sTelefono);
+			do {
+				sApellido2Contacto = String.valueOf(
+						Libreria.leer("Introduce el segundo apellido (" + oCliente.getsApellido2Contacto() + ")", 0,
+								BMAXAPELLIDOS, -1, -1, (byte) 6));
+			} while (!sApellido2Contacto.isEmpty() && sApellido2Contacto.length() > BMAXAPELLIDOS);
+			oCliente.setsApellido2Contacto(sApellido2Contacto);
 
-			sTarjeta = String.valueOf(
-					Libreria.leer("Introduce una tarjeta (" + oCliente.getsTarjeta() + ")", 0, 16, -1, -1, (byte) 6));
-			oCliente.setsTarjeta(sTarjeta);
+			do {
+				sTelefonoContacto = String.valueOf(Libreria.leer(
+						"Introduce un telefono (" + oCliente.getsTelefonoContacto() + ")", 0, 9, -1, -1, (byte) 6));
+			} while (!sTelefonoContacto.isEmpty() && sTelefonoContacto.length() != 9);
+			oCliente.setsTelefonoContacto(sTelefonoContacto);
 
-			bExito = oCtrl.updateCliente(oCliente);
-		}*/
-		return bExito;
+			if ((String.valueOf(Libreria.leer(
+					"¿Quiere modificar la fecha de nacimiento? (s/n) (" + oCliente.getoFechaNacimientoContacto() == null
+							? "Vacio"
+							: (oCliente.getoFechaNacimientoContacto().getDayOfMonth() + "/"
+									+ oCliente.getoFechaNacimientoContacto().getMonth() + "/"
+									+ oCliente.getoFechaNacimientoContacto().getYear()) + ")",
+					-1, -1, -1, -1, (byte) 7))).equalsIgnoreCase("s")) {
+				do {
+					try {
+						iDia = (int) Libreria.leer("Introduce el dia ", 1, 31, -1, -1, (byte) 3);
+						iMes = (int) Libreria.leer("Introduce el mes ", 1, 12, -1, -1, (byte) 3);
+						iAnio = (int) Libreria.leer("Introduce el annio ", (LocalDate.now().getYear() - 100),
+								LocalDate.now().getYear(), -1, -1, (byte) 3);
+						oFechaNacimientoContacto = LocalDate.of(iAnio, iMes, iDia);
+						booFecha = true;
+						oCliente.setoFechaNacimientoContacto(LocalDate.of(iAnio, iMes, iDia));
+					} catch (Exception e) {
+						System.out.println("\nHa introducido una fecha incorrecta, vuelva a introducirla");
+					}
+				} while (!booFecha);
+				
+			}
+			// ######## NO IMPLEMENTADO HASTA QUE NO SE CREE EL CONTROLADOR DE LUGAR
+			// ############
+			if (String.valueOf(
+					Libreria.leer("¿Quiere modificar la direccion o localizacion? (s/n) ", -1, -1, -1, -1, (byte) 7))
+					.equalsIgnoreCase("s")) {
+				do {
+					try {
+						sNombreLugar = String.valueOf(
+								Libreria.leer("Introduce el segundo apellido", 0, BMAXAPELLIDOS, -1, -1, (byte) 6));
+						sGoogleLink = String.valueOf(
+								Libreria.leer("Introduce el segundo apellido", 0, BMAXAPELLIDOS, -1, -1, (byte) 6));
+						fLatitud = (float) (Libreria.leer("Introduce el segundo apellido", 0, BMAXAPELLIDOS, -1, -1,
+								(byte) 5));
+						fLongitud = (float) (Libreria.leer("Introduce el segundo apellido", 0, BMAXAPELLIDOS, -1, -1,
+								(byte) 5));
+						sCalle = String.valueOf(
+								Libreria.leer("Introduce el segundo apellido", 0, BMAXAPELLIDOS, -1, -1, (byte) 6));
+						sNumeroCalle = String.valueOf(
+								Libreria.leer("Introduce el segundo apellido", 0, BMAXAPELLIDOS, -1, -1, (byte) 6));
+						sCodigoPostal = String.valueOf(
+								Libreria.leer("Introduce el segundo apellido", 0, BMAXAPELLIDOS, -1, -1, (byte) 6));
+						sLocalidda = String.valueOf(
+								Libreria.leer("Introduce el segundo apellido", 0, BMAXAPELLIDOS, -1, -1, (byte) 6));
+						sProvincia = String.valueOf(
+								Libreria.leer("Introduce el segundo apellido", 0, BMAXAPELLIDOS, -1, -1, (byte) 6));
+						sPais = String.valueOf(
+								Libreria.leer("Introduce el segundo apellido", 0, BMAXAPELLIDOS, -1, -1, (byte) 6));
+						booFecha = true;
+					} catch (Exception e) {
+						System.out.println("\nHa introducido mal la fecha, vuelva a introducirla");
+					}
+				} while (booFecha);
+				oCliente.setoLugar(null); // Cambiar cuando se cree el controlador de Lugar
+			}
+
+			if (String.valueOf(Libreria.leer("¿Quiere modificar la contraseña? (s/n) ", -1, -1, -1, -1, (byte) 7))
+					.equalsIgnoreCase("s")) {
+				byte bContador = 0;
+				boolean booExitoPass = false;
+				do {
+					if ((Libreria.leer("Introduce la contraseña Actual ", BMINPASSW, BMAXPASSW, -1, -1, (byte) 6)).equals(oCliente.getoUsuario().getsPassword())) {
+						sPassword = String.valueOf(Libreria.leer("Introduce la nueva contrasena", BMINPASSW, BMAXPASSW, -1, -1, (byte) 6));
+						booExitoPass = true;
+						oCliente.getoUsuario().setsPassword(sPassword);
+					} else {
+						bContador++;
+						System.out.println("## Contraseña actual incorrecta ##");
+					}
+					if (bContador == 3) {
+						System.out.println("Demasiados errores. La contraseña no se va a cambiar");
+					}
+				} while (!booExitoPass && bContador < 3);
+			}
+			booExito = oCtrl.updateCliente(oCliente);
+		}
+
+		return booExito;
 	}
 
 	private static Cliente searchByEmail(Controller oCtrl) {

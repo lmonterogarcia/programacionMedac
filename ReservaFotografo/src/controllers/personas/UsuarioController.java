@@ -26,6 +26,7 @@ public class UsuarioController implements controllers.ICrudController<Usuario> {
 	 */
 	public boolean add(Usuario oUsuario, Connection oConnection) {
 		boolean bExito = false;
+		System.out.println("Entra3");
 		if (oUsuario != null && oUsuario.checkUsuario()) {
 
 			try {
@@ -66,7 +67,7 @@ public class UsuarioController implements controllers.ICrudController<Usuario> {
 			try {
 				Statement stmt = oConnection.createStatement();
 
-				String sSQL = "DELETE FROM Usuario WHERE email = ";
+				String sSQL = "DELETE FROM Usuario WHERE emailUsuario = ";
 				if (oUsuario.getsEmail() != null) {
 					sSQL += "'" + oUsuario.getsEmail() + "'";
 				} else {

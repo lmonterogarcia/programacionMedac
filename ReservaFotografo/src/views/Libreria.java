@@ -25,6 +25,8 @@ public class Libreria {
 		case 6:
 			oNumero = pideString(sMensaje,lMinimo,lMaximo);
 			break;
+		case 7:
+			oNumero = pideChar(sMensaje);
 		default:
 			oNumero = -1;
 		}
@@ -137,5 +139,27 @@ public class Libreria {
 		} while (bFallo || (sFrase.length() < lMinimo || sFrase.length() > lMaximo));
 
 		return sFrase;
+	}
+
+	private static char pideChar(String sMensaje) {
+		BufferedReader teclado = new BufferedReader(new InputStreamReader(System.in));
+		String sCadenaLeida;
+		char cCaracter;
+		boolean booCorrecto;
+
+		do {
+			System.out.print(sMensaje);
+			try {
+				sCadenaLeida = teclado.readLine();
+				cCaracter = sCadenaLeida.charAt(0);
+				booCorrecto = true;
+			} catch (Exception e) {
+				sCadenaLeida = "-1";
+				cCaracter = 'e';
+				booCorrecto = false;
+			}
+		} while (!booCorrecto || sCadenaLeida.length() != 1);
+
+		return cCaracter;
 	}
 }

@@ -105,8 +105,8 @@ abstract class Contacto implements IContacto, IPlantilla {
     }
 
     public void setsApellido2Contacto(String sApellido2Contacto) {
-        if (sApellido1Contacto != null && !sApellido1Contacto.isEmpty()
-                && sApellido1Contacto.length() < BMAXAPELLIDOS) {
+        if (sApellido2Contacto != null && !sApellido2Contacto.isEmpty()
+                && sApellido2Contacto.length() < BMAXAPELLIDOS) {
             this.sApellido2Contacto = sApellido2Contacto;
         }
     }

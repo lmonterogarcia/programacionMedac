@@ -44,6 +44,14 @@ public class Usuario implements IUsuario, IPlantilla {
 		return bExito;
     }
 
+    public boolean checkUsuarioSuper() {
+        boolean bExito = false;
+		if (this.getsEmail() != null && !this.getsEmail().isEmpty()) {
+			bExito = true;
+		}
+		return bExito;
+    }
+
     public int hashCode() {
 		final int prime = 31;
 		int result = 1;

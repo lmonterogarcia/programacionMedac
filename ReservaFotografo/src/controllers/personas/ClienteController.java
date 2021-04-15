@@ -1,6 +1,5 @@
 package controllers.personas;
 
-import java.util.*;
 
 import models.lugar.Lugar;
 import models.personas.*;
@@ -8,20 +7,6 @@ import java.sql.*;
 import java.sql.Date;
 
 public class ClienteController implements controllers.ICrudController<Cliente> {
-
-	private List<Cliente> lClientes;
-
-	public ClienteController() {
-		lClientes = new ArrayList<Cliente>();
-	}
-
-	public List<Cliente> getLista() {
-		return lClientes;
-	}
-
-	public void setLista(List<Cliente> lClientes) {
-		this.lClientes = lClientes;
-	}
 
 	/*
 	 * ######## # CRUD # ########
@@ -194,21 +179,12 @@ public class ClienteController implements controllers.ICrudController<Cliente> {
 				}
 				sSQL += ",";
 
-                sSQL += "emailUsuario = ";
-				if (oCliente.getoUsuario().getsEmail() != null) {
-					sSQL += "'" + oCliente.getoUsuario().getsEmail() + "'";
-				} else {
-					sSQL += "NULL";
-				}
-
                 sSQL += "idLugar = ";
-				if (oCliente.getoLugar().getiIdLugar() != -1) {
+				if (oCliente.getoLugar().getiIdLugar() > 0) {
 					sSQL += "'" + oCliente.getoLugar().getiIdLugar() + "'";
 				} else {
 					sSQL += "NULL";
 				}
-
-				sSQL += ")";
 
 				sSQL += " WHERE emailUsuario = '" + oCliente.getoUsuario().getsEmail() + "'";
 
@@ -221,10 +197,6 @@ public class ClienteController implements controllers.ICrudController<Cliente> {
 			}
 		}
 		return bExito;
-	}
-
-	public List<Cliente> readAll() {
-		return this.getLista();
 	}
 
 	public Cliente searchByPk(Cliente oCliente, Connection oConnection) {

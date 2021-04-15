@@ -6,6 +6,7 @@ import java.io.*;
 
 import controllers.personas.PersonasController;
 import models.personas.Cliente;
+import models.personas.Usuario;
 
 public class Controller implements IController{
     private Connection oConnection;
@@ -91,11 +92,22 @@ public class Controller implements IController{
 	}
 
 	public boolean updateCliente(Cliente oCliente) {
-		return oPersonasCtrl.getoClientCtrl().update(oCliente, oConnection);
+		boolean booExito = false;
+		if (oPersonasCtrl.getoClientCtrl().update(oCliente, oConnection)) {
+			if (oPersonasCtrl.getoUserCtrl().update(oCliente.getoUsuario(), oConnection)) {
+				booExito = true;
+			}
+		}
+		return booExito;
 	}
 
 	public Cliente searchCliente(Cliente oCliente) {
 		return oPersonasCtrl.searchCliente(oCliente, oConnection);
 	}
+	public Usuario searchUsuario(Cliente oCliente) {
+		return oPersonasCtrl.searchUsuario(oCliente, oConnection);
+	}
+
+
 
 }

@@ -1,32 +1,16 @@
 package controllers.personas;
 
-import java.util.*;
 import models.personas.*;
 
 import java.sql.*;
 
 public class UsuarioController implements controllers.ICrudController<Usuario> {
 
-	private List<Usuario> lUsuarios;
-
-	public UsuarioController() {
-		lUsuarios = new ArrayList<Usuario>();
-	}
-
-	public List<Usuario> getLista() {
-		return lUsuarios;
-	}
-
-	public void setLista(List<Usuario> lUsuarios) {
-		this.lUsuarios = lUsuarios;
-	}
-
 	/*
 	 * ######## # CRUD # ########
 	 */
 	public boolean add(Usuario oUsuario, Connection oConnection) {
 		boolean bExito = false;
-		System.out.println("Entra3");
 		if (oUsuario != null && oUsuario.checkUsuario()) {
 
 			try {
@@ -92,13 +76,13 @@ public class UsuarioController implements controllers.ICrudController<Usuario> {
 			try {
 				Statement stmt = oConnection.createStatement();
 				
-				String sSQL = "UPDATE Usuario SET password = ";
+				String sSQL = "UPDATE Usuario SET passUsuario = ";
 				if (oUsuario.getsPassword() != null) {
 					sSQL += "'" + oUsuario.getsPassword() + "'";
 				} else {
 					sSQL += "NULL";
 				}
-
+				sSQL += " WHERE emailUsuario = '" + oUsuario.getsEmail() + "'"; 
 				if (stmt.executeUpdate(sSQL) > 0) {
 					bExito = true;
 				}
@@ -110,13 +94,9 @@ public class UsuarioController implements controllers.ICrudController<Usuario> {
 		return bExito;
 	}
 
-	public List<Usuario> readAll() {
-		return this.getLista();
-	}
-
 	public Usuario searchByPk(Usuario oUsuario, Connection oConnection) {
 		Usuario oUsuarioResult = null;
-		String sSQL = "SELECT * FROM Usuario WHERE email = '" + oUsuario.getsEmail() + "'";
+		String sSQL = "SELECT * FROM Usuario WHERE emailUsuario = '" + oUsuario.getsEmail() + "'";
 
 		try {
 			Statement stmt = oConnection.createStatement();

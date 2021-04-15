@@ -53,4 +53,10 @@ public class PersonasController {
     public Cliente searchCliente(Cliente oCliente, Connection oConnection) {
         return oClientCtrl.searchByPk(oCliente, oConnection);
     }
+
+    public Usuario searchUsuario(Cliente oCliente, Connection oConnection) {
+        return oUserCtrl.searchByPk(oCliente.getoUsuario(), oConnection);
+    }
+
+    
 }

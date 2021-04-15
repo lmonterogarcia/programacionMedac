@@ -91,17 +91,10 @@ public class UsuarioController implements controllers.ICrudController<Usuario> {
 
 			try {
 				Statement stmt = oConnection.createStatement();
-
+				
 				String sSQL = "UPDATE Usuario SET password = ";
 				if (oUsuario.getsPassword() != null) {
 					sSQL += "'" + oUsuario.getsPassword() + "'";
-				} else {
-					sSQL += "NULL";
-				}
-
-				sSQL += " WHERE email = ";
-				if (oUsuario.getsEmail() != null) {
-					sSQL += "'" + oUsuario.getsEmail() + "'";
 				} else {
 					sSQL += "NULL";
 				}

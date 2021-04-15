@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Launch ReservaFotografo",
+            "request": "launch",
+            "mainClass": "views.ReservaFotografo",
+            "projectName": "ReservaFotografo_e76e4d5c"
+        },
+        {
+            "type": "java",
             "name": "Launch Current File",
             "request": "launch",
             "mainClass": "${file}"

@@ -266,7 +266,7 @@ public class ClienteView implements IPlantilla {
 						System.out.println("## Contraseña actual incorrecta ##");
 					}
 					if (bContador == 3) {
-						System.out.println("Demasiados errores. La contraseña no se va a cambiar");
+						System.out.println("Demasiados errores. La contraseña no se va a cambiar.");
 					}
 				} while (!booExitoPass && bContador < 3);
 			}

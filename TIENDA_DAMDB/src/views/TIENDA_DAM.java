@@ -1,14 +1,13 @@
 package views;
 
-import controllers;
+import controllers.*;
 
 public class TIENDA_DAM {
 
 	public static void main(String[] args) throws Exception {
 
 		byte bOpcion;
-		//Controller oCtrl = new Controller();
-		Controllers oCtrl = new Controllers();
+		Controller oCtrl = new Controller();
 		if (oCtrl.init()) {
 			do {
 				bOpcion = menu();

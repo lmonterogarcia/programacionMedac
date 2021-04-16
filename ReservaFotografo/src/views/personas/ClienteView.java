@@ -1,6 +1,7 @@
 package views.personas;
 
 import java.time.LocalDate;
+import java.util.regex.Pattern;
 
 import controllers.Controller;
 import models.personas.Cliente;
@@ -62,19 +63,19 @@ public class ClienteView implements IPlantilla {
 		// LAS VARIABLES DE LA CLASE LUGAR AUN NO SE VAN A
 		// PEDIR!!!!!!!!#######################################################################
 		String sDniContacto, sNombreContacto, sApellido1Contacto, sApellido2Contacto, sTelefonoContacto, sEmailUsuario,
-				sPassword, sNombreLugar, sGoogleLink, sCalle, sNumeroCalle, sCodigoPostal, sLocalidda, sProvincia,
-				sPais;
-		char cFechaNacimiento;
+				sPassword;
+		// String sNombreLugar, sGoogleLink, sCalle, sNumeroCalle, sCodigoPostal, sLocalidda, sProvincia, sPais;
 		int iDia, iMes, iAnio;
 		LocalDate oFechaNacimientoContacto = null;
-		float fLatitud, fLongitud;
-		boolean booFecha = false, booLugar = false;
+		// float fLatitud, fLongitud;
+		boolean booFecha = false/*, booLugar = false*/;
 
 		System.out.println("Introduce los datos basicos del cliente: ");
+		System.out.println("Campos requeridos *");
 		do {
 			sDniContacto = String.valueOf(Libreria.leer("Introduce un dni", 0, BMAXDNI, -1, -1, (byte) 6));
 		} while (!sDniContacto.isEmpty() && sDniContacto.length() != BMAXDNI);
-		sNombreContacto = String.valueOf(Libreria.leer("Introduce un nombre", 1, BMAXNOMBRE, -1, -1, (byte) 6));
+		sNombreContacto = String.valueOf(Libreria.leer("Introduce un nombre *", 1, BMAXNOMBRE, -1, -1, (byte) 6));
 		do {
 			sApellido1Contacto = String
 					.valueOf(Libreria.leer("Introduce el primer apellido", 0, BMAXAPELLIDOS, -1, -1, (byte) 6));
@@ -89,9 +90,9 @@ public class ClienteView implements IPlantilla {
 		if (String.valueOf(Libreria.leer("¿Quiere introducir la fecha de nacimiento? (s/n) ", -1, -1, -1, -1, (byte) 7)).equalsIgnoreCase("s")) {
 			do {
 				try {
-					iDia = (int) Libreria.leer("Introduce el dia ", 1, 31, -1, -1, (byte) 3);
-					iMes = (int) Libreria.leer("Introduce el mes ", 1, 12, -1, -1, (byte) 3);
-					iAnio = (int) Libreria.leer("Introduce el annio ", (LocalDate.now().getYear() - 100),
+					iDia = (int) Libreria.leer("Introduce el dia *", 1, 31, -1, -1, (byte) 3);
+					iMes = (int) Libreria.leer("Introduce el mes *", 1, 12, -1, -1, (byte) 3);
+					iAnio = (int) Libreria.leer("Introduce el annio *", (LocalDate.now().getYear() - 100),
 							LocalDate.now().getYear(), -1, -1, (byte) 3);
 					oFechaNacimientoContacto = LocalDate.of(iAnio, iMes, iDia);
 					booFecha = true;
@@ -100,8 +101,8 @@ public class ClienteView implements IPlantilla {
 				}
 			} while (!booFecha);
 		}
-		// ######## NO IMPLEMENTADO HASTA QUE NO SE CREE EL CONTROLADOR DE LUGAR
-		// ############
+		/* ######## NO IMPLEMENTADO HASTA QUE NO SE CREE EL CONTROLADOR DE LUGAR
+		
 		if (String.valueOf(
 				Libreria.leer("¿Quiere introducir una direccion o localizacion? (s/n) Por ahora pulsar n ", -1, -1, -1, -1, (byte) 7))
 				.equalsIgnoreCase("s")) {
@@ -133,24 +134,25 @@ public class ClienteView implements IPlantilla {
 				}
 			} while (booFecha);
 		}
+		*/
 
 		System.out.println("\nIntroduce ahora los datos del usuario asociado: ");
-		sEmailUsuario = String.valueOf(Libreria.leer("Introduce un email", 1, BMAXEMAIL, -1, -1, (byte) 6));
-		sPassword = String.valueOf(Libreria.leer("Introduce una contrasena", BMINPASSW, BMAXPASSW, -1, -1, (byte) 6));
+		sEmailUsuario = String.valueOf(Libreria.leer("Introduce un email *", 1, BMAXEMAIL, -1, -1, (byte) 6));
+		sPassword = String.valueOf(Libreria.leer("Introduce una contrasena *", BMINPASSW, BMAXPASSW, -1, -1, (byte) 6));
 
 		return oCtrl.addCliente(new Cliente(sDniContacto, sNombreContacto, sApellido1Contacto, sApellido2Contacto,
 				sTelefonoContacto, oFechaNacimientoContacto, new Usuario(sEmailUsuario, sPassword), null));
 	}
 
 	private static boolean update(Controller oCtrl) {
+		// LAS VARIABLES DE LA CLASE LUGAR AUN NO SE VAN A
+		// PEDIR!!!!!!!!#######################################################################
 		String sDniContacto, sNombreContacto, sApellido1Contacto, sApellido2Contacto, sTelefonoContacto, sEmailUsuario,
-				sPassword, sNombreLugar, sGoogleLink, sCalle, sNumeroCalle, sCodigoPostal, sLocalidda, sProvincia,
-				sPais, sFechaNacimiento;
-		char cFechaNacimiento;
+				sPassword, sFechaNacimiento;
+		// String sNombreLugar, sGoogleLink, sCalle, sNumeroCalle, sCodigoPostal, sLocalidda, sProvincia, sPais;
 		int iDia, iMes, iAnio;
-		LocalDate oFechaNacimientoContacto = null;
-		float fLatitud, fLongitud;
-		boolean booExito = false, booFecha = false, booLugar = false;
+		// float fLatitud, fLongitud;
+		boolean booFecha = false, booExito = false/*, booLugar = false*/;
 
 		String sEmailCliente = String.valueOf(Libreria.leer("Introduce un email", 1, 100, -1, -1, (byte) 6));
 		Cliente oCliente = oCtrl.searchCliente(new Cliente(null, new Usuario(sEmailCliente)));
@@ -209,7 +211,6 @@ public class ClienteView implements IPlantilla {
 							iMes = (int) Libreria.leer("Introduce el mes ", 1, 12, -1, -1, (byte) 3);
 							iAnio = (int) Libreria.leer("Introduce el annio ", (LocalDate.now().getYear() - 100),
 									LocalDate.now().getYear(), -1, -1, (byte) 3);
-							oFechaNacimientoContacto = LocalDate.of(iAnio, iMes, iDia);
 							booFecha = true;
 							oCliente.setoFechaNacimientoContacto(LocalDate.of(iAnio, iMes, iDia));
 						} catch (Exception e) {
@@ -218,8 +219,7 @@ public class ClienteView implements IPlantilla {
 					} while (!booFecha);
 
 				}
-				// ######## NO IMPLEMENTADO HASTA QUE NO SE CREE EL CONTROLADOR DE LUGAR
-				// ############
+				/* ######## NO IMPLEMENTADO HASTA QUE NO SE CREE EL CONTROLADOR DE LUGAR
 				if (String.valueOf(Libreria.leer("¿Quiere modificar la direccion o localizacion? (s/n) ", -1, -1, -1,
 						-1, (byte) 7)).equalsIgnoreCase("s")) {
 					do {
@@ -251,6 +251,7 @@ public class ClienteView implements IPlantilla {
 					} while (booFecha);
 					oCliente.setoLugar(null); // Cambiar cuando se cree el controlador de Lugar
 				}
+				*/
 
 				if (String.valueOf(Libreria.leer("¿Quiere modificar la contraseña? (s/n) ", -1, -1, -1, -1, (byte) 7))
 						.equalsIgnoreCase("s")) {

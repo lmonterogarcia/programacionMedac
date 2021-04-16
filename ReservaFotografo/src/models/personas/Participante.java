@@ -10,17 +10,19 @@ public class Participante extends Contacto implements IParticipante{
 
     // ###Contructores###
 
-    public Participante(int iIdContacto) {
+    public Participante(int iIdContacto, String sDniContacto) {
         super(iIdContacto);
+        super.setsDniContacto(sDniContacto);
     }
 
-    public Participante(String sNombreContacto) {
+    public Participante(String sDniContacto, String sNombreContacto) {
         super(sNombreContacto);
+        super.setsDniContacto(sDniContacto);
     }
 
-    public Participante(String sDniContacto, String sNombreContacto, String sApellido1Contacto, String setsApellido2Contacto,
+    public Participante(String sDniContacto, String sNombreContacto, String sApellido1Contacto, String sApellido2Contacto,
             String sTelefonoContacto, LocalDate oFechaNacimientoContacto, String sEmailParticipante) {
-        super(sDniContacto, sNombreContacto, sApellido1Contacto, setsApellido2Contacto, sTelefonoContacto,
+        super(sDniContacto, sNombreContacto, sApellido1Contacto, sApellido2Contacto, sTelefonoContacto,
             oFechaNacimientoContacto);
             setsEmailParticipante(sEmailParticipante);
     }
@@ -41,11 +43,20 @@ public class Participante extends Contacto implements IParticipante{
     // ###Metodos de esta clase###
 
     public boolean checkCliente() {
-		return super.checkContacto();
+        boolean booExito = false;
+        if (getsDniContacto() != null  &&super.checkContacto() ) {
+            booExito = true;
+        }
+		return booExito;
 	}
 	
 	public boolean equals(Object obj) {
-		return super.equals(obj);
+		boolean booExito = false;
+        Participante oParticipante = (Participante) obj;
+        if (super.equals(obj) && oParticipante.getsDniContacto() != null && this.getsDniContacto().equals(oParticipante.getsDniContacto())) {
+            booExito = true;
+        }
+        return booExito;
 	}
 
     public String toString() {

@@ -58,11 +58,12 @@ public class FotografoView implements IPlantilla{
 		String sDniFotgrafo, sNombreFotografo;
 
 		System.out.println("\nIntroduce los datos del fotografo: ");
+		System.out.println("Campos requeridos *");
 		do {
-			sDniFotgrafo = String.valueOf(Libreria.leer("Introduce un dni", 1, BMAXDNI, -1, -1, (byte) 6));
+			sDniFotgrafo = String.valueOf(Libreria.leer("Introduce un dni *", 1, BMAXDNI, -1, -1, (byte) 6));
 		} while (!sDniFotgrafo.isEmpty() && sDniFotgrafo.length() != BMAXDNI);
 		do {
-			sNombreFotografo = String.valueOf(Libreria.leer("Introduce un nombre", 1, BMAXNOMBRELARGO, -1, -1, (byte) 6));
+			sNombreFotografo = String.valueOf(Libreria.leer("Introduce un nombre *", 1, BMAXNOMBRELARGO, -1, -1, (byte) 6));
 		} while (!sNombreFotografo.isEmpty() && sNombreFotografo.length() > BMAXNOMBRELARGO);
 		
 
@@ -79,10 +80,11 @@ public class FotografoView implements IPlantilla{
 			if (oFotografo != null && oFotografo.checkFotografo()) {
 
 				System.out.println("Modifica el nombre del fotografo: ");
+				System.out.println("Campos requeridos *");
 
 				do {
 					sNombreFotografo = String
-							.valueOf(Libreria.leer("Introduce un nombre (" + oFotografo.getsNombreFotografo() + ")", 0,
+							.valueOf(Libreria.leer("Introduce un nombre (" + oFotografo.getsNombreFotografo() + ") *", 0,
 									BMAXNOMBRE, -1, -1, (byte) 6));
 				} while (!sNombreFotografo.isEmpty() && sNombreFotografo.length() > BMAXNOMBRE);
 				oFotografo.setsNombreFotografo(sNombreFotografo);

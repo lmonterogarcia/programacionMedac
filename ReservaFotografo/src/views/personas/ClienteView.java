@@ -1,7 +1,6 @@
 package views.personas;
 
 import java.time.LocalDate;
-import java.util.regex.Pattern;
 
 import controllers.Controller;
 import models.personas.Cliente;
@@ -147,7 +146,7 @@ public class ClienteView implements IPlantilla {
 	private static boolean update(Controller oCtrl) {
 		// LAS VARIABLES DE LA CLASE LUGAR AUN NO SE VAN A
 		// PEDIR!!!!!!!!#######################################################################
-		String sDniContacto, sNombreContacto, sApellido1Contacto, sApellido2Contacto, sTelefonoContacto, sEmailUsuario,
+		String sDniContacto, sNombreContacto, sApellido1Contacto, sApellido2Contacto, sTelefonoContacto,
 				sPassword, sFechaNacimiento;
 		// String sNombreLugar, sGoogleLink, sCalle, sNumeroCalle, sCodigoPostal, sLocalidda, sProvincia, sPais;
 		int iDia, iMes, iAnio;

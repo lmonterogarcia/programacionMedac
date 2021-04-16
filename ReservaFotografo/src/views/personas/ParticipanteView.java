@@ -7,7 +7,7 @@ import controllers.Controller;
 import models.IPlantilla;
 import models.personas.Participante;
 import views.Libreria;
-
+// ###$$$ NO ESTA TERMINADO $$$###
 public class ParticipanteView implements IPlantilla {
     public static byte subMenuParticipante() {
         System.out.println("");
@@ -21,7 +21,7 @@ public class ParticipanteView implements IPlantilla {
         System.out.println("5. Volver atras");
         return (byte) Libreria.leer("Introduce una opcion", 1, 5, -1, -1, (byte) 1);
     }
-
+/*
     public static void gestionParticipante(Controller oCtrl) {
         switch (ParticipanteView.subMenuParticipante()) {
         case 1: // Alta de particpante
@@ -264,4 +264,5 @@ public class ParticipanteView implements IPlantilla {
         }
         return bExito;
     }
+    */
 }

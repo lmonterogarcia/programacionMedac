@@ -6,6 +6,7 @@ import java.io.*;
 
 import controllers.personas.PersonasController;
 import models.personas.Cliente;
+import models.personas.Fotografo;
 import models.personas.Usuario;
 
 public class Controller implements IController{
@@ -83,6 +84,9 @@ public class Controller implements IController{
 		return conn;
 	}
 
+
+
+	// ###### Cliente y Usuario ######
 	public boolean addCliente(Cliente oCliente) {
 		return oPersonasCtrl.addCliente(oCliente, oConnection);
 	}
@@ -106,6 +110,25 @@ public class Controller implements IController{
 	}
 	public Usuario searchUsuario(Cliente oCliente) {
 		return oPersonasCtrl.searchUsuario(oCliente, oConnection);
+	}
+
+
+
+	// ###### Fotografo ######
+	public boolean addFotografo(Fotografo oFotografo) {
+		return oPersonasCtrl.addFotografo(oFotografo, oConnection);
+	}
+
+	public boolean removeFotografo(Fotografo oFotografo) {
+		return oPersonasCtrl.removeFotografo(oFotografo, oConnection);
+	}
+
+	public boolean updateFotografo(Fotografo oFotografo) {
+		return oPersonasCtrl.getoFotografoCtrl().update(oFotografo, oConnection);
+	}
+
+	public Fotografo searchFotografo(Fotografo oFotografo) {
+		return oPersonasCtrl.searchFotografo(oFotografo, oConnection);
 	}
 
 

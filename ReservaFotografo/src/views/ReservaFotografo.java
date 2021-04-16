@@ -15,7 +15,7 @@ public class ReservaFotografo {
 
 				switch (bOpcion) {
 				case 1: // Gestion de clientes
-					ClienteView.gestionClientes(oCtrl);
+					ContactoView.gestionContato(oCtrl);
 					break;
                 // case 2: // Gestion de lugares
 				// 	ClienteView.gestionClientes(oCtrl); //NO IMPLEMENTADO. TEXTO PARA QUE NO DE ERROR.
@@ -32,12 +32,12 @@ public class ReservaFotografo {
         }
 
         public static byte menu() {
-		System.out.println("###############################################");
+		System.out.println("\n###############################################");
 		System.out.println("## Bienvenido a la APP de Reserva Fotografos ##");
 		System.out.println("###############################################");
 		System.out.println("1. Gestion de contactos");
         //System.out.println("2. Gestion de lugares");
 		System.out.println("2. Salir");
-		return (byte) Libreria.leer("Introduce una opcion", 1, 3, -1, -1, (byte) 1);
+		return (byte) Libreria.leer("Introduce una opcion", 1, 2, -1, -1, (byte) 1);
 	}
 }

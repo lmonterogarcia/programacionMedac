@@ -7,14 +7,19 @@ public class PersonasController {
 
     private UsuarioController oUserCtrl;
     private ClienteController oClientCtrl;
+    private FotografoController oFotografoCtrl;
 
     public PersonasController() {
         oUserCtrl = new UsuarioController();
         oClientCtrl = new ClienteController();
+        oFotografoCtrl = new FotografoController();
     }
 
     public UsuarioController getoUserCtrl() {
         return oUserCtrl;
+    }
+    public FotografoController getoFotografoCtrl() {
+        return oFotografoCtrl;
     }
 
     public ClienteController getoClientCtrl() {
@@ -22,7 +27,7 @@ public class PersonasController {
     }
 
     /*
-     * # CONTROLLER METHODS
+     * # CONTROLLER METHODS CLIENTE Y USUARIO
      */
     public boolean addCliente(Cliente oCliente, Connection oConnection) {
         boolean bExito = false;
@@ -56,6 +61,23 @@ public class PersonasController {
 
     public Usuario searchUsuario(Cliente oCliente, Connection oConnection) {
         return oUserCtrl.searchByPk(oCliente.getoUsuario(), oConnection);
+    }
+
+
+
+    /*
+     * # CONTROLLER METHODS FOTOGRAFO
+     */
+    public boolean addFotografo(Fotografo oFotografo, Connection oConnection) {
+        return oFotografoCtrl.add(oFotografo, oConnection);
+    }
+
+    public boolean removeFotografo(Fotografo oFotografo, Connection oConnection) {
+        return oFotografoCtrl.remove(oFotografo, oConnection);
+    }
+
+    public Fotografo searchFotografo(Fotografo oFotografo, Connection oConnection) {
+        return oFotografoCtrl.searchByPk(oFotografo, oConnection);
     }
 
     

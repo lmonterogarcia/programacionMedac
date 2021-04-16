@@ -6,6 +6,7 @@ public interface IPlantilla {
     public final int IMAXIDS = 999999;
     public final byte BMAXID = 6;
     public final byte BMAXDNI = 9;
+    public final byte BMINDNI = 9;
     public final byte BMAXNOMBRE = 20;
     public final byte BMAXNOMBRELARGO = 50;
     public final byte BMAXAPELLIDOS = 30;

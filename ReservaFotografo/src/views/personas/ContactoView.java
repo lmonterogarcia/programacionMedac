@@ -18,7 +18,7 @@ public class ContactoView {
                 ClienteView.gestionClientes(oCtrl);
                 break;
             case 2: // Gestion de participantes
-                ParticipanteView.gestionParticipante(oCtrl);
+                //ParticipanteView.gestionParticipante(oCtrl);
                 break;
             case 3: // Gestion de participantes
                 FotografoView.gestionFotografo(oCtrl);

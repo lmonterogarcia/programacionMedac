@@ -60,7 +60,6 @@ public class ParticipanteView implements IPlantilla {
     private static boolean create(Controller oCtrl) {
         String sDniContacto, sNombreContacto, sApellido1Contacto, sApellido2Contacto, sTelefonoContacto,
                 sEmailParticipante;
-        char cFechaNacimiento;
         int iDia, iMes, iAnio;
         LocalDate oFechaNacimientoContacto = null;
         boolean booFecha = false;
@@ -110,9 +109,7 @@ public class ParticipanteView implements IPlantilla {
     private static boolean update(Controller oCtrl) {
         String sDniContacto, sNombreContacto, sApellido1Contacto, sApellido2Contacto, sTelefonoContacto,
                 sEmailParticipante, sFechaNacimiento;
-        char cFechaNacimiento;
         int iDia, iMes, iAnio;
-        LocalDate oFechaNacimientoContacto = null;
         boolean booExito = false, booFecha = false;
 
         do {
@@ -185,7 +182,6 @@ public class ParticipanteView implements IPlantilla {
                         iMes = (int) Libreria.leer("Introduce el mes ", 1, 12, -1, -1, (byte) 3);
                         iAnio = (int) Libreria.leer("Introduce el annio ", (LocalDate.now().getYear() - 100),
                                 LocalDate.now().getYear(), -1, -1, (byte) 3);
-                        oFechaNacimientoContacto = LocalDate.of(iAnio, iMes, iDia);
                         booFecha = true;
                         oParticipante.setoFechaNacimientoContacto(LocalDate.of(iAnio, iMes, iDia));
                     } catch (Exception e) {

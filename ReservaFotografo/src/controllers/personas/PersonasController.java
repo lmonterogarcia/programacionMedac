@@ -8,11 +8,13 @@ public class PersonasController {
     private UsuarioController oUserCtrl;
     private ClienteController oClientCtrl;
     private FotografoController oFotografoCtrl;
+    private ParticipanteController oParticipanteCtrl;
 
     public PersonasController() {
         oUserCtrl = new UsuarioController();
         oClientCtrl = new ClienteController();
         oFotografoCtrl = new FotografoController();
+        oParticipanteCtrl = new ParticipanteController();
     }
 
     public UsuarioController getoUserCtrl() {
@@ -24,6 +26,10 @@ public class PersonasController {
 
     public ClienteController getoClientCtrl() {
         return oClientCtrl;
+    }
+
+    public ParticipanteController getoParticipanteCtrl() {
+        return oParticipanteCtrl;
     }
 
     /*
@@ -78,6 +84,23 @@ public class PersonasController {
 
     public Fotografo searchFotografo(Fotografo oFotografo, Connection oConnection) {
         return oFotografoCtrl.searchByPk(oFotografo, oConnection);
+    }
+
+
+
+     /*
+     * # CONTROLLER METHODS PARTICIPANTE
+     */
+    public boolean addParticipante(Participante oParticipante, Connection oConnection) {
+        return oParticipanteCtrl.add(oParticipante, oConnection);
+    }
+
+    public boolean removeParticipante(Participante oParticipante, Connection oConnection) {
+        return oParticipanteCtrl.remove(oParticipante, oConnection);
+    }
+
+    public Participante searchParticipante(Participante oParticipante, Connection oConnection) {
+        return oParticipanteCtrl.searchByPk(oParticipante, oConnection);
     }
 
     

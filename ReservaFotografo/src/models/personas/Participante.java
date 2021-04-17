@@ -10,6 +10,10 @@ public class Participante extends Contacto implements IParticipante{
 
     // ###Contructores###
 
+    public Participante(int iIdContacto) {
+        super(iIdContacto);
+    }
+
     public Participante(int iIdContacto, String sDniContacto) {
         super(iIdContacto);
         super.setsDniContacto(sDniContacto);

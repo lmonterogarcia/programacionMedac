@@ -4,7 +4,6 @@ package controllers.personas;
 import models.lugar.Lugar;
 import models.personas.*;
 import java.sql.*;
-import java.sql.Date;
 
 public class ClienteController implements controllers.ICrudController<Cliente> {
 

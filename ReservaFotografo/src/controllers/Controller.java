@@ -7,6 +7,7 @@ import java.io.*;
 import controllers.personas.PersonasController;
 import models.personas.Cliente;
 import models.personas.Fotografo;
+import models.personas.Participante;
 import models.personas.Usuario;
 
 public class Controller implements IController{
@@ -129,6 +130,25 @@ public class Controller implements IController{
 
 	public Fotografo searchFotografo(Fotografo oFotografo) {
 		return oPersonasCtrl.searchFotografo(oFotografo, oConnection);
+	}
+
+
+
+	// ###### Participante ######
+	public boolean addParticipante(Participante oParticipante) {
+		return oPersonasCtrl.addParticipante(oParticipante, oConnection);
+	}
+
+	public boolean removeParticipante(Participante oParticipante) {
+		return oPersonasCtrl.removeParticipante(oParticipante, oConnection);
+	}
+
+	public boolean updateParticipante(Participante oParticipante) {
+		return oPersonasCtrl.getoParticipanteCtrl().update(oParticipante, oConnection);
+	}
+
+	public Participante searchParticipante(Participante oParticipante) {
+		return oPersonasCtrl.searchParticipante(oParticipante, oConnection);
 	}
 
 

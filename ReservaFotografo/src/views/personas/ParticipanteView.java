@@ -21,7 +21,7 @@ public class ParticipanteView implements IPlantilla {
         System.out.println("5. Volver atras");
         return (byte) Libreria.leer("Introduce una opcion", 1, 5, -1, -1, (byte) 1);
     }
-/*
+
     public static void gestionParticipante(Controller oCtrl) {
         switch (ParticipanteView.subMenuParticipante()) {
         case 1: // Alta de particpante
@@ -109,25 +109,28 @@ public class ParticipanteView implements IPlantilla {
 
     private static boolean update(Controller oCtrl) {
         String sDniContacto, sNombreContacto, sApellido1Contacto, sApellido2Contacto, sTelefonoContacto,
-                sEmailParticipante;
+                sEmailParticipante, sFechaNacimiento;
         char cFechaNacimiento;
         int iDia, iMes, iAnio;
         LocalDate oFechaNacimientoContacto = null;
-        boolean booFecha = false;
+        boolean booExito = false, booFecha = false;
 
         do {
             sDniContacto = String.valueOf(Libreria.leer("Introduce un dni *", BMINDNI, BMAXDNI, -1, -1, (byte) 6));
         } while (!Pattern.matches(SPATRONDNI, sDniContacto));
-        Participante oParticipante = oCtrl.searchParticipante(new Participante(null, sDniContacto));
+        Participante oParticipante = oCtrl.searchParticipante(new Participante(1, sDniContacto));
 
         if (oParticipante != null && oParticipante.checkParticipante()) {
 
-            System.out.println("Modifica los datos basicos del participante: ");
+            System.out.println("Modifica los datos del participante: ");
 
             do {
                 sDniContacto = String.valueOf(Libreria.leer(
                         "Introduce un dni (" + oParticipante.getsDniContacto() + ")", 0, BMAXDNI, -1, -1, (byte) 6));
-            } while (!sDniContacto.isEmpty() && sDniContacto.length() != BMAXDNI);
+                        if (oCtrl.searchParticipante(new Participante(1, sDniContacto)) != null) {
+                            System.out.println("\nEste dni ya esta siendo utilizado en la base de datos");
+                        }
+            } while (!sDniContacto.isEmpty() && sDniContacto.length() != BMAXDNI && oCtrl.searchParticipante(new Participante(1, sDniContacto)) != null);
             oParticipante.setsDniContacto(sDniContacto);
 
             do {
@@ -158,6 +161,13 @@ public class ParticipanteView implements IPlantilla {
             } while (!sTelefonoContacto.isEmpty() && sTelefonoContacto.length() != 9);
             oParticipante.setsTelefonoContacto(sTelefonoContacto);
 
+            do {
+                sEmailParticipante = String
+                        .valueOf(Libreria.leer("Introduce un email (" + oParticipante.getsEmailParticipante() + ")",
+                                0, 9, -1, -1, (byte) 6));
+            } while (!sEmailParticipante.isEmpty() && sEmailParticipante.length() != 9);
+            oParticipante.setsEmailParticipante(sEmailParticipante);
+
             if (oParticipante.getoFechaNacimientoContacto() != null) {
                 sFechaNacimiento = oParticipante.getoFechaNacimientoContacto().getDayOfMonth() + "/"
                         + oParticipante.getoFechaNacimientoContacto().getMonth() + "/"
@@ -184,61 +194,7 @@ public class ParticipanteView implements IPlantilla {
                 } while (!booFecha);
 
             }
-            // ######## NO IMPLEMENTADO HASTA QUE NO SE CREE EL CONTROLADOR DE LUGAR
-            // ############
-            if (String.valueOf(
-                    Libreria.leer("¿Quiere modificar la direccion o localizacion? (s/n) ", -1, -1, -1, -1, (byte) 7))
-                    .equalsIgnoreCase("s")) {
-                do {
-                    try {
-                        sNombreLugar = String.valueOf(
-                                Libreria.leer("Introduce el segundo apellido", 0, BMAXAPELLIDOS, -1, -1, (byte) 6));
-                        sGoogleLink = String.valueOf(
-                                Libreria.leer("Introduce el segundo apellido", 0, BMAXAPELLIDOS, -1, -1, (byte) 6));
-                        fLatitud = (float) (Libreria.leer("Introduce el segundo apellido", 0, BMAXAPELLIDOS, -1, -1,
-                                (byte) 5));
-                        fLongitud = (float) (Libreria.leer("Introduce el segundo apellido", 0, BMAXAPELLIDOS, -1, -1,
-                                (byte) 5));
-                        sCalle = String.valueOf(
-                                Libreria.leer("Introduce el segundo apellido", 0, BMAXAPELLIDOS, -1, -1, (byte) 6));
-                        sNumeroCalle = String.valueOf(
-                                Libreria.leer("Introduce el segundo apellido", 0, BMAXAPELLIDOS, -1, -1, (byte) 6));
-                        sCodigoPostal = String.valueOf(
-                                Libreria.leer("Introduce el segundo apellido", 0, BMAXAPELLIDOS, -1, -1, (byte) 6));
-                        sLocalidda = String.valueOf(
-                                Libreria.leer("Introduce el segundo apellido", 0, BMAXAPELLIDOS, -1, -1, (byte) 6));
-                        sProvincia = String.valueOf(
-                                Libreria.leer("Introduce el segundo apellido", 0, BMAXAPELLIDOS, -1, -1, (byte) 6));
-                        sPais = String.valueOf(
-                                Libreria.leer("Introduce el segundo apellido", 0, BMAXAPELLIDOS, -1, -1, (byte) 6));
-                        booFecha = true;
-                    } catch (Exception e) {
-                        System.out.println("\nHa introducido mal la fecha, vuelva a introducirla");
-                    }
-                } while (booFecha);
-                oParticipante.setoLugar(null); // Cambiar cuando se cree el controlador de Lugar
-            }
 
-            if (String.valueOf(Libreria.leer("¿Quiere modificar la contraseña? (s/n) ", -1, -1, -1, -1, (byte) 7))
-                    .equalsIgnoreCase("s")) {
-                byte bContador = 0;
-                boolean booExitoPass = false;
-                do {
-                    if ((Libreria.leer("Introduce la contraseña Actual ", BMINPASSW, BMAXPASSW, -1, -1, (byte) 6))
-                            .equals(oParticipante.getoUsuario().getsPassword())) {
-                        sPassword = String.valueOf(
-                                Libreria.leer("Introduce la nueva contrasena", BMINPASSW, BMAXPASSW, -1, -1, (byte) 6));
-                        booExitoPass = true;
-                        oParticipante.getoUsuario().setsPassword(sPassword);
-                    } else {
-                        bContador++;
-                        System.out.println("## Contraseña actual incorrecta ##");
-                    }
-                    if (bContador == 3) {
-                        System.out.println("Demasiados errores. La contraseña no se va a cambiar.");
-                    }
-                } while (!booExitoPass && bContador < 3);
-            }
             booExito = oCtrl.updateParticipante(oParticipante);
         }
 
@@ -264,5 +220,5 @@ public class ParticipanteView implements IPlantilla {
         }
         return bExito;
     }
-    */
+    
 }

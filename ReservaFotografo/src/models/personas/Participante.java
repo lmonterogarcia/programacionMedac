@@ -42,7 +42,7 @@ public class Participante extends Contacto implements IParticipante{
     
     // ###Metodos de esta clase###
 
-    public boolean checkCliente() {
+    public boolean checkParticipante() {
         boolean booExito = false;
         if (getsDniContacto() != null  &&super.checkContacto() ) {
             booExito = true;

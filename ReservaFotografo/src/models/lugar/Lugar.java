@@ -62,7 +62,7 @@ public class Lugar implements ILugar, IPlantilla {
     }
 
     public void setsGoogleMapLink(String sGoogleMapLink) {
-        if (sGoogleMapLink != null && !sGoogleMapLink.isEmpty() && sGoogleMapLink.length() < BMAX255 && Pattern.matches(SPATRONWEB, sGoogleMapLink)) {
+        if (sGoogleMapLink != null && !sGoogleMapLink.isEmpty() && sGoogleMapLink.length() < BMAX255 && Pattern.matches(SPATRONGOOGLEMAPWEB, sGoogleMapLink)) {
             this.sGoogleMapLink = sGoogleMapLink;
         }
     }

@@ -36,7 +36,7 @@ public interface IPlantilla {
     public final String SPATRONTELEFONO = "(6|7|8|9){1}\\d{8}";
     public final String SPATRONEMAIL = "^[A-Za-z0-9+_.-]+@(.+)$";
     public final String SPATRONIDTOSTRING = "%06d";
-    public final String SPATRONWEB = "(http:|https:)?\\/\\/(www\\.)?(maps.)?google\\.[a-z.]+\\/maps/?([\\?]|place/*[^@]*)?/*@?(ll=)?(q=)?(([\\?=]?[a-zA-Z]*[+]?)*/?@{0,1})?([0-9]{1,3}\\.[0-9]+(,|&[a-zA-Z]+=)-?[0-9]{1,3}\\.[0-9]+(,?[0-9]+(z|m))?)?(\\/?data=[\\!:\\.\\-0123456789abcdefmsx]+)?";
+    public final String SPATRONGOOGLEMAPWEB = "(http:|https:)?\\/\\/(www\\.)?(maps.)?google\\.[a-z.]+\\/maps/?([\\?]|place/*[^@]*)?/*@?(ll=)?(q=)?(([\\?=]?[a-zA-Z]*[+]?)*/?@{0,1})?([0-9]{1,3}\\.[0-9]+(,|&[a-zA-Z]+=)-?[0-9]{1,3}\\.[0-9]+(,?[0-9]+(z|m))?)?(\\/?data=[\\!:\\.\\-0123456789abcdefmsx]+)?";
 
     // ### LETRAS PARA LOS IDS ###
     public final String SLETRACLIENTE = "C";

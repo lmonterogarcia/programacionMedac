@@ -114,6 +114,7 @@ public class ParticipanteController {
 
     public boolean update(Participante oParticipante, Connection oConnection) {
         boolean bExito = false;
+        String sOldDniParticipante = oParticipante.getsDniContacto();
         if (oParticipante != null && oParticipante.checkParticipante()) {
 
             try {
@@ -161,7 +162,7 @@ public class ParticipanteController {
                 }
                 sSQL += ",";
 
-                sSQL += "fechaNacimiento = ";
+                sSQL += "fechaNacimientoParticipante = ";
                 if (oParticipante.getoFechaNacimientoContacto() != null) {
                     sSQL += "'" + Date.valueOf(oParticipante.getoFechaNacimientoContacto()) + "'";
                 } else {
@@ -176,7 +177,7 @@ public class ParticipanteController {
                     sSQL += "NULL";
                 }
 
-                sSQL += " WHERE dniParticipante = '" + oParticipante.getsDniContacto() + "'";
+                sSQL += " WHERE dniParticipante = '" + sOldDniParticipante + "'";
 
                 if (stmt.executeUpdate(sSQL) > 0) {
                     bExito = true;
@@ -184,6 +185,7 @@ public class ParticipanteController {
                 stmt.close();
             } catch (SQLException e) {
                 bExito = false;
+                //System.out.println(e);
             }
         }
         return bExito;

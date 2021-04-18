@@ -41,7 +41,6 @@ public class Participante extends Contacto implements IParticipante{
         if (sEmailParticipante != null && !sEmailParticipante.isEmpty() && sEmailParticipante.length() < BMAXEMAIL && Pattern.matches(SPATRONEMAIL, sEmailParticipante)) {
 			this.sEmailParticipante = sEmailParticipante;
 		}
-        this.sEmailParticipante = sEmailParticipante;
     }
     
     // ###Metodos de esta clase###

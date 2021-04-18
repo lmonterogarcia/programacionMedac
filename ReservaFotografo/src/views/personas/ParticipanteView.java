@@ -113,7 +113,7 @@ public class ParticipanteView implements IPlantilla {
         boolean booExito = false, booFecha = false;
 
         do {
-            sDniContacto = String.valueOf(Libreria.leer("Introduce un dni *", BMINDNI, BMAXDNI, -1, -1, (byte) 6));
+            sDniContacto = String.valueOf(Libreria.leer("Introduce un dni ", BMINDNI, BMAXDNI, -1, -1, (byte) 6));
         } while (!Pattern.matches(SPATRONDNI, sDniContacto));
         Participante oParticipante = oCtrl.searchParticipante(new Participante(1, sDniContacto));
 
@@ -174,7 +174,7 @@ public class ParticipanteView implements IPlantilla {
             }
 
             if ((String
-                    .valueOf(Libreria.leer("¿Quiere modificar la fecha de nacimiento? (s/n) (" + sFechaNacimiento + ") ",
+                    .valueOf(Libreria.leer("¿Quiere modificar la fecha de nacimiento? (s/n) (" + sFechaNacimiento + " ",
                             -1, -1, -1, -1, (byte) 7))).equalsIgnoreCase("s")) {
                 do {
                     try {

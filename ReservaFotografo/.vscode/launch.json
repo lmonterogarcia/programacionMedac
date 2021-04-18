@@ -9,6 +9,13 @@
             "name": "Launch ReservaFotografo",
             "request": "launch",
             "mainClass": "views.ReservaFotografo",
+            "projectName": "ReservaFotografo_afd786d8"
+        },
+        {
+            "type": "java",
+            "name": "Launch ReservaFotografo",
+            "request": "launch",
+            "mainClass": "views.ReservaFotografo",
             "projectName": "ReservaFotografo_e76e4d5c"
         },
         {

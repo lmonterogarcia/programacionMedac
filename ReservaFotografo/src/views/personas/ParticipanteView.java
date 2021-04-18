@@ -106,7 +106,7 @@ public class ParticipanteView implements IPlantilla {
                 sApellido2Contacto, sTelefonoContacto, oFechaNacimientoContacto, sEmailParticipante));
     }
 
-    private static boolean update(Controller oCtrl) {
+    private static boolean update(Controller oCtrl) { // $$$$$$ FALLA $$$$$$$
         String sDniContacto, sNombreContacto, sApellido1Contacto, sApellido2Contacto, sTelefonoContacto,
                 sEmailParticipante, sFechaNacimiento;
         int iDia, iMes, iAnio;
@@ -174,7 +174,7 @@ public class ParticipanteView implements IPlantilla {
             }
 
             if ((String
-                    .valueOf(Libreria.leer("¿Quiere modificar la fecha de nacimiento? (s/n) (" + sFechaNacimiento + ")",
+                    .valueOf(Libreria.leer("¿Quiere modificar la fecha de nacimiento? (s/n) (" + sFechaNacimiento + ") ",
                             -1, -1, -1, -1, (byte) 7))).equalsIgnoreCase("s")) {
                 do {
                     try {
@@ -204,7 +204,7 @@ public class ParticipanteView implements IPlantilla {
             sDniContacto = String.valueOf(Libreria.leer("Introduce un dni *", BMINDNI, BMAXDNI, -1, -1, (byte) 6));
         } while (!Pattern.matches(SPATRONDNI, sDniContacto));
 
-        return oCtrl.searchParticipante(new Participante(null, sDniContacto));
+        return oCtrl.searchParticipante(new Participante(1, sDniContacto));
     }
 
     private static boolean remove(Controller oCtrl) {

@@ -1,6 +1,7 @@
 package views;
 
 import controllers.Controller;
+import views.Configuracion.*;
 import views.personas.*;
 
 public class ReservaFotografo {
@@ -17,14 +18,14 @@ public class ReservaFotografo {
 				case 1: // Gestion de clientes
 					ContactoView.gestionContato(oCtrl);
 					break;
-                // case 2: // Gestion de lugares
-				// 	ClienteView.gestionClientes(oCtrl); //NO IMPLEMENTADO. TEXTO PARA QUE NO DE ERROR.
-				// 	break;
+                 case 2: // Gestion de configuracion (Lugar, productos, empresa y tipo y estado sesion)
+				 	ConfiguracionView.gestionConfiguracion(oCtrl); //NO ESTA TODO IMPLEMENTADO. CUIDADO QUE SE ELIGE.
+					break;
 				default:
 					System.out.println("Hasta luego.");
 				}
 
-			} while (bOpcion != 2);
+			} while (bOpcion != 3);
 			oCtrl.closeDb();
                 } else {
                         System.out.println("Error al conectar con la base de datos.");
@@ -36,8 +37,8 @@ public class ReservaFotografo {
 		System.out.println("## Bienvenido a la APP de Reserva Fotografos ##");
 		System.out.println("###############################################");
 		System.out.println("1. Gestion de contactos");
-        //System.out.println("2. Gestion de lugares");
-		System.out.println("2. Salir");
-		return (byte) Libreria.leer("Introduce una opcion", 1, 2, -1, -1, (byte) 1);
+        System.out.println("2. Gestion de configuracion");
+		System.out.println("3. Salir");
+		return (byte) Libreria.leer("Introduce una opcion", 1, 3, -1, -1, (byte) 1);
 	}
 }

@@ -7,8 +7,9 @@ import java.util.*;
 import java.io.*;
 
 public interface IController {
-    public final String PATH = "/home/dam/vscode-workspace/TIENDA_DAMDB";
-    public final String CONFIG_URL = PATH + "/src/config/config.txt";
+    // public final String PATH = "/home/dam/vscode-workspace/TIENDA_DAMDB";
+    // public final String CONFIG_URL = PATH + "src/config/config.txt";
+    public final String CONFIG_URL = "src/config/config.txt";
 
     public PersonasController getoPersonasCtrl();
 

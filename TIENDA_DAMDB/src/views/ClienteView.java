@@ -1,5 +1,7 @@
 package views;
 
+import java.util.List;
+
 import controllers.Controller;
 import models.Cliente;
 import models.Usuario;
@@ -14,8 +16,10 @@ public class ClienteView {
 		System.out.println("2. Modificar");
 		System.out.println("3. Buscar usuario por dni");
 		System.out.println("4. Borrar");
-		System.out.println("5. Volver atras");
-		return (byte) Libreria.leer("Introduce una opcion", 1, 5, -1, -1, (byte) 1);
+		System.out.println("5. Buscar clientes por direccion");
+		System.out.println("6. Mostrar contraseña por DNI");
+		System.out.println("7. Volver atras");
+		return (byte) Libreria.leer("Introduce una opcion", 1, 7, -1, -1, (byte) 1);
 	}
 
 	public static void gestionClientes(Controller oCtrl) {
@@ -50,6 +54,24 @@ public class ClienteView {
 				System.out.println("El cliente no se ha podido eliminar.");
 			}
 			break;
+		case 5: // Mostrar clientes por direccion
+			List<Cliente> oListaClientes = searchByDireccion(oCtrl);
+			if (oListaClientes != null && !oListaClientes.isEmpty()) {
+				for (Cliente oCli : oListaClientes) {
+					System.out.println("Nombre: " + oCli.getsNombre() + " " + oCli.getsApellidos());
+				}
+			} else {
+				System.out.println("No existen clientes con esa direccion.");
+			}
+			break;
+		case 6: // Mostrar contraseña por DNI
+			Usuario oUser = searchUserByDni(oCtrl);
+			if (oUser != null) {
+				System.out.println("Contraseña: " + oUser.getsPassword());
+			} else {
+				System.out.println("No existen clientes con ese DNI.");
+			}
+			break;
 		}
 	}
 
@@ -77,14 +99,15 @@ public class ClienteView {
 	}
 
 	private static boolean update(Controller oCtrl) {
+
 		String sDni, sNombre, sApellidos, sDireccion, sNumeroDireccion, sTelefono, sTarjeta;
 		boolean bExito = false;
 		sDni = String.valueOf(Libreria.leer("Introduce un DNI", 9, 9, -1, -1, (byte) 6));
 		Cliente oCliente = oCtrl.searchCliente(new Cliente(sDni));
 		if (oCliente != null) {
-
 			sNombre = String.valueOf(
 					Libreria.leer("Introduce un nombre (" + oCliente.getsNombre() + ")", 0, 250, -1, -1, (byte) 6));
+
 			oCliente.setsNombre(sNombre);
 
 			sApellidos = String.valueOf(Libreria.leer("Introduce unos apellidos (" + oCliente.getsApellidos() + ")", 0,
@@ -127,5 +150,15 @@ public class ClienteView {
 			bExito = oCtrl.removeCliente(oCliente);
 		}
 		return bExito;
+	}
+
+	private static List<Cliente> searchByDireccion(Controller oCtrl) {
+		String sDireccion = String.valueOf(Libreria.leer("Introduce una direccion", 1, 250, -1, -1, (byte) 6));
+		return oCtrl.searchByDireccion(sDireccion);
+	}
+
+	private static Usuario searchUserByDni(Controller oCtrl) {
+		String sDni = String.valueOf(Libreria.leer("Introduce un dni", 9, 9, -1, -1, (byte) 6));
+		return oCtrl.searchUserByDni(new Cliente(sDni));
 	}
 }

@@ -1,6 +1,7 @@
 package controllers.personas;
 
 import models.Cliente;
+import models.Usuario;
 import java.sql.*;
 
 public class PersonasController {
@@ -24,17 +25,6 @@ public class PersonasController {
     /*
      * # CONTROLLER METHODS
      */
-    public boolean addCliente(Cliente oCliente, Connection oConnection) {
-        boolean bExito = false;
-        if (oUserCtrl.add(oCliente.getoUsuario(), oConnection)) {
-            if (oClientCtrl.add(oCliente, oConnection)) {
-                bExito = true;
-            } else {
-                oUserCtrl.remove(oCliente.getoUsuario(), oConnection);
-            }
-        }
-        return bExito;
-    }
 
     public boolean removeCliente(Cliente oCliente, Connection oConnection) {
         boolean bExito = false;
@@ -45,6 +35,18 @@ public class PersonasController {
     }
 
     public Cliente searchCliente(Cliente oCliente, Connection oConnection) {
-        return oClientCtrl.searchByPk(oCliente, oConnection);
+        Cliente oClienteRes = oClientCtrl.searchByPk(oCliente, oConnection);
+        Usuario oUsuario = oUserCtrl.searchByPk(oClienteRes.getoUsuario(), oConnection);
+        oClienteRes.setoUsuario(oUsuario);
+        return oClienteRes;
+    }
+
+    public Usuario searchUserByDni(Cliente oCliente, Connection oConnection) {
+        Cliente oClienteRes = oClientCtrl.searchByPk(oCliente, oConnection);
+        Usuario oUsuario = null;
+        if (oClienteRes != null) {
+            oUsuario = oUserCtrl.searchByPk(oClienteRes.getoUsuario(), oConnection);
+        }
+        return oUsuario;
     }
 }

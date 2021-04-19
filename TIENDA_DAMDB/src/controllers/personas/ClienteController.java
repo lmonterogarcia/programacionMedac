@@ -3,6 +3,7 @@ package controllers.personas;
 import java.util.*;
 import models.*;
 import java.sql.*;
+import com.google.gson.*;
 
 public class ClienteController implements controllers.ICrudController<Cliente> {
 
@@ -27,65 +28,20 @@ public class ClienteController implements controllers.ICrudController<Cliente> {
 		boolean bExito = false;
 		if (oCliente != null && oCliente.checkCliente()) {
 
+			Gson oGson = new Gson();
+			String json = "[" + oGson.toJson(oCliente) + "]";
+
 			try {
-				Statement stmt = oConnection.createStatement();
 
-				String sSQL = "INSERT INTO Cliente VALUES (";
-				if (oCliente.getsDni() != null) {
-					sSQL += "'" + oCliente.getsDni() + "'";
-				} else {
-					sSQL += "NULL";
-				}
-				sSQL += ",";
+				CallableStatement statement = oConnection.prepareCall("{call cliente_create(?)}");
+				statement.setString(1, json);
 
-				if (oCliente.getsNombre() != null) {
-					sSQL += "'" + oCliente.getsNombre() + "'";
-				} else {
-					sSQL += "NULL";
-				}
-				sSQL += ",";
+				statement.execute();
+				statement.close();
 
-				if (oCliente.getsApellidos() != null) {
-					sSQL += "'" + oCliente.getsApellidos() + "'";
-				} else {
-					sSQL += "NULL";
-				}
-				sSQL += ",";
+				bExito = true;
 
-				if (oCliente.getsDireccion() != null) {
-					sSQL += "'" + oCliente.getsDireccion() + "'";
-				} else {
-					sSQL += "NULL";
-				}
-				sSQL += ",";
-
-				if (oCliente.getsTelefono() != null) {
-					sSQL += "'" + oCliente.getsTelefono() + "'";
-				} else {
-					sSQL += "NULL";
-				}
-				sSQL += ",";
-
-				if (oCliente.getoUsuario().getsEmail() != null) {
-					sSQL += "'" + oCliente.getoUsuario().getsEmail() + "'";
-				} else {
-					sSQL += "NULL";
-				}
-				sSQL += ",";
-
-				if (oCliente.getsNumeroDireccion() != null) {
-					sSQL += "'" + oCliente.getsNumeroDireccion() + "'";
-				} else {
-					sSQL += "NULL";
-				}
-
-				sSQL += ")";
-
-				if (stmt.executeUpdate(sSQL) > 0) {
-					bExito = true;
-				}
-				stmt.close();
-			} catch (SQLException e) {
+			} catch (SQLException ex) {
 				bExito = false;
 			}
 		}
@@ -174,7 +130,7 @@ public class ClienteController implements controllers.ICrudController<Cliente> {
 					sSQL += "NULL";
 				}
 
-				sSQL += " WHERE dni = " + oCliente.getsDni();
+				sSQL += " WHERE sDni = '" + oCliente.getsDni() + "'";
 
 				if (stmt.executeUpdate(sSQL) > 0) {
 					bExito = true;
@@ -213,6 +169,27 @@ public class ClienteController implements controllers.ICrudController<Cliente> {
 		}
 
 		return oClienteResult;
+	}
+
+	public List<Cliente> searchByDireccion(String sDireccion, Connection oConnection) {
+		List<Cliente> oListaClientes = new ArrayList<Cliente>();
+		String sSQL = "SELECT sDni, sNombre, sApellidos FROM Cliente WHERE sDireccion = '" + sDireccion + "'";
+
+		try {
+			Statement stmt = oConnection.createStatement();
+			ResultSet rs = stmt.executeQuery(sSQL);
+			while (rs.next()) {
+				Cliente oClienteResult = new Cliente(rs.getString(1));
+				oClienteResult.setsNombre(rs.getString(2));
+				oClienteResult.setsApellidos(rs.getString(3));
+				oListaClientes.add(oClienteResult);
+			}
+			stmt.close();
+		} catch (SQLException e) {
+			oListaClientes = null;
+		}
+
+		return oListaClientes;
 	}
 
 }

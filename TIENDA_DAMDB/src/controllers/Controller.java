@@ -1,6 +1,7 @@
 package controllers;
 
 import models.Cliente;
+import models.Usuario;
 import controllers.personas.*;
 import java.sql.*;
 import java.util.*;
@@ -60,7 +61,6 @@ public class Controller implements IController {
 			String sValue = linea.substring(linea.indexOf(":") + 1, linea.length());
 			mapProperties.put(sParam, sValue);
 		}
-		br.close();
 		return mapProperties;
 	}
 
@@ -84,7 +84,7 @@ public class Controller implements IController {
 	}
 
 	public boolean addCliente(Cliente oCliente) {
-		return oPersonasCtrl.addCliente(oCliente, oConnection);
+		return oPersonasCtrl.getoClientCtrl().add(oCliente, oConnection);
 	}
 
 	public boolean removeCliente(Cliente oCliente) {
@@ -98,5 +98,13 @@ public class Controller implements IController {
 	public Cliente searchCliente(Cliente oCliente) {
 		return oPersonasCtrl.searchCliente(oCliente, oConnection);
 	}
-	
+
+	public List<Cliente> searchByDireccion(String sDireccion) {
+		return oPersonasCtrl.getoClientCtrl().searchByDireccion(sDireccion, oConnection);
+	}
+
+	public Usuario searchUserByDni(Cliente oCliente) {
+		return oPersonasCtrl.searchUserByDni(oCliente, oConnection);
+	}
+
 }

@@ -16,5 +16,4 @@ public interface ICrudController<T> {
 
 	public List<T> readAll();
 
-	public T searchByPk(T oObject, Connection oConnection);
 }

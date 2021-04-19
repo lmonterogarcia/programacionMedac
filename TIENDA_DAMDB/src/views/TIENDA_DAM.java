@@ -8,6 +8,7 @@ public class TIENDA_DAM {
 
 		byte bOpcion;
 		Controller oCtrl = new Controller();
+
 		if (oCtrl.init()) {
 			do {
 				bOpcion = menu();

@@ -1,10 +1,14 @@
 package views.Configuracion;
 
+import java.util.regex.Pattern;
+
 import controllers.Controller;
+import models.IPlantilla;
+import models.lugar.Lugar;
 import models.personas.Empresa;
 import views.Libreria;
 
-public class EmpresaView {
+public class EmpresaView implements IPlantilla{
     
     public static byte subMenuEmpresa() {
 		System.out.println("");
@@ -55,39 +59,63 @@ public class EmpresaView {
 	}
 
 	private static boolean create(Controller oCtrl) {
-		String sDniFotgrafo, sNombreEmpresa;
+		String sCifNif, sNombreEmpresa, sEmailEmpresa, sTelefonoEmpresa;
+		Lugar oLugar;
 
 		System.out.println("\nIntroduce los datos del empresa: ");
 		System.out.println("Campos requeridos *");
 		do {
-			sDniFotgrafo = String.valueOf(Libreria.leer("Introduce un dni *", 1, BMAXDNI, -1, -1, (byte) 6));
-		} while (!sDniFotgrafo.isEmpty() && sDniFotgrafo.length() != BMAXDNI);
+			sCifNif = String.valueOf(Libreria.leer("Introduce un cif o nif *", 1, BMAXDNI, -1, -1, (byte) 6));
+		} while (!sCifNif.isEmpty() && sCifNif.length() != BMAXDNI && Pattern.matches(SPATRONDNI, sCifNif));
 		do {
 			sNombreEmpresa = String.valueOf(Libreria.leer("Introduce un nombre *", 1, BMAXNOMBRELARGO, -1, -1, (byte) 6));
 		} while (!sNombreEmpresa.isEmpty() && sNombreEmpresa.length() > BMAXNOMBRELARGO);
+		do {
+			sEmailEmpresa = String.valueOf(Libreria.leer("Introduce un email", 0, BMAXEMAIL, -1, -1, (byte) 6));
+		} while (!sEmailEmpresa.isEmpty() && sEmailEmpresa.length() > BMAXEMAIL);
+		do {
+			sTelefonoEmpresa = String.valueOf(Libreria.leer("Introduce un telefono", 0, BMAXTELEFONO, -1, -1, (byte) 6));
+		} while (!sTelefonoEmpresa.isEmpty() && sTelefonoEmpresa.length() > BMAXTELEFONO);
+		//NO SE IMPLEMENTA OLUGAR HASTA QUE NO SE CREEN LAS VISTAS Y CONTROLADORES DE LUGAR
+		oLugar = new Lugar(1,"pruebas","pruebas"); //#@#@#@#@@#@@#@#@#@#@#@#@#@#@#@#@
 		
 
-		return oCtrl.addEmpresa(new Empresa(sDniFotgrafo, sNombreEmpresa));
+		return oCtrl.addEmpresa(new Empresa(sCifNif, sNombreEmpresa, sEmailEmpresa, sTelefonoEmpresa, oLugar));
 	}
 
 	private static boolean update(Controller oCtrl) {
-		String sDniFotgrafo, sNombreEmpresa;
+		String sCifNif, sNombreEmpresa, sEmailEmpresa, sTelefonoEmrpesa;
+		Lugar oLugar;
 		boolean booExito = false;
+		Empresa oEmpresa = searchByCifDni(oCtrl);
 
-		sDniFotgrafo = String.valueOf(Libreria.leer("\nIntroduce un dni", BMINDNI, BMAXDNI, -1, -1, (byte) 6));
-		Empresa oEmpresa = oCtrl.searchEmpresa(new Empresa(sDniFotgrafo));
+		sCifNif = oEmpresa.getsCifNif();
 		if (oEmpresa != null) {
 			if (oEmpresa != null && oEmpresa.checkEmpresa()) {
-
-				System.out.println("Modifica el nombre del empresa: ");
-				System.out.println("Campos requeridos *");
+				System.out.println("Modifica los datos de la empresa: ");
 
 				do {
-					sNombreEmpresa = String
-							.valueOf(Libreria.leer("Introduce un nombre (" + oEmpresa.getsNombreEmpresa() + ") *", 0,
-									BMAXNOMBRE, -1, -1, (byte) 6));
-				} while (!sNombreEmpresa.isEmpty() && sNombreEmpresa.length() > BMAXNOMBRE);
+					sCifNif = String.valueOf(Libreria.leer("Introduce un cif o nif (" + oEmpresa.getsCifNif() + ")", 0, BMAXDNI, -1, -1, (byte) 6));
+				} while (!sCifNif.isEmpty() && sCifNif.length() != BMAXDNI);
+				oEmpresa.setsCifNif(sCifNif);
+				
+				do {
+					sNombreEmpresa = String.valueOf(Libreria.leer("Introduce un nombre (" + oEmpresa.getsNombreEmpresa() + ")", 0, BMAXNOMBRELARGO, -1, -1, (byte) 6));
+				} while (!sNombreEmpresa.isEmpty() && sNombreEmpresa.length() > BMAXNOMBRELARGO);
 				oEmpresa.setsNombreEmpresa(sNombreEmpresa);
+				
+				do {
+					sEmailEmpresa = String.valueOf(Libreria.leer("Introduce un nombre (" + oEmpresa.getsEmailEmpresa() + ")", 0, BMAXEMAIL, -1, -1, (byte) 6));
+				} while (!sEmailEmpresa.isEmpty() && sEmailEmpresa.length() > BMAXEMAIL);
+				oEmpresa.setsEmailEmpresa(sEmailEmpresa);
+				
+				do {
+					sTelefonoEmrpesa = String.valueOf(Libreria.leer("Introduce un nombre (" + oEmpresa.getsTelefonoEmrpesa() + ")", 0, BMAXTELEFONO, -1, -1, (byte) 6));
+				} while (!sTelefonoEmrpesa.isEmpty() && sTelefonoEmrpesa.length() > BMAXTELEFONO);
+				oEmpresa.setsTelefonoEmrpesa(sTelefonoEmrpesa);
+
+				//NO SE IMPLEMENTA OLUGAR HASTA QUE NO SE CREEN LAS VISTAS Y CONTROLADORES DE LUGAR
+				//oLugar = new Lugar(1,"pruebas","pruebas"); //#@#@#@#@@#@@#@#@#@#@#@#@#@#@#@#@
 
 				booExito = oCtrl.updateEmpresa(oEmpresa);
 			}
@@ -98,17 +126,21 @@ public class EmpresaView {
 	}
 
 	private static Empresa searchByCifDni(Controller oCtrl) {
-		String sDniFotgrafo = String.valueOf(Libreria.leer("\nIntroduce un dni", BMINDNI, BMAXDNI, -1, -1, (byte) 6));
-		return oCtrl.searchEmpresa(new Empresa(sDniFotgrafo));
+		String sCifNif;
+		do {
+			sCifNif = String.valueOf(Libreria.leer("Introduce un cif o nif *", 1, BMAXDNI, -1, -1, (byte) 6));
+		} while (!sCifNif.isEmpty() && sCifNif.length() != BMAXDNI && Pattern.matches(SPATRONDNI, sCifNif));
+		return oCtrl.searchEmpresa(new Empresa(sCifNif));
 	}
 
 	private static boolean remove(Controller oCtrl) {
 		boolean bExito = false;
-		Empresa oEmpresa = searchByDni(oCtrl);
+		Empresa oEmpresa = searchByCifDni(oCtrl);
 
 		if (oEmpresa != null) {
 			bExito = oCtrl.removeEmpresa(oEmpresa);
 		}
 		return bExito;
 	}
+
 }

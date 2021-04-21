@@ -1,0 +1,27 @@
+ ## Version 0.1 ##
+     - Creación de todos los modelos
+
+
+## Version 0.2 ##
+    - Creación de los metodos en la vista y controlador de los CRUD básicos en SQL
+        - Cliente
+        - Usuario
+        - Fotografo
+    - Se ha arreglado algunos errores en los modelos
+        - Contacto (setsApellido2Contacto())
+
+## Version 0.3 ##
+    - Creación de los metodos en la vista y controlodor de los CRUD básicos en SQL
+        - Participante
+    - Creación de los metodos en la vista y controlador de los CRUD básicos en PL/SQL
+        - Empresa
+        - TipoSesion
+        - Estado
+        - Producto
+        - Pack
+    - Se ha arreglado y/o cambiado algunos errores o para mejorar los modelos
+        - Participante (checkParticipante(), equal())
+
+Version 0.4 
+
+Version 0.5

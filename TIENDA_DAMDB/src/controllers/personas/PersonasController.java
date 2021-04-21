@@ -26,14 +26,6 @@ public class PersonasController {
      * # CONTROLLER METHODS
      */
 
-    public boolean removeCliente(Cliente oCliente, Connection oConnection) {
-        boolean bExito = false;
-        if (oClientCtrl.remove(oCliente, oConnection)) {
-            bExito = true;
-        }
-        return bExito;
-    }
-
     public Cliente searchCliente(Cliente oCliente, Connection oConnection) {
         Cliente oClienteRes = oClientCtrl.searchByPk(oCliente, oConnection);
         Usuario oUsuario = oUserCtrl.searchByPk(oClienteRes.getoUsuario(), oConnection);

@@ -8,15 +8,12 @@ BEGIN
 	DECLARE vJsonIsValid INT;
     DECLARE vItems INT;
     DECLARE vIndex BIGINT UNSIGNED DEFAULT 0;
-    DECLARE vValido INT;
     
     # Variables para parseo del objeto JSON
     DECLARE sEmailParam VARCHAR(250);
     DECLARE sPasswordParam VARCHAR(12);
-    
-	
+    	
     SET vJsonIsValid = JSON_VALID(oObject);
-    SET vValido = 0;
     
 	IF vJsonIsValid = 0 THEN
 		SELECT "JSON suministrado no es válido";     
@@ -36,10 +33,6 @@ BEGIN
                 
             END WHILE;            
         END IF;	
-        SET vValido = 1;
-    END IF;
-    
-    SELECT vValido;
-    
+    END IF;    
 END $$
 DELIMITER ;

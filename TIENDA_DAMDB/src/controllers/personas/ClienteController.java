@@ -5,7 +5,7 @@ import models.*;
 import java.sql.*;
 import com.google.gson.*;
 
-public class ClienteController implements controllers.ICrudController<Cliente> {
+public class ClienteController {
 
 	private List<Cliente> lClientes;
 
@@ -24,6 +24,28 @@ public class ClienteController implements controllers.ICrudController<Cliente> {
 	/*
 	 * ######## # CRUD # ########
 	 */
+	public boolean executeProcedure(String json, String sFunction, Connection oConnection) {
+
+		boolean bExito = false;
+
+		try {
+
+			CallableStatement statement = oConnection.prepareCall(sFunction);
+			statement.setString(1, json);
+
+			statement.execute();
+			statement.close();
+
+			bExito = true;
+
+		} catch (SQLException ex) {
+			bExito = false;
+		}
+
+		return bExito;
+
+	}
+
 	public boolean add(Cliente oCliente, Connection oConnection) {
 		boolean bExito = false;
 		if (oCliente != null && oCliente.checkCliente()) {
@@ -31,47 +53,10 @@ public class ClienteController implements controllers.ICrudController<Cliente> {
 			Gson oGson = new Gson();
 			String json = "[" + oGson.toJson(oCliente) + "]";
 
-			try {
+			bExito = executeProcedure(json, "{call cliente_create(?)}", oConnection);
 
-				CallableStatement statement = oConnection.prepareCall("{call cliente_create(?)}");
-				statement.setString(1, json);
-
-				statement.execute();
-				statement.close();
-
-				bExito = true;
-
-			} catch (SQLException ex) {
-				bExito = false;
-			}
 		}
 		return bExito;
-	}
-
-	public boolean remove(Cliente oCliente, Connection oConnection) {
-		boolean bExito = false;
-		if (oCliente != null && oCliente.getsDni() != null) {
-
-			try {
-				Statement stmt = oConnection.createStatement();
-
-				String sSQL = "DELETE FROM Cliente WHERE dni = ";
-				if (oCliente.getsDni() != null) {
-					sSQL += "'" + oCliente.getsDni() + "'";
-				} else {
-					sSQL += "NULL";
-				}
-
-				if (stmt.executeUpdate(sSQL) > 0) {
-					bExito = true;
-				}
-				stmt.close();
-			} catch (SQLException e) {
-				bExito = false;
-			}
-		}
-		return bExito;
-
 	}
 
 	public boolean update(Cliente oCliente, Connection oConnection) {

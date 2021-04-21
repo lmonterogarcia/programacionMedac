@@ -142,14 +142,8 @@ public class ClienteView {
 	}
 
 	private static boolean remove(Controller oCtrl) {
-		boolean bExito = false;
-		Cliente oCliente = searchByDni(oCtrl);
-
-		if (oCliente != null) {
-			System.out.println("Entra cabesa" + oCliente.getsDni());
-			bExito = oCtrl.removeCliente(oCliente);
-		}
-		return bExito;
+		String sEmail = String.valueOf(Libreria.leer("Introduce un email", 1, 250, -1, -1, (byte) 6));
+		return oCtrl.removeUsuario(new Usuario(sEmail, ""));
 	}
 
 	private static List<Cliente> searchByDireccion(Controller oCtrl) {
@@ -161,4 +155,5 @@ public class ClienteView {
 		String sDni = String.valueOf(Libreria.leer("Introduce un dni", 9, 9, -1, -1, (byte) 6));
 		return oCtrl.searchUserByDni(new Cliente(sDni));
 	}
+
 }

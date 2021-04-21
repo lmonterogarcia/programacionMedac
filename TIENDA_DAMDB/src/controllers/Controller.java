@@ -87,12 +87,12 @@ public class Controller implements IController {
 		return oPersonasCtrl.getoClientCtrl().add(oCliente, oConnection);
 	}
 
-	public boolean removeCliente(Cliente oCliente) {
-		return oPersonasCtrl.removeCliente(oCliente, oConnection);
-	}
-
 	public boolean updateCliente(Cliente oCliente) {
 		return oPersonasCtrl.getoClientCtrl().update(oCliente, oConnection);
+	}
+
+	public boolean removeUsuario(Usuario oUser) {
+		return oPersonasCtrl.getoUserCtrl().remove(oUser, oConnection);
 	}
 
 	public Cliente searchCliente(Cliente oCliente) {

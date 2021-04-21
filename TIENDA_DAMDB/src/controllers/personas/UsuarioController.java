@@ -3,8 +3,9 @@ package controllers.personas;
 import java.util.*;
 import models.*;
 import java.sql.*;
+import com.google.gson.*;
 
-public class UsuarioController implements controllers.ICrudController<Usuario> {
+public class UsuarioController {
 
 	private List<Usuario> lUsuarios;
 
@@ -23,62 +24,34 @@ public class UsuarioController implements controllers.ICrudController<Usuario> {
 	/*
 	 * ######## # CRUD # ########
 	 */
-	public boolean add(Usuario oUsuario, Connection oConnection) {
+	public boolean executeProcedure(String json, String sFunction, Connection oConnection) {
+
 		boolean bExito = false;
-		if (oUsuario != null && oUsuario.checkUsuario()) {
 
-			try {
-				Statement stmt = oConnection.createStatement();
+		try {
 
-				String sSQL = "INSERT INTO Usuario VALUES (";
-				if (oUsuario.getsEmail() != null) {
-					sSQL += "'" + oUsuario.getsEmail() + "'";
-				} else {
-					sSQL += "NULL";
-				}
-				sSQL += ",";
-
-				if (oUsuario.getsPassword() != null) {
-					sSQL += "'" + oUsuario.getsPassword() + "'";
-				} else {
-					sSQL += "NULL";
-				}
-
-				sSQL += ")";
-
-				if (stmt.executeUpdate(sSQL) > 0) {
-					bExito = true;
-				}
-				stmt.close();
-			} catch (SQLException e) {
-				bExito = false;
+			CallableStatement statement = oConnection.prepareCall(sFunction);
+			statement.setString(1, json);
+			if (statement.executeUpdate() > 0) {
+				bExito = true;
 			}
+			statement.close();
+
+		} catch (SQLException ex) {
+			bExito = false;
 		}
+
 		return bExito;
+
 	}
 
 	public boolean remove(Usuario oUsuario, Connection oConnection) {
 
 		boolean bExito = false;
 		if (oUsuario != null && oUsuario.getsEmail() != null) {
-
-			try {
-				Statement stmt = oConnection.createStatement();
-
-				String sSQL = "DELETE FROM Usuario WHERE email = ";
-				if (oUsuario.getsEmail() != null) {
-					sSQL += "'" + oUsuario.getsEmail() + "'";
-				} else {
-					sSQL += "NULL";
-				}
-
-				if (stmt.executeUpdate(sSQL) > 0) {
-					bExito = true;
-				}
-				stmt.close();
-			} catch (SQLException e) {
-				bExito = false;
-			}
+			Gson oGson = new Gson();
+			String json = "[" + oGson.toJson(oUsuario) + "]";
+			bExito = executeProcedure(json, "{call cliente_delete(?)}", oConnection);
 		}
 		return bExito;
 	}

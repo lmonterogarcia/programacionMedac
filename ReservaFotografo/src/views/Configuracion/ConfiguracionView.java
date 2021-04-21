@@ -13,22 +13,22 @@ public class ConfiguracionView {
             bOpcion = subMenuConfiguracion();
 
             switch (bOpcion) {
-            case 1: // Gestion de clientes
-                EmpresaView.gestionClientes(oCtrl);
+            case 1: // Gestion de empresa
+                EmpresaView.gestionEmpresa(oCtrl);
                 break;
             case 2: // Gestion de participantes
-                TipoAndEstadoView.gestionParticipante(oCtrl);
+                //TipoAndEstadoView.gestionTipoAndEstado(oCtrl);
                 break;
             case 3: // Gestion de participantes
-                LugarView.gestionFotografo(oCtrl);
+                //LugarView.gestionLugar(oCtrl);
                 break;
             case 4: // Gestion de participantes
-                ProductoView.gestionFotografo(oCtrl);
+                //ProductoView.gestionProducto(oCtrl);
                 break;
             default:
             }
 
-        } while (bOpcion != 4);
+        } while (bOpcion != 5);
     }
 
     public static byte subMenuConfiguracion() {

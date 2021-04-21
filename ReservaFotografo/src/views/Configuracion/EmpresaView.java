@@ -85,7 +85,7 @@ public class EmpresaView implements IPlantilla{
 
 	private static boolean update(Controller oCtrl) {
 		String sCifNif, sNombreEmpresa, sEmailEmpresa, sTelefonoEmrpesa;
-		Lugar oLugar;
+		// Lugar oLugar;
 		boolean booExito = false;
 		Empresa oEmpresa = searchByCifDni(oCtrl);
 

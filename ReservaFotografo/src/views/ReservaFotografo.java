@@ -24,7 +24,6 @@ public class ReservaFotografo {
 				default:
 					System.out.println("Hasta luego.");
 				}
-
 			} while (bOpcion != 3);
 			oCtrl.closeDb();
                 } else {

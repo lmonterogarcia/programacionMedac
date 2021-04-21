@@ -4,26 +4,30 @@ import java.sql.*;
 import java.util.*;
 import java.io.*;
 
+import controllers.configuracion.ConfiguracionCtrl;
 import controllers.personas.PersonasController;
-import models.personas.Cliente;
-import models.personas.Fotografo;
-import models.personas.Participante;
-import models.personas.Usuario;
+import models.personas.*;
 
 public class Controller implements IController{
     private Connection oConnection;
 	private PersonasController oPersonasCtrl;
+	private ConfiguracionCtrl oConfiguracionCtrl;
 	
 	public Controller() {
 		oPersonasCtrl = new PersonasController();
+		oConfiguracionCtrl = new ConfiguracionCtrl();
+	}
+
+	public Connection getConnection() {
+		return oConnection;
 	}
 
 	public PersonasController getoPersonasCtrl() {
 		return oPersonasCtrl;
 	}
 
-	public Connection getConnection() {
-		return oConnection;
+	public ConfiguracionCtrl getConfiguracionCtrl(){
+		return oConfiguracionCtrl;
 	}
 
     /*
@@ -149,6 +153,25 @@ public class Controller implements IController{
 
 	public Participante searchParticipante(Participante oParticipante) {
 		return oPersonasCtrl.searchParticipante(oParticipante, oConnection);
+	}
+
+
+
+	// ###### Empresa ######
+	public boolean addEmpresa(Empresa oEmpresa) {
+		return oConfiguracionCtrl.getoEmpresaCtrl().add(oEmpresa, oConnection);
+	}
+
+	public boolean removeEmpresa(Empresa oEmpresa) {
+		return oConfiguracionCtrl.getoEmpresaCtrl().remove(oEmpresa, oConnection);
+	}
+
+	public boolean updateEmpresa(Empresa oEmpresa) {
+		return oConfiguracionCtrl.getoEmpresaCtrl().update(oEmpresa, oConnection);
+	}
+
+	public Empresa searchEmpresa(Empresa oEmpresa) {
+		return oConfiguracionCtrl.getoEmpresaCtrl().searchByPk(oEmpresa, oConnection);
 	}
 
 

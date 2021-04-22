@@ -51,14 +51,30 @@ public class EmpresaCtrl implements controllers.ICrudController<Empresa>{
 
     @Override
     public boolean remove(Empresa oEmpresa, Connection oConnection) {
-        // TODO Auto-generated method stub
-        return false;
+        boolean bExito = false;
+		if (oEmpresa != null && oEmpresa.checkEmpresa()) {
+
+			Gson oGson = new Gson();
+			String json = "[" + oGson.toJson(oEmpresa) + "]";
+
+			bExito = executeProcedure(json, "{call empresa_remove(?)}", oConnection);
+			
+		}
+		return bExito;
     }
 
     @Override
     public boolean update(Empresa oEmpresa, Connection oConnection) {
-        // TODO Auto-generated method stub
-        return false;
+        boolean bExito = false;
+		if (oEmpresa != null && oEmpresa.checkEmpresa()) {
+
+			Gson oGson = new Gson();
+			String json = "[" + oGson.toJson(oEmpresa) + "]";
+
+			bExito = executeProcedure(json, "{call empresa_update(?)}", oConnection);
+			
+		}
+		return bExito;
     }
 
     @Override

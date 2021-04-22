@@ -130,16 +130,18 @@ public class EmpresaView implements IPlantilla{
 		do {
 			sCifNif = String.valueOf(Libreria.leer("Introduce un cif o nif *", 1, BMAXDNI, -1, -1, (byte) 6));
 		} while (!sCifNif.isEmpty() && sCifNif.length() != BMAXDNI && Pattern.matches(SPATRONDNI, sCifNif));
-		return oCtrl.searchEmpresa(new Empresa(sCifNif));
+		return oCtrl.searchEmpresa(new Empresa(sCifNif,"nombre", null, null, new Lugar(1,null, null)));
 	}
 
 	private static boolean remove(Controller oCtrl) {
 		boolean bExito = false;
-		Empresa oEmpresa = searchByCifDni(oCtrl);
-
-		if (oEmpresa != null) {
-			bExito = oCtrl.removeEmpresa(oEmpresa);
-		}
+		String sCifNif;
+		do {
+			sCifNif = String.valueOf(Libreria.leer("Introduce un cif o nif ", 1, BMAXDNI, -1, -1, (byte) 6));
+		} while (!sCifNif.isEmpty() && sCifNif.length() != BMAXDNI && Pattern.matches(SPATRONDNI, sCifNif));
+		
+		bExito = oCtrl.removeEmpresa(new Empresa(sCifNif,"nombre", null, null, new Lugar(1,null, null)));
+	
 		return bExito;
 	}
 

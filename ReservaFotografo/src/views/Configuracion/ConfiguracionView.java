@@ -16,8 +16,8 @@ public class ConfiguracionView {
             case 1: // Gestion de empresa
                 EmpresaView.gestionEmpresa(oCtrl);
                 break;
-            case 2: // Gestion de participantes
-                //TipoAndEstadoView.gestionTipoAndEstado(oCtrl);
+            case 2: // Gestion de tipo y estado de Sesion
+                // TipoAndEstadoView.gestionTipoAndEstado(oCtrl);
                 break;
             case 3: // Gestion de participantes
                 //LugarView.gestionLugar(oCtrl);

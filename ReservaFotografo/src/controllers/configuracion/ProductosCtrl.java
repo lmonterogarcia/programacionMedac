@@ -1,5 +1,5 @@
 package controllers.configuracion;
 
-public class TipoAndEstadoCtrl {
+public class ProductosCtrl {
     
 }

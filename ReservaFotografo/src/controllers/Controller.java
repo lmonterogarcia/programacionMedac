@@ -7,6 +7,8 @@ import java.io.*;
 import controllers.configuracion.ConfiguracionCtrl;
 import controllers.personas.PersonasController;
 import models.personas.*;
+import models.sesion.Estado;
+import models.sesion.TipoSesion;
 
 public class Controller implements IController{
     private Connection oConnection;
@@ -173,6 +175,45 @@ public class Controller implements IController{
 	public Empresa searchEmpresa(Empresa oEmpresa) {
 		return oConfiguracionCtrl.searchEmpresa(oEmpresa, oConnection);
 		//Cuando se implemente LUGAR HAY QUE CAMCBIAR!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+	}
+
+
+
+	// ###### Estado ######
+	public boolean addEmpresa(Estado oEstado) {
+		return oConfiguracionCtrl.getoTipoAndEstadoCtrl().getoEstadoCtrl().add(oEstado, oConnection);
+	}
+
+	public boolean removeEmpresa(Estado oEstado) {
+		return oConfiguracionCtrl.getoTipoAndEstadoCtrl().getoEstadoCtrl().remove(oEstado, oConnection);
+	}
+
+	public boolean updateEmpresa(Estado oNuevoEstado, Estado oEstadoAntiguo) {
+		return oConfiguracionCtrl.getoTipoAndEstadoCtrl().getoEstadoCtrl().update(oNuevoEstado, oEstadoAntiguo, oConnection);
+	}
+
+	public Estado searchEmpresa(Estado oEstado) {
+		return oConfiguracionCtrl.getoTipoAndEstadoCtrl().getoEstadoCtrl().searchByPk(oEstado, oConnection);
+	}
+
+
+
+
+	// ###### TipoSesion ######
+	public boolean addEmpresa(TipoSesion oTipoSesion) {
+		return oConfiguracionCtrl.getoTipoAndEstadoCtrl().getoTipoSesionCtrl().add(oTipoSesion, oConnection);
+	}
+
+	public boolean removeEmpresa(TipoSesion oTipoSesion) {
+		return oConfiguracionCtrl.getoTipoAndEstadoCtrl().getoTipoSesionCtrl().remove(oTipoSesion, oConnection);
+	}
+
+	public boolean updateEmpresa(TipoSesion oTipoSesion) {
+		return oConfiguracionCtrl.getoTipoAndEstadoCtrl().getoTipoSesionCtrl().update(oTipoSesion, oConnection);
+	}
+
+	public TipoSesion searchEmpresa(TipoSesion oTipoSesion) {
+		return oConfiguracionCtrl.getoTipoAndEstadoCtrl().getoTipoSesionCtrl().searchByPk(oTipoSesion, oConnection);
 	}
 
  

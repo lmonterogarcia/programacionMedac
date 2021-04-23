@@ -2,6 +2,7 @@ package controllers.configuracion;
 
 import java.sql.Connection;
 
+import controllers.configuracion.tipoAndEstado.TipoAndEstadoCtrl;
 import models.lugar.Lugar;
 import models.personas.Empresa;
 
@@ -9,14 +10,14 @@ public class ConfiguracionCtrl {
     
     private EmpresaCtrl oEmpresaCtrl;
     private LugarCtrl oLugarCtrl;
-    private ProductoCtrl oProductoCtrl;
+    private ProductosCtrl oProductoCtrl;
     private TipoAndEstadoCtrl oTipoAndEstadoCtrl;
 
     public ConfiguracionCtrl(){
 
         oEmpresaCtrl = new EmpresaCtrl();
         oLugarCtrl = new LugarCtrl();
-        oProductoCtrl = new ProductoCtrl();
+        oProductoCtrl = new ProductosCtrl();
         oTipoAndEstadoCtrl = new TipoAndEstadoCtrl();
     }
 
@@ -28,7 +29,7 @@ public class ConfiguracionCtrl {
         return oLugarCtrl;
     }
 
-    public ProductoCtrl getoProductoCtrl() {
+    public ProductosCtrl getoProductoCtrl() {
         return oProductoCtrl;
     }
 

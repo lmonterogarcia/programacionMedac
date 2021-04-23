@@ -44,7 +44,6 @@ public class Empresa implements IEmpresa, IPlantilla{
         if (sCifNif != null && !sCifNif.isEmpty() && sCifNif.length() <= BMAXDNI && Pattern.matches(SPATRONDNI, sCifNif) ){
             this.sCifNif = sCifNif;
         }
-        this.sCifNif = sCifNif;
     }
 
     public String getsNombreEmpresa() {

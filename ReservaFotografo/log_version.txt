@@ -1,9 +1,8 @@
  ## Version 0.1 ##
      - Creación de todos los modelos
 
-
 ## Version 0.2 ##
-    - Creación de los metodos en la vista y controlador de los CRUD básicos en SQL
+    - Creación de los metodos en la vista y controlador de los CRUD básicos en JAVA/SQL
         - Cliente
         - Usuario
         - Fotografo
@@ -14,14 +13,10 @@
     - Creación de los metodos en la vista y controlodor de los CRUD básicos en JAVA/SQL
         - Participante
     - Creación de los metodos en la vista y controlador de los CRUD básicos en PL/SQL
-        - Empresa (CRUD)
+        - Empresa 
         - TipoSesion
         - Estado
-        - Producto
-        - Pack
     - Se ha arreglado y/o cambiado algunos errores o para mejorar los modelos
         - Participante (checkParticipante(), equal())
-        - Se ha cambiado el modelo de Lugar. Se ha creado otro construcctor. Lugar(int).
-Version 0.4 
-
-Version 0.5
+        - Lugar. Se ha creado otro construcctor. Lugar(int).
+        - Empresa. Se ha arreglaod un error en setsCifNif().

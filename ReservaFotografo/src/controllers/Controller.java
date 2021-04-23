@@ -7,8 +7,7 @@ import java.io.*;
 import controllers.configuracion.ConfiguracionCtrl;
 import controllers.personas.PersonasController;
 import models.personas.*;
-import models.sesion.Estado;
-import models.sesion.TipoSesion;
+import models.sesion.*;
 
 public class Controller implements IController{
     private Connection oConnection;
@@ -180,19 +179,19 @@ public class Controller implements IController{
 
 
 	// ###### Estado ######
-	public boolean addEmpresa(Estado oEstado) {
+	public boolean addEstado(Estado oEstado) {
 		return oConfiguracionCtrl.getoTipoAndEstadoCtrl().getoEstadoCtrl().add(oEstado, oConnection);
 	}
 
-	public boolean removeEmpresa(Estado oEstado) {
+	public boolean removeEstado(Estado oEstado) {
 		return oConfiguracionCtrl.getoTipoAndEstadoCtrl().getoEstadoCtrl().remove(oEstado, oConnection);
 	}
 
-	public boolean updateEmpresa(Estado oNuevoEstado, Estado oEstadoAntiguo) {
+	public boolean updateEstado(Estado oNuevoEstado, Estado oEstadoAntiguo) {
 		return oConfiguracionCtrl.getoTipoAndEstadoCtrl().getoEstadoCtrl().update(oNuevoEstado, oEstadoAntiguo, oConnection);
 	}
 
-	public Estado searchEmpresa(Estado oEstado) {
+	public Estado searchEstado(Estado oEstado) {
 		return oConfiguracionCtrl.getoTipoAndEstadoCtrl().getoEstadoCtrl().searchByPk(oEstado, oConnection);
 	}
 
@@ -200,19 +199,19 @@ public class Controller implements IController{
 
 
 	// ###### TipoSesion ######
-	public boolean addEmpresa(TipoSesion oTipoSesion) {
+	public boolean addTipoSesion(TipoSesion oTipoSesion) {
 		return oConfiguracionCtrl.getoTipoAndEstadoCtrl().getoTipoSesionCtrl().add(oTipoSesion, oConnection);
 	}
 
-	public boolean removeEmpresa(TipoSesion oTipoSesion) {
+	public boolean removeTipoSesion(TipoSesion oTipoSesion) {
 		return oConfiguracionCtrl.getoTipoAndEstadoCtrl().getoTipoSesionCtrl().remove(oTipoSesion, oConnection);
 	}
 
-	public boolean updateEmpresa(TipoSesion oTipoSesion) {
+	public boolean updateTipoSesion(TipoSesion oTipoSesion) {
 		return oConfiguracionCtrl.getoTipoAndEstadoCtrl().getoTipoSesionCtrl().update(oTipoSesion, oConnection);
 	}
 
-	public TipoSesion searchEmpresa(TipoSesion oTipoSesion) {
+	public TipoSesion searchTipoSesion(TipoSesion oTipoSesion) {
 		return oConfiguracionCtrl.getoTipoAndEstadoCtrl().getoTipoSesionCtrl().searchByPk(oTipoSesion, oConnection);
 	}
 

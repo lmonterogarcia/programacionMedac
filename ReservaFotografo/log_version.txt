@@ -15,7 +15,7 @@
     - Creación de los metodos en la vista y controlador de los CRUD básicos en PL/SQL
         - Empresa 
         - TipoSesion
-        - Estado
+        - Estado (No se ha terminado la VIEW)
     - Se ha arreglado y/o cambiado algunos errores o para mejorar los modelos
         - Participante (checkParticipante(), equal())
         - Lugar. Se ha creado otro construcctor. Lugar(int).

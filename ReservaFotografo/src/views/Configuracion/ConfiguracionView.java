@@ -17,7 +17,7 @@ public class ConfiguracionView {
                 EmpresaView.gestionEmpresa(oCtrl);
                 break;
             case 2: // Gestion de tipo y estado de Sesion
-                // TipoAndEstadoView.gestionTipoAndEstado(oCtrl);
+                TipoAndEstadoView.gestionTipoAndEstado(oCtrl);
                 break;
             case 3: // Gestion de participantes
                 //LugarView.gestionLugar(oCtrl);
@@ -38,8 +38,8 @@ public class ConfiguracionView {
 		System.out.println("-----------------------");
 		System.out.println("1. Gestion de empresa");
         System.out.println("2. Gestion de tipo y estados de sesion");
-		System.out.println("3. Gestion de direccion y lugares");
-        System.out.println("4. Gestion de productos y packs");
+		System.out.println("3. Gestion de direccion y lugares NO IMPLEMENTADO");
+        System.out.println("4. Gestion de productos y packs NO IMPLEMENTADO");
         System.out.println("5. Volver atras");
 		return (byte) Libreria.leer("Introduce una opcion", 1, 5, -1, -1, (byte) 1);
 	}

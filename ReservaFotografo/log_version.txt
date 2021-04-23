@@ -11,17 +11,17 @@
         - Contacto (setsApellido2Contacto())
 
 ## Version 0.3 ##
-    - Creación de los metodos en la vista y controlodor de los CRUD básicos en SQL
+    - Creación de los metodos en la vista y controlodor de los CRUD básicos en JAVA/SQL
         - Participante
     - Creación de los metodos en la vista y controlador de los CRUD básicos en PL/SQL
-        - Empresa
+        - Empresa (CRUD)
         - TipoSesion
         - Estado
         - Producto
         - Pack
     - Se ha arreglado y/o cambiado algunos errores o para mejorar los modelos
         - Participante (checkParticipante(), equal())
-
+        - Se ha cambiado el modelo de Lugar. Se ha creado otro construcctor. Lugar(int).
 Version 0.4 
 
 Version 0.5

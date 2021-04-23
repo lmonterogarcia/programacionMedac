@@ -28,8 +28,10 @@ public class PersonasController {
 
     public Cliente searchCliente(Cliente oCliente, Connection oConnection) {
         Cliente oClienteRes = oClientCtrl.searchByPk(oCliente, oConnection);
-        Usuario oUsuario = oUserCtrl.searchByPk(oClienteRes.getoUsuario(), oConnection);
-        oClienteRes.setoUsuario(oUsuario);
+        if (oClienteRes != null) {
+            Usuario oUsuario = oUserCtrl.searchByPk(oClienteRes.getoUsuario(), oConnection);
+            oClienteRes.setoUsuario(oUsuario);
+        }
         return oClienteRes;
     }
 

@@ -17,6 +17,10 @@ public class Lugar implements ILugar, IPlantilla {
 
     // ###Contructores###
 
+    public Lugar(int iIdLugar) {
+        setiIdLugar(iIdLugar);
+    }
+
     public Lugar(int iIdLugar, String sNombreLugar, String sCalleLugar) {
         setiIdLugar(iIdLugar);
         setsNombreLugar(sNombreLugar);
@@ -172,7 +176,9 @@ public class Lugar implements ILugar, IPlantilla {
             if (this.getsNumeroLugar() != null) {
                 sMensaje += "\n Numero: " + this.getsNumeroLugar();
             }
-            sMensaje += oCodigoPostalLocalidadPaisProvincia.toString();
+            if (oCodigoPostalLocalidadPaisProvincia != null) {
+                sMensaje += oCodigoPostalLocalidadPaisProvincia.toString();
+            }
         }
         return sMensaje;
     }

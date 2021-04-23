@@ -84,20 +84,14 @@ public class EmpresaView implements IPlantilla{
 	}
 
 	private static boolean update(Controller oCtrl) {
-		String sCifNif, sNombreEmpresa, sEmailEmpresa, sTelefonoEmrpesa;
+		String sNombreEmpresa, sEmailEmpresa, sTelefonoEmrpesa;
 		// Lugar oLugar;
 		boolean booExito = false;
 		Empresa oEmpresa = searchByCifDni(oCtrl);
-
-		sCifNif = oEmpresa.getsCifNif();
+		
 		if (oEmpresa != null) {
 			if (oEmpresa != null && oEmpresa.checkEmpresa()) {
 				System.out.println("Modifica los datos de la empresa: ");
-
-				do {
-					sCifNif = String.valueOf(Libreria.leer("Introduce un cif o nif (" + oEmpresa.getsCifNif() + ")", 0, BMAXDNI, -1, -1, (byte) 6));
-				} while (!sCifNif.isEmpty() && sCifNif.length() != BMAXDNI);
-				oEmpresa.setsCifNif(sCifNif);
 				
 				do {
 					sNombreEmpresa = String.valueOf(Libreria.leer("Introduce un nombre (" + oEmpresa.getsNombreEmpresa() + ")", 0, BMAXNOMBRELARGO, -1, -1, (byte) 6));
@@ -105,12 +99,12 @@ public class EmpresaView implements IPlantilla{
 				oEmpresa.setsNombreEmpresa(sNombreEmpresa);
 				
 				do {
-					sEmailEmpresa = String.valueOf(Libreria.leer("Introduce un nombre (" + oEmpresa.getsEmailEmpresa() + ")", 0, BMAXEMAIL, -1, -1, (byte) 6));
+					sEmailEmpresa = String.valueOf(Libreria.leer("Introduce un email (" + oEmpresa.getsEmailEmpresa() + ")", 0, BMAXEMAIL, -1, -1, (byte) 6));
 				} while (!sEmailEmpresa.isEmpty() && sEmailEmpresa.length() > BMAXEMAIL);
 				oEmpresa.setsEmailEmpresa(sEmailEmpresa);
 				
 				do {
-					sTelefonoEmrpesa = String.valueOf(Libreria.leer("Introduce un nombre (" + oEmpresa.getsTelefonoEmrpesa() + ")", 0, BMAXTELEFONO, -1, -1, (byte) 6));
+					sTelefonoEmrpesa = String.valueOf(Libreria.leer("Introduce un telefono (" + oEmpresa.getsTelefonoEmrpesa() + ")", 0, BMAXTELEFONO, -1, -1, (byte) 6));
 				} while (!sTelefonoEmrpesa.isEmpty() && sTelefonoEmrpesa.length() > BMAXTELEFONO);
 				oEmpresa.setsTelefonoEmrpesa(sTelefonoEmrpesa);
 
@@ -130,7 +124,7 @@ public class EmpresaView implements IPlantilla{
 		do {
 			sCifNif = String.valueOf(Libreria.leer("Introduce un cif o nif *", 1, BMAXDNI, -1, -1, (byte) 6));
 		} while (!sCifNif.isEmpty() && sCifNif.length() != BMAXDNI && Pattern.matches(SPATRONDNI, sCifNif));
-		return oCtrl.searchEmpresa(new Empresa(sCifNif,"nombre", null, null, new Lugar(1,null, null)));
+		return oCtrl.searchEmpresa(new Empresa(sCifNif));
 	}
 
 	private static boolean remove(Controller oCtrl) {
@@ -140,7 +134,7 @@ public class EmpresaView implements IPlantilla{
 			sCifNif = String.valueOf(Libreria.leer("Introduce un cif o nif ", 1, BMAXDNI, -1, -1, (byte) 6));
 		} while (!sCifNif.isEmpty() && sCifNif.length() != BMAXDNI && Pattern.matches(SPATRONDNI, sCifNif));
 		
-		bExito = oCtrl.removeEmpresa(new Empresa(sCifNif,"nombre", null, null, new Lugar(1,null, null)));
+		bExito = oCtrl.removeEmpresa(new Empresa(sCifNif));
 	
 		return bExito;
 	}

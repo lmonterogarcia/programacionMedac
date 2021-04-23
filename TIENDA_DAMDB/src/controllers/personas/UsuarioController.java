@@ -94,18 +94,26 @@ public class UsuarioController {
 
 	public Usuario searchByPk(Usuario oUsuario, Connection oConnection) {
 		Usuario oUsuarioResult = null;
-		String sSQL = "SELECT * FROM Usuario WHERE email = '" + oUsuario.getsEmail() + "'";
+		if (oUsuario != null && oUsuario.getsEmail() != null) {
+			Gson oGson = new Gson();
+			String json = "[" + oGson.toJson(oUsuario) + "]";
 
-		try {
-			Statement stmt = oConnection.createStatement();
-			ResultSet rs = stmt.executeQuery(sSQL);
-			if (rs.next()) {
-				oUsuarioResult = new Usuario(oUsuario.getsEmail());
-				oUsuarioResult.setsPassword(rs.getString(2));
+			try {
+
+				CallableStatement statement = oConnection.prepareCall("{call usuario_search_by_pk(?)}");
+				statement.setString(1, json);
+
+				ResultSet rs = statement.executeQuery();
+				if (rs.next()) {
+					oUsuarioResult = new Usuario(oUsuario.getsEmail());
+					oUsuarioResult.setsPassword(rs.getString(2));
+				}
+
+				statement.close();
+
+			} catch (SQLException ex) {
+				ex.printStackTrace();
 			}
-			stmt.close();
-		} catch (SQLException e) {
-			oUsuarioResult = null;
 		}
 
 		return oUsuarioResult;

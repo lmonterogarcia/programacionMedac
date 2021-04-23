@@ -171,9 +171,10 @@ public class Controller implements IController{
 	}
 
 	public Empresa searchEmpresa(Empresa oEmpresa) {
-		return oConfiguracionCtrl.getoEmpresaCtrl().searchByPk(oEmpresa, oConnection);
+		return oConfiguracionCtrl.searchEmpresa(oEmpresa, oConnection);
+		//Cuando se implemente LUGAR HAY QUE CAMCBIAR!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 	}
 
-
+ 
 
 }

@@ -6,20 +6,20 @@ import models.sesion.Estado;
 import models.sesion.TipoSesion;
 import views.Libreria;
 
-public class TipoAndEstadoView implements IPlantilla{
-    
-    public static byte subMenuTipoAndEstado() {
+public class TipoAndEstadoView implements IPlantilla {
+
+	public static byte subMenuTipoAndEstado() {
 		System.out.println("");
 		System.out.println("-----------------------");
 		System.out.println("Gestion de tipo y estado de sesion");
 		System.out.println("-----------------------");
-        System.out.println("-----Tipo de Sesion----");
+		System.out.println("-----Tipo de Sesion----");
 		System.out.println("1. Alta");
 		System.out.println("2. Modificar");
 		System.out.println("3. Buscar Tipo de sesion por nombre");
 		System.out.println("4. Borrar");
-        System.out.println("---------Estado--------");
-        System.out.println("5. Alta");
+		System.out.println("---------Estado--------");
+		System.out.println("5. Alta");
 		System.out.println("6. Modificar");
 		System.out.println("7. Buscar Estado por nombre");
 		System.out.println("8. Borrar");
@@ -44,7 +44,7 @@ public class TipoAndEstadoView implements IPlantilla{
 			}
 			break;
 		case 3: // Buscar Tipo de Sesion
-            TipoSesion oTipoSesion = searchByNombreTipoSesion(oCtrl);
+			TipoSesion oTipoSesion = searchByNombreTipoSesion(oCtrl);
 			if (oTipoSesion != null) {
 				System.out.println("El tipo sesion buscado existe en la base de datos.");
 				System.out.println(oTipoSesion);
@@ -59,7 +59,7 @@ public class TipoAndEstadoView implements IPlantilla{
 				System.out.println("El tipo sesion no se ha podido eliminar.");
 			}
 			break;
-        case 5: // Alta de Estado
+		case 5: // Alta de Estado
 			if (createEstado(oCtrl)) {
 				System.out.println("El estado de sesion ha sido creado con exito.");
 			} else {
@@ -74,7 +74,7 @@ public class TipoAndEstadoView implements IPlantilla{
 			}
 			break;
 		case 7: // Buscar Estado
-            Estado oEstado = searchByNombreEstado(oCtrl);
+			Estado oEstado = searchByNombreEstado(oCtrl);
 			if (oEstado != null) {
 				System.out.println("El estado de sesion buscado existe en la base de datos.");
 				System.out.println(oEstado);
@@ -89,60 +89,65 @@ public class TipoAndEstadoView implements IPlantilla{
 				System.out.println("El estado de sesion no se ha podido eliminar.");
 			}
 			break;
-        default:
-            break;
+		default:
+			break;
 		}
 	}
 
-    // ########### Tipo Sesion ##############
+
+	// ########### Tipo Sesion ##############
 
 	private static boolean createTipoSesion(Controller oCtrl) {
 		String sNombreTipoSesion;
-        short shDuracionTipoSesion;
+		short shDuracionTipoSesion;
 
 		System.out.println("\nIntroduce los datos del tipo de sesion: ");
 		System.out.println("Campos requeridos *");
-		
-		sNombreTipoSesion = String.valueOf(Libreria.leer("Introduce un nombre *", 1, BMAXNOMBRELARGO, -1, -1, (byte) 6));
-		
+
+		sNombreTipoSesion = String
+				.valueOf(Libreria.leer("Introduce un nombre *", 1, BMAXNOMBRELARGO, -1, -1, (byte) 6));
+		sNombreTipoSesion = Libreria.primeraMayus(sNombreTipoSesion);
+
 		try {
-            shDuracionTipoSesion = (short)(Libreria.leer("Introduce un nombre *", 0, SHMAXDURACION, -1, -1, (byte) 2));
-        } catch (Exception e) {
-            shDuracionTipoSesion = -1;
-        }
+			shDuracionTipoSesion = (short) (Libreria.leer("Introduce un nombre *", 0, SHMAXDURACION, -1, -1, (byte) 2));
+		} catch (Exception e) {
+			shDuracionTipoSesion = -1;
+		}
 
 		return oCtrl.addTipoSesion(new TipoSesion(sNombreTipoSesion, shDuracionTipoSesion));
 	}
 
 	private static boolean updateTipoSesion(Controller oCtrl) {
-        short shDuracionTipoSesion;
+		short shDuracionTipoSesion;
 		boolean booExito = false;
 		TipoSesion oTipoSesion = searchByNombreTipoSesion(oCtrl);
-		
+
 		if (oTipoSesion != null) {
 			if (oTipoSesion != null && oTipoSesion.checkTipoSesion()) {
 				System.out.println("Modifica los datos del tipo de sesion: ");
-				
+
 				try {
-                    shDuracionTipoSesion = (short)(Libreria.leer("Introduce una duracion ", 0, SHMAXDURACION, -1, -1, (byte) 2));
-                } catch (Exception e) {
-                    shDuracionTipoSesion = -1;
-                }
-                oTipoSesion.setShDuracionTipoSesion(shDuracionTipoSesion);
+					shDuracionTipoSesion = (short) (Libreria.leer("Introduce una duracion ", 0, SHMAXDURACION, -1, -1,
+							(byte) 2));
+				} catch (Exception e) {
+					shDuracionTipoSesion = -1;
+				}
+				oTipoSesion.setShDuracionTipoSesion(shDuracionTipoSesion);
 
 				booExito = oCtrl.updateTipoSesion(oTipoSesion);
 			}
 		}
-		
-
 		return booExito;
 	}
 
 	private static TipoSesion searchByNombreTipoSesion(Controller oCtrl) {
 		String sNombreTipoSesion;
 		do {
-			sNombreTipoSesion = String.valueOf(Libreria.leer("Introduce un nombre ", 1, BMAXNOMBRELARGO, -1, -1, (byte) 6));
+			sNombreTipoSesion = String
+					.valueOf(Libreria.leer("Introduce un nombre ", 1, BMAXNOMBRELARGO, -1, -1, (byte) 6));
 		} while (!sNombreTipoSesion.isEmpty() && sNombreTipoSesion.length() > BMAXDNI);
+		sNombreTipoSesion = Libreria.primeraMayus(sNombreTipoSesion);
+
 		return oCtrl.searchTipoSesion(new TipoSesion(sNombreTipoSesion));
 	}
 
@@ -150,26 +155,26 @@ public class TipoAndEstadoView implements IPlantilla{
 		boolean bExito = false;
 		String sNombreTipoSesion;
 		do {
-			sNombreTipoSesion = String.valueOf(Libreria.leer("Introduce un nombre ", 1, BMAXNOMBRELARGO, -1, -1, (byte) 6));
+			sNombreTipoSesion = String
+					.valueOf(Libreria.leer("Introduce un nombre ", 1, BMAXNOMBRELARGO, -1, -1, (byte) 6));
 		} while (!sNombreTipoSesion.isEmpty() && sNombreTipoSesion.length() > BMAXDNI);
-		
+		sNombreTipoSesion = Libreria.primeraMayus(sNombreTipoSesion);
+
 		bExito = oCtrl.removeTipoSesion(new TipoSesion(sNombreTipoSesion));
-	
+
 		return bExito;
 	}
 
+	// ########### Estado ##############
 
-    // ########### Estado ##############
-    
 	private static boolean createEstado(Controller oCtrl) {
 		String sNombreEstado;
-		
 
 		System.out.println("\nIntroduce los datos del estado de sesion: ");
 		System.out.println("Campos requeridos *");
 
-        sNombreEstado = String.valueOf(Libreria.leer("Introduce un nombre *", 1, BMAXNOMBRELARGO, -1, -1, (byte) 6));
-
+		sNombreEstado = String.valueOf(Libreria.leer("Introduce un nombre *", 1, BMAXNOMBRELARGO, -1, -1, (byte) 6));
+		sNombreEstado = Libreria.primeraMayus(sNombreEstado);
 		return oCtrl.addEstado(new Estado(sNombreEstado));
 	}
 
@@ -177,21 +182,20 @@ public class TipoAndEstadoView implements IPlantilla{
 		String sNombreEstado;
 		boolean booExito = false;
 		Estado oEstadoAntiguo = searchByNombreEstado(oCtrl);
-		Estado oEstado = oEstadoAntiguo;
+		Estado oEstado = new Estado(oEstadoAntiguo.getsNombreEstado());
 
-		if (oEstado != null) {
-			if (oEstado != null && oEstado.checkEstado()) {
-				System.out.println("Modifica los datos del estado: ");
-				
-				do {
-                    sNombreEstado = String.valueOf(Libreria.leer("Introduce un nuevo nombre ", 0, BMAXNOMBRELARGO, -1, -1, (byte) 6));
-                } while (!sNombreEstado.isEmpty() && sNombreEstado.length() > BMAXNOMBRELARGO);
-                oEstado.setsNombreEstado(sNombreEstado);
+		if (oEstado != null && oEstado.checkEstado()) {
+			System.out.println("Modifica los datos del estado: ");
 
-				booExito = oCtrl.updateEstado(oEstado, oEstadoAntiguo);
-			}
+			do {
+				sNombreEstado = String
+						.valueOf(Libreria.leer("Introduce un nuevo nombre ", 0, BMAXNOMBRELARGO, -1, -1, (byte) 6));
+			} while (!sNombreEstado.isEmpty() && sNombreEstado.length() > BMAXNOMBRELARGO);
+			sNombreEstado = Libreria.primeraMayus(sNombreEstado);
+			oEstado.setsNombreEstado(sNombreEstado);
+
+			booExito = oCtrl.updateEstado(oEstado, oEstadoAntiguo);
 		}
-		
 
 		return booExito;
 	}
@@ -199,8 +203,10 @@ public class TipoAndEstadoView implements IPlantilla{
 	private static Estado searchByNombreEstado(Controller oCtrl) {
 		String sNombreEstado;
 		do {
-            sNombreEstado = String.valueOf(Libreria.leer("Introduce un nombre ", 1, BMAXNOMBRELARGO, -1, -1, (byte) 6));
-        } while (!sNombreEstado.isEmpty() && sNombreEstado.length() > BMAXNOMBRELARGO);
+			sNombreEstado = String.valueOf(Libreria.leer("Introduce un nombre ", 1, BMAXNOMBRELARGO, -1, -1, (byte) 6));
+		} while (!sNombreEstado.isEmpty() && sNombreEstado.length() > BMAXNOMBRELARGO);
+		sNombreEstado = Libreria.primeraMayus(sNombreEstado);
+
 		return oCtrl.searchEstado(new Estado(sNombreEstado));
 	}
 
@@ -208,12 +214,13 @@ public class TipoAndEstadoView implements IPlantilla{
 		boolean bExito = false;
 		String sNombreEstado;
 		do {
-            sNombreEstado = String.valueOf(Libreria.leer("Introduce un nombre ", 1, BMAXNOMBRELARGO, -1, -1, (byte) 6));
-        } while (!sNombreEstado.isEmpty() && sNombreEstado.length() > BMAXNOMBRELARGO);
-		
+			sNombreEstado = String.valueOf(Libreria.leer("Introduce un nombre ", 1, BMAXNOMBRELARGO, -1, -1, (byte) 6));
+		} while (!sNombreEstado.isEmpty() && sNombreEstado.length() > BMAXNOMBRELARGO);
+		sNombreEstado = Libreria.primeraMayus(sNombreEstado);
+
 		bExito = oCtrl.removeEstado(new Estado(sNombreEstado));
-	
+
 		return bExito;
 	}
-    
+
 }

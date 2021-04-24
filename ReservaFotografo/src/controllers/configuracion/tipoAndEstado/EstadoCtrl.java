@@ -60,7 +60,7 @@ public class EstadoCtrl {
 
     public boolean update(Estado oNuevoEstado, Estado oAntiguoEstado, Connection oConnection) {
         boolean bExito = false;
-		if (oNuevoEstado != null && oNuevoEstado.checkEstado() && searchByPk(oNuevoEstado, oConnection) == null) {
+		if (oNuevoEstado != null && oNuevoEstado.checkEstado() && searchByPk(oNuevoEstado, oConnection) == null ) {
 
 			Gson oGson = new Gson();
 			String json = "[" + oGson.toJson(oNuevoEstado) + "," + oGson.toJson(oAntiguoEstado) + "]";

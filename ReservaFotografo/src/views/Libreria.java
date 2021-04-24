@@ -4,6 +4,13 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 
 public class Libreria {
+
+	//La primera leta del mensaje en mayusculas y las demas en minusculas
+	public static String primeraMayus(String sMensaje){
+		return sMensaje.substring(0,1).toUpperCase() + sMensaje.substring(1,sMensaje.length()).toLowerCase();
+	}
+
+	//Metodo Leer
     public static Object leer(String sMensaje, long lMinimo, long lMaximo, double dMinimo, double dMaximo, byte bEstado) {
 		Object oNumero;
 		switch(bEstado) {

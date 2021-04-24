@@ -3,7 +3,7 @@ package controllers.configuracion;
 import java.sql.Connection;
 
 import controllers.configuracion.tipoAndEstado.TipoAndEstadoCtrl;
-import models.lugar.Lugar;
+// import models.lugar.Lugar;
 import models.personas.Empresa;
 
 public class ConfiguracionCtrl {

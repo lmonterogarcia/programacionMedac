@@ -1,7 +1,5 @@
 package views.Configuracion;
 
-import java.util.regex.Pattern;
-
 import controllers.Controller;
 import models.IPlantilla;
 import models.sesion.Estado;
@@ -61,36 +59,36 @@ public class TipoAndEstadoView implements IPlantilla{
 				System.out.println("El tipo sesion no se ha podido eliminar.");
 			}
 			break;
-       /* case 5: // Alta de Estado
+        case 5: // Alta de Estado
 			if (createEstado(oCtrl)) {
-				System.out.println("La empresa ha sido creado con exito.");
+				System.out.println("El estado de sesion ha sido creado con exito.");
 			} else {
-				System.out.println("La empresa no se ha podido crear.");
+				System.out.println("El estado de sesion no se ha podido crear.");
 			}
 			break;
 		case 6: // Modificar Estado
 			if (updateEstado(oCtrl)) {
-				System.out.println("La empresa ha sido modificado con exito.");
+				System.out.println("El estado de sesion ha sido modificado con exito.");
 			} else {
-				System.out.println("La empresa no se ha podido modificar.");
+				System.out.println("El estado de sesion no se ha podido modificar.");
 			}
 			break;
 		case 7: // Buscar Estado
             Estado oEstado = searchByNombreEstado(oCtrl);
 			if (oEstado != null) {
-				System.out.println("La empresa buscado existe en la base de datos.");
+				System.out.println("El estado de sesion buscado existe en la base de datos.");
 				System.out.println(oEstado);
 			} else {
-				System.out.println("La empresa no existe en la base de datos.");
+				System.out.println("El estado de sesion no existe en la base de datos.");
 			}
 			break;
 		case 8: // Borrar Estado
 			if (removeEstado(oCtrl)) {
-				System.out.println("La empresa ha sido eliminado con exito.");
+				System.out.println("El estado de sesion ha sido eliminado con exito.");
 			} else {
-				System.out.println("La empresa no se ha podido eliminar.");
+				System.out.println("El estado de sesion no se ha podido eliminar.");
 			}
-			break;*/
+			break;
         default:
             break;
 		}
@@ -160,63 +158,37 @@ public class TipoAndEstadoView implements IPlantilla{
 		return bExito;
 	}
 
-/*
+
     // ########### Estado ##############
     
 	private static boolean createEstado(Controller oCtrl) {
-		String sCifNif, sNombreEmpresa, sEmailEmpresa, sTelefonoEmpresa;
+		String sNombreEstado;
 		
 
-		System.out.println("\nIntroduce los datos del empresa: ");
+		System.out.println("\nIntroduce los datos del estado de sesion: ");
 		System.out.println("Campos requeridos *");
-		do {
-			sCifNif = String.valueOf(Libreria.leer("Introduce un cif o nif *", 1, BMAXDNI, -1, -1, (byte) 6));
-		} while (!sCifNif.isEmpty() && sCifNif.length() != BMAXDNI && Pattern.matches(SPATRONDNI, sCifNif));
-		do {
-			sNombreEmpresa = String.valueOf(Libreria.leer("Introduce un nombre *", 1, BMAXNOMBRELARGO, -1, -1, (byte) 6));
-		} while (!sNombreEmpresa.isEmpty() && sNombreEmpresa.length() > BMAXNOMBRELARGO);
-		do {
-			sEmailEmpresa = String.valueOf(Libreria.leer("Introduce un email", 0, BMAXEMAIL, -1, -1, (byte) 6));
-		} while (!sEmailEmpresa.isEmpty() && sEmailEmpresa.length() > BMAXEMAIL);
-		do {
-			sTelefonoEmpresa = String.valueOf(Libreria.leer("Introduce un telefono", 0, BMAXTELEFONO, -1, -1, (byte) 6));
-		} while (!sTelefonoEmpresa.isEmpty() && sTelefonoEmpresa.length() > BMAXTELEFONO);
-		//NO SE IMPLEMENTA OLUGAR HASTA QUE NO SE CREEN LAS VISTAS Y CONTROLADORES DE LUGAR
-		oLugar = new Lugar(1,"pruebas","pruebas"); //#@#@#@#@@#@@#@#@#@#@#@#@#@#@#@#@
-		
 
-		return oCtrl.addEmpresa(new Empresa(sCifNif, sNombreEmpresa, sEmailEmpresa, sTelefonoEmpresa, oLugar));
+        sNombreEstado = String.valueOf(Libreria.leer("Introduce un nombre *", 1, BMAXNOMBRELARGO, -1, -1, (byte) 6));
+
+		return oCtrl.addEstado(new Estado(sNombreEstado));
 	}
 
 	private static boolean updateEstado(Controller oCtrl) {
-		String sNombreEmpresa, sEmailEmpresa, sTelefonoEmrpesa;
-		// Lugar oLugar;
+		String sNombreEstado;
 		boolean booExito = false;
-		TipoSesion oEmpresa = searchByCifDni(oCtrl);
-		
-		if (oEmpresa != null) {
-			if (oEmpresa != null && oEmpresa.checkEmpresa()) {
-				System.out.println("Modifica los datos de la empresa: ");
-				
-				do {
-					sNombreEmpresa = String.valueOf(Libreria.leer("Introduce un nombre (" + oEmpresa.getsNombreEmpresa() + ")", 0, BMAXNOMBRELARGO, -1, -1, (byte) 6));
-				} while (!sNombreEmpresa.isEmpty() && sNombreEmpresa.length() > BMAXNOMBRELARGO);
-				oEmpresa.setsNombreEmpresa(sNombreEmpresa);
-				
-				do {
-					sEmailEmpresa = String.valueOf(Libreria.leer("Introduce un email (" + oEmpresa.getsEmailEmpresa() + ")", 0, BMAXEMAIL, -1, -1, (byte) 6));
-				} while (!sEmailEmpresa.isEmpty() && sEmailEmpresa.length() > BMAXEMAIL);
-				oEmpresa.setsEmailEmpresa(sEmailEmpresa);
-				
-				do {
-					sTelefonoEmrpesa = String.valueOf(Libreria.leer("Introduce un telefono (" + oEmpresa.getsTelefonoEmrpesa() + ")", 0, BMAXTELEFONO, -1, -1, (byte) 6));
-				} while (!sTelefonoEmrpesa.isEmpty() && sTelefonoEmrpesa.length() > BMAXTELEFONO);
-				oEmpresa.setsTelefonoEmrpesa(sTelefonoEmrpesa);
+		Estado oEstadoAntiguo = searchByNombreEstado(oCtrl);
+		Estado oEstado = oEstadoAntiguo;
 
-				//NO SE IMPLEMENTA OLUGAR HASTA QUE NO SE CREEN LAS VISTAS Y CONTROLADORES DE LUGAR
-				//oLugar = new Lugar(1,"pruebas","pruebas"); //#@#@#@#@@#@@#@#@#@#@#@#@#@#@#@#@
+		if (oEstado != null) {
+			if (oEstado != null && oEstado.checkEstado()) {
+				System.out.println("Modifica los datos del estado: ");
+				
+				do {
+                    sNombreEstado = String.valueOf(Libreria.leer("Introduce un nuevo nombre ", 0, BMAXNOMBRELARGO, -1, -1, (byte) 6));
+                } while (!sNombreEstado.isEmpty() && sNombreEstado.length() > BMAXNOMBRELARGO);
+                oEstado.setsNombreEstado(sNombreEstado);
 
-				booExito = oCtrl.updateEmpresa(oEmpresa);
+				booExito = oCtrl.updateEstado(oEstado, oEstadoAntiguo);
 			}
 		}
 		
@@ -225,23 +197,23 @@ public class TipoAndEstadoView implements IPlantilla{
 	}
 
 	private static Estado searchByNombreEstado(Controller oCtrl) {
-		String sCifNif;
+		String sNombreEstado;
 		do {
-			sCifNif = String.valueOf(Libreria.leer("Introduce un cif o nif *", 1, BMAXDNI, -1, -1, (byte) 6));
-		} while (!sCifNif.isEmpty() && sCifNif.length() != BMAXDNI && Pattern.matches(SPATRONDNI, sCifNif));
-		return oCtrl.searchEmpresa(new Empresa(sCifNif));
+            sNombreEstado = String.valueOf(Libreria.leer("Introduce un nombre ", 1, BMAXNOMBRELARGO, -1, -1, (byte) 6));
+        } while (!sNombreEstado.isEmpty() && sNombreEstado.length() > BMAXNOMBRELARGO);
+		return oCtrl.searchEstado(new Estado(sNombreEstado));
 	}
 
 	private static boolean removeEstado(Controller oCtrl) {
 		boolean bExito = false;
-		String sCifNif;
+		String sNombreEstado;
 		do {
-			sCifNif = String.valueOf(Libreria.leer("Introduce un cif o nif ", 1, BMAXDNI, -1, -1, (byte) 6));
-		} while (!sCifNif.isEmpty() && sCifNif.length() != BMAXDNI && Pattern.matches(SPATRONDNI, sCifNif));
+            sNombreEstado = String.valueOf(Libreria.leer("Introduce un nombre ", 1, BMAXNOMBRELARGO, -1, -1, (byte) 6));
+        } while (!sNombreEstado.isEmpty() && sNombreEstado.length() > BMAXNOMBRELARGO);
 		
-		bExito = oCtrl.removeEmpresa(new Empresa(sCifNif));
+		bExito = oCtrl.removeEstado(new Estado(sNombreEstado));
 	
 		return bExito;
 	}
-    */
+    
 }

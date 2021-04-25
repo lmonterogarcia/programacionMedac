@@ -20,3 +20,15 @@
         - Participante (checkParticipante(), equal())
         - Lugar. Se ha creado otro construcctor. Lugar(int).
         - Empresa. Se ha arreglaod un error en setsCifNif().
+
+## Version 0.4 ##
+    - Creación de los metodos en la vista y controlador de los CRUD básicos en PL/SQL
+        - Estado (Se ha terminado la VIEW)
+        - Productos (Prodcuto y Pack)
+        - Lugar (Lugars y subclases)
+        - Sesion (Solo la Clase principal, sin conexiones con las demas clases con sus tablas NM)
+    - Se ha arreglado y/o cambiado algunos errores o para mejorar los modelos
+        - Se han cambiado los modelos de Producto y Pack para eliminar la necesidad de Ids. Clases afectadas
+            Producto, Pack y PackProducto.
+        
+        

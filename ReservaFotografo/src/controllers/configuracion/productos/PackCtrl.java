@@ -1,15 +1,7 @@
-package controllers.configuracion.tipoAndEstado;
+package controllers.configuracion.productos;
 
-import java.sql.*;
-import com.google.gson.Gson;
-
-import controllers.Controller;
-import models.sesion.Estado;
-
-public class EstadoCtrl {
+public class PackCtrl {
     
-    // ###### CRUD ######
-
     public boolean add(Estado oEstado, Connection oConnection) {
         boolean bExito = false;
 		if (oEstado != null && oEstado.checkEstado()) {

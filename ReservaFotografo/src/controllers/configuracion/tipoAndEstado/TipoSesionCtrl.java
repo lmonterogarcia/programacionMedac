@@ -2,35 +2,13 @@ package controllers.configuracion.tipoAndEstado;
 
 import java.sql.*;
 import com.google.gson.Gson;
+
+import controllers.Controller;
 import models.sesion.TipoSesion;
 
 public class TipoSesionCtrl {
     
     // ###### CRUD ######
-
-    public boolean executeProcedure(String json, String sFunction, Connection oConnection) {
-
-		boolean bExito = false;
-
-		try {
-
-			CallableStatement statement = oConnection.prepareCall(sFunction);
-			statement.setString(1, json);
-
-			statement.execute();
-			statement.close();
-
-			bExito = true;
-
-		} catch (SQLException ex) {
-			System.out.println(ex);
-            bExito = false;
-		}
-
-		return bExito;
-
-	}
-
 
     public boolean add(TipoSesion oTipoSesion, Connection oConnection) {
         boolean bExito = false;
@@ -39,7 +17,7 @@ public class TipoSesionCtrl {
 			Gson oGson = new Gson();
 			String json = "[" + oGson.toJson(oTipoSesion) + "]";
 
-			bExito = executeProcedure(json, "{call tipo_sesion_create(?)}", oConnection);
+			bExito = Controller.executeProcedure(json, "{call tipo_sesion_create(?)}", oConnection);
 			
 		}
 		return bExito;
@@ -52,7 +30,7 @@ public class TipoSesionCtrl {
 			Gson oGson = new Gson();
 			String json = "[" + oGson.toJson(oTipoSesion) + "]";
 
-			bExito = executeProcedure(json, "{call tipo_sesion_remove(?)}", oConnection);
+			bExito = Controller.executeProcedure(json, "{call tipo_sesion_remove(?)}", oConnection);
 			
 		}
 		return bExito;
@@ -65,7 +43,7 @@ public class TipoSesionCtrl {
 			Gson oGson = new Gson();
 			String json = "[" + oGson.toJson(oTipoSesion) + "]";
 
-			bExito = executeProcedure(json, "{call tipo_sesion_update(?)}", oConnection);
+			bExito = Controller.executeProcedure(json, "{call tipo_sesion_update(?)}", oConnection);
 			
 		}
 		return bExito;

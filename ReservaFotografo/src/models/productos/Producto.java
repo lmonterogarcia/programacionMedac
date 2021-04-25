@@ -10,9 +10,8 @@ import models.IPlantilla;
 public class Producto implements IProducto, IPlantilla {
     
     //PK
-    private int iIdProducto;
-    //NN
     private String sNombreProducto;
+    //NN
     private float fPrecioProducto;
     //N
     private float fCosteProducto;
@@ -20,34 +19,22 @@ public class Producto implements IProducto, IPlantilla {
 
     // ###Contructores###
 
-    public Producto(int iIdProducto) {
-        setiIdProducto(iIdProducto);
+    public Producto(String sNombreProducto) {
+        setsNombreProducto(sNombreProducto);
     }
 
     public Producto(String sNombreProducto, float fPrecioProducto) {
-        this.iIdProducto = 1;
         setsNombreProducto(sNombreProducto);
         setfPrecioProducto(fPrecioProducto);
     }
 
     public Producto(String sNombreProducto, float fPrecioProducto, String sDescripcionProducto) {
-        this.iIdProducto = 1;
         setsNombreProducto(sNombreProducto);
         setfPrecioProducto(fPrecioProducto);
         setsDescripcionProducto(sDescripcionProducto);
     }
 
     // ###GET and SET###
-
-    public int getiIdProducto() {
-        return iIdProducto;
-    }
-
-    public void setiIdProducto(int iIdProducto) {
-        if (this.iIdProducto >= 0 && this.iIdProducto <= IMAXIDS) {
-            this.iIdProducto = iIdProducto;
-        }
-    }
 
     public String getsNombreProducto() {
         return sNombreProducto;
@@ -64,7 +51,7 @@ public class Producto implements IProducto, IPlantilla {
     }
 
     public void setfPrecioProducto(float fPrecioProducto) {
-        if (fPrecioProducto < IMAXPRECIO && fPrecioProducto > 0) {
+        if (fPrecioProducto < IMAXPRECIO && fPrecioProducto >= 0) {
             BigDecimal bigVariable = new BigDecimal(fPrecioProducto).setScale(BMAXPRECIODECIMAL, RoundingMode.UP);
         this.fPrecioProducto = bigVariable.floatValue();
         }
@@ -75,7 +62,7 @@ public class Producto implements IProducto, IPlantilla {
     }
 
     public void setfCosteProducto(float fCosteProducto) {
-        if (fCosteProducto < IMAXPRECIO && fCosteProducto > 0) {
+        if (fCosteProducto < IMAXPRECIO && fCosteProducto >= 0) {
             BigDecimal bigVariable = new BigDecimal(fCosteProducto).setScale(BMAXPRECIODECIMAL, RoundingMode.UP);
         this.fCosteProducto = bigVariable.floatValue();
         }
@@ -105,7 +92,7 @@ public class Producto implements IProducto, IPlantilla {
 
     public boolean checkProducto() {
         boolean booExito = false;
-        if (this.getiIdProducto() > 0 && this.getiIdProducto() < IMAXIDS && this.getsNombreProducto() != null && fPrecioProducto < IMAXPRECIO && fPrecioProducto > 0) {
+        if (this.getsNombreProducto() != null && fPrecioProducto < IMAXPRECIO && fPrecioProducto >= 0) {
             booExito = true;
         }
         return booExito;
@@ -131,7 +118,6 @@ public class Producto implements IProducto, IPlantilla {
         String sMensaje = "";
         if (checkProducto()) {
             sMensaje += "\n## Producto ##";
-            sMensaje += "\n Id: " + SLETRAPRODUCTO + String.format(SPATRONIDTOSTRING , this.getiIdProducto());
             sMensaje += "\n Nombre: " + this.getsNombreProducto();
             sMensaje += "\n Precio: " + this.getfPrecioProducto() + "€";
             if (fCosteProducto < IMAXPRECIO && fCosteProducto > 0) {

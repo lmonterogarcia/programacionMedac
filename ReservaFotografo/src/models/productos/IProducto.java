@@ -2,8 +2,6 @@ package models.productos;
 
 public interface IProducto {
 
-    public int getiIdProducto();
-    public void setiIdProducto(int iIdProducto);
     public String getsNombreProducto();
     public void setsNombreProducto(String sNombreProducto);
     public float getfPrecioProducto();

@@ -4,6 +4,7 @@ import java.sql.*;
 
 import com.google.gson.Gson;
 
+import controllers.*;
 import models.lugar.Lugar;
 import models.personas.Empresa;
 
@@ -13,30 +14,6 @@ public class EmpresaCtrl implements controllers.ICrudController<Empresa>{
 
     // ###### CRUD ######
 
-    public boolean executeProcedure(String json, String sFunction, Connection oConnection) {
-
-		boolean bExito = false;
-
-		try {
-
-			CallableStatement statement = oConnection.prepareCall(sFunction);
-			statement.setString(1, json);
-
-			statement.execute();
-			statement.close();
-
-			bExito = true;
-
-		} catch (SQLException ex) {
-			System.out.println(ex);
-            bExito = false;
-		}
-
-		return bExito;
-
-	}
-
-
     public boolean add(Empresa oEmpresa, Connection oConnection) {
         boolean bExito = false;
 		if (oEmpresa != null && oEmpresa.checkEmpresa()) {
@@ -44,7 +21,7 @@ public class EmpresaCtrl implements controllers.ICrudController<Empresa>{
 			Gson oGson = new Gson();
 			String json = "[" + oGson.toJson(oEmpresa) + "]";
 
-			bExito = executeProcedure(json, "{call empresa_create(?)}", oConnection);
+			bExito = Controller.executeProcedure(json, "{call empresa_create(?)}", oConnection);
 			
 		}
 		return bExito;
@@ -57,7 +34,7 @@ public class EmpresaCtrl implements controllers.ICrudController<Empresa>{
 			Gson oGson = new Gson();
 			String json = "[" + oGson.toJson(oEmpresa) + "]";
 
-			bExito = executeProcedure(json, "{call empresa_remove(?)}", oConnection);
+			bExito = Controller.executeProcedure(json, "{call empresa_remove(?)}", oConnection);
 			
 		}
 		return bExito;
@@ -71,7 +48,7 @@ public class EmpresaCtrl implements controllers.ICrudController<Empresa>{
 			Gson oGson = new Gson();
 			String json = "[" + oGson.toJson(oEmpresa) + "]";
 
-			bExito = executeProcedure(json, "{call empresa_update(?)}", oConnection);
+			bExito = Controller.executeProcedure(json, "{call empresa_update(?)}", oConnection);
 			
 		}
 		return bExito;

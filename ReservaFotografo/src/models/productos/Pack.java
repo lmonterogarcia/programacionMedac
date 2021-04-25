@@ -8,43 +8,30 @@ import models.IPlantilla;
 public class Pack implements IPack, IPlantilla{
     
     //PK
-    private int iIdPack;
-    //NN
     private String sNombrePack;
+    //NN
     private float fPrecioPack;
     //N
     private String sDescripcionPack;
 
     // ###Contructores###
 
-    public Pack(int iIdPack) {
-        setiIdPack(iIdPack);
+    public Pack(String sNombrePack) {
+        setsNombrePack(sNombrePack);
     }
 
     public Pack(String sNombrePack, float fPrecioPack) {
-        this.iIdPack = 1;
         setsNombrePack(sNombrePack);
         setfPrecioPack(fPrecioPack);
     }
 
     public Pack(String sNombrePack, float fPrecioPack, String sDescripcionPack) {
-        this.iIdPack = 1;
         setsNombrePack(sNombrePack);
         setfPrecioPack(fPrecioPack);
         setsDescripcionPack(sDescripcionPack);
     }
 
     // ###GET and SET###
-
-    public int getiIdPack() {
-        return iIdPack;
-    }
-
-    public void setiIdPack(int iIdPack) {
-        if (this.iIdPack >= 0 && this.iIdPack <= IMAXIDS) {
-            this.iIdPack = iIdPack;
-        }
-    }
 
     public String getsNombrePack() {
         return sNombrePack;
@@ -61,7 +48,7 @@ public class Pack implements IPack, IPlantilla{
     }
 
     public void setfPrecioPack(float fPrecioPack) {
-        if (fPrecioPack < IMAXPRECIO && fPrecioPack > 0) {
+        if (fPrecioPack < IMAXPRECIO && fPrecioPack >= 0) {
             BigDecimal bigVariable = new BigDecimal(fPrecioPack).setScale(BMAXPRECIODECIMAL, RoundingMode.UP);
         this.fPrecioPack = bigVariable.floatValue();
         }
@@ -82,7 +69,7 @@ public class Pack implements IPack, IPlantilla{
 
     public boolean checkPack() {
         boolean booExito = false;
-        if (this.getiIdPack() > 0 && this.getiIdPack() < IMAXIDS && this.getsNombrePack() != null && fPrecioPack < IMAXPRECIO && fPrecioPack > 0) {
+        if (this.getsNombrePack() != null && fPrecioPack < IMAXPRECIO && fPrecioPack >= 0) {
             booExito = true;
         }
         return booExito;
@@ -108,7 +95,6 @@ public class Pack implements IPack, IPlantilla{
         String sMensaje = "";
         if (checkPack()) {
             sMensaje += "\n## Pack ##";
-            sMensaje += "\n Id: " + SLETRAPACK + String.format(SPATRONIDTOSTRING , this.getiIdPack());
             sMensaje += "\n Nombre: " + this.getsNombrePack();
             sMensaje += "\n Precio: " + this.getfPrecioPack() + "€";
             if (this.getsDescripcionPack() != null && this.getsDescripcionPack().isEmpty()) {

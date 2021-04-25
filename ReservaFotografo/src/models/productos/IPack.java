@@ -2,8 +2,6 @@ package models.productos;
 
 public interface IPack {
 
-    public int getiIdPack();
-    public void setiIdPack(int iIdPack);
     public String getsNombrePack();
     public void setsNombrePack(String sNombrePack);
     public float getfPrecioPack();

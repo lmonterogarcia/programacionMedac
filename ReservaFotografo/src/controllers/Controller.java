@@ -90,6 +90,28 @@ public class Controller implements IController{
 		return conn;
 	}
 
+	public static boolean executeProcedure(String json, String sFunction, Connection oConnection) {
+
+		boolean bExito = false;
+
+		try {
+
+			CallableStatement statement = oConnection.prepareCall(sFunction);
+			statement.setString(1, json);
+
+			statement.execute();
+			statement.close();
+
+			bExito = true;
+
+		} catch (SQLException ex) {
+			System.out.println(ex);
+            bExito = false;
+		}
+
+		return bExito;
+
+	}
 
 
 	// ###### Cliente y Usuario ######

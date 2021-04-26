@@ -10,7 +10,7 @@ import models.personas.*;
 import models.sesion.*;
 
 public class Controller implements IController{
-    private Connection oConnection;
+    private static Connection oConnection;
 	private PersonasController oPersonasCtrl;
 	private ConfiguracionCtrl oConfiguracionCtrl;
 	
@@ -19,7 +19,7 @@ public class Controller implements IController{
 		oConfiguracionCtrl = new ConfiguracionCtrl();
 	}
 
-	public Connection getConnection() {
+	public static Connection getConnection() {
 		return oConnection;
 	}
 

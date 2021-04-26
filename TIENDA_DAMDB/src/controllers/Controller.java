@@ -1,7 +1,5 @@
 package controllers;
 
-import models.Cliente;
-import models.Usuario;
 import controllers.personas.*;
 import java.sql.*;
 import java.util.*;
@@ -10,13 +8,13 @@ import java.io.*;
 public class Controller implements IController {
 
 	private PersonasController oPersonasCtrl;
-	private Connection oConnection;
+	private static Connection oConnection;
 
 	public Controller() {
 		oPersonasCtrl = new PersonasController();
 	}
 
-	public Connection getConnection() {
+	public static Connection getConnection() {
 		return oConnection;
 	}
 
@@ -41,10 +39,29 @@ public class Controller implements IController {
 			try {
 				oConnection.close();
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
+	}
+
+	public static boolean executeProcedure(String json, String sFunction) {
+
+		boolean bExito = false;
+		try {
+
+			CallableStatement statement = oConnection.prepareCall(sFunction);
+			statement.setString(1, json);
+			if (statement.executeUpdate() > 0) {
+				bExito = true;
+			}
+			statement.close();
+
+		} catch (SQLException ex) {
+			bExito = false;
+		}
+
+		return bExito;
+
 	}
 
 	public Map<String, String> getPropertiesDb() throws Exception {
@@ -82,29 +99,4 @@ public class Controller implements IController {
 
 		return conn;
 	}
-
-	public boolean addCliente(Cliente oCliente) {
-		return oPersonasCtrl.getoClientCtrl().add(oCliente, oConnection);
-	}
-
-	public boolean updateCliente(Cliente oCliente) {
-		return oPersonasCtrl.getoClientCtrl().update(oCliente, oConnection);
-	}
-
-	public boolean removeUsuario(Usuario oUser) {
-		return oPersonasCtrl.getoUserCtrl().remove(oUser, oConnection);
-	}
-
-	public Cliente searchCliente(Cliente oCliente) {
-		return oPersonasCtrl.searchCliente(oCliente, oConnection);
-	}
-
-	public List<Cliente> searchByDireccion(String sDireccion) {
-		return oPersonasCtrl.getoClientCtrl().searchByDireccion(sDireccion, oConnection);
-	}
-
-	public Usuario searchUserByDni(Cliente oCliente) {
-		return oPersonasCtrl.searchUserByDni(oCliente, oConnection);
-	}
-
 }

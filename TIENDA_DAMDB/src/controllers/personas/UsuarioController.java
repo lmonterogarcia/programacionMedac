@@ -4,95 +4,57 @@ import java.util.*;
 import models.*;
 import java.sql.*;
 import com.google.gson.*;
+import controllers.Controller;
 
 public class UsuarioController {
 
-	private List<Usuario> lUsuarios;
-
-	public UsuarioController() {
-		lUsuarios = new ArrayList<Usuario>();
-	}
-
-	public List<Usuario> getLista() {
-		return lUsuarios;
-	}
-
-	public void setLista(List<Usuario> lUsuarios) {
-		this.lUsuarios = lUsuarios;
-	}
-
-	/*
-	 * ######## # CRUD # ########
-	 */
-	public boolean executeProcedure(String json, String sFunction, Connection oConnection) {
-
-		boolean bExito = false;
-
-		try {
-
-			CallableStatement statement = oConnection.prepareCall(sFunction);
-			statement.setString(1, json);
-			if (statement.executeUpdate() > 0) {
-				bExito = true;
-			}
-			statement.close();
-
-		} catch (SQLException ex) {
-			bExito = false;
-		}
-
-		return bExito;
-
-	}
-
-	public boolean remove(Usuario oUsuario, Connection oConnection) {
+	public boolean remove(Usuario oUsuario) {
 
 		boolean bExito = false;
 		if (oUsuario != null && oUsuario.getsEmail() != null) {
 			Gson oGson = new Gson();
 			String json = "[" + oGson.toJson(oUsuario) + "]";
-			bExito = executeProcedure(json, "{call cliente_delete(?)}", oConnection);
+			bExito = Controller.executeProcedure(json, "{call cliente_delete(?)}");
 		}
 		return bExito;
 	}
 
-	public boolean update(Usuario oUsuario, Connection oConnection) {
+	public boolean update(Usuario oUsuario) {
 		boolean bExito = false;
 		if (oUsuario != null && oUsuario.checkUsuario()) {
 
-			try {
-				Statement stmt = oConnection.createStatement();
+			Gson oGson = new Gson();
+			String json = "[" + oGson.toJson(oUsuario) + "]";
 
-				String sSQL = "UPDATE Usuario SET password = ";
-				if (oUsuario.getsPassword() != null) {
-					sSQL += "'" + oUsuario.getsPassword() + "'";
-				} else {
-					sSQL += "NULL";
-				}
-
-				sSQL += " WHERE email = ";
-				if (oUsuario.getsEmail() != null) {
-					sSQL += "'" + oUsuario.getsEmail() + "'";
-				} else {
-					sSQL += "NULL";
-				}
-
-				if (stmt.executeUpdate(sSQL) > 0) {
-					bExito = true;
-				}
-				stmt.close();
-			} catch (SQLException e) {
-				bExito = false;
-			}
+			bExito = Controller.executeProcedure(json, "{call usuario_update(?)}");
 		}
 		return bExito;
 	}
 
 	public List<Usuario> readAll() {
-		return this.getLista();
+		List<Usuario> lUsuarios = new ArrayList<Usuario>();
+
+		try {
+
+			CallableStatement statement = Controller.getConnection().prepareCall("{call usuario_search_all()}");
+
+			ResultSet rs = statement.executeQuery();
+			while (rs.next()) {
+				Usuario oUsuario = new Usuario(rs.getString(1));
+				oUsuario.setsPassword(rs.getString(2));
+				lUsuarios.add(oUsuario);
+			}
+
+			statement.close();
+
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+		}
+
+		return lUsuarios;
 	}
 
-	public Usuario searchByPk(Usuario oUsuario, Connection oConnection) {
+	public Usuario searchByPk(Usuario oUsuario) {
 		Usuario oUsuarioResult = null;
 		if (oUsuario != null && oUsuario.getsEmail() != null) {
 			Gson oGson = new Gson();
@@ -100,7 +62,7 @@ public class UsuarioController {
 
 			try {
 
-				CallableStatement statement = oConnection.prepareCall("{call usuario_search_by_pk(?)}");
+				CallableStatement statement = Controller.getConnection().prepareCall("{call usuario_search_by_pk(?)}");
 				statement.setString(1, json);
 
 				ResultSet rs = statement.executeQuery();

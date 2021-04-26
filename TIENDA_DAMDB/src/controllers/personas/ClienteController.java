@@ -4,135 +4,64 @@ import java.util.*;
 import models.*;
 import java.sql.*;
 import com.google.gson.*;
+import controllers.Controller;
 
 public class ClienteController {
 
-	private List<Cliente> lClientes;
-
-	public ClienteController() {
-		lClientes = new ArrayList<Cliente>();
-	}
-
-	public List<Cliente> getLista() {
-		return lClientes;
-	}
-
-	public void setLista(List<Cliente> lClientes) {
-		this.lClientes = lClientes;
-	}
-
-	/*
-	 * ######## # CRUD # ########
-	 */
-	public boolean executeProcedure(String json, String sFunction, Connection oConnection) {
-
-		boolean bExito = false;
-
-		try {
-
-			CallableStatement statement = oConnection.prepareCall(sFunction);
-			statement.setString(1, json);
-
-			statement.execute();
-			statement.close();
-
-			bExito = true;
-
-		} catch (SQLException ex) {
-			bExito = false;
-		}
-
-		return bExito;
-
-	}
-
-	public boolean add(Cliente oCliente, Connection oConnection) {
+	public boolean add(Cliente oCliente) {
 		boolean bExito = false;
 		if (oCliente != null && oCliente.checkCliente()) {
 
 			Gson oGson = new Gson();
 			String json = "[" + oGson.toJson(oCliente) + "]";
 
-			bExito = executeProcedure(json, "{call cliente_create(?)}", oConnection);
+			bExito = Controller.executeProcedure(json, "{call cliente_create(?)}");
 
 		}
 		return bExito;
 	}
 
-	public boolean update(Cliente oCliente, Connection oConnection) {
+	public boolean update(Cliente oCliente) {
 		boolean bExito = false;
 		if (oCliente != null && oCliente.checkCliente()) {
 
-			try {
-				Statement stmt = oConnection.createStatement();
+			Gson oGson = new Gson();
+			String json = "[" + oGson.toJson(oCliente) + "]";
 
-				String sSQL = "UPDATE Cliente SET ";
-
-				sSQL += "sNombre = ";
-				if (oCliente.getsNombre() != null) {
-					sSQL += "'" + oCliente.getsNombre() + "'";
-				} else {
-					sSQL += "NULL";
-				}
-				sSQL += ",";
-
-				sSQL += "sApellidos = ";
-				if (oCliente.getsApellidos() != null) {
-					sSQL += "'" + oCliente.getsApellidos() + "'";
-				} else {
-					sSQL += "NULL";
-				}
-				sSQL += ",";
-
-				sSQL += "sDireccion = ";
-				if (oCliente.getsDireccion() != null) {
-					sSQL += "'" + oCliente.getsDireccion() + "'";
-				} else {
-					sSQL += "NULL";
-				}
-				sSQL += ",";
-
-				sSQL += "sTelefono = ";
-				if (oCliente.getsTelefono() != null) {
-					sSQL += "'" + oCliente.getsTelefono() + "'";
-				} else {
-					sSQL += "NULL";
-				}
-				sSQL += ",";
-
-				sSQL += "sEmail = ";
-				if (oCliente.getoUsuario().getsEmail() != null) {
-					sSQL += "'" + oCliente.getoUsuario().getsEmail() + "'";
-				} else {
-					sSQL += "NULL";
-				}
-				sSQL += ",";
-
-				sSQL += "sNumeroDireccion = ";
-				if (oCliente.getsNumeroDireccion() != null) {
-					sSQL += "'" + oCliente.getsNumeroDireccion() + "'";
-				} else {
-					sSQL += "NULL";
-				}
-
-				sSQL += " WHERE sDni = '" + oCliente.getsDni() + "'";
-
-				if (stmt.executeUpdate(sSQL) > 0) {
-					bExito = true;
-				}
-				stmt.close();
-			} catch (SQLException e) {
-				bExito = false;
-			}
+			bExito = Controller.executeProcedure(json, "{call cliente_update(?)}");
 		}
 		return bExito;
 	}
 
 	public List<Cliente> readAll() {
-		return this.getLista();
+		List<Cliente> lClientes = new ArrayList<Cliente>();
+
+		try {
+
+			CallableStatement statement = Controller.getConnection().prepareCall("{call cliente_search_all()}");
+
+			ResultSet rs = statement.executeQuery();
+			while (rs.next()) {
+				Cliente oCliente = new Cliente(rs.getString(1));
+				oCliente.setsNombre(rs.getString(2));
+				oCliente.setsApellidos(rs.getString(3));
+				oCliente.setsDireccion(rs.getString(4));
+				oCliente.setsTelefono(rs.getString(5));
+				oCliente.setoUsuario(new Usuario(rs.getString(6)));
+				oCliente.setsNumeroDireccion(rs.getString(7));
+				lClientes.add(oCliente);
+			}
+
+			statement.close();
+
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+		}
+
+		return lClientes;
 	}
 
-	public Cliente searchByPk(Cliente oCliente, Connection oConnection) {
+	public Cliente searchByPk(Cliente oCliente) {
 		Cliente oClienteResult = null;
 		if (oCliente != null && oCliente.getsDni() != null) {
 
@@ -141,7 +70,7 @@ public class ClienteController {
 
 			try {
 
-				CallableStatement statement = oConnection.prepareCall("{call cliente_search_by_pk(?)}");
+				CallableStatement statement = Controller.getConnection().prepareCall("{call cliente_search_by_pk(?)}");
 				statement.setString(1, json);
 
 				ResultSet rs = statement.executeQuery();
@@ -164,25 +93,37 @@ public class ClienteController {
 		return oClienteResult;
 	}
 
-	public List<Cliente> searchByDireccion(String sDireccion, Connection oConnection) {
-		List<Cliente> oListaClientes = new ArrayList<Cliente>();
-		String sSQL = "SELECT sDni, sNombre, sApellidos FROM Cliente WHERE sDireccion = '" + sDireccion + "'";
+	public List<Cliente> searchByDireccion(String sDireccion) {
+		List<Cliente> lClientes = new ArrayList<Cliente>();
+		if (sDireccion != null && !sDireccion.equals("")) {
 
-		try {
-			Statement stmt = oConnection.createStatement();
-			ResultSet rs = stmt.executeQuery(sSQL);
-			while (rs.next()) {
-				Cliente oClienteResult = new Cliente(rs.getString(1));
-				oClienteResult.setsNombre(rs.getString(2));
-				oClienteResult.setsApellidos(rs.getString(3));
-				oListaClientes.add(oClienteResult);
+			String json = "[{\"sDireccion\":\"" + sDireccion + "\"}]";
+
+			try {
+
+				CallableStatement statement = Controller.getConnection()
+						.prepareCall("{call cliente_search_by_direccion(?)}");
+				statement.setString(1, json);
+
+				ResultSet rs = statement.executeQuery();
+				while (rs.next()) {
+					Cliente oCliente = new Cliente(rs.getString(1));
+					oCliente.setsNombre(rs.getString(2));
+					oCliente.setsApellidos(rs.getString(3));
+					oCliente.setsDireccion(rs.getString(4));
+					oCliente.setsTelefono(rs.getString(5));
+					oCliente.setoUsuario(new Usuario(rs.getString(6)));
+					oCliente.setsNumeroDireccion(rs.getString(7));
+					lClientes.add(oCliente);
+				}
+
+				statement.close();
+
+			} catch (SQLException ex) {
+				ex.printStackTrace();
 			}
-			stmt.close();
-		} catch (SQLException e) {
-			oListaClientes = null;
 		}
-
-		return oListaClientes;
+		return lClientes;
 	}
 
 }

@@ -94,8 +94,8 @@ public class ClienteView {
 		sEmail = String.valueOf(Libreria.leer("Introduce un email", 1, 250, -1, -1, (byte) 6));
 		sPass = String.valueOf(Libreria.leer("Introduce una contrasena", 5, 12, -1, -1, (byte) 6));
 
-		return oCtrl.addCliente(new Cliente(sDni, sNombre, sApellidos, sDireccion, sNumeroDireccion, sTelefono,
-				new Usuario(sEmail, sPass), sTarjeta));
+		return oCtrl.getoPersonasCtrl().getoClientCtrl().add(new Cliente(sDni, sNombre, sApellidos, sDireccion,
+				sNumeroDireccion, sTelefono, new Usuario(sEmail, sPass), sTarjeta));
 	}
 
 	private static boolean update(Controller oCtrl) {
@@ -103,7 +103,7 @@ public class ClienteView {
 		String sDni, sNombre, sApellidos, sDireccion, sNumeroDireccion, sTelefono, sTarjeta;
 		boolean bExito = false;
 		sDni = String.valueOf(Libreria.leer("Introduce un DNI", 9, 9, -1, -1, (byte) 6));
-		Cliente oCliente = oCtrl.searchCliente(new Cliente(sDni));
+		Cliente oCliente = oCtrl.getoPersonasCtrl().searchCliente(new Cliente(sDni));
 		if (oCliente != null) {
 			sNombre = String.valueOf(
 					Libreria.leer("Introduce un nombre (" + oCliente.getsNombre() + ")", 0, 250, -1, -1, (byte) 6));
@@ -131,29 +131,29 @@ public class ClienteView {
 					Libreria.leer("Introduce una tarjeta (" + oCliente.getsTarjeta() + ")", 0, 16, -1, -1, (byte) 6));
 			oCliente.setsTarjeta(sTarjeta);
 
-			bExito = oCtrl.updateCliente(oCliente);
+			bExito = oCtrl.getoPersonasCtrl().getoClientCtrl().update(oCliente);
 		}
 		return bExito;
 	}
 
 	private static Cliente searchByDni(Controller oCtrl) {
 		String sDni = String.valueOf(Libreria.leer("Introduce un dni", 9, 9, -1, -1, (byte) 6));
-		return oCtrl.searchCliente(new Cliente(sDni));
+		return oCtrl.getoPersonasCtrl().searchCliente(new Cliente(sDni));
 	}
 
 	private static boolean remove(Controller oCtrl) {
 		String sEmail = String.valueOf(Libreria.leer("Introduce un email", 1, 250, -1, -1, (byte) 6));
-		return oCtrl.removeUsuario(new Usuario(sEmail, ""));
+		return oCtrl.getoPersonasCtrl().getoUserCtrl().remove(new Usuario(sEmail, ""));
 	}
 
 	private static List<Cliente> searchByDireccion(Controller oCtrl) {
 		String sDireccion = String.valueOf(Libreria.leer("Introduce una direccion", 1, 250, -1, -1, (byte) 6));
-		return oCtrl.searchByDireccion(sDireccion);
+		return oCtrl.getoPersonasCtrl().getoClientCtrl().searchByDireccion(sDireccion);
 	}
 
 	private static Usuario searchUserByDni(Controller oCtrl) {
 		String sDni = String.valueOf(Libreria.leer("Introduce un dni", 9, 9, -1, -1, (byte) 6));
-		return oCtrl.searchUserByDni(new Cliente(sDni));
+		return oCtrl.getoPersonasCtrl().searchUserByDni(new Cliente(sDni));
 	}
 
 }

@@ -4,6 +4,8 @@ package controllers;
 import java.sql.*;
 import java.util.*;
 
+import controllers.personas.PersonasController;
+
 public interface IController {
     // public final String PATH = "/Users/luis/Documents/git-repositorio/programacionMedac/ReservaFotografo"; // ### MACBOOK ###
     // public final String PATH = "/Users/luis/Documents/git-repositories/programacionMedac/ReservaFotografo"; // ### IMAC ###
@@ -11,9 +13,7 @@ public interface IController {
     // public final String CONFIG_URL = PATH + "/src/config/config.txt";
     public final String CONFIG_URL = "src/config/config.txt";
 
-    // public PersonasController getoPersonasCtrl();
-
-    public Connection getConnection();
+    public PersonasController getoPersonasCtrl();
 
     public boolean init() throws Exception;
 

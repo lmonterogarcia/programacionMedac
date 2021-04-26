@@ -12,8 +12,6 @@ public interface IController {
 
     public PersonasController getoPersonasCtrl();
 
-    public Connection getConnection();
-
     public boolean init() throws Exception;
 
     public void closeDb();

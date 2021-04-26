@@ -2,7 +2,6 @@ package controllers.personas;
 
 import models.Cliente;
 import models.Usuario;
-import java.sql.*;
 
 public class PersonasController {
 
@@ -26,20 +25,20 @@ public class PersonasController {
      * # CONTROLLER METHODS
      */
 
-    public Cliente searchCliente(Cliente oCliente, Connection oConnection) {
-        Cliente oClienteRes = oClientCtrl.searchByPk(oCliente, oConnection);
+    public Cliente searchCliente(Cliente oCliente) {
+        Cliente oClienteRes = oClientCtrl.searchByPk(oCliente);
         if (oClienteRes != null) {
-            Usuario oUsuario = oUserCtrl.searchByPk(oClienteRes.getoUsuario(), oConnection);
+            Usuario oUsuario = oUserCtrl.searchByPk(oClienteRes.getoUsuario());
             oClienteRes.setoUsuario(oUsuario);
         }
         return oClienteRes;
     }
 
-    public Usuario searchUserByDni(Cliente oCliente, Connection oConnection) {
-        Cliente oClienteRes = oClientCtrl.searchByPk(oCliente, oConnection);
+    public Usuario searchUserByDni(Cliente oCliente) {
+        Cliente oClienteRes = oClientCtrl.searchByPk(oCliente);
         Usuario oUsuario = null;
         if (oClienteRes != null) {
-            oUsuario = oUserCtrl.searchByPk(oClienteRes.getoUsuario(), oConnection);
+            oUsuario = oUserCtrl.searchByPk(oClienteRes.getoUsuario());
         }
         return oUsuario;
     }

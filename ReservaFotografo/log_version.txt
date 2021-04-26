@@ -30,5 +30,7 @@
     - Se ha arreglado y/o cambiado algunos errores o para mejorar los modelos
         - Se han cambiado los modelos de Producto y Pack para eliminar la necesidad de Ids. Clases afectadas
             Producto, Pack y PackProducto.
-        
+        - Se ha cambiado el modo de pasar oConnection entre clases. 
+            Se ha cambiado getoConnectio y excecuteProcedure a static. 
+            Se han cambiado todos los metodos que utilizaban estos dos metodos.
         

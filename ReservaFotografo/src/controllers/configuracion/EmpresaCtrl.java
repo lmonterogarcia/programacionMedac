@@ -14,48 +14,48 @@ public class EmpresaCtrl implements controllers.ICrudController<Empresa>{
 
     // ###### CRUD ######
 
-    public boolean add(Empresa oEmpresa, Connection oConnection) {
+    public boolean add(Empresa oEmpresa) {
         boolean bExito = false;
 		if (oEmpresa != null && oEmpresa.checkEmpresa()) {
 
 			Gson oGson = new Gson();
 			String json = "[" + oGson.toJson(oEmpresa) + "]";
 
-			bExito = Controller.executeProcedure(json, "{call empresa_create(?)}", oConnection);
+			bExito = Controller.executeProcedure(json, "{call empresa_create(?)}");
 			
 		}
 		return bExito;
     }
 
-    public boolean remove(Empresa oEmpresa, Connection oConnection) {
+    public boolean remove(Empresa oEmpresa) {
         boolean bExito = false;
 		if (oEmpresa != null && oEmpresa.getsCifNif() != null) {
 
 			Gson oGson = new Gson();
 			String json = "[" + oGson.toJson(oEmpresa) + "]";
 
-			bExito = Controller.executeProcedure(json, "{call empresa_remove(?)}", oConnection);
+			bExito = Controller.executeProcedure(json, "{call empresa_remove(?)}");
 			
 		}
 		return bExito;
     }
 
     @Override
-    public boolean update(Empresa oEmpresa, Connection oConnection) {
+    public boolean update(Empresa oEmpresa) {
         boolean bExito = false;
 		if (oEmpresa != null && oEmpresa.checkEmpresa()) {
 
 			Gson oGson = new Gson();
 			String json = "[" + oGson.toJson(oEmpresa) + "]";
 
-			bExito = Controller.executeProcedure(json, "{call empresa_update(?)}", oConnection);
+			bExito = Controller.executeProcedure(json, "{call empresa_update(?)}");
 			
 		}
 		return bExito;
     }
 
     @Override
-    public Empresa searchByPk(Empresa oEmpresa, Connection oConnection) {
+    public Empresa searchByPk(Empresa oEmpresa) {
         Empresa oEmpresaResult = null;
 		if (oEmpresa != null && oEmpresa.getsCifNif() != null) {
 			Gson oGson = new Gson();
@@ -63,7 +63,7 @@ public class EmpresaCtrl implements controllers.ICrudController<Empresa>{
 
 			try {
 
-				CallableStatement statement = oConnection.prepareCall("{call empresa_search_by_pk(?)}");
+				CallableStatement statement = Controller.getConnection().prepareCall("{call empresa_search_by_pk(?)}");
 				statement.setString(1, json);
 
 				ResultSet rs = statement.executeQuery();

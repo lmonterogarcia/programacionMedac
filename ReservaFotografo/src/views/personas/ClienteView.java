@@ -138,7 +138,7 @@ public class ClienteView implements IPlantilla {
 		sEmailUsuario = String.valueOf(Libreria.leer("Introduce un email *", 1, BMAXEMAIL, -1, -1, (byte) 6));
 		sPassword = String.valueOf(Libreria.leer("Introduce una contrasena *", BMINPASSW, BMAXPASSW, -1, -1, (byte) 6));
 
-		return oCtrl.addCliente(new Cliente(sDniContacto, sNombreContacto, sApellido1Contacto, sApellido2Contacto,
+		return oCtrl.getoPersonasCtrl().addCliente(new Cliente(sDniContacto, sNombreContacto, sApellido1Contacto, sApellido2Contacto,
 				sTelefonoContacto, oFechaNacimientoContacto, new Usuario(sEmailUsuario, sPassword), null));
 	}
 
@@ -153,9 +153,9 @@ public class ClienteView implements IPlantilla {
 		boolean booFecha = false, booExito = false/*, booLugar = false*/;
 
 		String sEmailCliente = String.valueOf(Libreria.leer("Introduce un email", 1, 100, -1, -1, (byte) 6));
-		Cliente oCliente = oCtrl.searchCliente(new Cliente(null, new Usuario(sEmailCliente)));
+		Cliente oCliente = oCtrl.getoPersonasCtrl().searchCliente(new Cliente(null, new Usuario(sEmailCliente)));
 		if (oCliente != null) {
-			oCliente.setoUsuario(oCtrl.searchUsuario(oCliente));
+			oCliente.setoUsuario(oCtrl.getoPersonasCtrl().searchUsuario(oCliente));
 			if (oCliente.getoUsuario() != null && oCliente.checkCliente()) {
 
 				System.out.println("Modifica los datos basicos del cliente: ");
@@ -271,7 +271,7 @@ public class ClienteView implements IPlantilla {
 						}
 					} while (!booExitoPass && bContador < 3);
 				}
-				booExito = oCtrl.updateCliente(oCliente);
+				booExito = oCtrl.getoPersonasCtrl().getoClientCtrl().update(oCliente);
 			}
 		}
 		
@@ -281,7 +281,7 @@ public class ClienteView implements IPlantilla {
 
 	private static Cliente searchByEmail(Controller oCtrl) {
 		String sEmailCliente = String.valueOf(Libreria.leer("Introduce un email", 1, 100, -1, -1, (byte) 6));
-		return oCtrl.searchCliente(new Cliente(null, new Usuario(sEmailCliente)));
+		return oCtrl.getoPersonasCtrl().searchCliente(new Cliente(null, new Usuario(sEmailCliente)));
 	}
 
 	private static boolean remove(Controller oCtrl) {
@@ -289,7 +289,7 @@ public class ClienteView implements IPlantilla {
 		Cliente oCliente = searchByEmail(oCtrl);
 
 		if (oCliente != null) {
-			bExito = oCtrl.removeCliente(oCliente);
+			bExito = oCtrl.getoPersonasCtrl().removeCliente(oCliente);
 		}
 		return bExito;
 	}

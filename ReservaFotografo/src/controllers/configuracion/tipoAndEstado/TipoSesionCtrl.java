@@ -10,46 +10,46 @@ public class TipoSesionCtrl {
     
     // ###### CRUD ######
 
-    public boolean add(TipoSesion oTipoSesion, Connection oConnection) {
+    public boolean add(TipoSesion oTipoSesion) {
         boolean bExito = false;
 		if (oTipoSesion != null && oTipoSesion.checkTipoSesion()) {
 
 			Gson oGson = new Gson();
 			String json = "[" + oGson.toJson(oTipoSesion) + "]";
 
-			bExito = Controller.executeProcedure(json, "{call tipo_sesion_create(?)}", oConnection);
+			bExito = Controller.executeProcedure(json, "{call tipo_sesion_create(?)}");
 			
 		}
 		return bExito;
     }
 
-    public boolean remove(TipoSesion oTipoSesion, Connection oConnection) {
+    public boolean remove(TipoSesion oTipoSesion) {
         boolean bExito = false;
 		if (oTipoSesion != null && oTipoSesion.getsNombreTipoSesion() != null) {
 
 			Gson oGson = new Gson();
 			String json = "[" + oGson.toJson(oTipoSesion) + "]";
 
-			bExito = Controller.executeProcedure(json, "{call tipo_sesion_remove(?)}", oConnection);
+			bExito = Controller.executeProcedure(json, "{call tipo_sesion_remove(?)}");
 			
 		}
 		return bExito;
     }
 
-    public boolean update(TipoSesion oTipoSesion, Connection oConnection) {
+    public boolean update(TipoSesion oTipoSesion) {
         boolean bExito = false;
 		if (oTipoSesion != null && oTipoSesion.checkTipoSesion()) {
 
 			Gson oGson = new Gson();
 			String json = "[" + oGson.toJson(oTipoSesion) + "]";
 
-			bExito = Controller.executeProcedure(json, "{call tipo_sesion_update(?)}", oConnection);
+			bExito = Controller.executeProcedure(json, "{call tipo_sesion_update(?)}");
 			
 		}
 		return bExito;
     }
 
-    public TipoSesion searchByPk(TipoSesion oTipoSesion, Connection oConnection) {
+    public TipoSesion searchByPk(TipoSesion oTipoSesion) {
         TipoSesion oEmpresaResult = null;
 		if (oTipoSesion != null && oTipoSesion.getsNombreTipoSesion() != null) {
 			Gson oGson = new Gson();
@@ -57,7 +57,7 @@ public class TipoSesionCtrl {
 
 			try {
 
-				CallableStatement statement = oConnection.prepareCall("{call tipo_sesion_search_by_pk(?)}");
+				CallableStatement statement = Controller.getConnection().prepareCall("{call tipo_sesion_search_by_pk(?)}");
 				statement.setString(1, json);
 
 				ResultSet rs = statement.executeQuery();

@@ -5,17 +5,19 @@ import models.lugar.Lugar;
 import models.personas.*;
 import java.sql.*;
 
+import controllers.Controller;
+
 public class ClienteController implements controllers.ICrudController<Cliente> {
 
 	/*
 	 * ######## # CRUD # ########
 	 */
-	public boolean add(Cliente oCliente, Connection oConnection) {
+	public boolean add(Cliente oCliente) {
 		boolean bExito = false;
 		if (oCliente != null && oCliente.checkCliente()) {
 
 			try {
-				Statement stmt = oConnection.createStatement();
+				Statement stmt = Controller.getConnection().createStatement();
 
 				String sSQL = "INSERT INTO Cliente VALUES (NULL,";
 				
@@ -95,12 +97,12 @@ public class ClienteController implements controllers.ICrudController<Cliente> {
 		return bExito;
 	}
 
-	public boolean remove(Cliente oCliente, Connection oConnection) {
+	public boolean remove(Cliente oCliente) {
 		boolean bExito = false;
 		if (oCliente != null && oCliente.getoUsuario().getsEmail() != null) {
 
 			try {
-				Statement stmt = oConnection.createStatement();
+				Statement stmt = Controller.getConnection().createStatement();
 
 				String sSQL = "DELETE FROM Cliente WHERE emailUsuario = ";
 				if (oCliente.getoUsuario().getsEmail() != null) {
@@ -121,12 +123,12 @@ public class ClienteController implements controllers.ICrudController<Cliente> {
 
 	}
 
-	public boolean update(Cliente oCliente, Connection oConnection) {
+	public boolean update(Cliente oCliente) {
 		boolean bExito = false;
 		if (oCliente != null && oCliente.checkCliente()) {
 
 			try {
-				Statement stmt = oConnection.createStatement();
+				Statement stmt = Controller.getConnection().createStatement();
 
 				String sSQL = "UPDATE Cliente SET ";
 
@@ -198,12 +200,12 @@ public class ClienteController implements controllers.ICrudController<Cliente> {
 		return bExito;
 	}
 
-	public Cliente searchByPk(Cliente oCliente, Connection oConnection) {
+	public Cliente searchByPk(Cliente oCliente) {
 		Cliente oClienteResult = null;
 		String sSQL = "SELECT * FROM Cliente WHERE emailUsuario = '" + oCliente.getoUsuario().getsEmail() + "'";
 
 		try {
-			Statement stmt = oConnection.createStatement();
+			Statement stmt = Controller.getConnection().createStatement();
 			ResultSet rs = stmt.executeQuery(sSQL);
 			if (rs.next()) {
 				oClienteResult = new Cliente(rs.getInt(1));

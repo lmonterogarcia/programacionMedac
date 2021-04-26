@@ -90,7 +90,7 @@ public class Controller implements IController{
 		return conn;
 	}
 
-	public static boolean executeProcedure(String json, String sFunction, Connection oConnection) {
+	public static boolean executeProcedure(String json, String sFunction) {
 
 		boolean bExito = false;
 
@@ -113,20 +113,20 @@ public class Controller implements IController{
 
 	}
 
-
+/*
 	// ###### Cliente y Usuario ######
 	public boolean addCliente(Cliente oCliente) {
-		return oPersonasCtrl.addCliente(oCliente, oConnection);
+		return getoPersonasCtrl().addCliente(oCliente, oConnection);
 	}
 
 	public boolean removeCliente(Cliente oCliente) {
-		return oPersonasCtrl.removeCliente(oCliente, oConnection);
+		return getoPersonasCtrl().removeCliente(oCliente, oConnection);
 	}
 
 	public boolean updateCliente(Cliente oCliente) {
 		boolean booExito = false;
-		if (oPersonasCtrl.getoClientCtrl().update(oCliente, oConnection)) {
-			if (oPersonasCtrl.getoUserCtrl().update(oCliente.getoUsuario(), oConnection)) {
+		if (getoPersonasCtrl().getoClientCtrl().update(oCliente, oConnection)) {
+			if (getoPersonasCtrl().getoUserCtrl().update(oCliente.getoUsuario(), oConnection)) {
 				booExito = true;
 			}
 		}
@@ -134,67 +134,67 @@ public class Controller implements IController{
 	}
 
 	public Cliente searchCliente(Cliente oCliente) {
-		return oPersonasCtrl.searchCliente(oCliente, oConnection);
+		return getoPersonasCtrl().searchCliente(oCliente, oConnection);
 	}
 	public Usuario searchUsuario(Cliente oCliente) {
-		return oPersonasCtrl.searchUsuario(oCliente, oConnection);
+		return getoPersonasCtrl().searchUsuario(oCliente, oConnection);
 	}
 
 
 
 	// ###### Fotografo ######
 	public boolean addFotografo(Fotografo oFotografo) {
-		return oPersonasCtrl.addFotografo(oFotografo, oConnection);
+		return getoPersonasCtrl().getoFotografoCtrl().add(oFotografo, oConnection);
 	}
 
 	public boolean removeFotografo(Fotografo oFotografo) {
-		return oPersonasCtrl.removeFotografo(oFotografo, oConnection);
+		return getoPersonasCtrl().removeFotografo(oFotografo, oConnection);
 	}
 
 	public boolean updateFotografo(Fotografo oFotografo) {
-		return oPersonasCtrl.getoFotografoCtrl().update(oFotografo, oConnection);
+		return getoPersonasCtrl().getoFotografoCtrl().update(oFotografo, oConnection);
 	}
 
 	public Fotografo searchFotografo(Fotografo oFotografo) {
-		return oPersonasCtrl.searchFotografo(oFotografo, oConnection);
+		return getoPersonasCtrl().searchFotografo(oFotografo, oConnection);
 	}
 
 
 
 	// ###### Participante ######
 	public boolean addParticipante(Participante oParticipante) {
-		return oPersonasCtrl.addParticipante(oParticipante, oConnection);
+		return getoPersonasCtrl().addParticipante(oParticipante, oConnection);
 	}
 
 	public boolean removeParticipante(Participante oParticipante) {
-		return oPersonasCtrl.removeParticipante(oParticipante, oConnection);
+		return getoPersonasCtrl().removeParticipante(oParticipante, oConnection);
 	}
 
 	public boolean updateParticipante(Participante oParticipante) {
-		return oPersonasCtrl.getoParticipanteCtrl().update(oParticipante, oConnection);
+		return getoPersonasCtrl().getoParticipanteCtrl().update(oParticipante, oConnection);
 	}
 
 	public Participante searchParticipante(Participante oParticipante) {
-		return oPersonasCtrl.searchParticipante(oParticipante, oConnection);
+		return getoPersonasCtrl().searchParticipante(oParticipante, oConnection);
 	}
 
 
 
 	// ###### Empresa ######
 	public boolean addEmpresa(Empresa oEmpresa) {
-		return oConfiguracionCtrl.getoEmpresaCtrl().add(oEmpresa, oConnection);
+		return getoConfiguracionCtrl().getoEmpresaCtrl().add(oEmpresa, oConnection);
 	}
 
 	public boolean removeEmpresa(Empresa oEmpresa) {
-		return oConfiguracionCtrl.getoEmpresaCtrl().remove(oEmpresa, oConnection);
+		return getoConfiguracionCtrl().getoEmpresaCtrl().remove(oEmpresa, oConnection);
 	}
 
 	public boolean updateEmpresa(Empresa oEmpresa) {
-		return oConfiguracionCtrl.getoEmpresaCtrl().update(oEmpresa, oConnection);
+		return getoConfiguracionCtrl().getoEmpresaCtrl().update(oEmpresa, oConnection);
 	}
 
 	public Empresa searchEmpresa(Empresa oEmpresa) {
-		return oConfiguracionCtrl.searchEmpresa(oEmpresa, oConnection);
+		return getoConfiguracionCtrl().searchEmpresa(oEmpresa, oConnection);
 		//Cuando se implemente LUGAR HAY QUE CAMCBIAR!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 	}
 
@@ -202,19 +202,19 @@ public class Controller implements IController{
 
 	// ###### Estado ######
 	public boolean addEstado(Estado oEstado) {
-		return oConfiguracionCtrl.getoTipoAndEstadoCtrl().getoEstadoCtrl().add(oEstado, oConnection);
+		return getoConfiguracionCtrl().getoTipoAndEstadoCtrl().getoEstadoCtrl().add(oEstado, oConnection);
 	}
 
 	public boolean removeEstado(Estado oEstado) {
-		return oConfiguracionCtrl.getoTipoAndEstadoCtrl().getoEstadoCtrl().remove(oEstado, oConnection);
+		return getoConfiguracionCtrl().getoTipoAndEstadoCtrl().getoEstadoCtrl().remove(oEstado, oConnection);
 	}
 
 	public boolean updateEstado(Estado oNuevoEstado, Estado oEstadoAntiguo) {
-		return oConfiguracionCtrl.getoTipoAndEstadoCtrl().getoEstadoCtrl().update(oNuevoEstado, oEstadoAntiguo, oConnection);
+		return getoConfiguracionCtrl().getoTipoAndEstadoCtrl().getoEstadoCtrl().update(oNuevoEstado, oEstadoAntiguo, oConnection);
 	}
 
 	public Estado searchEstado(Estado oEstado) {
-		return oConfiguracionCtrl.getoTipoAndEstadoCtrl().getoEstadoCtrl().searchByPk(oEstado, oConnection);
+		return getoConfiguracionCtrl().getoTipoAndEstadoCtrl().getoEstadoCtrl().searchByPk(oEstado, oConnection);
 	}
 
 
@@ -222,19 +222,19 @@ public class Controller implements IController{
 
 	// ###### TipoSesion ######
 	public boolean addTipoSesion(TipoSesion oTipoSesion) {
-		return oConfiguracionCtrl.getoTipoAndEstadoCtrl().getoTipoSesionCtrl().add(oTipoSesion, oConnection);
+		return getoConfiguracionCtrl().getoTipoAndEstadoCtrl().getoTipoSesionCtrl().add(oTipoSesion, oConnection);
 	}
 
 	public boolean removeTipoSesion(TipoSesion oTipoSesion) {
-		return oConfiguracionCtrl.getoTipoAndEstadoCtrl().getoTipoSesionCtrl().remove(oTipoSesion, oConnection);
+		return getoConfiguracionCtrl().getoTipoAndEstadoCtrl().getoTipoSesionCtrl().remove(oTipoSesion, oConnection);
 	}
 
 	public boolean updateTipoSesion(TipoSesion oTipoSesion) {
-		return oConfiguracionCtrl.getoTipoAndEstadoCtrl().getoTipoSesionCtrl().update(oTipoSesion, oConnection);
+		return getoConfiguracionCtrl().getoTipoAndEstadoCtrl().getoTipoSesionCtrl().update(oTipoSesion, oConnection);
 	}
 
 	public TipoSesion searchTipoSesion(TipoSesion oTipoSesion) {
-		return oConfiguracionCtrl.getoTipoAndEstadoCtrl().getoTipoSesionCtrl().searchByPk(oTipoSesion, oConnection);
+		return getoConfiguracionCtrl().getoTipoAndEstadoCtrl().getoTipoSesionCtrl().searchByPk(oTipoSesion, oConnection);
 	}
-
+*/
 }

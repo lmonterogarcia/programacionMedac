@@ -1,7 +1,6 @@
 package controllers.personas;
 
 import models.personas.*;
-import java.sql.*;
 
 public class PersonasController {
 
@@ -35,38 +34,38 @@ public class PersonasController {
     /*
      * # CONTROLLER METHODS CLIENTE Y USUARIO
      */
-    public boolean addCliente(Cliente oCliente, Connection oConnection) {
+    public boolean addCliente(Cliente oCliente) {
         boolean bExito = false;
-        if (oUserCtrl.add(oCliente.getoUsuario(), oConnection)) {
-            if (oClientCtrl.add(oCliente, oConnection)) {
+        if (oUserCtrl.add(oCliente.getoUsuario())) {
+            if (oClientCtrl.add(oCliente)) {
                 bExito = true;
             } else {
-                oUserCtrl.remove(oCliente.getoUsuario(), oConnection);
+                oUserCtrl.remove(oCliente.getoUsuario());
             }
         }
         return bExito;
     }
 
-    public boolean removeCliente(Cliente oCliente, Connection oConnection) {
+    public boolean removeCliente(Cliente oCliente) {
         boolean bExito = false;
-        Cliente oClienteRecuperado = searchCliente(oCliente, oConnection);
-        if (oClientCtrl.remove(oCliente, oConnection)) {
-            if (oUserCtrl.remove(oClienteRecuperado.getoUsuario(), oConnection)) {
+        Cliente oClienteRecuperado = searchCliente(oCliente);
+        if (oClientCtrl.remove(oCliente)) {
+            if (oUserCtrl.remove(oClienteRecuperado.getoUsuario())) {
                 bExito = true;
             } else {
-                addCliente(oClienteRecuperado, oConnection);
+                addCliente(oClienteRecuperado);
             }
             
         }
         return bExito;
     }
 
-    public Cliente searchCliente(Cliente oCliente, Connection oConnection) {
-        return oClientCtrl.searchByPk(oCliente, oConnection);
+    public Cliente searchCliente(Cliente oCliente) {
+        return oClientCtrl.searchByPk(oCliente);
     }
 
-    public Usuario searchUsuario(Cliente oCliente, Connection oConnection) {
-        return oUserCtrl.searchByPk(oCliente.getoUsuario(), oConnection);
+    public Usuario searchUsuario(Cliente oCliente) {
+        return oUserCtrl.searchByPk(oCliente.getoUsuario());
     }
 
 
@@ -74,16 +73,16 @@ public class PersonasController {
     /*
      * # CONTROLLER METHODS FOTOGRAFO
      */
-    public boolean addFotografo(Fotografo oFotografo, Connection oConnection) {
-        return oFotografoCtrl.add(oFotografo, oConnection);
+    public boolean addFotografo(Fotografo oFotografo) {
+        return oFotografoCtrl.add(oFotografo);
     }
 
-    public boolean removeFotografo(Fotografo oFotografo, Connection oConnection) {
-        return oFotografoCtrl.remove(oFotografo, oConnection);
+    public boolean removeFotografo(Fotografo oFotografo) {
+        return oFotografoCtrl.remove(oFotografo);
     }
 
-    public Fotografo searchFotografo(Fotografo oFotografo, Connection oConnection) {
-        return oFotografoCtrl.searchByPk(oFotografo, oConnection);
+    public Fotografo searchFotografo(Fotografo oFotografo) {
+        return oFotografoCtrl.searchByPk(oFotografo);
     }
 
 
@@ -91,16 +90,16 @@ public class PersonasController {
      /*
      * # CONTROLLER METHODS PARTICIPANTE
      */
-    public boolean addParticipante(Participante oParticipante, Connection oConnection) {
-        return oParticipanteCtrl.add(oParticipante, oConnection);
+    public boolean addParticipante(Participante oParticipante) {
+        return oParticipanteCtrl.add(oParticipante);
     }
 
-    public boolean removeParticipante(Participante oParticipante, Connection oConnection) {
-        return oParticipanteCtrl.remove(oParticipante, oConnection);
+    public boolean removeParticipante(Participante oParticipante) {
+        return oParticipanteCtrl.remove(oParticipante);
     }
 
-    public Participante searchParticipante(Participante oParticipante, Connection oConnection) {
-        return oParticipanteCtrl.searchByPk(oParticipante, oConnection);
+    public Participante searchParticipante(Participante oParticipante) {
+        return oParticipanteCtrl.searchByPk(oParticipante);
     }
 
     

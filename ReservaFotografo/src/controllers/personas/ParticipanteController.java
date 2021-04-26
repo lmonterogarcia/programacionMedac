@@ -2,6 +2,7 @@ package controllers.personas;
 
 import java.sql.*;
 
+import controllers.Controller;
 import models.personas.Participante;
 
 public class ParticipanteController {
@@ -9,12 +10,12 @@ public class ParticipanteController {
     /*
      * ######## # CRUD # ########
      */
-    public boolean add(Participante oParticipante, Connection oConnection) {
+    public boolean add(Participante oParticipante) {
         boolean bExito = false;
         if (oParticipante != null && oParticipante.checkParticipante()) {
 
             try {
-                Statement stmt = oConnection.createStatement();
+                Statement stmt = Controller.getConnection().createStatement();
 
                 String sSQL = "INSERT INTO Participante VALUES (NULL,";
 
@@ -87,11 +88,11 @@ public class ParticipanteController {
         return bExito;
     }
 
-    public boolean remove(Participante oParticipante, Connection oConnection) {
+    public boolean remove(Participante oParticipante) {
         boolean bExito = false;
 
         try {
-            Statement stmt = oConnection.createStatement();
+            Statement stmt = Controller.getConnection().createStatement();
 
             String sSQL = "DELETE FROM Participante WHERE dniParticipante = ";
             if (oParticipante.getsDniContacto() != null) {
@@ -112,13 +113,13 @@ public class ParticipanteController {
 
     }
 
-    public boolean update(Participante oParticipante, Connection oConnection) {
+    public boolean update(Participante oParticipante) {
         boolean bExito = false;
         String sOldDniParticipante = oParticipante.getsDniContacto();
         if (oParticipante != null && oParticipante.checkParticipante()) {
 
             try {
-                Statement stmt = oConnection.createStatement();
+                Statement stmt = Controller.getConnection().createStatement();
 
                 String sSQL = "UPDATE Participante SET ";
 
@@ -191,13 +192,13 @@ public class ParticipanteController {
         return bExito;
     }
 
-    public Participante searchByPk(Participante oParticipante, Connection oConnection) {
+    public Participante searchByPk(Participante oParticipante) {
         Participante oParticipanteResult = null;
         String sSQL = "SELECT * FROM Participante WHERE dniParticipante = '" + oParticipante.getsDniContacto()
                 + "'";
 
         try {
-            Statement stmt = oConnection.createStatement();
+            Statement stmt = Controller.getConnection().createStatement();
             ResultSet rs = stmt.executeQuery(sSQL);
             if (rs.next()) {
                 oParticipanteResult = new Participante(rs.getInt(1));

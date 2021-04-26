@@ -1,7 +1,5 @@
 package controllers.configuracion;
 
-import java.sql.Connection;
-
 import controllers.configuracion.productos.ProductoPackCtrl;
 import controllers.configuracion.tipoAndEstado.TipoAndEstadoCtrl;
 // import models.lugar.Lugar;
@@ -41,10 +39,10 @@ public class ConfiguracionCtrl {
     /*
      * # CONTROLLER METHODS EMPRESA
      */
-    public Empresa searchEmpresa(Empresa oEmpresa, Connection oConnection) {
-        Empresa oEmpresaResult = oEmpresaCtrl.searchByPk(oEmpresa, oConnection);
+    public Empresa searchEmpresa(Empresa oEmpresa) {
+        Empresa oEmpresaResult = oEmpresaCtrl.searchByPk(oEmpresa);
         if (oEmpresaResult != null) {
-            //Cambiar cuando se puedeimplemente lugar!!!!!!!!!!!!!!!!!!!!!! METER LA BUSQUEDA DE DATOS LUGAR
+            //Cambiar cuando se implemente lugar!!!!!!!!!!!!!!!!!!!!!! METER LA BUSQUEDA DE DATOS LUGAR
         }
         return oEmpresaResult;
     }

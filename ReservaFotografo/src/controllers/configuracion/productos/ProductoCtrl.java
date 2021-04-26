@@ -9,46 +9,46 @@ import models.productos.Producto;
 
 public class ProductoCtrl {
     
-    public boolean add(Producto oProducto, Connection oConnection) {
+    public boolean add(Producto oProducto) {
         boolean bExito = false;
 		if (oProducto != null && oProducto.checkProducto()) {
 
 			Gson oGson = new Gson();
 			String json = "[" + oGson.toJson(oProducto) + "]";
 
-			bExito = Controller.executeProcedure(json, "{call producto_create(?)}", oConnection);
+			bExito = Controller.executeProcedure(json, "{call producto_create(?)}");
 			
 		}
 		return bExito;
     }
 
-    public boolean remove(Producto oProducto, Connection oConnection) {
+    public boolean remove(Producto oProducto) {
         boolean bExito = false;
 		if (oProducto != null && oProducto.getsNombreProducto() != null) {
 
 			Gson oGson = new Gson();
 			String json = "[" + oGson.toJson(oProducto) + "]";
 
-			bExito = Controller.executeProcedure(json, "{call producto_remove(?)}", oConnection);
+			bExito = Controller.executeProcedure(json, "{call producto_remove(?)}");
 			
 		}
 		return bExito;
     }
 
-    public boolean update(Producto oNuevoProducto, Producto oAntiguoProducto, Connection oConnection) {
+    public boolean update(Producto oNuevoProducto, Producto oAntiguoProducto) {
         boolean bExito = false;
-		if (oNuevoProducto != null && oNuevoProducto.checkProducto() && searchByPk(oNuevoProducto, oConnection) == null ) {
+		if (oNuevoProducto != null && oNuevoProducto.checkProducto() && searchByPk(oNuevoProducto) == null ) {
 
 			Gson oGson = new Gson();
 			String json = "[" + oGson.toJson(oNuevoProducto) + "," + oGson.toJson(oAntiguoProducto) + "]";
 
-			bExito = Controller.executeProcedure(json, "{call producto_update(?)}", oConnection);
+			bExito = Controller.executeProcedure(json, "{call producto_update(?)}");
 			
 		}
 		return bExito;
     }
 
-    public Producto searchByPk(Producto oProducto, Connection oConnection) {
+    public Producto searchByPk(Producto oProducto) {
         Producto oProdcutoResult = null;
 		if (oProducto != null && oProducto.getsNombreProducto() != null) {
 			Gson oGson = new Gson();
@@ -56,7 +56,7 @@ public class ProductoCtrl {
 
 			try {
 
-				CallableStatement statement = oConnection.prepareCall("{call producto_search_by_pk(?)}");
+				CallableStatement statement = Controller.getConnection().prepareCall("{call producto_search_by_pk(?)}");
 				statement.setString(1, json);
 
 				ResultSet rs = statement.executeQuery();

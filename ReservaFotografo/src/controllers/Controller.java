@@ -237,6 +237,4 @@ public class Controller implements IController{
 		return oConfiguracionCtrl.getoTipoAndEstadoCtrl().getoTipoSesionCtrl().searchByPk(oTipoSesion, oConnection);
 	}
 
- 
-
 }

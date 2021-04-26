@@ -24,7 +24,7 @@
 ## Version 0.4 ##
     - Creación de los metodos en la vista y controlador de los CRUD básicos en PL/SQL
         - Estado (Se ha terminado la VIEW)
-        - Productos (Prodcuto y Pack)
+        - Productos (Producto y Pack)
         - Lugar (Lugars y subclases)
         - Sesion (Solo la Clase principal, sin conexiones con las demas clases con sus tablas NM)
     - Se ha arreglado y/o cambiado algunos errores o para mejorar los modelos

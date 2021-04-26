@@ -1,60 +1,67 @@
 package controllers.configuracion.productos;
 
+import java.sql.*;
+
+import com.google.gson.Gson;
+
+import controllers.Controller;
+import models.productos.Pack;
+
 public class PackCtrl {
     
-    public boolean add(Estado oEstado, Connection oConnection) {
+    public boolean add(Pack oPack, Connection oConnection) {
         boolean bExito = false;
-		if (oEstado != null && oEstado.checkEstado()) {
+		if (oPack != null && oPack.checkPack()) {
 
 			Gson oGson = new Gson();
-			String json = "[" + oGson.toJson(oEstado) + "]";
+			String json = "[" + oGson.toJson(oPack) + "]";
 
-			bExito = Controller.executeProcedure(json, "{call estado_create(?)}", oConnection);
+			bExito = Controller.executeProcedure(json, "{call pack_create(?)}", oConnection);
 			
 		}
 		return bExito;
     }
 
-    public boolean remove(Estado oEstado, Connection oConnection) {
+    public boolean remove(Pack oPack, Connection oConnection) {
         boolean bExito = false;
-		if (oEstado != null && oEstado.getsNombreEstado() != null) {
+		if (oPack != null && oPack.getsNombrePack() != null) {
 
 			Gson oGson = new Gson();
-			String json = "[" + oGson.toJson(oEstado) + "]";
+			String json = "[" + oGson.toJson(oPack) + "]";
 
-			bExito = Controller.executeProcedure(json, "{call estado_remove(?)}", oConnection);
+			bExito = Controller.executeProcedure(json, "{call pack_remove(?)}", oConnection);
 			
 		}
 		return bExito;
     }
 
-    public boolean update(Estado oNuevoEstado, Estado oAntiguoEstado, Connection oConnection) {
+    public boolean update(Pack oNuevoPack, Pack oAntiguoPack, Connection oConnection) {
         boolean bExito = false;
-		if (oNuevoEstado != null && oNuevoEstado.checkEstado() && searchByPk(oNuevoEstado, oConnection) == null ) {
+		if (oNuevoPack != null && oNuevoPack.checkPack() && searchByPk(oNuevoPack, oConnection) == null ) {
 
 			Gson oGson = new Gson();
-			String json = "[" + oGson.toJson(oNuevoEstado) + "," + oGson.toJson(oAntiguoEstado) + "]";
+			String json = "[" + oGson.toJson(oNuevoPack) + "," + oGson.toJson(oAntiguoPack) + "]";
 
-			bExito = Controller.executeProcedure(json, "{call estado_update(?)}", oConnection);
+			bExito = Controller.executeProcedure(json, "{call pack_update(?)}", oConnection);
 			
 		}
 		return bExito;
     }
 
-    public Estado searchByPk(Estado oEstado, Connection oConnection) {
-        Estado oEmpresaResult = null;
-		if (oEstado != null && oEstado.getsNombreEstado() != null) {
+    public Pack searchByPk(Pack oPack, Connection oConnection) {
+        Pack oEmpresaResult = null;
+		if (oPack != null && oPack.getsNombrePack() != null) {
 			Gson oGson = new Gson();
-			String json = "[" + oGson.toJson(oEstado) + "]";
+			String json = "[" + oGson.toJson(oPack) + "]";
 
 			try {
 
-				CallableStatement statement = oConnection.prepareCall("{call estado_search_by_pk(?)}");
+				CallableStatement statement = oConnection.prepareCall("{call pack_search_by_pk(?)}");
 				statement.setString(1, json);
 
 				ResultSet rs = statement.executeQuery();
 				if (rs.next()) {
-					oEmpresaResult = new Estado(oEstado.getsNombreEstado());
+					oEmpresaResult = new Pack(oPack.getsNombrePack());
 				}
 				statement.close();
 

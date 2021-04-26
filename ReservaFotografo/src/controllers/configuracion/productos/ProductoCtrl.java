@@ -49,7 +49,7 @@ public class ProductoCtrl {
     }
 
     public Producto searchByPk(Producto oProducto, Connection oConnection) {
-        Producto oEmpresaResult = null;
+        Producto oProdcutoResult = null;
 		if (oProducto != null && oProducto.getsNombreProducto() != null) {
 			Gson oGson = new Gson();
 			String json = "[" + oGson.toJson(oProducto) + "]";
@@ -61,7 +61,7 @@ public class ProductoCtrl {
 
 				ResultSet rs = statement.executeQuery();
 				if (rs.next()) {
-					oEmpresaResult = new Producto(oProducto.getsNombreProducto());
+					oProdcutoResult = new Producto(oProducto.getsNombreProducto());
 				}
 				statement.close();
 
@@ -71,6 +71,6 @@ public class ProductoCtrl {
 			}
 		}
 
-		return oEmpresaResult;
+		return oProdcutoResult;
     }
 }

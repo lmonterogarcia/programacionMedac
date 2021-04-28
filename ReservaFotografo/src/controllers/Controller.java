@@ -6,8 +6,8 @@ import java.io.*;
 
 import controllers.configuracion.ConfiguracionCtrl;
 import controllers.personas.*;
-import models.personas.*;
-import models.sesion.*;
+/*import models.personas.*;
+import models.sesion.*;*/
 
 public class Controller implements IController{
     private static Connection oConnection;

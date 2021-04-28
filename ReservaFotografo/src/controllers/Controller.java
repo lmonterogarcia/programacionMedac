@@ -5,18 +5,22 @@ import java.util.*;
 import java.io.*;
 
 import controllers.configuracion.ConfiguracionCtrl;
-import controllers.personas.PersonasController;
+import controllers.personas.*;
 import models.personas.*;
 import models.sesion.*;
 
 public class Controller implements IController{
     private static Connection oConnection;
 	private PersonasController oPersonasCtrl;
+	private FotografoController oFotografoCtrl;
+	private ParticipanteController oParticipanteCtrl;
 	private ConfiguracionCtrl oConfiguracionCtrl;
 	
 	public Controller() {
 		oPersonasCtrl = new PersonasController();
 		oConfiguracionCtrl = new ConfiguracionCtrl();
+		oFotografoCtrl = new FotografoController();
+		oParticipanteCtrl = new ParticipanteController();
 	}
 
 	public static Connection getConnection() {
@@ -25,6 +29,14 @@ public class Controller implements IController{
 
 	public PersonasController getoPersonasCtrl() {
 		return oPersonasCtrl;
+	}
+
+	public FotografoController getoFotografoCtrl() {
+		return oFotografoCtrl;
+	}
+
+	public ParticipanteController getoParticipanteCtrl() {
+		return oParticipanteCtrl;
 	}
 
 	public ConfiguracionCtrl getConfiguracionCtrl(){
@@ -124,13 +136,7 @@ public class Controller implements IController{
 	}
 
 	public boolean updateCliente(Cliente oCliente) {
-		boolean booExito = false;
-		if (getoPersonasCtrl().getoClientCtrl().update(oCliente, oConnection)) {
-			if (getoPersonasCtrl().getoUserCtrl().update(oCliente.getoUsuario(), oConnection)) {
-				booExito = true;
-			}
-		}
-		return booExito;
+		return getoPersonasCtrl().updateCliente();
 	}
 
 	public Cliente searchCliente(Cliente oCliente) {

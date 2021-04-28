@@ -114,7 +114,7 @@ public class TipoAndEstadoView implements IPlantilla {
 			shDuracionTipoSesion = -1;
 		}
 
-		return oCtrl.addTipoSesion(new TipoSesion(sNombreTipoSesion, shDuracionTipoSesion));
+		return oCtrl.getConfiguracionCtrl().getoTipoAndEstadoCtrl().getoTipoSesionCtrl().add(new TipoSesion(sNombreTipoSesion, shDuracionTipoSesion));
 	}
 
 	private static boolean updateTipoSesion(Controller oCtrl) {
@@ -134,7 +134,7 @@ public class TipoAndEstadoView implements IPlantilla {
 				}
 				oTipoSesion.setShDuracionTipoSesion(shDuracionTipoSesion);
 
-				booExito = oCtrl.updateTipoSesion(oTipoSesion);
+				booExito = oCtrl.getConfiguracionCtrl().getoTipoAndEstadoCtrl().getoTipoSesionCtrl().update(oTipoSesion);
 			}
 		}
 		return booExito;
@@ -148,7 +148,7 @@ public class TipoAndEstadoView implements IPlantilla {
 		} while (!sNombreTipoSesion.isEmpty() && sNombreTipoSesion.length() > BMAXDNI);
 		sNombreTipoSesion = Libreria.primeraMayus(sNombreTipoSesion);
 
-		return oCtrl.searchTipoSesion(new TipoSesion(sNombreTipoSesion));
+		return oCtrl.getConfiguracionCtrl().getoTipoAndEstadoCtrl().getoTipoSesionCtrl().searchByPk(new TipoSesion(sNombreTipoSesion));
 	}
 
 	private static boolean removeTipoSesion(Controller oCtrl) {
@@ -160,7 +160,7 @@ public class TipoAndEstadoView implements IPlantilla {
 		} while (!sNombreTipoSesion.isEmpty() && sNombreTipoSesion.length() > BMAXDNI);
 		sNombreTipoSesion = Libreria.primeraMayus(sNombreTipoSesion);
 
-		bExito = oCtrl.removeTipoSesion(new TipoSesion(sNombreTipoSesion));
+		bExito = oCtrl.getConfiguracionCtrl().getoTipoAndEstadoCtrl().getoTipoSesionCtrl().remove(new TipoSesion(sNombreTipoSesion));
 
 		return bExito;
 	}
@@ -175,7 +175,7 @@ public class TipoAndEstadoView implements IPlantilla {
 
 		sNombreEstado = String.valueOf(Libreria.leer("Introduce un nombre *", 1, BMAXNOMBRELARGO, -1, -1, (byte) 6));
 		sNombreEstado = Libreria.primeraMayus(sNombreEstado);
-		return oCtrl.addEstado(new Estado(sNombreEstado));
+		return oCtrl.getConfiguracionCtrl().getoTipoAndEstadoCtrl().getoEstadoCtrl().add(new Estado(sNombreEstado));
 	}
 
 	private static boolean updateEstado(Controller oCtrl) {
@@ -194,7 +194,7 @@ public class TipoAndEstadoView implements IPlantilla {
 			sNombreEstado = Libreria.primeraMayus(sNombreEstado);
 			oEstado.setsNombreEstado(sNombreEstado);
 
-			booExito = oCtrl.updateEstado(oEstado, oEstadoAntiguo);
+			booExito = oCtrl.getConfiguracionCtrl().getoTipoAndEstadoCtrl().getoEstadoCtrl().update(oEstado, oEstadoAntiguo);
 		}
 
 		return booExito;
@@ -207,7 +207,7 @@ public class TipoAndEstadoView implements IPlantilla {
 		} while (!sNombreEstado.isEmpty() && sNombreEstado.length() > BMAXNOMBRELARGO);
 		sNombreEstado = Libreria.primeraMayus(sNombreEstado);
 
-		return oCtrl.searchEstado(new Estado(sNombreEstado));
+		return oCtrl.getConfiguracionCtrl().getoTipoAndEstadoCtrl().getoEstadoCtrl().searchByPk(new Estado(sNombreEstado));
 	}
 
 	private static boolean removeEstado(Controller oCtrl) {
@@ -218,7 +218,7 @@ public class TipoAndEstadoView implements IPlantilla {
 		} while (!sNombreEstado.isEmpty() && sNombreEstado.length() > BMAXNOMBRELARGO);
 		sNombreEstado = Libreria.primeraMayus(sNombreEstado);
 
-		bExito = oCtrl.removeEstado(new Estado(sNombreEstado));
+		bExito = oCtrl.getConfiguracionCtrl().getoTipoAndEstadoCtrl().getoEstadoCtrl().remove(new Estado(sNombreEstado));
 
 		return bExito;
 	}

@@ -6,30 +6,33 @@ public class PersonasController {
 
     private UsuarioController oUserCtrl;
     private ClienteController oClientCtrl;
-    private FotografoController oFotografoCtrl;
-    private ParticipanteController oParticipanteCtrl;
+    //private FotografoController oFotografoCtrl;
+    //private ParticipanteController oParticipanteCtrl;
 
     public PersonasController() {
         oUserCtrl = new UsuarioController();
         oClientCtrl = new ClienteController();
-        oFotografoCtrl = new FotografoController();
-        oParticipanteCtrl = new ParticipanteController();
+        //oFotografoCtrl = new FotografoController();
+        //oParticipanteCtrl = new ParticipanteController();
     }
 
     public UsuarioController getoUserCtrl() {
         return oUserCtrl;
-    }
-    public FotografoController getoFotografoCtrl() {
-        return oFotografoCtrl;
     }
 
     public ClienteController getoClientCtrl() {
         return oClientCtrl;
     }
 
+    /*
+    public FotografoController getoFotografoCtrl() {
+        return oFotografoCtrl;
+    }
+
     public ParticipanteController getoParticipanteCtrl() {
         return oParticipanteCtrl;
     }
+    */
 
     /*
      * # CONTROLLER METHODS CLIENTE Y USUARIO
@@ -60,6 +63,16 @@ public class PersonasController {
         return bExito;
     }
 
+    public boolean updateCliente(Cliente oCliente) {
+		boolean booExito = false;
+		if (getoClientCtrl().update(oCliente)) {
+			if (getoUserCtrl().update(oCliente.getoUsuario())) {
+				booExito = true;
+			}
+		}
+		return booExito;
+	}
+
     public Cliente searchCliente(Cliente oCliente) {
         return oClientCtrl.searchByPk(oCliente);
     }
@@ -72,7 +85,7 @@ public class PersonasController {
 
     /*
      * # CONTROLLER METHODS FOTOGRAFO
-     */
+
     public boolean addFotografo(Fotografo oFotografo) {
         return oFotografoCtrl.add(oFotografo);
     }
@@ -83,13 +96,13 @@ public class PersonasController {
 
     public Fotografo searchFotografo(Fotografo oFotografo) {
         return oFotografoCtrl.searchByPk(oFotografo);
-    }
+    }*/
 
 
 
-     /*
-     * # CONTROLLER METHODS PARTICIPANTE
-     */
+    /*
+    * # CONTROLLER METHODS PARTICIPANTE
+    
     public boolean addParticipante(Participante oParticipante) {
         return oParticipanteCtrl.add(oParticipante);
     }
@@ -100,7 +113,7 @@ public class PersonasController {
 
     public Participante searchParticipante(Participante oParticipante) {
         return oParticipanteCtrl.searchByPk(oParticipante);
-    }
+    }*/
 
     
 }

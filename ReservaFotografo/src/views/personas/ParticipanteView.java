@@ -7,7 +7,7 @@ import controllers.Controller;
 import models.IPlantilla;
 import models.personas.Participante;
 import views.Libreria;
-// ###$$$ NO ESTA TERMINADO $$$###
+
 public class ParticipanteView implements IPlantilla {
     public static byte subMenuParticipante() {
         System.out.println("");
@@ -102,20 +102,20 @@ public class ParticipanteView implements IPlantilla {
             } while (!booFecha);
         }
 
-        return oCtrl.addParticipante(new Participante(sDniContacto, sNombreContacto, sApellido1Contacto,
+        return oCtrl.getoParticipanteCtrl().add(new Participante(sDniContacto, sNombreContacto, sApellido1Contacto,
                 sApellido2Contacto, sTelefonoContacto, oFechaNacimientoContacto, sEmailParticipante));
     }
 
-    private static boolean update(Controller oCtrl) { // $$$$$$ FALLA $$$$$$$
+    private static boolean update(Controller oCtrl) { 
         String sDniContacto, sNombreContacto, sApellido1Contacto, sApellido2Contacto, sTelefonoContacto,
                 sEmailParticipante, sFechaNacimiento;
         int iDia, iMes, iAnio;
-        boolean booExito = false, booFecha = false;
+        boolean booExito = false, booFecha = false, booDni;
 
         do {
             sDniContacto = String.valueOf(Libreria.leer("Introduce un dni ", BMINDNI, BMAXDNI, -1, -1, (byte) 6));
         } while (!Pattern.matches(SPATRONDNI, sDniContacto));
-        Participante oParticipante = oCtrl.searchParticipante(new Participante(1, sDniContacto));
+        Participante oParticipante = oCtrl.getoParticipanteCtrl().searchByPk(new Participante(1, sDniContacto));
 
         if (oParticipante != null && oParticipante.checkParticipante()) {
 
@@ -124,10 +124,13 @@ public class ParticipanteView implements IPlantilla {
             do {
                 sDniContacto = String.valueOf(Libreria.leer(
                         "Introduce un dni (" + oParticipante.getsDniContacto() + ")", 0, BMAXDNI, -1, -1, (byte) 6));
-                        if (oCtrl.searchParticipante(new Participante(1, sDniContacto)) != null) {
+                        if (oCtrl.getoParticipanteCtrl().searchByPk(new Participante(1, sDniContacto)) != null) {
                             System.out.println("\nEste dni ya esta siendo utilizado en la base de datos");
+                            booDni = false;
+                        } else {
+                            booDni = true;
                         }
-            } while (!sDniContacto.isEmpty() && sDniContacto.length() != BMAXDNI && oCtrl.searchParticipante(new Participante(1, sDniContacto)) != null);
+            } while (!sDniContacto.isEmpty() && sDniContacto.length() != BMAXDNI && !booDni);
             oParticipante.setsDniContacto(sDniContacto);
 
             do {
@@ -191,7 +194,7 @@ public class ParticipanteView implements IPlantilla {
 
             }
 
-            booExito = oCtrl.updateParticipante(oParticipante);
+            booExito = oCtrl.getoParticipanteCtrl().update(oParticipante);
         }
 
         return booExito;
@@ -204,7 +207,7 @@ public class ParticipanteView implements IPlantilla {
             sDniContacto = String.valueOf(Libreria.leer("Introduce un dni *", BMINDNI, BMAXDNI, -1, -1, (byte) 6));
         } while (!Pattern.matches(SPATRONDNI, sDniContacto));
 
-        return oCtrl.searchParticipante(new Participante(1, sDniContacto));
+        return oCtrl.getoParticipanteCtrl().searchByPk(new Participante(1, sDniContacto));
     }
 
     private static boolean remove(Controller oCtrl) {
@@ -212,7 +215,7 @@ public class ParticipanteView implements IPlantilla {
         Participante oParticipante = searchByDni(oCtrl);
 
         if (oParticipante != null) {
-            bExito = oCtrl.removeParticipante(oParticipante);
+            bExito = oCtrl.getoParticipanteCtrl().remove(oParticipante);
         }
         return bExito;
     }

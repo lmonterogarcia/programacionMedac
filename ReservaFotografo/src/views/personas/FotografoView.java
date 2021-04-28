@@ -67,7 +67,7 @@ public class FotografoView implements IPlantilla{
 		} while (!sNombreFotografo.isEmpty() && sNombreFotografo.length() > BMAXNOMBRELARGO);
 		
 
-		return oCtrl.addFotografo(new Fotografo(sDniFotgrafo, sNombreFotografo));
+		return oCtrl.getoFotografoCtrl().add(new Fotografo(sDniFotgrafo, sNombreFotografo));
 	}
 
 	private static boolean update(Controller oCtrl) {
@@ -75,7 +75,7 @@ public class FotografoView implements IPlantilla{
 		boolean booExito = false;
 
 		sDniFotgrafo = String.valueOf(Libreria.leer("\nIntroduce un dni", BMINDNI, BMAXDNI, -1, -1, (byte) 6));
-		Fotografo oFotografo = oCtrl.searchFotografo(new Fotografo(sDniFotgrafo));
+		Fotografo oFotografo = oCtrl.getoFotografoCtrl().searchByPk(new Fotografo(sDniFotgrafo));
 		if (oFotografo != null) {
 			if (oFotografo != null && oFotografo.checkFotografo()) {
 
@@ -89,7 +89,7 @@ public class FotografoView implements IPlantilla{
 				} while (!sNombreFotografo.isEmpty() && sNombreFotografo.length() > BMAXNOMBRE);
 				oFotografo.setsNombreFotografo(sNombreFotografo);
 
-				booExito = oCtrl.updateFotografo(oFotografo);
+				booExito = oCtrl.getoFotografoCtrl().update(oFotografo);
 			}
 		}
 		
@@ -99,7 +99,7 @@ public class FotografoView implements IPlantilla{
 
 	private static Fotografo searchByDni(Controller oCtrl) {
 		String sDniFotgrafo = String.valueOf(Libreria.leer("\nIntroduce un dni", BMINDNI, BMAXDNI, -1, -1, (byte) 6));
-		return oCtrl.searchFotografo(new Fotografo(sDniFotgrafo));
+		return oCtrl.getoFotografoCtrl().searchByPk(new Fotografo(sDniFotgrafo));
 	}
 
 	private static boolean remove(Controller oCtrl) {
@@ -107,7 +107,7 @@ public class FotografoView implements IPlantilla{
 		Fotografo oFotografo = searchByDni(oCtrl);
 
 		if (oFotografo != null) {
-			bExito = oCtrl.removeFotografo(oFotografo);
+			bExito = oCtrl.getoFotografoCtrl().remove(oFotografo);
 		}
 		return bExito;
 	}

@@ -271,7 +271,7 @@ public class ClienteView implements IPlantilla {
 						}
 					} while (!booExitoPass && bContador < 3);
 				}
-				booExito = oCtrl.getoPersonasCtrl().getoClientCtrl().update(oCliente);
+				booExito = oCtrl.getoPersonasCtrl().updateCliente(oCliente);
 			}
 		}
 		
@@ -281,7 +281,7 @@ public class ClienteView implements IPlantilla {
 
 	private static Cliente searchByEmail(Controller oCtrl) {
 		String sEmailCliente = String.valueOf(Libreria.leer("Introduce un email", 1, 100, -1, -1, (byte) 6));
-		return oCtrl.getoPersonasCtrl().searchCliente(new Cliente(null, new Usuario(sEmailCliente)));
+		return oCtrl.getoPersonasCtrl().getoClientCtrl().searchByPk(new Cliente(null, new Usuario(sEmailCliente)));
 	}
 
 	private static boolean remove(Controller oCtrl) {

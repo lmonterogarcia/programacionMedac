@@ -80,7 +80,7 @@ public class EmpresaView implements IPlantilla{
 		oLugar = new Lugar(1,"pruebas","pruebas"); //#@#@#@#@@#@@#@#@#@#@#@#@#@#@#@#@
 		
 
-		return oCtrl.addEmpresa(new Empresa(sCifNif, sNombreEmpresa, sEmailEmpresa, sTelefonoEmpresa, oLugar));
+		return oCtrl.getConfiguracionCtrl().getoEmpresaCtrl().add(new Empresa(sCifNif, sNombreEmpresa, sEmailEmpresa, sTelefonoEmpresa, oLugar));
 	}
 
 	private static boolean update(Controller oCtrl) {
@@ -111,7 +111,7 @@ public class EmpresaView implements IPlantilla{
 				//NO SE IMPLEMENTA OLUGAR HASTA QUE NO SE CREEN LAS VISTAS Y CONTROLADORES DE LUGAR
 				//oLugar = new Lugar(1,"pruebas","pruebas"); //#@#@#@#@@#@@#@#@#@#@#@#@#@#@#@#@
 
-				booExito = oCtrl.updateEmpresa(oEmpresa);
+				booExito = oCtrl.getConfiguracionCtrl().getoEmpresaCtrl().update(oEmpresa);
 			}
 		}
 		
@@ -124,7 +124,7 @@ public class EmpresaView implements IPlantilla{
 		do {
 			sCifNif = String.valueOf(Libreria.leer("Introduce un cif o nif *", 1, BMAXDNI, -1, -1, (byte) 6));
 		} while (!sCifNif.isEmpty() && sCifNif.length() != BMAXDNI && Pattern.matches(SPATRONDNI, sCifNif));
-		return oCtrl.searchEmpresa(new Empresa(sCifNif));
+		return oCtrl.getConfiguracionCtrl().searchEmpresa(new Empresa(sCifNif));
 	}
 
 	private static boolean remove(Controller oCtrl) {
@@ -134,7 +134,7 @@ public class EmpresaView implements IPlantilla{
 			sCifNif = String.valueOf(Libreria.leer("Introduce un cif o nif ", 1, BMAXDNI, -1, -1, (byte) 6));
 		} while (!sCifNif.isEmpty() && sCifNif.length() != BMAXDNI && Pattern.matches(SPATRONDNI, sCifNif));
 		
-		bExito = oCtrl.removeEmpresa(new Empresa(sCifNif));
+		bExito = oCtrl.getConfiguracionCtrl().getoEmpresaCtrl().remove(new Empresa(sCifNif));
 	
 		return bExito;
 	}

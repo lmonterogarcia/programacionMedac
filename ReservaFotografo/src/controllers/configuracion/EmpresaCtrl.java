@@ -1,6 +1,8 @@
 package controllers.configuracion;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.google.gson.Gson;
 
@@ -34,13 +36,12 @@ public class EmpresaCtrl implements controllers.ICrudController<Empresa>{
 			Gson oGson = new Gson();
 			String json = "[" + oGson.toJson(oEmpresa) + "]";
 
-			bExito = Controller.executeProcedure(json, "{call empresa_remove(?)}");
+			bExito = Controller.executeProcedure(json, "{call remove(?,'sCifNif','Empresa','cifNif')}");
 			
 		}
 		return bExito;
     }
 
-    @Override
     public boolean update(Empresa oEmpresa) {
         boolean bExito = false;
 		if (oEmpresa != null && oEmpresa.checkEmpresa()) {
@@ -54,7 +55,6 @@ public class EmpresaCtrl implements controllers.ICrudController<Empresa>{
 		return bExito;
     }
 
-    @Override
     public Empresa searchByPk(Empresa oEmpresa) {
         Empresa oEmpresaResult = null;
 		if (oEmpresa != null && oEmpresa.getsCifNif() != null) {
@@ -63,7 +63,7 @@ public class EmpresaCtrl implements controllers.ICrudController<Empresa>{
 
 			try {
 
-				CallableStatement statement = Controller.getConnection().prepareCall("{call empresa_search_by_pk(?)}");
+				CallableStatement statement = Controller.getConnection().prepareCall("{call search_by(?,'sCifNif','Empresa','cifNif')}");
 				statement.setString(1, json);
 
 				ResultSet rs = statement.executeQuery();
@@ -84,5 +84,28 @@ public class EmpresaCtrl implements controllers.ICrudController<Empresa>{
 
 		return oEmpresaResult;
     }
+
+	public List<Empresa> listar(){
+		List<Empresa> lEmpresas = new ArrayList<Empresa>();
+		try {
+
+			CallableStatement statement = Controller.getConnection().prepareCall("{call listar('Empresa')}");
+			ResultSet rs = statement.executeQuery();
+			if (rs.next()) {
+				Empresa oEmpresa = new Empresa(rs.getString(1));
+				oEmpresa.setsNombreEmpresa(rs.getString(2));
+				oEmpresa.setsEmailEmpresa(rs.getString(3));
+				oEmpresa.setsTelefonoEmrpesa(rs.getString(4));
+				oEmpresa.setoLugar(new Lugar(rs.getInt(5)));
+				lEmpresas.add(oEmpresa);
+			}
+			statement.close();
+
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+			System.out.println(ex);
+		}
+		return lEmpresas;
+	}
     
 }

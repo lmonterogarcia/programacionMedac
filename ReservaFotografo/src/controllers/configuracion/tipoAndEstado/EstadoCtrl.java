@@ -1,6 +1,8 @@
 package controllers.configuracion.tipoAndEstado;
 
 import java.sql.*;
+import java.util.*;
+
 import com.google.gson.Gson;
 
 import controllers.Controller;
@@ -30,7 +32,7 @@ public class EstadoCtrl {
 			Gson oGson = new Gson();
 			String json = "[" + oGson.toJson(oEstado) + "]";
 
-			bExito = Controller.executeProcedure(json, "{call estado_remove(?)}");
+			bExito = Controller.executeProcedure(json, "{call remove(?,'sNombreEstado','Estado','nombreEstado')}");
 			
 		}
 		return bExito;
@@ -57,7 +59,7 @@ public class EstadoCtrl {
 
 			try {
 
-				CallableStatement statement = Controller.getConnection().prepareCall("{call estado_search_by_pk(?)}");
+				CallableStatement statement = Controller.getConnection().prepareCall("{call search_by(?,'sNombreEstado','Estado','nombreEstado')}");
 				statement.setString(1, json);
 
 				ResultSet rs = statement.executeQuery();
@@ -74,4 +76,23 @@ public class EstadoCtrl {
 
 		return oEmpresaResult;
     }
+
+	public List<Estado> listar(){
+		List<Estado> lEstados = new ArrayList<Estado>();
+		try {
+
+			CallableStatement statement = Controller.getConnection().prepareCall("{call listar('Estado')}");
+			ResultSet rs = statement.executeQuery();
+			if (rs.next()) {
+				Estado oEstado = new Estado(rs.getString(1));
+				lEstados.add(oEstado);
+			}
+			statement.close();
+
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+			System.out.println(ex);
+		}
+		return lEstados;
+	}
 }

@@ -23,7 +23,7 @@ public class PackCtrl {
     }
 
     public boolean remove(Pack oPack) {
-        boolean bExito = false;
+        boolean bExito = false; 
 		if (oPack != null && oPack.getsNombrePack() != null) {
 
 			Gson oGson = new Gson();

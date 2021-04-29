@@ -28,9 +28,11 @@ public class Producto implements IProducto, IPlantilla {
         setfPrecioProducto(fPrecioProducto);
     }
 
-    public Producto(String sNombreProducto, float fPrecioProducto, String sDescripcionProducto) {
+    public Producto(String sNombreProducto, float fPrecioProducto, float fCosteProducto, String sProveedroProducto, String sDescripcionProducto) {
         setsNombreProducto(sNombreProducto);
         setfPrecioProducto(fPrecioProducto);
+        setfCosteProducto(fCosteProducto);
+        setsProveedroProducto(sProveedroProducto);
         setsDescripcionProducto(sDescripcionProducto);
     }
 

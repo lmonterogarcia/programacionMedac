@@ -1,6 +1,7 @@
 package controllers.configuracion.productos;
 
 import java.sql.*;
+import java.util.*;
 
 import com.google.gson.Gson;
 
@@ -29,18 +30,18 @@ public class ProductoCtrl {
 			Gson oGson = new Gson();
 			String json = "[" + oGson.toJson(oProducto) + "]";
 
-			bExito = Controller.executeProcedure(json, "{call producto_remove(?)}");
+			bExito = Controller.executeProcedure(json, "{call remove(?,'sNombreProducto','Producto','nombreProducto')}");
 			
 		}
 		return bExito;
     }
 
-    public boolean update(Producto oNuevoProducto, Producto oAntiguoProducto) {
+    public boolean update(Producto oProducto) {
         boolean bExito = false;
-		if (oNuevoProducto != null && oNuevoProducto.checkProducto() && searchByPk(oNuevoProducto) == null ) {
+		if (oProducto != null && oProducto.checkProducto() && searchByPk(oProducto) == null ) {
 
 			Gson oGson = new Gson();
-			String json = "[" + oGson.toJson(oNuevoProducto) + "," + oGson.toJson(oAntiguoProducto) + "]";
+			String json = "[" + oGson.toJson(oProducto) + "]";
 
 			bExito = Controller.executeProcedure(json, "{call producto_update(?)}");
 			
@@ -56,12 +57,16 @@ public class ProductoCtrl {
 
 			try {
 
-				CallableStatement statement = Controller.getConnection().prepareCall("{call producto_search_by_pk(?)}");
+				CallableStatement statement = Controller.getConnection().prepareCall("{call search_by(?,'sNombreProducto','Producto','nombreProducto')}");
 				statement.setString(1, json);
 
 				ResultSet rs = statement.executeQuery();
 				if (rs.next()) {
 					oProdcutoResult = new Producto(oProducto.getsNombreProducto());
+					oProdcutoResult.setfPrecioProducto(rs.getFloat(2));
+					oProdcutoResult.setfCosteProducto(rs.getFloat(3));
+					oProdcutoResult.setsProveedroProducto(rs.getString(4));
+					oProdcutoResult.setsDescripcionProducto(rs.getString(5));
 				}
 				statement.close();
 
@@ -73,4 +78,26 @@ public class ProductoCtrl {
 
 		return oProdcutoResult;
     }
+
+	public List<Producto> listar(){
+		List<Producto> lProductos = new ArrayList<Producto>();
+		try {
+
+			CallableStatement statement = Controller.getConnection().prepareCall("{call listar('Producto')}");
+			ResultSet rs = statement.executeQuery();
+			if (rs.next()) {
+				Producto oProducto = new Producto(rs.getString(1));
+				oProducto.setfPrecioProducto(rs.getFloat(2));
+				oProducto.setfCosteProducto(rs.getFloat(3));
+				oProducto.setsProveedroProducto(rs.getString(4));
+				oProducto.setsDescripcionProducto(rs.getString(5));
+				lProductos.add(oProducto);
+			}
+			statement.close();
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+			System.out.println(ex);
+		}
+		return lProductos;
+	}
 }

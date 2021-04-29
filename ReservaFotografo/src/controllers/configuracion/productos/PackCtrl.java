@@ -1,6 +1,7 @@
 package controllers.configuracion.productos;
 
 import java.sql.*;
+import java.util.*;
 
 import com.google.gson.Gson;
 
@@ -29,18 +30,18 @@ public class PackCtrl {
 			Gson oGson = new Gson();
 			String json = "[" + oGson.toJson(oPack) + "]";
 
-			bExito = Controller.executeProcedure(json, "{call pack_remove(?)}");
+			bExito = Controller.executeProcedure(json, "{remove(?,'sNombrePack','Pack','nombrePack')}");
 			
 		}
 		return bExito;
     }
 
-    public boolean update(Pack oNuevoPack, Pack oAntiguoPack) {
+    public boolean update(Pack oPack) {
         boolean bExito = false;
-		if (oNuevoPack != null && oNuevoPack.checkPack() && searchByPk(oNuevoPack) == null ) {
+		if (oPack != null && oPack.checkPack()) {
 
 			Gson oGson = new Gson();
-			String json = "[" + oGson.toJson(oNuevoPack) + "," + oGson.toJson(oAntiguoPack) + "]";
+			String json = "[" + oGson.toJson(oPack) + "]";
 
 			bExito = Controller.executeProcedure(json, "{call pack_update(?)}");
 			
@@ -49,19 +50,22 @@ public class PackCtrl {
     }
 
     public Pack searchByPk(Pack oPack) {
-        Pack oEmpresaResult = null;
+        Pack oPackResult = null;
 		if (oPack != null && oPack.getsNombrePack() != null) {
 			Gson oGson = new Gson();
 			String json = "[" + oGson.toJson(oPack) + "]";
 
 			try {
 
-				CallableStatement statement = Controller.getConnection().prepareCall("{call pack_search_by_pk(?)}");
+				CallableStatement statement = Controller.getConnection().prepareCall("{call search_by(?,'sNombrePack','Pack','nombrePack')}");
 				statement.setString(1, json);
 
 				ResultSet rs = statement.executeQuery();
 				if (rs.next()) {
-					oEmpresaResult = new Pack(oPack.getsNombrePack());
+					oPackResult = new Pack(oPack.getsNombrePack());
+					oPackResult.setfPrecioPack(rs.getFloat(2));
+					oPackResult.setsDescripcionPack(rs.getString(3));
+
 				}
 				statement.close();
 
@@ -71,6 +75,26 @@ public class PackCtrl {
 			}
 		}
 
-		return oEmpresaResult;
+		return oPackResult;
     }
+
+	public List<Pack> listar(){
+		List<Pack> lPacks = new ArrayList<Pack>();
+		try {
+
+			CallableStatement statement = Controller.getConnection().prepareCall("{call listar('Pack')}");
+			ResultSet rs = statement.executeQuery();
+			if (rs.next()) {
+				Pack oPack = new Pack(rs.getString(1));
+				oPack.setfPrecioPack(rs.getFloat(2));
+				oPack.setsDescripcionPack(rs.getString(3));
+				lPacks.add(oPack);
+			}
+			statement.close();
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+			System.out.println(ex);
+		}
+		return lPacks;
+	}
 }

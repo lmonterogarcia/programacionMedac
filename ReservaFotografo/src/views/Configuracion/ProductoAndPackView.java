@@ -11,9 +11,9 @@ public class ProductoAndPackView implements IPlantilla {
 	public static byte subMenuProductoAndPack() {
 		System.out.println("");
 		System.out.println("-----------------------");
-		System.out.println("Gestion de prodcutos y packs");
+		System.out.println("Gestion de productos y packs");
 		System.out.println("-----------------------");
-		System.out.println("-----Prodcutos----");
+		System.out.println("------Productos------");
 		System.out.println("1. Alta");
 		System.out.println("2. Modificar");
 		System.out.println("3. Buscar producto por nombre");
@@ -97,7 +97,7 @@ public class ProductoAndPackView implements IPlantilla {
 	// ########### Tipo Sesion ##############
 
 	private static boolean createProducto(Controller oCtrl) {
-		String sNombreProducto, sProveedroProducto, sDescripcionProducto;
+		String sNombreProducto, sProveedorProducto, sDescripcionProducto;
 		float fPrecioProducto, fCosteProducto;
 
 		System.out.println("\nIntroduce los datos del producto: ");
@@ -108,34 +108,34 @@ public class ProductoAndPackView implements IPlantilla {
 
 		do {
 			try {
-				fPrecioProducto = (float) (Libreria.leer("Introduce un precio *", -1, -1, 0, 1000000, (byte) 4));
+				fPrecioProducto = (float) (Libreria.leer("Introduce un precio *", -1, -1, 0, 1000000, (byte) 5));
 			} catch (Exception e) {
 				fPrecioProducto = -1;
 			}
 		} while (fPrecioProducto == -1);
 
 		try {
-			fCosteProducto = (float) (Libreria.leer("Introduce el coste *", -1, -1, 0, 1000000, (byte) 4));
+			fCosteProducto = (float) (Libreria.leer("Introduce el coste *", -1, -1, 0, 1000000, (byte) 5));
 		} catch (Exception e) {
 			fCosteProducto = -1;
 		}
 
 		do {
-			sProveedroProducto = String
+			sProveedorProducto = String
 					.valueOf(Libreria.leer("Introduce el proovedor", 0, BMAXNOMBRELARGO, -1, -1, (byte) 6));
-		} while (!sProveedroProducto.isEmpty() && sProveedroProducto.length() > BMAXNOMBRELARGO);
-		sProveedroProducto = Libreria.todasPrimeraMayus(sProveedroProducto);
+		} while (!sProveedorProducto.isEmpty() && sProveedorProducto.length() > BMAXNOMBRELARGO);
+		sProveedorProducto = Libreria.todasPrimeraMayus(sProveedorProducto);
 
 		do {
-			sDescripcionProducto = String.valueOf(Libreria.leer("Introduce el primer apellido", 0, BMAX255, -1, -1, (byte) 6));
+			sDescripcionProducto = String.valueOf(Libreria.leer("Introduce la descripcion", 0, BMAX255, -1, -1, (byte) 6));
 		} while (!sDescripcionProducto.isEmpty() && sDescripcionProducto.length() > BMAX255);
 
 		return oCtrl.getConfiguracionCtrl().getoProductoPackCtrl().getoProductoCtrl()
-				.add(new Producto(sNombreProducto, fPrecioProducto, fCosteProducto, sProveedroProducto, sDescripcionProducto));
+				.add(new Producto(sNombreProducto, fPrecioProducto, fCosteProducto, sProveedorProducto, sDescripcionProducto));
 	}
 
 	private static boolean updateProducto(Controller oCtrl) {
-		String sProveedroProducto, sDescripcionProducto;
+		String sProveedorProducto, sDescripcionProducto;
 		float fPrecioProducto, fCosteProducto;
 		boolean booExito = false;
 		Producto oProducto = searchByNombreProducto(oCtrl);
@@ -145,28 +145,28 @@ public class ProductoAndPackView implements IPlantilla {
 				System.out.println("Modifica los datos del tipo de sesion: ");
 
 				try {
-					fPrecioProducto = (float) (Libreria.leer("Introduce un precio *", -1, -1, 0, 1000000, (byte) 4));
+					fPrecioProducto = (float) (Libreria.leer("Introduce un precio (" + oProducto.getfPrecioProducto() + ")", -1, -1, 0, 1000000, (byte) 5));
 				} catch (Exception e) {
 					fPrecioProducto = -1;
 				}
 				oProducto.setfPrecioProducto(fPrecioProducto);
 
 				try {
-					fCosteProducto = (float) (Libreria.leer("Introduce el coste *", -1, -1, 0, 1000000, (byte) 4));
+					fCosteProducto = (float) (Libreria.leer("Introduce el coste (" + oProducto.getfCosteProducto() + ")", -1, -1, 0, 1000000, (byte) 5));
 				} catch (Exception e) {
 					fCosteProducto = -1;
 				}
 				oProducto.setfCosteProducto(fCosteProducto);
 
 				do {
-					sProveedroProducto = String
-							.valueOf(Libreria.leer("Introduce el proovedor", 0, BMAXNOMBRELARGO, -1, -1, (byte) 6));
-				} while (!sProveedroProducto.isEmpty() && sProveedroProducto.length() > BMAXNOMBRELARGO);
-				oProducto.setsProveedroProducto(sProveedroProducto);
+					sProveedorProducto = String
+							.valueOf(Libreria.leer("Introduce el proovedor (" + oProducto.getsProveedorProducto() + ")", 0, BMAXNOMBRELARGO, -1, -1, (byte) 6));
+				} while (!sProveedorProducto.isEmpty() && sProveedorProducto.length() > BMAXNOMBRELARGO);
+				oProducto.setsProveedorProducto(sProveedorProducto);
 
 				do {
 					sDescripcionProducto = String
-							.valueOf(Libreria.leer("Introduce el primer apellido", 0, BMAX255, -1, -1, (byte) 6));
+							.valueOf(Libreria.leer("Introduce la descripcion (" + oProducto.getsDescripcionProducto() + ")", 0, BMAX255, -1, -1, (byte) 6));
 				} while (!sDescripcionProducto.isEmpty() && sDescripcionProducto.length() > BMAX255);
 				oProducto.setsDescripcionProducto(sDescripcionProducto);
 
@@ -218,7 +218,7 @@ public class ProductoAndPackView implements IPlantilla {
 
 		do {
 			try {
-				fPrecioPack = (float) (Libreria.leer("Introduce un precio *", -1, -1, 0, 1000000, (byte) 4));
+				fPrecioPack = (float) (Libreria.leer("Introduce un precio *", -1, -1, 0, 1000000, (byte) 5));
 			} catch (Exception e) {
 				fPrecioPack = -1;
 			}
@@ -226,7 +226,7 @@ public class ProductoAndPackView implements IPlantilla {
 
 		do {
 			sDescripcionPack = String
-					.valueOf(Libreria.leer("Introduce el primer apellido", 0, BMAX255, -1, -1, (byte) 6));
+					.valueOf(Libreria.leer("Introduce la descripcion", 0, BMAX255, -1, -1, (byte) 6));
 		} while (!sDescripcionPack.isEmpty() && sDescripcionPack.length() > BMAX255);
 
 		return oCtrl.getConfiguracionCtrl().getoProductoPackCtrl().getoPackCtrl().add(new Pack(sNombrePack, fPrecioPack, sDescripcionPack));
@@ -242,7 +242,7 @@ public class ProductoAndPackView implements IPlantilla {
 			System.out.println("Modifica los datos del pack: ");
 
 			try {
-				fPrecioPack = (float) (Libreria.leer("Introduce un precio *", -1, -1, 0, 1000000, (byte) 4));
+				fPrecioPack = (float) (Libreria.leer("Introduce un precio (" + oPack.getfPrecioPack() + ")", -1, -1, 0, 1000000, (byte) 5));
 			} catch (Exception e) {
 				fPrecioPack = -1;
 			}
@@ -250,7 +250,7 @@ public class ProductoAndPackView implements IPlantilla {
 
 			do {
 				sDescripcionPack = String
-						.valueOf(Libreria.leer("Introduce el primer apellido", 0, BMAX255, -1, -1, (byte) 6));
+						.valueOf(Libreria.leer("Introduce la descripcion (" + oPack.getsDescripcionPack() + ")", 0, BMAX255, -1, -1, (byte) 6));
 			} while (!sDescripcionPack.isEmpty() && sDescripcionPack.length() > BMAX255);
 			oPack.setsDescripcionPack(sDescripcionPack);
 

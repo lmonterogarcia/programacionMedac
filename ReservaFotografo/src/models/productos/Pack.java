@@ -97,7 +97,7 @@ public class Pack implements IPack, IPlantilla{
             sMensaje += "\n## Pack ##";
             sMensaje += "\n Nombre: " + this.getsNombrePack();
             sMensaje += "\n Precio: " + this.getfPrecioPack() + "€";
-            if (this.getsDescripcionPack() != null && this.getsDescripcionPack().isEmpty()) {
+            if (this.getsDescripcionPack() != null && !this.getsDescripcionPack().isEmpty()) {
                 sMensaje += "\n Descripcion: " + this.getsDescripcionPack();
             }
         }

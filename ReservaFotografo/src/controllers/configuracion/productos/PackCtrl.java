@@ -30,7 +30,7 @@ public class PackCtrl {
 			Gson oGson = new Gson();
 			String json = "[" + oGson.toJson(oPack) + "]";
 
-			bExito = Controller.executeProcedure(json, "{remove(?,'sNombrePack','Pack','nombrePack')}");
+			bExito = Controller.executeProcedure(json, "{call remove(?,'sNombrePack','Pack','nombrePack')}");
 			
 		}
 		return bExito;

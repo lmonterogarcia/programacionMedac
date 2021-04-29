@@ -38,7 +38,7 @@ public class ProductoCtrl {
 
     public boolean update(Producto oProducto) {
         boolean bExito = false;
-		if (oProducto != null && oProducto.checkProducto() && searchByPk(oProducto) == null ) {
+		if (oProducto != null && oProducto.checkProducto()) {
 
 			Gson oGson = new Gson();
 			String json = "[" + oGson.toJson(oProducto) + "]";
@@ -65,7 +65,7 @@ public class ProductoCtrl {
 					oProdcutoResult = new Producto(oProducto.getsNombreProducto());
 					oProdcutoResult.setfPrecioProducto(rs.getFloat(2));
 					oProdcutoResult.setfCosteProducto(rs.getFloat(3));
-					oProdcutoResult.setsProveedroProducto(rs.getString(4));
+					oProdcutoResult.setsProveedorProducto(rs.getString(4));
 					oProdcutoResult.setsDescripcionProducto(rs.getString(5));
 				}
 				statement.close();
@@ -89,7 +89,7 @@ public class ProductoCtrl {
 				Producto oProducto = new Producto(rs.getString(1));
 				oProducto.setfPrecioProducto(rs.getFloat(2));
 				oProducto.setfCosteProducto(rs.getFloat(3));
-				oProducto.setsProveedroProducto(rs.getString(4));
+				oProducto.setsProveedorProducto(rs.getString(4));
 				oProducto.setsDescripcionProducto(rs.getString(5));
 				lProductos.add(oProducto);
 			}

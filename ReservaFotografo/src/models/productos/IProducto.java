@@ -8,8 +8,8 @@ public interface IProducto {
     public void setfPrecioProducto(float fPrecioProducto);
     public float getfCosteProducto();
     public void setfCosteProducto(float fCosteProducto);
-    public String getsProveedroProducto();
-    public void setsProveedroProducto(String sProveedroProducto);
+    public String getsProveedorProducto();
+    public void setsProveedorProducto(String sProveedorProducto);
     public String getsDescripcionProducto();
     public void setsDescripcionProducto(String sDescripcionProducto);
 

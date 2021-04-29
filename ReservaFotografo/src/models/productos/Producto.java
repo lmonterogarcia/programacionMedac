@@ -15,7 +15,7 @@ public class Producto implements IProducto, IPlantilla {
     private float fPrecioProducto;
     //N
     private float fCosteProducto;
-    private String sProveedroProducto, sDescripcionProducto;
+    private String sProveedorProducto, sDescripcionProducto;
 
     // ###Contructores###
 
@@ -28,11 +28,11 @@ public class Producto implements IProducto, IPlantilla {
         setfPrecioProducto(fPrecioProducto);
     }
 
-    public Producto(String sNombreProducto, float fPrecioProducto, float fCosteProducto, String sProveedroProducto, String sDescripcionProducto) {
+    public Producto(String sNombreProducto, float fPrecioProducto, float fCosteProducto, String sProveedorProducto, String sDescripcionProducto) {
         setsNombreProducto(sNombreProducto);
         setfPrecioProducto(fPrecioProducto);
         setfCosteProducto(fCosteProducto);
-        setsProveedroProducto(sProveedroProducto);
+        setsProveedorProducto(sProveedorProducto);
         setsDescripcionProducto(sDescripcionProducto);
     }
 
@@ -70,13 +70,13 @@ public class Producto implements IProducto, IPlantilla {
         }
     }
 
-    public String getsProveedroProducto() {
-        return sProveedroProducto;
+    public String getsProveedorProducto() {
+        return sProveedorProducto;
     }
 
-    public void setsProveedroProducto(String sProveedroProducto) {
-        if (sProveedroProducto != null && !sProveedroProducto.isEmpty() && sProveedroProducto.length() < BMAXNOMBRELARGO){
-            this.sProveedroProducto = sProveedroProducto;
+    public void setsProveedorProducto(String sProveedorProducto) {
+        if (sProveedorProducto != null && !sProveedorProducto.isEmpty() && sProveedorProducto.length() < BMAXNOMBRELARGO){
+            this.sProveedorProducto = sProveedorProducto;
         }
     }
 
@@ -125,8 +125,8 @@ public class Producto implements IProducto, IPlantilla {
             if (fCosteProducto < IMAXPRECIO && fCosteProducto > 0) {
                 sMensaje += "\n Coste: " + this.getfCosteProducto() + "€";
             }
-            if (this.getsProveedroProducto() != null && this.getsProveedroProducto().isEmpty()) {
-                sMensaje += "\n Proveedor: " + this.getsProveedroProducto();
+            if (this.getsProveedorProducto() != null && this.getsProveedorProducto().isEmpty()) {
+                sMensaje += "\n Proveedor: " + this.getsProveedorProducto();
             }
             if (this.getsDescripcionProducto() != null && !this.getsDescripcionProducto().isEmpty()) {
                 sMensaje += "\n Descripcion: " + this.getsDescripcionProducto();

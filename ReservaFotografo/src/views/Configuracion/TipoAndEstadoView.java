@@ -109,7 +109,7 @@ public class TipoAndEstadoView implements IPlantilla {
 		sNombreTipoSesion = Libreria.primeraMayus(sNombreTipoSesion);
 
 		try {
-			shDuracionTipoSesion = (short) (Libreria.leer("Introduce un nombre *", 0, SHMAXDURACION, -1, -1, (byte) 2));
+			shDuracionTipoSesion = (short) (Libreria.leer("Introduce una duracion *", 0, SHMAXDURACION, -1, -1, (byte) 2));
 		} catch (Exception e) {
 			shDuracionTipoSesion = -1;
 		}

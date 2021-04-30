@@ -25,7 +25,6 @@
     - Creación de los metodos en la vista y controlador de los CRUD básicos en PL/SQL
         - Estado (Se ha terminado la VIEW)
         - Productos (Producto y Pack)
-        - Lugar ( y sus subclases y NM) POR HACER!!!!!!!!!!!!!!!!!!!!!!
         - Implementacion del metodo listar en controllers y vistas de la clases ya creadas.
     - Se ha arreglado y/o cambiado algunos errores o para mejorar los modelos
         - Se han cambiado los modelos de Producto y Pack para eliminar la necesidad de Ids. Clases afectadas

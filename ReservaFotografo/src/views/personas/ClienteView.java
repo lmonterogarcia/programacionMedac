@@ -76,7 +76,7 @@ public class ClienteView implements IPlantilla {
 					}
 				}
 			} else {
-				System.out.println("No existen productos en la base de datos.");
+				System.out.println("No existen clientes en la base de datos.");
 			}
 			break;
 		}

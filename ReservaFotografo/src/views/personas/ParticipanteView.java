@@ -1,6 +1,7 @@
 package views.personas;
 
 import java.time.*;
+import java.util.List;
 import java.util.regex.Pattern;
 
 import controllers.Controller;
@@ -18,8 +19,9 @@ public class ParticipanteView implements IPlantilla {
         System.out.println("2. Modificar");
         System.out.println("3. Buscar usuario por dni");
         System.out.println("4. Borrar");
-        System.out.println("5. Volver atras");
-        return (byte) Libreria.leer("Introduce una opcion", 1, 5, -1, -1, (byte) 1);
+        System.out.println("5. Listar participantes");
+        System.out.println("6. Volver atras");
+        return (byte) Libreria.leer("Introduce una opcion", 1, 6, -1, -1, (byte) 1);
     }
 
     public static void gestionParticipante(Controller oCtrl) {
@@ -52,6 +54,30 @@ public class ParticipanteView implements IPlantilla {
                 System.out.println("El participante ha sido eliminado con exito.");
             } else {
                 System.out.println("El participante no se ha podido eliminar.");
+            }
+            break;
+        case 5: // Listar Participante
+            List<Participante> oListaParticipante = listarParticipante(oCtrl);
+            if (oListaParticipante != null && !oListaParticipante.isEmpty()) {
+                System.out.println("\n## Lista de participantes ##");
+                for (Participante oParL : oListaParticipante) {
+                    System.out.println(
+                            "Id: " + oParL.getiIdContacto() + " - DNI: " + oParL.getsDniContacto() + " - Nombre: "
+                                    + oParL.getsNombreContacto() + " " + oParL.getsApellido1Contacto() + " - Email: "
+                                    + oParL.getsEmailParticipante() + " - Telefono: " + oParL.getsTelefonoContacto());
+                }
+                if (String.valueOf(
+                        Libreria.leer("¿Quiere mas informacion de algun Participante? (s/n) ", -1, -1, -1, -1, (byte) 7))
+                        .equalsIgnoreCase("s")) {
+                    Participante oPar = searchByDni(oCtrl);
+                    if (oPar != null) {
+                        System.out.println(oPar);
+                    } else {
+                        System.out.println("El participante no existe en la base de datos.");
+                    }
+                }
+            } else {
+                System.out.println("No existen participantes en la base de datos.");
             }
             break;
         }
@@ -106,7 +132,7 @@ public class ParticipanteView implements IPlantilla {
                 sApellido2Contacto, sTelefonoContacto, oFechaNacimientoContacto, sEmailParticipante));
     }
 
-    private static boolean update(Controller oCtrl) { 
+    private static boolean update(Controller oCtrl) {
         String sDniContacto, sNombreContacto, sApellido1Contacto, sApellido2Contacto, sTelefonoContacto,
                 sEmailParticipante, sFechaNacimiento;
         int iDia, iMes, iAnio;
@@ -124,12 +150,12 @@ public class ParticipanteView implements IPlantilla {
             do {
                 sDniContacto = String.valueOf(Libreria.leer(
                         "Introduce un dni (" + oParticipante.getsDniContacto() + ")", 0, BMAXDNI, -1, -1, (byte) 6));
-                        if (oCtrl.getoParticipanteCtrl().searchByPk(new Participante(1, sDniContacto)) != null) {
-                            System.out.println("\nEste dni ya esta siendo utilizado en la base de datos");
-                            booDni = false;
-                        } else {
-                            booDni = true;
-                        }
+                if (oCtrl.getoParticipanteCtrl().searchByPk(new Participante(1, sDniContacto)) != null) {
+                    System.out.println("\nEste dni ya esta siendo utilizado en la base de datos");
+                    booDni = false;
+                } else {
+                    booDni = true;
+                }
             } while (!sDniContacto.isEmpty() && sDniContacto.length() != BMAXDNI && !booDni);
             oParticipante.setsDniContacto(sDniContacto);
 
@@ -162,9 +188,8 @@ public class ParticipanteView implements IPlantilla {
             oParticipante.setsTelefonoContacto(sTelefonoContacto);
 
             do {
-                sEmailParticipante = String
-                        .valueOf(Libreria.leer("Introduce un email (" + oParticipante.getsEmailParticipante() + ")",
-                                0, 9, -1, -1, (byte) 6));
+                sEmailParticipante = String.valueOf(Libreria.leer(
+                        "Introduce un email (" + oParticipante.getsEmailParticipante() + ")", 0, 9, -1, -1, (byte) 6));
             } while (!sEmailParticipante.isEmpty() && sEmailParticipante.length() != 9);
             oParticipante.setsEmailParticipante(sEmailParticipante);
 
@@ -219,5 +244,8 @@ public class ParticipanteView implements IPlantilla {
         }
         return bExito;
     }
-    
+
+    public static List<Participante> listarParticipante(Controller oCtrl) {
+        return oCtrl.getoParticipanteCtrl().listar();
+    }
 }

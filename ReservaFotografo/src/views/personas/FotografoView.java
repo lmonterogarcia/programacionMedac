@@ -1,12 +1,14 @@
 package views.personas;
 
+import java.util.List;
+
 import controllers.Controller;
 import models.IPlantilla;
 import models.personas.Fotografo;
 import views.Libreria;
 
-public class FotografoView implements IPlantilla{
-    public static byte subMenuFotografo() {
+public class FotografoView implements IPlantilla {
+	public static byte subMenuFotografo() {
 		System.out.println("");
 		System.out.println("-----------------------");
 		System.out.println("Gestion de fotografo");
@@ -15,7 +17,8 @@ public class FotografoView implements IPlantilla{
 		System.out.println("2. Modificar");
 		System.out.println("3. Buscar fotografo por dni");
 		System.out.println("4. Borrar");
-		System.out.println("5. Volver atras");
+		System.out.println("5. Listar Fotografos");
+		System.out.println("6. Volver atras");
 		return (byte) Libreria.leer("Introduce una opcion", 1, 5, -1, -1, (byte) 1);
 	}
 
@@ -51,6 +54,18 @@ public class FotografoView implements IPlantilla{
 				System.out.println("El fotografo no se ha podido eliminar.");
 			}
 			break;
+		case 5: // Listar
+			List<Fotografo> lFotografos = listarFotografo(oCtrl);
+			if (lFotografos != null && !lFotografos.isEmpty()) {
+				System.out.println("\n### Lista de tipo de fotografos ###");
+				for (Fotografo oFotL : lFotografos) {
+					System.out.println(" Nombre de fotografo: " + oFotL.getsNombreFotografo()
+							+ " - DNI: " + oFotL.getsDniFotografo());
+				}
+			} else {
+				System.out.println("No hay ninguna fotografos");
+			}
+			break;
 		}
 	}
 
@@ -63,9 +78,9 @@ public class FotografoView implements IPlantilla{
 			sDniFotgrafo = String.valueOf(Libreria.leer("Introduce un dni *", 1, BMAXDNI, -1, -1, (byte) 6));
 		} while (!sDniFotgrafo.isEmpty() && sDniFotgrafo.length() != BMAXDNI);
 		do {
-			sNombreFotografo = String.valueOf(Libreria.leer("Introduce un nombre *", 1, BMAXNOMBRELARGO, -1, -1, (byte) 6));
+			sNombreFotografo = String
+					.valueOf(Libreria.leer("Introduce un nombre *", 1, BMAXNOMBRELARGO, -1, -1, (byte) 6));
 		} while (!sNombreFotografo.isEmpty() && sNombreFotografo.length() > BMAXNOMBRELARGO);
-		
 
 		return oCtrl.getoFotografoCtrl().add(new Fotografo(sDniFotgrafo, sNombreFotografo));
 	}
@@ -84,15 +99,14 @@ public class FotografoView implements IPlantilla{
 
 				do {
 					sNombreFotografo = String
-							.valueOf(Libreria.leer("Introduce un nombre (" + oFotografo.getsNombreFotografo() + ") *", 0,
-									BMAXNOMBRE, -1, -1, (byte) 6));
+							.valueOf(Libreria.leer("Introduce un nombre (" + oFotografo.getsNombreFotografo() + ") *",
+									0, BMAXNOMBRE, -1, -1, (byte) 6));
 				} while (!sNombreFotografo.isEmpty() && sNombreFotografo.length() > BMAXNOMBRE);
 				oFotografo.setsNombreFotografo(sNombreFotografo);
 
 				booExito = oCtrl.getoFotografoCtrl().update(oFotografo);
 			}
 		}
-		
 
 		return booExito;
 	}
@@ -110,5 +124,9 @@ public class FotografoView implements IPlantilla{
 			bExito = oCtrl.getoFotografoCtrl().remove(oFotografo);
 		}
 		return bExito;
+	}
+
+	public static List<Fotografo> listarFotografo(Controller oCtrl) {
+		return oCtrl.getoFotografoCtrl().listar();
 	}
 }

@@ -174,7 +174,6 @@ public class EmpresaView implements IPlantilla {
 
 	public static List<Empresa> listarEmpresa(Controller oCtrl) {
 		return oCtrl.getConfiguracionCtrl().getoEmpresaCtrl().listar();
-
 	}
 
 }

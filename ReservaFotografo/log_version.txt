@@ -29,11 +29,11 @@
     - Se ha arreglado y/o cambiado algunos errores o para mejorar los modelos
         - Se han cambiado los modelos de Producto y Pack para eliminar la necesidad de Ids. Clases afectadas
             Producto, Pack y PackProducto.
-        - Se ha cambiado el modo de pasar oConnection entre clases. 
-            - Se ha cambiado getoConnectio y excecuteProcedure a static. 
-            - Se han cambiado todos los metodos que utilizaban estos dos metodos, 
-                ademas de cambiar como las vistas llaman a los controller.
-    - Se han creado los metodos UNIVERSALES en PL/MYSQL!!!.
+    - Se ha cambiado el modo de pasar oConnection entre clases. 
+        - Se ha cambiado getoConnectio y excecuteProcedure a static. 
+        - Se han cambiado todos los metodos que utilizaban estos dos metodos, 
+            ademas de cambiar como las vistas llaman a los controller.
+    - Se han creado los metodos UNIVERSALES en PL/'MY'SQL!!!.
         - listar. Lista cualquier tabla que le indiques.
         - remove. Borra cualquier registro de cualquier tabla que le indiques(VARCHAR y INTEGER).
         - serach_by. Busca un registro de cualquier tabla desde cualquier campo que le indiques(VARCHAR y INTEGER).

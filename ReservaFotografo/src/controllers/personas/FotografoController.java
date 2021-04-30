@@ -1,6 +1,7 @@
 package controllers.personas;
 
 import java.sql.*;
+import java.util.*;
 
 import controllers.Controller;
 import controllers.ICrudController;
@@ -118,5 +119,24 @@ public class FotografoController implements ICrudController<Fotografo>{
 		}
 
 		return oFotografoResult;
+	}
+
+	public List<Fotografo> listar(){
+		List<Fotografo> lFotografos = new ArrayList<Fotografo>();
+		try {
+
+			CallableStatement statement = Controller.getConnection().prepareCall("{call listar('Fotografo')}");
+			ResultSet rs = statement.executeQuery();
+			while (rs.next()) {
+				Fotografo oFotografo = new Fotografo(rs.getString(1));
+				oFotografo.setsNombreFotografo(rs.getString(2));
+				lFotografos.add(oFotografo);
+			}
+			statement.close();
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+			System.out.println(ex);
+		}
+		return lFotografos;
 	}
 }

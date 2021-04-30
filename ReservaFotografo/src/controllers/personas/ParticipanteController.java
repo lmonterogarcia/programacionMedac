@@ -1,6 +1,8 @@
 package controllers.personas;
 
 import java.sql.*;
+import java.sql.Date;
+import java.util.*;
 
 import controllers.Controller;
 import models.personas.Participante;
@@ -219,4 +221,27 @@ public class ParticipanteController {
 
         return oParticipanteResult;
     }
+
+    public List<Participante> listar(){
+		List<Participante> lParticipantes = new ArrayList<Participante>();
+		try {
+
+			CallableStatement statement = Controller.getConnection().prepareCall("{call listar('Participante')}");
+			ResultSet rs = statement.executeQuery();
+			while (rs.next()) {
+				Participante oParticipante = new Participante(rs.getInt(1));
+				oParticipante.setsDniContacto(rs.getString(3));
+				oParticipante.setsNombreContacto(rs.getString(4));
+				oParticipante.setsApellido1Contacto(rs.getString(5));
+				oParticipante.setsTelefonoContacto(rs.getString(7));
+				oParticipante.setsEmailParticipante(rs.getString(9));
+				lParticipantes.add(oParticipante);
+			}
+			statement.close();
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+			System.out.println(ex);
+		}
+		return lParticipantes;
+	}
 }

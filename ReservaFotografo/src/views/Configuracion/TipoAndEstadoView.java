@@ -66,7 +66,7 @@ public class TipoAndEstadoView implements IPlantilla {
 		case 5: // Listar
 			List<TipoSesion> lTipoSesions = listarTipoSesion(oCtrl);
 			if (lTipoSesions != null && !lTipoSesions.isEmpty()) {
-				System.out.println("### Lista de tipo de sesiones ###");
+				System.out.println("\n### Lista de tipo de sesiones ###");
 				for (TipoSesion oTiSeL : lTipoSesions) {
 					System.out.println(" Nombre de la sesion: " + oTiSeL.getsNombreTipoSesion()
 							+ " - Duracion de la sesion: " + oTiSeL.getShDuracionTipoSesion() + " min");
@@ -108,7 +108,7 @@ public class TipoAndEstadoView implements IPlantilla {
 		case 10: // Listar
 			List<Estado> lEstados = listarEstado(oCtrl);
 			if (lEstados != null && !lEstados.isEmpty()) {
-				System.out.println("### Lista de estados ###");
+				System.out.println("\n### Lista de estados ###");
 				for (Estado oEst : lEstados) {
 					System.out.println(" Nombre del estado de sesion: " + oEst.getsNombreEstado());
 				}

@@ -59,7 +59,7 @@ public class ClienteView implements IPlantilla {
 		case 5: // Listar Cliente
 			List<Cliente> oListaCliente = listarCliente(oCtrl);
 			if (oListaCliente != null && !oListaCliente.isEmpty()) {
-				System.out.println("## Lista de productos ##");
+				System.out.println("\n## Lista de clientes ##");
 				for (Cliente oCliL : oListaCliente) {
 					System.out.println("Id: " + oCliL.getiIdContacto() + " - DNI: " + oCliL.getsDniContacto()
 							+ " - Nombre: " + oCliL.getsNombreContacto() + " " + oCliL.getsApellido1Contacto() + " - Email: "

@@ -60,7 +60,7 @@ public class EmpresaView implements IPlantilla {
 		case 5: // Listar
 			List<Empresa> lEmpresas = listarEmpresa(oCtrl);
 			if (lEmpresas != null && !lEmpresas.isEmpty()) {
-				System.out.println("### Lista de empresas ###");
+				System.out.println("\n### Lista de empresas ###");
 				for (Empresa oEmpL : lEmpresas) {
 					System.out.println(
 							" Nombre de empresa: " + oEmpL.getsNombreEmpresa() + " - Cif o Nif: " + oEmpL.getsCifNif());

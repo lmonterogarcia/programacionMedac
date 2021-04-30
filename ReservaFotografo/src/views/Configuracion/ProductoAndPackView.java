@@ -66,7 +66,7 @@ public class ProductoAndPackView implements IPlantilla {
 		case 5: // Listar Producto
 			List<Producto> oListaProducto = listarProducto(oCtrl);
 			if (oListaProducto != null && !oListaProducto.isEmpty()) {
-				System.out.println("## Lista de productos ##");
+				System.out.println("\n## Lista de productos ##");
 				for (Producto oPro : oListaProducto) {
 					System.out.println(
 							"Nombre: " + oPro.getsNombreProducto() + " - Precio: " + oPro.getfPrecioProducto());
@@ -118,7 +118,7 @@ public class ProductoAndPackView implements IPlantilla {
 		case 10: // Listar Pack
 			List<Pack> oListaPack = listarPack(oCtrl);
 			if (oListaPack != null && !oListaPack.isEmpty()) {
-				System.out.println("## Lista de pack ##");
+				System.out.println("\n## Lista de pack ##");
 				for (Pack oPac : oListaPack) {
 					System.out.println("Nombre: " + oPac.getsNombrePack() + " - Precio: " + oPac.getfPrecioPack());
 				}

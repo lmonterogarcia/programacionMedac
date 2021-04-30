@@ -82,7 +82,7 @@ public class ProductoAndPackView implements IPlantilla {
 					}
 				}
 			} else {
-				System.out.println("No existen clientes con esa direccion.");
+				System.out.println("No existen productos en la base de datos.");
 			}
 			break;
 		case 6: // Alta de Pack
@@ -133,7 +133,7 @@ public class ProductoAndPackView implements IPlantilla {
 					}
 				}
 			} else {
-				System.out.println("No existen pack con esa direccion.");
+				System.out.println("No existen packs en la base de datos.");
 			}
 			break;
 		default:

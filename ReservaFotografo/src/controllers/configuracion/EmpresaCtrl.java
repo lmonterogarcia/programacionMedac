@@ -91,7 +91,7 @@ public class EmpresaCtrl implements controllers.ICrudController<Empresa>{
 
 			CallableStatement statement = Controller.getConnection().prepareCall("{call listar('Empresa')}");
 			ResultSet rs = statement.executeQuery();
-			if (rs.next()) {
+			while (rs.next()) {
 				Empresa oEmpresa = new Empresa(rs.getString(1));
 				oEmpresa.setsNombreEmpresa(rs.getString(2));
 				oEmpresa.setsEmailEmpresa(rs.getString(3));

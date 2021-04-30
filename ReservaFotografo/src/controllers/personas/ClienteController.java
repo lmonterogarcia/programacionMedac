@@ -4,6 +4,8 @@ package controllers.personas;
 import models.lugar.Lugar;
 import models.personas.*;
 import java.sql.*;
+import java.sql.Date;
+import java.util.*;
 
 import controllers.Controller;
 
@@ -225,6 +227,29 @@ public class ClienteController implements controllers.ICrudController<Cliente> {
 		}
 
 		return oClienteResult;
+	}
+
+	public List<Cliente> listar(){
+		List<Cliente> lClientes = new ArrayList<Cliente>();
+		try {
+
+			CallableStatement statement = Controller.getConnection().prepareCall("{call listar('Cliente')}");
+			ResultSet rs = statement.executeQuery();
+			while (rs.next()) {
+				Cliente oCliente = new Cliente(rs.getInt(1));
+				oCliente.setsDniContacto(rs.getString(3));
+				oCliente.setsNombreContacto(rs.getString(4));
+				oCliente.setsApellido1Contacto(rs.getString(5));
+				oCliente.setsTelefonoContacto(rs.getString(7));
+				oCliente.setoUsuario(new Usuario(rs.getString(9)));
+				lClientes.add(oCliente);
+			}
+			statement.close();
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+			System.out.println(ex);
+		}
+		return lClientes;
 	}
 
 }

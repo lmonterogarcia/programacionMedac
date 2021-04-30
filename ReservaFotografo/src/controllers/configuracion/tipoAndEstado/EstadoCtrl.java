@@ -83,7 +83,7 @@ public class EstadoCtrl {
 
 			CallableStatement statement = Controller.getConnection().prepareCall("{call listar('Estado')}");
 			ResultSet rs = statement.executeQuery();
-			if (rs.next()) {
+			while (rs.next()) {
 				Estado oEstado = new Estado(rs.getString(1));
 				lEstados.add(oEstado);
 			}

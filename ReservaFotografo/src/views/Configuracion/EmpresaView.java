@@ -57,7 +57,7 @@ public class EmpresaView implements IPlantilla {
 				System.out.println("La empresa no se ha podido eliminar.");
 			}
 			break;
-		case 5: // Borrar
+		case 5: // Listar
 			List<Empresa> lEmpresas = listarEmpresa(oCtrl);
 			if (lEmpresas != null && !lEmpresas.isEmpty()) {
 				System.out.println("### Lista de empresas ###");

@@ -83,7 +83,7 @@ public class TipoSesionCtrl {
 
 			CallableStatement statement = Controller.getConnection().prepareCall("{call listar('TipoSesion')}");
 			ResultSet rs = statement.executeQuery();
-			if (rs.next()) {
+			while (rs.next()) {
 				TipoSesion oTipoSesion = new TipoSesion(rs.getString(1));
 				oTipoSesion.setShDuracionTipoSesion(rs.getShort(2));
 				lTipoSesiones.add(oTipoSesion);

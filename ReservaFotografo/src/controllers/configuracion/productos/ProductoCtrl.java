@@ -85,7 +85,7 @@ public class ProductoCtrl {
 
 			CallableStatement statement = Controller.getConnection().prepareCall("{call listar('Producto')}");
 			ResultSet rs = statement.executeQuery();
-			if (rs.next()) {
+			while (rs.next()) {
 				Producto oProducto = new Producto(rs.getString(1));
 				oProducto.setfPrecioProducto(rs.getFloat(2));
 				oProducto.setfCosteProducto(rs.getFloat(3));

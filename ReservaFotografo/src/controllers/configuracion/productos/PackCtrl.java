@@ -84,7 +84,7 @@ public class PackCtrl {
 
 			CallableStatement statement = Controller.getConnection().prepareCall("{call listar('Pack')}");
 			ResultSet rs = statement.executeQuery();
-			if (rs.next()) {
+			while (rs.next()) {
 				Pack oPack = new Pack(rs.getString(1));
 				oPack.setfPrecioPack(rs.getFloat(2));
 				oPack.setsDescripcionPack(rs.getString(3));

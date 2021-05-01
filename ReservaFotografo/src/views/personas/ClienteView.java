@@ -25,7 +25,11 @@ public class ClienteView implements IPlantilla {
 	}
 
 	public static void gestionClientes(Controller oCtrl) {
-		switch (ClienteView.subMenuClientes()) {
+		byte bOpcion;
+		do {
+			bOpcion = subMenuClientes();
+		} while (bOpcion != 11);
+		switch (bOpcion) {
 		case 1: // Alta de cliente
 			if (create(oCtrl)) {
 				System.out.println("El cliente ha sido creado con exito.");

@@ -32,113 +32,116 @@ public class ProductoAndPackView implements IPlantilla {
 	}
 
 	public static void gestionProductoAndPack(Controller oCtrl) {
-		switch (subMenuProductoAndPack()) {
-		case 1: // Alta del Producto
-			if (createProducto(oCtrl)) {
-				System.out.println("El producto ha sido creada con exito.");
-			} else {
-				System.out.println("El producto no se ha podido crear.");
-			}
-			break;
-		case 2: // Modificar Producto
-			if (updateProducto(oCtrl)) {
-				System.out.println("El producto ha sido modificado con exito.");
-			} else {
-				System.out.println("El producto no se ha podido modificar.");
-			}
-			break;
-		case 3: // Buscar Producto
-			Producto oProducto = searchByNombreProducto(oCtrl);
-			if (oProducto != null) {
-				System.out.println("El producto buscado existe en la base de datos.");
-				System.out.println(oProducto);
-			} else {
-				System.out.println("El producto no existe en la base de datos.");
-			}
-			break;
-		case 4: // Borrar Producto
-			if (removeProducto(oCtrl)) {
-				System.out.println("El producto ha sido eliminado con exito.");
-			} else {
-				System.out.println("El producto no se ha podido eliminar.");
-			}
-			break;
-		case 5: // Listar Producto
-			List<Producto> oListaProducto = listarProducto(oCtrl);
-			if (oListaProducto != null && !oListaProducto.isEmpty()) {
-				System.out.println("\n## Lista de productos ##");
-				for (Producto oPro : oListaProducto) {
-					System.out.println(
-							"Nombre: " + oPro.getsNombreProducto() + " - Precio: " + oPro.getfPrecioProducto());
-				}
-				if (String.valueOf(
-						Libreria.leer("¿Quiere mas informacion de algun producto? (s/n) ", -1, -1, -1, -1, (byte) 7))
-						.equalsIgnoreCase("s")) {
-					Producto oProL = searchByNombreProducto(oCtrl);
-					if (oProL != null) {
-						System.out.println(oProL);
+		byte bOpcion;
+		do {
+			bOpcion = subMenuProductoAndPack();
+			switch (bOpcion) {
+				case 1: // Alta del Producto
+					if (createProducto(oCtrl)) {
+						System.out.println("El producto ha sido creada con exito.");
 					} else {
-						System.out.println("El prodcuto no existe en la base de datos.");
+						System.out.println("El producto no se ha podido crear.");
 					}
-				}
-			} else {
-				System.out.println("No existen productos en la base de datos.");
-			}
-			break;
-		case 6: // Alta de Pack
-			if (createPack(oCtrl)) {
-				System.out.println("El pack ha sido creado con exito.");
-			} else {
-				System.out.println("El pack no se ha podido crear.");
-			}
-			break;
-		case 7: // Modificar Pack
-			if (updatePack(oCtrl)) {
-				System.out.println("El pack ha sido modificado con exito.");
-			} else {
-				System.out.println("El pack no se ha podido modificar.");
-			}
-			break;
-		case 8: // Buscar Pack
-			Pack oPack = searchByNombrePack(oCtrl);
-			if (oPack != null) {
-				System.out.println("El pack buscado existe en la base de datos.");
-				System.out.println(oPack);
-			} else {
-				System.out.println("El pack no existe en la base de datos.");
-			}
-			break;
-		case 9: // Borrar Pack
-			if (removePack(oCtrl)) {
-				System.out.println("El pack ha sido eliminado con exito.");
-			} else {
-				System.out.println("El pack no se ha podido eliminar.");
-			}
-			break;
-		case 10: // Listar Pack
-			List<Pack> oListaPack = listarPack(oCtrl);
-			if (oListaPack != null && !oListaPack.isEmpty()) {
-				System.out.println("\n## Lista de pack ##");
-				for (Pack oPac : oListaPack) {
-					System.out.println("Nombre: " + oPac.getsNombrePack() + " - Precio: " + oPac.getfPrecioPack());
-				}
-				if (String.valueOf(
-						Libreria.leer("¿Quiere mas informacion de algun pack? (s/n) ", -1, -1, -1, -1, (byte) 7))
-						.equalsIgnoreCase("s")) {
-					Pack oPackL = searchByNombrePack(oCtrl);
-					if (oPackL != null) {
-						System.out.println(oPackL);
+					break;
+				case 2: // Modificar Producto
+					if (updateProducto(oCtrl)) {
+						System.out.println("El producto ha sido modificado con exito.");
+					} else {
+						System.out.println("El producto no se ha podido modificar.");
+					}
+					break;
+				case 3: // Buscar Producto
+					Producto oProducto = searchByNombreProducto(oCtrl);
+					if (oProducto != null) {
+						System.out.println("El producto buscado existe en la base de datos.");
+						System.out.println(oProducto);
+					} else {
+						System.out.println("El producto no existe en la base de datos.");
+					}
+					break;
+				case 4: // Borrar Producto
+					if (removeProducto(oCtrl)) {
+						System.out.println("El producto ha sido eliminado con exito.");
+					} else {
+						System.out.println("El producto no se ha podido eliminar.");
+					}
+					break;
+				case 5: // Listar Producto
+					List<Producto> oListaProducto = listarProducto(oCtrl);
+					if (oListaProducto != null && !oListaProducto.isEmpty()) {
+						System.out.println("\n## Lista de productos ##");
+						for (Producto oPro : oListaProducto) {
+							System.out.println(
+									"Nombre: " + oPro.getsNombreProducto() + " - Precio: " + oPro.getfPrecioProducto());
+						}
+						if (String.valueOf(Libreria.leer("¿Quiere mas informacion de algun producto? (s/n) ", -1, -1,
+								-1, -1, (byte) 7)).equalsIgnoreCase("s")) {
+							Producto oProL = searchByNombreProducto(oCtrl);
+							if (oProL != null) {
+								System.out.println(oProL);
+							} else {
+								System.out.println("El prodcuto no existe en la base de datos.");
+							}
+						}
+					} else {
+						System.out.println("No existen productos en la base de datos.");
+					}
+					break;
+				case 6: // Alta de Pack
+					if (createPack(oCtrl)) {
+						System.out.println("El pack ha sido creado con exito.");
+					} else {
+						System.out.println("El pack no se ha podido crear.");
+					}
+					break;
+				case 7: // Modificar Pack
+					if (updatePack(oCtrl)) {
+						System.out.println("El pack ha sido modificado con exito.");
+					} else {
+						System.out.println("El pack no se ha podido modificar.");
+					}
+					break;
+				case 8: // Buscar Pack
+					Pack oPack = searchByNombrePack(oCtrl);
+					if (oPack != null) {
+						System.out.println("El pack buscado existe en la base de datos.");
+						System.out.println(oPack);
 					} else {
 						System.out.println("El pack no existe en la base de datos.");
 					}
-				}
-			} else {
-				System.out.println("No existen packs en la base de datos.");
+					break;
+				case 9: // Borrar Pack
+					if (removePack(oCtrl)) {
+						System.out.println("El pack ha sido eliminado con exito.");
+					} else {
+						System.out.println("El pack no se ha podido eliminar.");
+					}
+					break;
+				case 10: // Listar Pack
+					List<Pack> oListaPack = listarPack(oCtrl);
+					if (oListaPack != null && !oListaPack.isEmpty()) {
+						System.out.println("\n## Lista de pack ##");
+						for (Pack oPac : oListaPack) {
+							System.out.println(
+									"Nombre: " + oPac.getsNombrePack() + " - Precio: " + oPac.getfPrecioPack());
+						}
+						if (String.valueOf(Libreria.leer("¿Quiere mas informacion de algun pack? (s/n) ", -1, -1, -1,
+								-1, (byte) 7)).equalsIgnoreCase("s")) {
+							Pack oPackL = searchByNombrePack(oCtrl);
+							if (oPackL != null) {
+								System.out.println(oPackL);
+							} else {
+								System.out.println("El pack no existe en la base de datos.");
+							}
+						}
+					} else {
+						System.out.println("No existen packs en la base de datos.");
+					}
+					break;
+				default:
+					break;
 			}
-			break;
-		default:
-			break;
-		}
+		} while (bOpcion != 11);
 	}
 
 	// ########### Producto ##############

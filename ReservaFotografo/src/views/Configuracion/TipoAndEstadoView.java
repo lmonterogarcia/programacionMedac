@@ -32,93 +32,97 @@ public class TipoAndEstadoView implements IPlantilla {
 	}
 
 	public static void gestionTipoAndEstado(Controller oCtrl) {
-		switch (subMenuTipoAndEstado()) {
-		case 1: // Alta de Tipo de Sesion
-			if (createTipoSesion(oCtrl)) {
-				System.out.println("El tipo sesion ha sido creada con exito.");
-			} else {
-				System.out.println("El tipo sesion no se ha podido crear.");
-			}
-			break;
-		case 2: // Modificar Tipo de Sesion
-			if (updateTipoSesion(oCtrl)) {
-				System.out.println("El tipo sesion ha sido modificado con exito.");
-			} else {
-				System.out.println("El tipo sesion no se ha podido modificar.");
-			}
-			break;
-		case 3: // Buscar Tipo de Sesion
-			TipoSesion oTipoSesion = searchByNombreTipoSesion(oCtrl);
-			if (oTipoSesion != null) {
-				System.out.println("El tipo sesion buscado existe en la base de datos.");
-				System.out.println(oTipoSesion);
-			} else {
-				System.out.println("El tipo sesion no existe en la base de datos.");
-			}
-			break;
-		case 4: // Borrar Tipo de Sesion
-			if (removeTipoSesion(oCtrl)) {
-				System.out.println("El tipo sesion ha sido eliminado con exito.");
-			} else {
-				System.out.println("El tipo sesion no se ha podido eliminar.");
-			}
-			break;
-		case 5: // Listar
-			List<TipoSesion> lTipoSesions = listarTipoSesion(oCtrl);
-			if (lTipoSesions != null && !lTipoSesions.isEmpty()) {
-				System.out.println("\n### Lista de tipo de sesiones ###");
-				for (TipoSesion oTiSeL : lTipoSesions) {
-					System.out.println(" Nombre de la sesion: " + oTiSeL.getsNombreTipoSesion()
-							+ " - Duracion de la sesion: " + oTiSeL.getShDuracionTipoSesion() + " min");
+		byte bOpcion;
+		do {
+			bOpcion = subMenuTipoAndEstado();
+			switch (bOpcion) {
+				case 1: // Alta de Tipo de Sesion
+					if (createTipoSesion(oCtrl)) {
+						System.out.println("El tipo sesion ha sido creada con exito.");
+					} else {
+						System.out.println("El tipo sesion no se ha podido crear.");
+					}
+					break;
+				case 2: // Modificar Tipo de Sesion
+					if (updateTipoSesion(oCtrl)) {
+						System.out.println("El tipo sesion ha sido modificado con exito.");
+					} else {
+						System.out.println("El tipo sesion no se ha podido modificar.");
+					}
+					break;
+				case 3: // Buscar Tipo de Sesion
+					TipoSesion oTipoSesion = searchByNombreTipoSesion(oCtrl);
+					if (oTipoSesion != null) {
+						System.out.println("El tipo sesion buscado existe en la base de datos.");
+						System.out.println(oTipoSesion);
+					} else {
+						System.out.println("El tipo sesion no existe en la base de datos.");
+					}
+					break;
+				case 4: // Borrar Tipo de Sesion
+					if (removeTipoSesion(oCtrl)) {
+						System.out.println("El tipo sesion ha sido eliminado con exito.");
+					} else {
+						System.out.println("El tipo sesion no se ha podido eliminar.");
+					}
+					break;
+				case 5: // Listar
+					List<TipoSesion> lTipoSesions = listarTipoSesion(oCtrl);
+					if (lTipoSesions != null && !lTipoSesions.isEmpty()) {
+						System.out.println("\n### Lista de tipo de sesiones ###");
+						for (TipoSesion oTiSeL : lTipoSesions) {
+							System.out.println(" Nombre de la sesion: " + oTiSeL.getsNombreTipoSesion()
+									+ " - Duracion de la sesion: " + oTiSeL.getShDuracionTipoSesion() + " min");
+						}
+					} else {
+						System.out.println("No hay ninguna empresa");
+					}
+					break;
+				case 6: // Alta de Estado
+					if (createEstado(oCtrl)) {
+						System.out.println("El estado de sesion ha sido creado con exito.");
+					} else {
+						System.out.println("El estado de sesion no se ha podido crear.");
+					}
+					break;
+				case 7: // Modificar Estado
+					if (updateEstado(oCtrl)) {
+						System.out.println("El estado de sesion ha sido modificado con exito.");
+					} else {
+						System.out.println("El estado de sesion no se ha podido modificar.");
+					}
+					break;
+				case 8: // Buscar Estado
+					Estado oEstado = searchByNombreEstado(oCtrl);
+					if (oEstado != null) {
+						System.out.println("El estado de sesion buscado existe en la base de datos.");
+						System.out.println(oEstado);
+					} else {
+						System.out.println("El estado de sesion no existe en la base de datos.");
+					}
+					break;
+				case 9: // Borrar Estado
+					if (removeEstado(oCtrl)) {
+						System.out.println("El estado de sesion ha sido eliminado con exito.");
+					} else {
+						System.out.println("El estado de sesion no se ha podido eliminar.");
+					}
+					break;
+				case 10: // Listar
+					List<Estado> lEstados = listarEstado(oCtrl);
+					if (lEstados != null && !lEstados.isEmpty()) {
+						System.out.println("\n### Lista de estados ###");
+						for (Estado oEst : lEstados) {
+							System.out.println(" Nombre del estado de sesion: " + oEst.getsNombreEstado());
+						}
+					} else {
+						System.out.println("No hay ninguna empresa");
+					}
+					break;
+				default:
+					break;
 				}
-			} else {
-				System.out.println("No hay ninguna empresa");
-			}
-			break;
-		case 6: // Alta de Estado
-			if (createEstado(oCtrl)) {
-				System.out.println("El estado de sesion ha sido creado con exito.");
-			} else {
-				System.out.println("El estado de sesion no se ha podido crear.");
-			}
-			break;
-		case 7: // Modificar Estado
-			if (updateEstado(oCtrl)) {
-				System.out.println("El estado de sesion ha sido modificado con exito.");
-			} else {
-				System.out.println("El estado de sesion no se ha podido modificar.");
-			}
-			break;
-		case 8: // Buscar Estado
-			Estado oEstado = searchByNombreEstado(oCtrl);
-			if (oEstado != null) {
-				System.out.println("El estado de sesion buscado existe en la base de datos.");
-				System.out.println(oEstado);
-			} else {
-				System.out.println("El estado de sesion no existe en la base de datos.");
-			}
-			break;
-		case 9: // Borrar Estado
-			if (removeEstado(oCtrl)) {
-				System.out.println("El estado de sesion ha sido eliminado con exito.");
-			} else {
-				System.out.println("El estado de sesion no se ha podido eliminar.");
-			}
-			break;
-		case 10: // Listar
-			List<Estado> lEstados = listarEstado(oCtrl);
-			if (lEstados != null && !lEstados.isEmpty()) {
-				System.out.println("\n### Lista de estados ###");
-				for (Estado oEst : lEstados) {
-					System.out.println(" Nombre del estado de sesion: " + oEst.getsNombreEstado());
-				}
-			} else {
-				System.out.println("No hay ninguna empresa");
-			}
-			break;
-		default:
-			break;
-		}
+		} while (bOpcion != 11);
 	}
 
 	// ########### Tipo Sesion ##############

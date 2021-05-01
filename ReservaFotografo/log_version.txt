@@ -37,4 +37,10 @@
         - listar. Lista cualquier tabla que le indiques.
         - remove. Borra cualquier registro de cualquier tabla que le indiques(VARCHAR y INTEGER).
         - serach_by. Busca un registro de cualquier tabla desde cualquier campo que le indiques(VARCHAR y INTEGER).
-        
+
+## Version 0.5 ##
+    - Creación de los metodos en la vista y controlador de los CRUD básicos en PL/SQL
+    - Se ha arreglado y/o cambiado algunos errores o para mejorar los modelos
+    - Se ha mejorado el funcionamiento de los Menus en las vistas. Para salir de una vista se tiene
+        que pulsar el numero de salida, no se saldra automaticametne cuando se realice una accion que
+        no sea Salir.

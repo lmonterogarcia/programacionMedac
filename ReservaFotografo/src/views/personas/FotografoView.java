@@ -23,50 +23,55 @@ public class FotografoView implements IPlantilla {
 	}
 
 	public static void gestionFotografo(Controller oCtrl) {
-		switch (FotografoView.subMenuFotografo()) {
-		case 1: // Alta de fotografo
-			if (create(oCtrl)) {
-				System.out.println("El fotografo ha sido creado con exito.");
-			} else {
-				System.out.println("El fotografo no se ha podido crear.");
+		byte bOpcion;
+		do {
+			bOpcion = subMenuFotografo();
+			switch (bOpcion) {
+				case 1: // Alta de fotografo
+					if (create(oCtrl)) {
+						System.out.println("El fotografo ha sido creado con exito.");
+					} else {
+						System.out.println("El fotografo no se ha podido crear.");
+					}
+					break;
+				case 2: // Modificar
+					if (update(oCtrl)) {
+						System.out.println("El fotografo ha sido modificado con exito.");
+					} else {
+						System.out.println("El fotografo no se ha podido modificar.");
+					}
+					break;
+				case 3: // Buscar
+					Fotografo oFotografo = searchByDni(oCtrl);
+					if (oFotografo != null) {
+						System.out.println("El fotografo buscado existe en la base de datos.");
+						System.out.println(oFotografo);
+					} else {
+						System.out.println("El fotografo no existe en la base de datos.");
+					}
+					break;
+				case 4: // Borrar
+					if (remove(oCtrl)) {
+						System.out.println("El fotografo ha sido eliminado con exito.");
+					} else {
+						System.out.println("El fotografo no se ha podido eliminar.");
+					}
+					break;
+				case 5: // Listar
+					List<Fotografo> lFotografos = listarFotografo(oCtrl);
+					if (lFotografos != null && !lFotografos.isEmpty()) {
+						System.out.println("\n### Lista de tipo de fotografos ###");
+						for (Fotografo oFotL : lFotografos) {
+							System.out.println(" Nombre de fotografo: " + oFotL.getsNombreFotografo() + " - DNI: "
+									+ oFotL.getsDniFotografo());
+						}
+					} else {
+						System.out.println("No hay ninguna fotografos");
+					}
+					break;
 			}
-			break;
-		case 2: // Modificar
-			if (update(oCtrl)) {
-				System.out.println("El fotografo ha sido modificado con exito.");
-			} else {
-				System.out.println("El fotografo no se ha podido modificar.");
-			}
-			break;
-		case 3: // Buscar
-			Fotografo oFotografo = searchByDni(oCtrl);
-			if (oFotografo != null) {
-				System.out.println("El fotografo buscado existe en la base de datos.");
-				System.out.println(oFotografo);
-			} else {
-				System.out.println("El fotografo no existe en la base de datos.");
-			}
-			break;
-		case 4: // Borrar
-			if (remove(oCtrl)) {
-				System.out.println("El fotografo ha sido eliminado con exito.");
-			} else {
-				System.out.println("El fotografo no se ha podido eliminar.");
-			}
-			break;
-		case 5: // Listar
-			List<Fotografo> lFotografos = listarFotografo(oCtrl);
-			if (lFotografos != null && !lFotografos.isEmpty()) {
-				System.out.println("\n### Lista de tipo de fotografos ###");
-				for (Fotografo oFotL : lFotografos) {
-					System.out.println(" Nombre de fotografo: " + oFotL.getsNombreFotografo()
-							+ " - DNI: " + oFotL.getsDniFotografo());
-				}
-			} else {
-				System.out.println("No hay ninguna fotografos");
-			}
-			break;
-		}
+		} while (bOpcion != 6);
+		
 	}
 
 	private static boolean create(Controller oCtrl) {

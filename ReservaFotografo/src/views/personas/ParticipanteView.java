@@ -25,62 +25,66 @@ public class ParticipanteView implements IPlantilla {
     }
 
     public static void gestionParticipante(Controller oCtrl) {
-        switch (ParticipanteView.subMenuParticipante()) {
-        case 1: // Alta de particpante
-            if (create(oCtrl)) {
-                System.out.println("El participante ha sido creado con exito.");
-            } else {
-                System.out.println("El participante no se ha podido crear.");
-            }
-            break;
-        case 2: // Modificar
-            if (update(oCtrl)) {
-                System.out.println("El participante ha sido modificado con exito.");
-            } else {
-                System.out.println("El participante no se ha podido modificar.");
-            }
-            break;
-        case 3: // Buscar
-            Participante oParticipante = searchByDni(oCtrl);
-            if (oParticipante != null) {
-                System.out.println("El participante buscado existe en la base de datos.");
-                System.out.println(oParticipante);
-            } else {
-                System.out.println("El participante no existe en la base de datos.");
-            }
-            break;
-        case 4: // Borrar
-            if (remove(oCtrl)) {
-                System.out.println("El participante ha sido eliminado con exito.");
-            } else {
-                System.out.println("El participante no se ha podido eliminar.");
-            }
-            break;
-        case 5: // Listar Participante
-            List<Participante> oListaParticipante = listarParticipante(oCtrl);
-            if (oListaParticipante != null && !oListaParticipante.isEmpty()) {
-                System.out.println("\n## Lista de participantes ##");
-                for (Participante oParL : oListaParticipante) {
-                    System.out.println(
-                            "Id: " + oParL.getiIdContacto() + " - DNI: " + oParL.getsDniContacto() + " - Nombre: "
-                                    + oParL.getsNombreContacto() + " " + oParL.getsApellido1Contacto() + " - Email: "
-                                    + oParL.getsEmailParticipante() + " - Telefono: " + oParL.getsTelefonoContacto());
-                }
-                if (String.valueOf(
-                        Libreria.leer("¿Quiere mas informacion de algun Participante? (s/n) ", -1, -1, -1, -1, (byte) 7))
-                        .equalsIgnoreCase("s")) {
-                    Participante oPar = searchByDni(oCtrl);
-                    if (oPar != null) {
-                        System.out.println(oPar);
+        byte bOpcion;
+        do {
+			bOpcion = subMenuParticipante();
+            switch (bOpcion) {
+                case 1: // Alta de particpante
+                    if (create(oCtrl)) {
+                        System.out.println("El participante ha sido creado con exito.");
+                    } else {
+                        System.out.println("El participante no se ha podido crear.");
+                    }
+                    break;
+                case 2: // Modificar
+                    if (update(oCtrl)) {
+                        System.out.println("El participante ha sido modificado con exito.");
+                    } else {
+                        System.out.println("El participante no se ha podido modificar.");
+                    }
+                    break;
+                case 3: // Buscar
+                    Participante oParticipante = searchByDni(oCtrl);
+                    if (oParticipante != null) {
+                        System.out.println("El participante buscado existe en la base de datos.");
+                        System.out.println(oParticipante);
                     } else {
                         System.out.println("El participante no existe en la base de datos.");
                     }
-                }
-            } else {
-                System.out.println("No existen participantes en la base de datos.");
+                    break;
+                case 4: // Borrar
+                    if (remove(oCtrl)) {
+                        System.out.println("El participante ha sido eliminado con exito.");
+                    } else {
+                        System.out.println("El participante no se ha podido eliminar.");
+                    }
+                    break;
+                case 5: // Listar Participante
+                    List<Participante> oListaParticipante = listarParticipante(oCtrl);
+                    if (oListaParticipante != null && !oListaParticipante.isEmpty()) {
+                        System.out.println("\n## Lista de participantes ##");
+                        for (Participante oParL : oListaParticipante) {
+                            System.out.println("Id: " + oParL.getiIdContacto() + " - DNI: " + oParL.getsDniContacto()
+                                    + " - Nombre: " + oParL.getsNombreContacto() + " " + oParL.getsApellido1Contacto()
+                                    + " - Email: " + oParL.getsEmailParticipante() + " - Telefono: "
+                                    + oParL.getsTelefonoContacto());
+                        }
+                        if (String.valueOf(Libreria.leer("¿Quiere mas informacion de algun Participante? (s/n) ", -1,
+                                -1, -1, -1, (byte) 7)).equalsIgnoreCase("s")) {
+                            Participante oPar = searchByDni(oCtrl);
+                            if (oPar != null) {
+                                System.out.println(oPar);
+                            } else {
+                                System.out.println("El participante no existe en la base de datos.");
+                            }
+                        }
+                    } else {
+                        System.out.println("No existen participantes en la base de datos.");
+                    }
+                    break;
             }
-            break;
-        }
+		} while (bOpcion != 6);
+        
     }
 
     private static boolean create(Controller oCtrl) {

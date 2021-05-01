@@ -26,60 +26,64 @@ public class EmpresaView implements IPlantilla {
 	}
 
 	public static void gestionEmpresa(Controller oCtrl) {
-		switch (subMenuEmpresa()) {
-		case 1: // Alta de empresa
-			if (create(oCtrl)) {
-				System.out.println("La empresa ha sido creado con exito.");
-			} else {
-				System.out.println("La empresa no se ha podido crear.");
-			}
-			break;
-		case 2: // Modificar
-			if (update(oCtrl)) {
-				System.out.println("La empresa ha sido modificado con exito.");
-			} else {
-				System.out.println("La empresa no se ha podido modificar.");
-			}
-			break;
-		case 3: // Buscar
-			Empresa oEmpresa = searchByCifDni(oCtrl);
-			if (oEmpresa != null) {
-				System.out.println("La empresa buscado existe en la base de datos.");
-				System.out.println(oEmpresa);
-			} else {
-				System.out.println("La empresa no existe en la base de datos.");
-			}
-			break;
-		case 4: // Borrar
-			if (remove(oCtrl)) {
-				System.out.println("La empresa ha sido eliminado con exito.");
-			} else {
-				System.out.println("La empresa no se ha podido eliminar.");
-			}
-			break;
-		case 5: // Listar
-			List<Empresa> lEmpresas = listarEmpresa(oCtrl);
-			if (lEmpresas != null && !lEmpresas.isEmpty()) {
-				System.out.println("\n### Lista de empresas ###");
-				for (Empresa oEmpL : lEmpresas) {
-					System.out.println(
-							" Nombre de empresa: " + oEmpL.getsNombreEmpresa() + " - Cif o Nif: " + oEmpL.getsCifNif());
-				}
-				if (String.valueOf(
-						Libreria.leer("¿Quiere mas informacion de alguna empresa? (s/n) ", -1, -1, -1, -1, (byte) 7))
-						.equalsIgnoreCase("s")) {
-					Empresa oEmp = searchByCifDni(oCtrl);
-					if (oEmp != null) {
-						System.out.println(oEmp);
+		byte bOpcion;
+		do {
+			bOpcion = subMenuEmpresa();
+
+			switch (bOpcion) {
+				case 1: // Alta de empresa
+					if (create(oCtrl)) {
+						System.out.println("La empresa ha sido creado con exito.");
+					} else {
+						System.out.println("La empresa no se ha podido crear.");
+					}
+					break;
+				case 2: // Modificar
+					if (update(oCtrl)) {
+						System.out.println("La empresa ha sido modificado con exito.");
+					} else {
+						System.out.println("La empresa no se ha podido modificar.");
+					}
+					break;
+				case 3: // Buscar
+					Empresa oEmpresa = searchByCifDni(oCtrl);
+					if (oEmpresa != null) {
+						System.out.println("La empresa buscado existe en la base de datos.");
+						System.out.println(oEmpresa);
 					} else {
 						System.out.println("La empresa no existe en la base de datos.");
 					}
-				}
-			} else {
-				System.out.println("No hay ninguna empresa");
+					break;
+				case 4: // Borrar
+					if (remove(oCtrl)) {
+						System.out.println("La empresa ha sido eliminado con exito.");
+					} else {
+						System.out.println("La empresa no se ha podido eliminar.");
+					}
+					break;
+				case 5: // Listar
+					List<Empresa> lEmpresas = listarEmpresa(oCtrl);
+					if (lEmpresas != null && !lEmpresas.isEmpty()) {
+						System.out.println("\n### Lista de empresas ###");
+						for (Empresa oEmpL : lEmpresas) {
+							System.out.println(" Nombre de empresa: " + oEmpL.getsNombreEmpresa() + " - Cif o Nif: "
+									+ oEmpL.getsCifNif());
+						}
+						if (String.valueOf(Libreria.leer("¿Quiere mas informacion de alguna empresa? (s/n) ", -1, -1,
+								-1, -1, (byte) 7)).equalsIgnoreCase("s")) {
+							Empresa oEmp = searchByCifDni(oCtrl);
+							if (oEmp != null) {
+								System.out.println(oEmp);
+							} else {
+								System.out.println("La empresa no existe en la base de datos.");
+							}
+						}
+					} else {
+						System.out.println("No hay ninguna empresa");
+					}
+					break;
 			}
-			break;
-		}
+		} while (bOpcion != 6);
 	}
 
 	private static boolean create(Controller oCtrl) {

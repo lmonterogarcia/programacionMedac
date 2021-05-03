@@ -1,0 +1,185 @@
+package views;
+
+import java.io.*;
+import java.util.regex.*;
+
+public class Libreria {
+
+	// La primera letra del mensaje en mayusculas y las demas en minusculas
+	public static String primeraMayus(String sMensaje) {
+		return sMensaje.substring(0, 1).toUpperCase() + sMensaje.substring(1, sMensaje.length()).toLowerCase();
+	}
+
+	// La primera letra de cada palabra en mayusculas
+	public static String todasPrimeraMayus(String sMensaje) {
+		StringBuffer oStrbf = new StringBuffer();
+		Matcher match = Pattern.compile("([a-z])([a-z]*)", Pattern.CASE_INSENSITIVE).matcher(sMensaje);
+		while (match.find()) {
+			match.appendReplacement(oStrbf, match.group(1).toUpperCase() + match.group(2).toLowerCase());
+		}
+		return match.appendTail(oStrbf).toString();
+	}
+
+	// Metodo Leer
+	public static Object leer(String sMensaje, long lMinimo, long lMaximo, double dMinimo, double dMaximo,
+			byte bEstado) {
+		Object oNumero;
+		switch (bEstado) {
+		case 1:
+			oNumero = pideNumeroByte(sMensaje, lMinimo, lMaximo);
+			break;
+		case 2:
+			oNumero = pideNumeroShort(sMensaje, lMinimo, lMaximo);
+			break;
+		case 3:
+			oNumero = pideNumeroInt(sMensaje, lMinimo, lMaximo);
+			break;
+		case 4:
+			oNumero = pideNumeroLong(sMensaje, lMinimo, lMaximo);
+			break;
+		case 5:
+			oNumero = pideNumeroFloat(sMensaje, dMinimo, dMaximo);
+			break;
+		case 6:
+			oNumero = pideString(sMensaje, lMinimo, lMaximo);
+			break;
+		case 7:
+			oNumero = pideChar(sMensaje);
+			break;
+		default:
+			oNumero = -1;
+			break;
+		}
+		return oNumero;
+	}
+
+	private static byte pideNumeroByte(String sMensaje, long lMinimo, long lMaximo) {
+		BufferedReader teclado = new BufferedReader(new InputStreamReader(System.in));
+		byte bNumero = 0;
+		boolean bFallo;
+
+		do {
+			System.out.print(sMensaje + "(" + lMinimo + " - " + lMaximo + "): ");
+			try {
+				bNumero = Byte.parseByte(teclado.readLine());
+				bFallo = false;
+			} catch (Exception e) {
+				bFallo = true;
+			}
+		} while (bFallo || (bNumero < lMinimo || bNumero > lMaximo));
+
+		return bNumero;
+	}
+
+	private static short pideNumeroShort(String sMensaje, long lMinimo, long lMaximo) {
+		BufferedReader teclado = new BufferedReader(new InputStreamReader(System.in));
+		short sNumero = 0;
+		boolean bFallo;
+
+		do {
+			System.out.print(sMensaje + "(" + lMinimo + " - " + lMaximo + "): ");
+			try {
+				sNumero = Short.parseShort(teclado.readLine());
+				bFallo = false;
+			} catch (Exception e) {
+				bFallo = true;
+			}
+		} while (bFallo || (sNumero < lMinimo || sNumero > lMaximo));
+
+		return sNumero;
+	}
+
+	private static int pideNumeroInt(String sMensaje, long lMinimo, long lMaximo) {
+		BufferedReader teclado = new BufferedReader(new InputStreamReader(System.in));
+		int iNumero = 0;
+		boolean bFallo;
+
+		do {
+			System.out.print(sMensaje + "(" + lMinimo + " - " + lMaximo + "): ");
+			try {
+				iNumero = Integer.parseInt(teclado.readLine());
+				bFallo = false;
+			} catch (Exception e) {
+				bFallo = true;
+			}
+		} while (bFallo || (iNumero < lMinimo || iNumero > lMaximo));
+
+		return iNumero;
+	}
+
+	private static long pideNumeroLong(String sMensaje, long lMinimo, long lMaximo) {
+		BufferedReader teclado = new BufferedReader(new InputStreamReader(System.in));
+		long lNumero = 0;
+		boolean bFallo;
+
+		do {
+			System.out.print(sMensaje + "(" + lMinimo + " - " + lMaximo + "): ");
+			try {
+				lNumero = Long.parseLong(teclado.readLine());
+				bFallo = false;
+			} catch (Exception e) {
+				bFallo = true;
+			}
+		} while (bFallo || (lNumero < lMinimo || lNumero > lMaximo));
+
+		return lNumero;
+	}
+
+	private static float pideNumeroFloat(String sMensaje, double dMinimo, double dMaximo) {
+		BufferedReader teclado = new BufferedReader(new InputStreamReader(System.in));
+		float fNumero = 0;
+		boolean bFallo;
+
+		do {
+			System.out.print(sMensaje + "(" + dMinimo + " - " + dMaximo + "): ");
+			try {
+				fNumero = Float.parseFloat(teclado.readLine());
+				bFallo = false;
+			} catch (Exception e) {
+				bFallo = true;
+			}
+		} while (bFallo || (fNumero < dMinimo || fNumero > dMaximo));
+
+		return fNumero;
+	}
+
+	private static String pideString(String sMensaje, long lMinimo, long lMaximo) {
+		BufferedReader teclado = new BufferedReader(new InputStreamReader(System.in));
+		String sFrase = "";
+		boolean bFallo;
+
+		do {
+			System.out.print(sMensaje + ": ");
+			try {
+				sFrase = teclado.readLine();
+				bFallo = false;
+			} catch (Exception e) {
+				bFallo = true;
+			}
+		} while (bFallo || (sFrase.length() < lMinimo || sFrase.length() > lMaximo));
+
+		return sFrase;
+	}
+
+	private static char pideChar(String sMensaje) {
+		BufferedReader teclado = new BufferedReader(new InputStreamReader(System.in));
+		String sCadenaLeida;
+		char cCaracter;
+		boolean booCorrecto;
+
+		do {
+			System.out.print(sMensaje);
+			try {
+				sCadenaLeida = teclado.readLine();
+				cCaracter = sCadenaLeida.charAt(0);
+				booCorrecto = true;
+			} catch (Exception e) {
+				sCadenaLeida = "-1";
+				cCaracter = 'e';
+				booCorrecto = false;
+			}
+		} while (!booCorrecto || sCadenaLeida.length() != 1);
+
+		return cCaracter;
+	}
+}

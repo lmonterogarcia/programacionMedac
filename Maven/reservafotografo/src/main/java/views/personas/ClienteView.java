@@ -83,7 +83,7 @@ public class ClienteView implements IPlantilla {
 			}
 			break;
 		}
-		} while (bOpcion != 11);
+		} while (bOpcion != 6);
 		
 	}
 

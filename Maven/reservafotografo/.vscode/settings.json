@@ -5,5 +5,5 @@
     "java.project.sourcePaths": [
         "src/main/java"
     ],
-    "java.configuration.updateBuildConfiguration": "automatic"
+    "java.configuration.updateBuildConfiguration": "interactive"
 }

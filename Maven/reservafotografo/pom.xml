@@ -50,6 +50,12 @@
       <artifactId>postgresql</artifactId>
       <version>42.2.20</version>
     </dependency>
+    <!-- https://mvnrepository.com/artifact/com.iceolive/stringutil -->
+    <dependency>
+      <groupId>com.iceolive</groupId>
+      <artifactId>stringutil</artifactId>
+      <version>1.1.2</version>
+    </dependency>
   </dependencies>
 
   <build>

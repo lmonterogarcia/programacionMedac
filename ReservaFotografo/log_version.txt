@@ -1,0 +1,46 @@
+ ## Version 0.1 ##
+     - Creación de todos los modelos
+
+## Version 0.2 ##
+    - Creación de los metodos en la vista y controlador de los CRUD básicos en JAVA/SQL
+        - Cliente
+        - Usuario
+        - Fotografo
+    - Se ha arreglado algunos errores en los modelos
+        - Contacto (setsApellido2Contacto())
+
+## Version 0.3 ##
+    - Creación de los metodos en la vista y controlodor de los CRUD básicos en JAVA/SQL
+        - Participante
+    - Creación de los metodos en la vista y controlador de los CRUD básicos en PL/SQL
+        - Empresa 
+        - TipoSesion
+        - Estado (No se ha terminado la VIEW)
+    - Se ha arreglado y/o cambiado algunos errores o para mejorar los modelos
+        - Participante (checkParticipante(), equal())
+        - Lugar. Se ha creado otro construcctor. Lugar(int).
+        - Empresa. Se ha arreglaod un error en setsCifNif().
+
+## Version 0.4 ##
+    - Creación de los metodos en la vista y controlador de los CRUD básicos en PL/SQL
+        - Estado (Se ha terminado la VIEW)
+        - Productos (Producto y Pack)
+        - Implementacion del metodo listar en controllers y vistas de la clases ya creadas.
+    - Se ha arreglado y/o cambiado algunos errores o para mejorar los modelos
+        - Se han cambiado los modelos de Producto y Pack para eliminar la necesidad de Ids. Clases afectadas
+            Producto, Pack y PackProducto.
+    - Se ha cambiado el modo de pasar oConnection entre clases. 
+        - Se ha cambiado getoConnectio y excecuteProcedure a static. 
+        - Se han cambiado todos los metodos que utilizaban estos dos metodos, 
+            ademas de cambiar como las vistas llaman a los controller.
+    - Se han creado los metodos UNIVERSALES en PL/'MY'SQL!!!.
+        - listar. Lista cualquier tabla que le indiques.
+        - remove. Borra cualquier registro de cualquier tabla que le indiques(VARCHAR y INTEGER).
+        - serach_by. Busca un registro de cualquier tabla desde cualquier campo que le indiques(VARCHAR y INTEGER).
+
+## Version 0.5 ##
+    - Creación de los metodos en la vista y controlador de los CRUD básicos en PL/SQL
+    - Se ha arreglado y/o cambiado algunos errores o para mejorar los modelos
+    - Se ha mejorado el funcionamiento de los Menus en las vistas. Para salir de una vista se tiene
+        que pulsar el numero de salida, no se saldra automaticametne cuando se realice una accion que
+        no sea Salir.

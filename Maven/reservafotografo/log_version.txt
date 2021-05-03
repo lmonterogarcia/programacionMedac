@@ -41,6 +41,8 @@
 ## Version 0.5 ##
     - Creación de los metodos en la vista y controlador de los CRUD básicos en PL/SQL
     - Se ha arreglado y/o cambiado algunos errores o para mejorar los modelos
+        - Se ha arreglado un error en un Constructor de Lugar.
     - Se ha mejorado el funcionamiento de los Menus en las vistas. Para salir de una vista se tiene
         que pulsar el numero de salida, no se saldra automaticametne cuando se realice una accion que
         no sea Salir.
+    - Se ha implementado MAVEN

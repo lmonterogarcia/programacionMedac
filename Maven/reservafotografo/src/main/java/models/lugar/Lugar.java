@@ -33,7 +33,7 @@ public class Lugar implements ILugar, IPlantilla {
         setsNombreLugar(sNombreLugar);
         setsGoogleMapLink(sGoogleMapLink);
         setsCalleLugar(sCalleLugar);
-        setsNombreLugar(sNombreLugar);
+        setsNumeroLugar(sNumeroLugar);
         setfLatitud(fLatitud);
         setfLongitud(fLongitud);
         setoCodigoPostalLocalidadPaisProvincia(oCodigoPostalLocalidadPaisProvincia);

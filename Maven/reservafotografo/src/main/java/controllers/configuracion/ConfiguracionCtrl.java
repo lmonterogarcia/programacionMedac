@@ -1,8 +1,8 @@
 package controllers.configuracion;
 
+import controllers.configuracion.lugar.LugarCtrl;
 import controllers.configuracion.productos.ProductoPackCtrl;
 import controllers.configuracion.tipoAndEstado.TipoAndEstadoCtrl;
-// import models.lugar.Lugar;
 import models.personas.Empresa;
 
 public class ConfiguracionCtrl {
@@ -39,6 +39,17 @@ public class ConfiguracionCtrl {
     /*
      * # CONTROLLER METHODS EMPRESA
      */
+    public boolean createEmpresa(Empresa oEmpresa){
+        boolean booExito = false;
+        int iIdLugar = oLugarCtrl.add(oEmpresa.getoLugar());
+        if (iIdLugar > 0) {
+            oEmpresa.getoLugar().setiIdLugar(iIdLugar);
+            if (oEmpresaCtrl.add(oEmpresa)) {
+                booExito = true;
+            }
+        }
+        return booExito;
+    }
     public Empresa searchEmpresa(Empresa oEmpresa) {
         Empresa oEmpresaResult = oEmpresaCtrl.searchByPk(oEmpresa);
         if (oEmpresaResult != null) {

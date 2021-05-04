@@ -164,7 +164,7 @@ public class ClienteView implements IPlantilla {
 	}
 
 	private static boolean update(Controller oCtrl) {
-		String sDniContacto, sNombreContacto, sApellido1Contacto, sApellido2Contacto, sTelefonoContacto, sEmailUsuario,
+		String sDniContacto, sNombreContacto, sApellido1Contacto, sApellido2Contacto, sTelefonoContacto,
 				sPassword, sFechaNacimiento;;
 		String sCalleLugar, sNumeroLugar, sReferenciaCodigoPostal, sNombreLocalidad,
 				sNombreProvincia, sNombrePais;

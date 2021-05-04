@@ -213,7 +213,7 @@ public class LugarCtrl {
         return oLugarResult;
     }
 
-    /* NO HACE FALTA. NO SE VA A UTILIZAR.
+    // SOLO SE LISTAN LOS SITION
     public List<Lugar> listar() {
         List<Lugar> lLugars = new ArrayList<Lugar>();
         try {
@@ -227,11 +227,9 @@ public class LugarCtrl {
                 oLugar.setfLatitud(rs.getFloat(4));
                 oLugar.setfLongitud(rs.getFloat(5));
                 oLugar.setsCalleLugar(rs.getString(6));
-                oLugar.setsNumeroLugar(rs.getString(7));
-                oLugar.setoCodigoPostalLocalidadPaisProvincia(new CodigoPostalLocalidadPaisProvincia(
-                        new Localidad(rs.getString(9)), new CodigoPostal(rs.getString(8)),
-                        (new PaisProvincia(new Provincia(rs.getString(10)), new Pais(rs.getString(11))))));
-                lLugars.add(oLugar);
+                if (oLugar.getsNombreLugar() != null) {
+                    lLugars.add(oLugar);
+                }
             }
             statement.close();
 
@@ -241,5 +239,5 @@ public class LugarCtrl {
         }
         return lLugars;
     }
-    */
+    
 }

@@ -80,4 +80,13 @@ public class ConfiguracionCtrl {
         }
         return oEmpresaResult;
     }
+
+    public boolean addSitio(Lugar oLugar) {
+        boolean booExito = false;
+        int idLugar = getoLugarCtrl().add(oLugar);
+        if (idLugar > 0) {
+            booExito = true;
+        }
+        return booExito;
+    }
 }

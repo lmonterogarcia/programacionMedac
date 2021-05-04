@@ -1,7 +1,6 @@
 package views.Configuracion;
 
 import java.util.*;
-import java.util.regex.Pattern;
 
 import controllers.Controller;
 import models.IPlantilla;
@@ -32,33 +31,33 @@ public class LugarView implements IPlantilla{
             switch (bOpcion) {
                 case 1: // Alta de sitio
                     if (create(oCtrl)) {
-                        System.out.println("La lugar ha sido creado con exito.");
+                        System.out.println("El sitio ha sido creado con exito.");
                     } else {
-                        System.out.println("La lugar no se ha podido crear.");
+                        System.out.println("El sitio no se ha podido crear.");
                     }
                     break;
                 case 2: // Modificar sitio
                     if (update(oCtrl)) {
-                        System.out.println("La lugar ha sido modificado con exito.");
+                        System.out.println("El sitio ha sido modificado con exito.");
                     } else {
-                        System.out.println("La lugar no se ha podido modificar.");
+                        System.out.println("El sitio no se ha podido modificar.");
                     }
                     break;
 
                 case 3: // Buscar sitio
                     Lugar oLugar = searchByNombre(oCtrl);
                     if (oLugar != null) {
-                        System.out.println("La lugar buscado existe en la base de datos.");
+                        System.out.println("El sitio buscado existe en la base de datos.");
                         System.out.println(oLugar);
                     } else {
-                        System.out.println("La lugar no existe en la base de datos.");
+                        System.out.println("El sitio no existe en la base de datos.");
                     }
                     break;
                 case 4: // Borrar sitio
                     if (remove(oCtrl)) {
-                        System.out.println("La lugar ha sido eliminado con exito.");
+                        System.out.println("El sitio ha sido eliminado con exito.");
                     } else {
-                        System.out.println("La lugar no se ha podido eliminar.");
+                        System.out.println("El sitio no se ha podido eliminar.");
                     }
                     break;
                 case 5: // Listar sitio
@@ -74,7 +73,7 @@ public class LugarView implements IPlantilla{
                             if (oLug != null) {
                                 System.out.println(oLug);
                             } else {
-                                System.out.println("La lugar no existe en la base de datos.");
+                                System.out.println("El sitio no existe en la base de datos.");
                             }
                         }
                     } else {
@@ -94,9 +93,10 @@ public class LugarView implements IPlantilla{
         System.out.println("Campos requeridos *");
 
         sNombreLugar = String.valueOf(Libreria.leer("Introduce un nombre *", 1, BMAXNOMBRELUGAR, -1, -1, (byte) 6));
+        sNombreLugar = Libreria.todasPrimeraMayus(sNombreLugar);
         do {
             sGoogleMapLink = String.valueOf(Libreria.leer("Introduce un link de googlemaps", 0, BMAX255, -1, -1, (byte) 6));
-        } while (!sGoogleMapLink.isEmpty() && sGoogleMapLink.length() != BMAX255);
+        } while (!sGoogleMapLink.isEmpty() && sGoogleMapLink.length() > BMAX255);
         fLatitud = (float)(Libreria.leer("Introduce una latitud gps, si no quiere poner nada introduzca 0", -1, -1, IMINLATITUD, IMAXLATITUD, (byte) 5));
         fLongitud = (float)(Libreria.leer("Introduce una longitud gps, si no quiere poner nada introduzca 0", -1, -1, IMINLONGITUD, IMAXLONGITUD, (byte) 5));
         

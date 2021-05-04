@@ -40,8 +40,8 @@
 
 ## Version 0.5 ##
     - Creación de los metodos en la vista y controlador de los CRUD básicos en PL/SQL
-        - Lugar ( por lo que se ha implementado en Empresa y Cliente). La vista solo gestionará los sitios (lugares 
-        para las sesiones) y no las direciones, ya que veo innecesario gestionar direcciones.
+        - Lugar (por lo que se ha implementado en Empresa y Cliente). La vista solo gestionará los sitios (lugares 
+            para las sesiones) y no las direciones, ya que veo innecesario gestionar direcciones.
     - Se ha arreglado y/o cambiado algunos errores o para mejorar los modelos
         - Se ha arreglado un error en un Constructor de Lugar.
     - Se ha mejorado el funcionamiento de los Menus en las vistas. Para salir de una vista se tiene

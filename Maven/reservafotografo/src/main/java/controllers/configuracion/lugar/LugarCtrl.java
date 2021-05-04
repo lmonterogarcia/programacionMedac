@@ -140,6 +140,43 @@ public class LugarCtrl {
         return oLugarResult;
     }
 
+    public Lugar searchByGoogleLink(Lugar oLugar) {
+        Lugar oLugarResult = null;
+        if (oLugar != null && oLugar.getsGoogleMapLink() != null) {
+            Gson oGson = new Gson();
+            String json = "[" + oGson.toJson(oLugar) + "]";
+
+            try {
+
+                CallableStatement statement = Controller.getConnection()
+                        .prepareCall("{call search_by(?,'sGoogleMapLink','Lugar','googleMapLink')}");
+                statement.setString(1, json);
+
+                ResultSet rs = statement.executeQuery();
+                if (rs.next()) {
+                    oLugarResult = new Lugar(rs.getInt(1));
+                    oLugarResult.setsNombreLugar(rs.getString(2));
+                    oLugarResult.setsGoogleMapLink(oLugar.getsGoogleMapLink());
+                    oLugarResult.setfLatitud(rs.getFloat(4));
+                    oLugarResult.setfLongitud(rs.getFloat(5));
+                    oLugarResult.setsCalleLugar(rs.getString(6));
+                    oLugarResult.setsNumeroLugar(rs.getString(7));
+                    oLugarResult.setoCodigoPostalLocalidadPaisProvincia(new CodigoPostalLocalidadPaisProvincia(
+                            new Localidad(rs.getString(9)), new CodigoPostal(rs.getString(8)),
+                            (new PaisProvincia(new Provincia(rs.getString(10)), new Pais(rs.getString(11))))));
+                }
+                statement.close();
+
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+                System.out.println(ex);
+            }
+        }
+
+        return oLugarResult;
+    }
+
+    // SE HA CREADO A LA ESPERA SI HAY QUE UTILIZARLO
     public Lugar searchByDireccion(Lugar oLugar) {
         Lugar oLugarResult = null;
         if (oLugar != null && oLugar.getsNombreLugar() != null) {

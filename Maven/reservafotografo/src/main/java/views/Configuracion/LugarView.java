@@ -93,7 +93,7 @@ public class LugarView implements IPlantilla{
         System.out.println("Campos requeridos *");
 
         sNombreLugar = String.valueOf(Libreria.leer("Introduce un nombre *", 1, BMAXNOMBRELUGAR, -1, -1, (byte) 6));
-        sNombreLugar = Libreria.todasPrimeraMayus(sNombreLugar);
+        sNombreLugar = Libreria.primeraMayus(sNombreLugar);
         do {
             sGoogleMapLink = String.valueOf(Libreria.leer("Introduce un link de googlemaps", 0, BMAX255, -1, -1, (byte) 6));
         } while (!sGoogleMapLink.isEmpty() && sGoogleMapLink.length() > BMAX255);

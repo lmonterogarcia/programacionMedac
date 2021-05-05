@@ -6,8 +6,9 @@ import java.io.*;
 
 import controllers.configuracion.ConfiguracionCtrl;
 import controllers.personas.*;
-/*import models.personas.*;
-import models.sesion.*;*/
+import models.personas.*;
+/*import models.sesion.*;*/
+import models.lugar.Lugar;
 
 public class Controller implements IController{
     private static Connection oConnection;
@@ -125,20 +126,54 @@ public class Controller implements IController{
 
 	}
 
-/*
-	// ###### Cliente y Usuario ######
-	public boolean addCliente(Cliente oCliente) {
-		return getoPersonasCtrl().addCliente(oCliente, oConnection);
-	}
 
+	// ###### Cliente y Usuario ######
+
+	public boolean addCliente(Cliente oCliente){
+        boolean booExito = false;
+        int iIdLugar;
+        Lugar oLugar = oConfiguracionCtrl.getoLugarCtrl().searchByDireccion(oCliente.getoLugar());
+
+        if (oLugar != null) {
+            iIdLugar = oLugar.getiIdLugar();
+        } else {
+            iIdLugar = oConfiguracionCtrl.getoLugarCtrl().add(oCliente.getoLugar());
+        }
+
+        if (iIdLugar > 0) {
+            oCliente.getoLugar().setiIdLugar(iIdLugar);
+            if (getoPersonasCtrl().addCliente(oCliente)) {
+                booExito = true;
+
+            }
+        }
+        return booExito;
+    }
+
+    public boolean updateCliente(Cliente oCliente) {
+        boolean booExito = false;
+        Lugar oLugar = oConfiguracionCtrl.getoLugarCtrl().searchByDireccion(oCliente.getoLugar());
+
+        if (oLugar == null) {
+            oConfiguracionCtrl.getoLugarCtrl().update(oCliente.getoLugar());
+        } 
+            if (getoPersonasCtrl().updateCliente(oCliente)) {
+                booExito = true;
+            }
+        return booExito;
+    }
+
+	public Cliente searchCliente(Cliente oCliente) {
+        Cliente oClienteaResult = getoPersonasCtrl().searchCliente(oCliente);
+        if (oClienteaResult != null) {
+            oClienteaResult.setoLugar(oConfiguracionCtrl.getoLugarCtrl().searchByPk(oClienteaResult.getoLugar()));
+        }
+        return oClienteaResult;
+    }
+/*
 	public boolean removeCliente(Cliente oCliente) {
 		return getoPersonasCtrl().removeCliente(oCliente, oConnection);
 	}
-
-	public boolean updateCliente(Cliente oCliente) {
-		return getoPersonasCtrl().updateCliente();
-	}
-
 	public Cliente searchCliente(Cliente oCliente) {
 		return getoPersonasCtrl().searchCliente(oCliente, oConnection);
 	}

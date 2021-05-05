@@ -3,6 +3,8 @@ package views.Configuracion;
 import java.util.List;
 import java.util.regex.Pattern;
 
+import org.apache.commons.lang3.text.WordUtils;
+
 import controllers.Controller;
 import models.IPlantilla;
 import models.lugar.*;
@@ -97,7 +99,7 @@ public class EmpresaView implements IPlantilla {
 			sCifNif = String.valueOf(Libreria.leer("Introduce un cif o nif *", 1, BMAXDNI, -1, -1, (byte) 6));
 		} while (!sCifNif.isEmpty() && sCifNif.length() != BMAXDNI && Pattern.matches(SPATRONDNI, sCifNif));
 		sNombreEmpresa = String.valueOf(Libreria.leer("Introduce un nombre *", 1, BMAXNOMBRELARGO, -1, -1, (byte) 6));
-		sNombreEmpresa = Libreria.todasPrimeraMayus(sNombreEmpresa);
+		sNombreEmpresa = WordUtils.capitalizeFully(sNombreEmpresa);
 		do {
 			sEmailEmpresa = String.valueOf(Libreria.leer("Introduce un email", 0, BMAXEMAIL, -1, -1, (byte) 6));
 		} while (!sEmailEmpresa.isEmpty() && sEmailEmpresa.length() > BMAXEMAIL);
@@ -108,19 +110,19 @@ public class EmpresaView implements IPlantilla {
 
 		// Direccion
 		sCalleLugar = String.valueOf(Libreria.leer("Introduce una calle *", 1, BMAXNOMBRELUGAR, -1, -1, (byte) 6));
-		sCalleLugar = Libreria.todasPrimeraMayus(sCalleLugar);
+		sCalleLugar = WordUtils.capitalizeFully(sCalleLugar);
 		sNumeroLugar = String
 				.valueOf(Libreria.leer("Introduce el numero de la calle *", 1, BMAXNUMEROLUGAR, -1, -1, (byte) 6));
 		sReferenciaCodigoPostal = String
 				.valueOf(Libreria.leer("Introduce un codigo postal *", 1, BMAXNOMBRELARGO, -1, -1, (byte) 6));
 		sNombreLocalidad = String
 				.valueOf(Libreria.leer("Introduce una localidad *", 1, BMAXNOMBRELUGAR, -1, -1, (byte) 6));
-		sNombreLocalidad = Libreria.todasPrimeraMayus(sNombreLocalidad);
+		sNombreLocalidad = WordUtils.capitalizeFully(sNombreLocalidad);
 		sNombreProvincia = String
 				.valueOf(Libreria.leer("Introduce una provincia *", 1, BMAXNOMBRELUGAR, -1, -1, (byte) 6));
-		sNombreProvincia = Libreria.todasPrimeraMayus(sNombreProvincia);
+		sNombreProvincia = WordUtils.capitalizeFully(sNombreProvincia);
 		sNombrePais = String.valueOf(Libreria.leer("Introduce un pais *", 1, BMAXNOMBRELUGAR, -1, -1, (byte) 6));
-		sNombrePais = Libreria.todasPrimeraMayus(sNombrePais);
+		sNombrePais = WordUtils.capitalizeFully(sNombrePais);
 
 		oLugar = new Lugar(null, null, sCalleLugar, sNumeroLugar, 0f, 0f,
 				new CodigoPostalLocalidadPaisProvincia(new Localidad(sNombreLocalidad),
@@ -148,7 +150,7 @@ public class EmpresaView implements IPlantilla {
 							.valueOf(Libreria.leer("Introduce un nombre (" + oEmpresa.getsNombreEmpresa() + ")", 0,
 									BMAXNOMBRELARGO, -1, -1, (byte) 6));
 				} while (!sNombreEmpresa.isEmpty() && sNombreEmpresa.length() > BMAXNOMBRELARGO);
-				oEmpresa.setsNombreEmpresa(Libreria.todasPrimeraMayus(sNombreEmpresa));
+				oEmpresa.setsNombreEmpresa(WordUtils.capitalizeFully(sNombreEmpresa));
 
 				do {
 					sEmailEmpresa = String
@@ -192,10 +194,10 @@ public class EmpresaView implements IPlantilla {
 								.getoPaisProvincia().getoPais().getsNombrePais() + ")",
 						0, BMAXNOMBRELUGAR, -1, -1, (byte) 6));
 
-				sCalleLugar = Libreria.todasPrimeraMayus(sCalleLugar);
-				sNombreLocalidad = Libreria.todasPrimeraMayus(sNombreLocalidad);
-				sNombreProvincia = Libreria.todasPrimeraMayus(sNombreProvincia);
-				sNombrePais = Libreria.todasPrimeraMayus(sNombrePais);
+				sCalleLugar = WordUtils.capitalizeFully(sCalleLugar);
+				sNombreLocalidad = WordUtils.capitalizeFully(sNombreLocalidad);
+				sNombreProvincia = WordUtils.capitalizeFully(sNombreProvincia);
+				sNombrePais = WordUtils.capitalizeFully(sNombrePais);
 
 				oEmpresa.getoLugar().setsCalleLugar(sCalleLugar);
 				oEmpresa.getoLugar().setsNumeroLugar(sNumeroLugar);

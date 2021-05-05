@@ -3,6 +3,8 @@ package views.personas;
 import java.time.LocalDate;
 import java.util.List;
 
+import org.apache.commons.lang3.text.WordUtils;
+
 import controllers.Controller;
 import models.personas.Cliente;
 import models.personas.Usuario;
@@ -134,19 +136,19 @@ public class ClienteView implements IPlantilla {
 		if (String.valueOf(Libreria.leer("¿Quiere introducir la direccion? (s/n) ", -1, -1, -1, -1, (byte) 7))
 				.equalsIgnoreCase("s")) {
 			sCalleLugar = String.valueOf(Libreria.leer("Introduce una calle *", 1, BMAXNOMBRELUGAR, -1, -1, (byte) 6));
-			sCalleLugar = Libreria.todasPrimeraMayus(sCalleLugar);
+			sCalleLugar = WordUtils.capitalizeFully(sCalleLugar);
 			sNumeroLugar = String
 					.valueOf(Libreria.leer("Introduce el numero de la calle *", 1, BMAXNUMEROLUGAR, -1, -1, (byte) 6));
 			sReferenciaCodigoPostal = String
 					.valueOf(Libreria.leer("Introduce un codigo postal *", 1, BMAXNOMBRELARGO, -1, -1, (byte) 6));
 			sNombreLocalidad = String
 					.valueOf(Libreria.leer("Introduce una localidad *", 1, BMAXNOMBRELUGAR, -1, -1, (byte) 6));
-			sNombreLocalidad = Libreria.todasPrimeraMayus(sNombreLocalidad);
+			sNombreLocalidad = WordUtils.capitalizeFully(sNombreLocalidad);
 			sNombreProvincia = String
 					.valueOf(Libreria.leer("Introduce una provincia *", 1, BMAXNOMBRELUGAR, -1, -1, (byte) 6));
-			sNombreProvincia = Libreria.todasPrimeraMayus(sNombreProvincia);
+			sNombreProvincia = WordUtils.capitalizeFully(sNombreProvincia);
 			sNombrePais = String.valueOf(Libreria.leer("Introduce un pais *", 1, BMAXNOMBRELUGAR, -1, -1, (byte) 6));
-			sNombrePais = Libreria.todasPrimeraMayus(sNombrePais);
+			sNombrePais = WordUtils.capitalizeFully(sNombrePais);
 
 			oLugar = new Lugar(null, null, sCalleLugar, sNumeroLugar, 0f, 0f,
 					new CodigoPostalLocalidadPaisProvincia(new Localidad(sNombreLocalidad),
@@ -263,10 +265,10 @@ public class ClienteView implements IPlantilla {
 								.getoPaisProvincia().getoPais().getsNombrePais() + ")",
 						0, BMAXNOMBRELUGAR, -1, -1, (byte) 6));
 
-				sCalleLugar = Libreria.todasPrimeraMayus(sCalleLugar);
-				sNombreLocalidad = Libreria.todasPrimeraMayus(sNombreLocalidad);
-				sNombreProvincia = Libreria.todasPrimeraMayus(sNombreProvincia);
-				sNombrePais = Libreria.todasPrimeraMayus(sNombrePais);
+				sCalleLugar = WordUtils.capitalizeFully(sCalleLugar);
+				sNombreLocalidad = WordUtils.capitalizeFully(sNombreLocalidad);
+				sNombreProvincia = WordUtils.capitalizeFully(sNombreProvincia);
+				sNombrePais = WordUtils.capitalizeFully(sNombrePais);
 
 				oCliente.getoLugar().setsCalleLugar(sCalleLugar);
 				oCliente.getoLugar().setsNumeroLugar(sNumeroLugar);

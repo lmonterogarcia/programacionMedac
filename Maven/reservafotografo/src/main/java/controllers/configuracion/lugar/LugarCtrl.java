@@ -179,7 +179,7 @@ public class LugarCtrl {
     // SE HA CREADO A LA ESPERA SI HAY QUE UTILIZARLO
     public Lugar searchByDireccion(Lugar oLugar) {
         Lugar oLugarResult = null;
-        if (oLugar != null && oLugar.getsNombreLugar() != null) {
+        if (oLugar != null && oLugar.getsCalleLugar() != null) {
             Gson oGson = new Gson();
             String json = "[" + oGson.toJson(oLugar) + "]";
 

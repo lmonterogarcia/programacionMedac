@@ -160,19 +160,18 @@ public class ClienteView implements IPlantilla {
 		sPassword = String.valueOf(Libreria.leer("Introduce una contrasena *", BMINPASSW, BMAXPASSW, -1, -1, (byte) 6));
 
 		return oCtrl.addCliente(new Cliente(sDniContacto, sNombreContacto, sApellido1Contacto, sApellido2Contacto,
-						sTelefonoContacto, oFechaNacimientoContacto, new Usuario(sEmailUsuario, sPassword), oLugar));
+				sTelefonoContacto, oFechaNacimientoContacto, new Usuario(sEmailUsuario, sPassword), oLugar));
 	}
 
 	private static boolean update(Controller oCtrl) {
 		String sDniContacto, sNombreContacto, sApellido1Contacto, sApellido2Contacto, sTelefonoContacto, sPassword,
-				sFechaNacimiento;
+				sFechaNacimiento, sMensaje;
 		;
 		String sCalleLugar, sNumeroLugar, sReferenciaCodigoPostal, sNombreLocalidad, sNombreProvincia, sNombrePais;
 		int iDia, iMes, iAnio;
 		boolean booFecha = false, booExito = false;
 
-		String sEmailCliente = String.valueOf(Libreria.leer("Introduce un email", 1, 100, -1, -1, (byte) 6));
-		Cliente oCliente = oCtrl.getoPersonasCtrl().searchCliente(new Cliente(null, new Usuario(sEmailCliente)));
+		Cliente oCliente = searchByEmail(oCtrl);
 		if (oCliente != null) {
 			oCliente.setoUsuario(oCtrl.getoPersonasCtrl().searchUsuario(oCliente));
 			if (oCliente.getoUsuario() != null && oCliente.checkCliente()) {
@@ -238,48 +237,75 @@ public class ClienteView implements IPlantilla {
 
 				}
 				// Direccion
-				sCalleLugar = String
-						.valueOf(Libreria.leer("Introduce una calle * (" + oCliente.getoLugar().getsCalleLugar() + ")",
-								0, BMAXNOMBRELUGAR, -1, -1, (byte) 6));
-				sNumeroLugar = String.valueOf(Libreria.leer(
-						"Introduce el numero de la calle * (" + oCliente.getoLugar().getsNumeroLugar() + ")", 0,
-						BMAXNUMEROLUGAR, -1, -1, (byte) 6));
-				sReferenciaCodigoPostal = String.valueOf(Libreria.leer(
-						"Introduce un codigo postal * (" + oCliente.getoLugar().getoCodigoPostalLocalidadPaisProvincia()
-								.getoCodigoPostal().getsReferenciaCodigoPostal() + ")",
-						0, BMAXNOMBRELARGO, -1, -1, (byte) 6));
-				sNombreLocalidad = String
-						.valueOf(
-								Libreria.leer(
-										"Introduce una localidad * ("
-												+ oCliente.getoLugar().getoCodigoPostalLocalidadPaisProvincia()
-														.getoLocalidad().getsNombreLocalidad()
-												+ ")",
-										0, BMAXNOMBRELUGAR, -1, -1, (byte) 6));
-				sNombreProvincia = String.valueOf(Libreria.leer(
-						"Introduce una provincia *(" + oCliente.getoLugar().getoCodigoPostalLocalidadPaisProvincia()
-								.getoPaisProvincia().getoProvincia().getsNombreProvincia() + ")",
-						0, BMAXNOMBRELUGAR, -1, -1, (byte) 6));
-				sNombrePais = String.valueOf(Libreria.leer(
-						"Introduce un pais *(" + oCliente.getoLugar().getoCodigoPostalLocalidadPaisProvincia()
-								.getoPaisProvincia().getoPais().getsNombrePais() + ")",
-						0, BMAXNOMBRELUGAR, -1, -1, (byte) 6));
+				if (String.valueOf(Libreria.leer("¿Quiere introducir la direccion? (s/n) ", -1, -1, -1, -1, (byte) 7))
+						.equalsIgnoreCase("s")) {
+					sCalleLugar = String.valueOf(
+							Libreria.leer("Introduce una calle * (" + oCliente.getoLugar().getsCalleLugar() + ")", 1,
+									BMAXNOMBRELUGAR, -1, -1, (byte) 6));
+					sNumeroLugar = String.valueOf(Libreria.leer(
+							"Introduce el numero de la calle * (" + oCliente.getoLugar().getsNumeroLugar() + ")", 1,
+							BMAXNUMEROLUGAR, -1, -1, (byte) 6));
+					try {
+						sMensaje = oCliente.getoLugar().getoCodigoPostalLocalidadPaisProvincia().getoCodigoPostal()
+								.getsReferenciaCodigoPostal();
+					} catch (Exception e) {
+						sMensaje = "Null";
+					}
+					sReferenciaCodigoPostal = String.valueOf(Libreria.leer(
+							"Introduce un codigo postal * (" + sMensaje + ")", 1, BMAXNOMBRELARGO, -1, -1, (byte) 6));
 
-				sCalleLugar = WordUtils.capitalizeFully(sCalleLugar);
-				sNombreLocalidad = WordUtils.capitalizeFully(sNombreLocalidad);
-				sNombreProvincia = WordUtils.capitalizeFully(sNombreProvincia);
-				sNombrePais = WordUtils.capitalizeFully(sNombrePais);
+					try {
+						sMensaje = oCliente.getoLugar().getoCodigoPostalLocalidadPaisProvincia().getoLocalidad()
+								.getsNombreLocalidad();
+					} catch (Exception e) {
+						sMensaje = "Null";
+					}
+					sNombreLocalidad = String.valueOf(Libreria.leer("Introduce una localidad * (" + sMensaje + ")", 1,
+							BMAXNOMBRELUGAR, -1, -1, (byte) 6));
 
-				oCliente.getoLugar().setsCalleLugar(sCalleLugar);
-				oCliente.getoLugar().setsNumeroLugar(sNumeroLugar);
-				oCliente.getoLugar().getoCodigoPostalLocalidadPaisProvincia().getoCodigoPostal()
-						.setsReferenciaCodigoPostal(sReferenciaCodigoPostal);
-				oCliente.getoLugar().getoCodigoPostalLocalidadPaisProvincia().getoLocalidad()
-						.setsNombreLocalidad(sNombreLocalidad);
-				oCliente.getoLugar().getoCodigoPostalLocalidadPaisProvincia().getoPaisProvincia().getoProvincia()
-						.setsNombreProvincia(sNombreProvincia);
-				oCliente.getoLugar().getoCodigoPostalLocalidadPaisProvincia().getoPaisProvincia().getoPais()
-						.setsNombrePais(sNombrePais);
+					try {
+						sMensaje = oCliente.getoLugar().getoCodigoPostalLocalidadPaisProvincia().getoPaisProvincia()
+								.getoProvincia().getsNombreProvincia();
+					} catch (Exception e) {
+						sMensaje = "Null";
+					}
+					sNombreProvincia = String.valueOf(Libreria.leer("Introduce una provincia *(" + sMensaje + ")", 1,
+							BMAXNOMBRELUGAR, -1, -1, (byte) 6));
+
+					try {
+						sMensaje = oCliente.getoLugar().getoCodigoPostalLocalidadPaisProvincia().getoPaisProvincia()
+								.getoPais().getsNombrePais();
+					} catch (Exception e) {
+						sMensaje = "Null";
+					}
+					sNombrePais = String.valueOf(Libreria.leer("Introduce un pais *(" + sMensaje + ")", 1,
+							BMAXNOMBRELUGAR, -1, -1, (byte) 6));
+
+					sCalleLugar = WordUtils.capitalizeFully(sCalleLugar);
+					sNombreLocalidad = WordUtils.capitalizeFully(sNombreLocalidad);
+					sNombreProvincia = WordUtils.capitalizeFully(sNombreProvincia);
+					sNombrePais = WordUtils.capitalizeFully(sNombrePais);
+
+					try {
+						oCliente.getoLugar().setsCalleLugar(sCalleLugar);
+					oCliente.getoLugar().setsNumeroLugar(sNumeroLugar);
+					oCliente.getoLugar().getoCodigoPostalLocalidadPaisProvincia().getoCodigoPostal()
+							.setsReferenciaCodigoPostal(sReferenciaCodigoPostal);
+					oCliente.getoLugar().getoCodigoPostalLocalidadPaisProvincia().getoLocalidad()
+							.setsNombreLocalidad(sNombreLocalidad);
+					oCliente.getoLugar().getoCodigoPostalLocalidadPaisProvincia().getoPaisProvincia().getoProvincia()
+							.setsNombreProvincia(sNombreProvincia);
+					oCliente.getoLugar().getoCodigoPostalLocalidadPaisProvincia().getoPaisProvincia().getoPais()
+							.setsNombrePais(sNombrePais);
+					} catch (Exception e) {
+						Lugar oLugar = new Lugar(null, null, sCalleLugar, sNumeroLugar, 0f, 0f,
+					new CodigoPostalLocalidadPaisProvincia(new Localidad(sNombreLocalidad),
+							new CodigoPostal(sReferenciaCodigoPostal),
+							(new PaisProvincia(new Provincia(sNombreProvincia), new Pais(sNombrePais)))));
+							oCliente.setoLugar(oLugar);
+					}
+					
+				}
 
 				if (String.valueOf(Libreria.leer("¿Quiere modificar la contraseña? (s/n) ", -1, -1, -1, -1, (byte) 7))
 						.equalsIgnoreCase("s")) {

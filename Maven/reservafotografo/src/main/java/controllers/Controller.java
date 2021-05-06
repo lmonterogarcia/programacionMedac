@@ -10,13 +10,13 @@ import models.personas.*;
 /*import models.sesion.*;*/
 import models.lugar.Lugar;
 
-public class Controller implements IController{
-    private static Connection oConnection;
+public class Controller implements IController {
+	private static Connection oConnection;
 	private PersonasController oPersonasCtrl;
 	private FotografoController oFotografoCtrl;
 	private ParticipanteController oParticipanteCtrl;
 	private ConfiguracionCtrl oConfiguracionCtrl;
-	
+
 	public Controller() {
 		oPersonasCtrl = new PersonasController();
 		oConfiguracionCtrl = new ConfiguracionCtrl();
@@ -40,11 +40,11 @@ public class Controller implements IController{
 		return oParticipanteCtrl;
 	}
 
-	public ConfiguracionCtrl getConfiguracionCtrl(){
+	public ConfiguracionCtrl getConfiguracionCtrl() {
 		return oConfiguracionCtrl;
 	}
 
-    /*
+	/*
 	 * # DB METHODS
 	 */
 	public boolean init() throws Exception {
@@ -119,163 +119,154 @@ public class Controller implements IController{
 
 		} catch (SQLException ex) {
 			System.out.println(ex);
-            bExito = false;
+			bExito = false;
 		}
 
 		return bExito;
 
 	}
 
-
 	// ###### Cliente y Usuario ######
 
-	public boolean addCliente(Cliente oCliente){
-        boolean booExito = false;
-        int iIdLugar;
-        Lugar oLugar = oConfiguracionCtrl.getoLugarCtrl().searchByDireccion(oCliente.getoLugar());
+	public boolean addCliente(Cliente oCliente) {
+		boolean booExito = false;
+		int iIdLugar;
+		Lugar oLugar;
 
-        if (oLugar != null) {
-            iIdLugar = oLugar.getiIdLugar();
-        } else {
-            iIdLugar = oConfiguracionCtrl.getoLugarCtrl().add(oCliente.getoLugar());
-        }
+		if (oCliente.getoLugar() != null) {
+			oLugar = oConfiguracionCtrl.getoLugarCtrl().searchByDireccion(oCliente.getoLugar());
+			if (oLugar != null) {
+				iIdLugar = oLugar.getiIdLugar();
+			} else {
+				iIdLugar = oConfiguracionCtrl.getoLugarCtrl().add(oCliente.getoLugar());
+			}
 
-        if (iIdLugar > 0) {
-            oCliente.getoLugar().setiIdLugar(iIdLugar);
-            if (getoPersonasCtrl().addCliente(oCliente)) {
-                booExito = true;
+			oCliente.getoLugar().setiIdLugar(iIdLugar);
+		}
 
-            }
-        }
-        return booExito;
-    }
+		if (getoPersonasCtrl().addCliente(oCliente)) {
+			booExito = true;
+		}
 
-    public boolean updateCliente(Cliente oCliente) {
-        boolean booExito = false;
-        Lugar oLugar = oConfiguracionCtrl.getoLugarCtrl().searchByDireccion(oCliente.getoLugar());
+		return booExito;
+	}
 
-        if (oLugar == null) {
-            oConfiguracionCtrl.getoLugarCtrl().update(oCliente.getoLugar());
-        } 
-            if (getoPersonasCtrl().updateCliente(oCliente)) {
-                booExito = true;
-            }
-        return booExito;
-    }
+	public boolean updateCliente(Cliente oCliente) {
+		boolean booExito = false;
+		Lugar oLugar = oConfiguracionCtrl.getoLugarCtrl().searchByDireccion(oCliente.getoLugar());
+
+		if (oLugar == null) {
+			if (oCliente.getoLugar().getiIdLugar() == 0) {
+				oCliente.getoLugar().setiIdLugar(oConfiguracionCtrl.getoLugarCtrl().add(oCliente.getoLugar()));
+			} else {
+				oConfiguracionCtrl.getoLugarCtrl().update(oCliente.getoLugar());
+			}
+			
+		}
+		if (getoPersonasCtrl().updateCliente(oCliente)) {
+			booExito = true;
+		}
+		return booExito;
+	}
 
 	public Cliente searchCliente(Cliente oCliente) {
-        Cliente oClienteaResult = getoPersonasCtrl().searchCliente(oCliente);
-        if (oClienteaResult != null) {
-            oClienteaResult.setoLugar(oConfiguracionCtrl.getoLugarCtrl().searchByPk(oClienteaResult.getoLugar()));
-        }
-        return oClienteaResult;
-    }
-/*
-	public boolean removeCliente(Cliente oCliente) {
-		return getoPersonasCtrl().removeCliente(oCliente, oConnection);
+		Cliente oClienteaResult = getoPersonasCtrl().searchCliente(oCliente);
+		if (oClienteaResult != null) {
+			oClienteaResult.setoLugar(oConfiguracionCtrl.getoLugarCtrl().searchByPk(oClienteaResult.getoLugar()));
+		}
+		return oClienteaResult;
 	}
-	public Cliente searchCliente(Cliente oCliente) {
-		return getoPersonasCtrl().searchCliente(oCliente, oConnection);
-	}
-	public Usuario searchUsuario(Cliente oCliente) {
-		return getoPersonasCtrl().searchUsuario(oCliente, oConnection);
-	}
-
-
-
-	// ###### Fotografo ######
-	public boolean addFotografo(Fotografo oFotografo) {
-		return getoPersonasCtrl().getoFotografoCtrl().add(oFotografo, oConnection);
-	}
-
-	public boolean removeFotografo(Fotografo oFotografo) {
-		return getoPersonasCtrl().removeFotografo(oFotografo, oConnection);
-	}
-
-	public boolean updateFotografo(Fotografo oFotografo) {
-		return getoPersonasCtrl().getoFotografoCtrl().update(oFotografo, oConnection);
-	}
-
-	public Fotografo searchFotografo(Fotografo oFotografo) {
-		return getoPersonasCtrl().searchFotografo(oFotografo, oConnection);
-	}
-
-
-
-	// ###### Participante ######
-	public boolean addParticipante(Participante oParticipante) {
-		return getoPersonasCtrl().addParticipante(oParticipante, oConnection);
-	}
-
-	public boolean removeParticipante(Participante oParticipante) {
-		return getoPersonasCtrl().removeParticipante(oParticipante, oConnection);
-	}
-
-	public boolean updateParticipante(Participante oParticipante) {
-		return getoPersonasCtrl().getoParticipanteCtrl().update(oParticipante, oConnection);
-	}
-
-	public Participante searchParticipante(Participante oParticipante) {
-		return getoPersonasCtrl().searchParticipante(oParticipante, oConnection);
-	}
-
-
-
-	// ###### Empresa ######
-	public boolean addEmpresa(Empresa oEmpresa) {
-		return getoConfiguracionCtrl().getoEmpresaCtrl().add(oEmpresa, oConnection);
-	}
-
-	public boolean removeEmpresa(Empresa oEmpresa) {
-		return getoConfiguracionCtrl().getoEmpresaCtrl().remove(oEmpresa, oConnection);
-	}
-
-	public boolean updateEmpresa(Empresa oEmpresa) {
-		return getoConfiguracionCtrl().getoEmpresaCtrl().update(oEmpresa, oConnection);
-	}
-
-	public Empresa searchEmpresa(Empresa oEmpresa) {
-		return getoConfiguracionCtrl().searchEmpresa(oEmpresa, oConnection);
-		//Cuando se implemente LUGAR HAY QUE CAMCBIAR!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-	}
-
-
-
-	// ###### Estado ######
-	public boolean addEstado(Estado oEstado) {
-		return getoConfiguracionCtrl().getoTipoAndEstadoCtrl().getoEstadoCtrl().add(oEstado, oConnection);
-	}
-
-	public boolean removeEstado(Estado oEstado) {
-		return getoConfiguracionCtrl().getoTipoAndEstadoCtrl().getoEstadoCtrl().remove(oEstado, oConnection);
-	}
-
-	public boolean updateEstado(Estado oNuevoEstado, Estado oEstadoAntiguo) {
-		return getoConfiguracionCtrl().getoTipoAndEstadoCtrl().getoEstadoCtrl().update(oNuevoEstado, oEstadoAntiguo, oConnection);
-	}
-
-	public Estado searchEstado(Estado oEstado) {
-		return getoConfiguracionCtrl().getoTipoAndEstadoCtrl().getoEstadoCtrl().searchByPk(oEstado, oConnection);
-	}
-
-
-
-
-	// ###### TipoSesion ######
-	public boolean addTipoSesion(TipoSesion oTipoSesion) {
-		return getoConfiguracionCtrl().getoTipoAndEstadoCtrl().getoTipoSesionCtrl().add(oTipoSesion, oConnection);
-	}
-
-	public boolean removeTipoSesion(TipoSesion oTipoSesion) {
-		return getoConfiguracionCtrl().getoTipoAndEstadoCtrl().getoTipoSesionCtrl().remove(oTipoSesion, oConnection);
-	}
-
-	public boolean updateTipoSesion(TipoSesion oTipoSesion) {
-		return getoConfiguracionCtrl().getoTipoAndEstadoCtrl().getoTipoSesionCtrl().update(oTipoSesion, oConnection);
-	}
-
-	public TipoSesion searchTipoSesion(TipoSesion oTipoSesion) {
-		return getoConfiguracionCtrl().getoTipoAndEstadoCtrl().getoTipoSesionCtrl().searchByPk(oTipoSesion, oConnection);
-	}
-*/
+	/*
+	 * public boolean removeCliente(Cliente oCliente) { return
+	 * getoPersonasCtrl().removeCliente(oCliente, oConnection); } public Cliente
+	 * searchCliente(Cliente oCliente) { return
+	 * getoPersonasCtrl().searchCliente(oCliente, oConnection); } public Usuario
+	 * searchUsuario(Cliente oCliente) { return
+	 * getoPersonasCtrl().searchUsuario(oCliente, oConnection); }
+	 * 
+	 * 
+	 * 
+	 * // ###### Fotografo ###### public boolean addFotografo(Fotografo oFotografo)
+	 * { return getoPersonasCtrl().getoFotografoCtrl().add(oFotografo, oConnection);
+	 * }
+	 * 
+	 * public boolean removeFotografo(Fotografo oFotografo) { return
+	 * getoPersonasCtrl().removeFotografo(oFotografo, oConnection); }
+	 * 
+	 * public boolean updateFotografo(Fotografo oFotografo) { return
+	 * getoPersonasCtrl().getoFotografoCtrl().update(oFotografo, oConnection); }
+	 * 
+	 * public Fotografo searchFotografo(Fotografo oFotografo) { return
+	 * getoPersonasCtrl().searchFotografo(oFotografo, oConnection); }
+	 * 
+	 * 
+	 * 
+	 * // ###### Participante ###### public boolean addParticipante(Participante
+	 * oParticipante) { return getoPersonasCtrl().addParticipante(oParticipante,
+	 * oConnection); }
+	 * 
+	 * public boolean removeParticipante(Participante oParticipante) { return
+	 * getoPersonasCtrl().removeParticipante(oParticipante, oConnection); }
+	 * 
+	 * public boolean updateParticipante(Participante oParticipante) { return
+	 * getoPersonasCtrl().getoParticipanteCtrl().update(oParticipante, oConnection);
+	 * }
+	 * 
+	 * public Participante searchParticipante(Participante oParticipante) { return
+	 * getoPersonasCtrl().searchParticipante(oParticipante, oConnection); }
+	 * 
+	 * 
+	 * 
+	 * // ###### Empresa ###### public boolean addEmpresa(Empresa oEmpresa) { return
+	 * getoConfiguracionCtrl().getoEmpresaCtrl().add(oEmpresa, oConnection); }
+	 * 
+	 * public boolean removeEmpresa(Empresa oEmpresa) { return
+	 * getoConfiguracionCtrl().getoEmpresaCtrl().remove(oEmpresa, oConnection); }
+	 * 
+	 * public boolean updateEmpresa(Empresa oEmpresa) { return
+	 * getoConfiguracionCtrl().getoEmpresaCtrl().update(oEmpresa, oConnection); }
+	 * 
+	 * public Empresa searchEmpresa(Empresa oEmpresa) { return
+	 * getoConfiguracionCtrl().searchEmpresa(oEmpresa, oConnection); //Cuando se
+	 * implemente LUGAR HAY QUE CAMCBIAR!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! }
+	 * 
+	 * 
+	 * 
+	 * // ###### Estado ###### public boolean addEstado(Estado oEstado) { return
+	 * getoConfiguracionCtrl().getoTipoAndEstadoCtrl().getoEstadoCtrl().add(oEstado,
+	 * oConnection); }
+	 * 
+	 * public boolean removeEstado(Estado oEstado) { return
+	 * getoConfiguracionCtrl().getoTipoAndEstadoCtrl().getoEstadoCtrl().remove(
+	 * oEstado, oConnection); }
+	 * 
+	 * public boolean updateEstado(Estado oNuevoEstado, Estado oEstadoAntiguo) {
+	 * return
+	 * getoConfiguracionCtrl().getoTipoAndEstadoCtrl().getoEstadoCtrl().update(
+	 * oNuevoEstado, oEstadoAntiguo, oConnection); }
+	 * 
+	 * public Estado searchEstado(Estado oEstado) { return
+	 * getoConfiguracionCtrl().getoTipoAndEstadoCtrl().getoEstadoCtrl().searchByPk(
+	 * oEstado, oConnection); }
+	 * 
+	 * 
+	 * 
+	 * 
+	 * // ###### TipoSesion ###### public boolean addTipoSesion(TipoSesion
+	 * oTipoSesion) { return
+	 * getoConfiguracionCtrl().getoTipoAndEstadoCtrl().getoTipoSesionCtrl().add(
+	 * oTipoSesion, oConnection); }
+	 * 
+	 * public boolean removeTipoSesion(TipoSesion oTipoSesion) { return
+	 * getoConfiguracionCtrl().getoTipoAndEstadoCtrl().getoTipoSesionCtrl().remove(
+	 * oTipoSesion, oConnection); }
+	 * 
+	 * public boolean updateTipoSesion(TipoSesion oTipoSesion) { return
+	 * getoConfiguracionCtrl().getoTipoAndEstadoCtrl().getoTipoSesionCtrl().update(
+	 * oTipoSesion, oConnection); }
+	 * 
+	 * public TipoSesion searchTipoSesion(TipoSesion oTipoSesion) { return
+	 * getoConfiguracionCtrl().getoTipoAndEstadoCtrl().getoTipoSesionCtrl().
+	 * searchByPk(oTipoSesion, oConnection); }
+	 */
 }

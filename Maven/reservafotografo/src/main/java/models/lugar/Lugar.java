@@ -29,7 +29,7 @@ public class Lugar implements ILugar, IPlantilla {
 
     public Lugar(String sNombreLugar, String sGoogleMapLink, String sCalleLugar, String sNumeroLugar, float fLatitud,
             float fLongitud, CodigoPostalLocalidadPaisProvincia oCodigoPostalLocalidadPaisProvincia) {
-        this.iIdLugar = 1;
+        this.iIdLugar = 0;
         setsNombreLugar(sNombreLugar);
         setsGoogleMapLink(sGoogleMapLink);
         setsCalleLugar(sCalleLugar);
@@ -128,7 +128,7 @@ public class Lugar implements ILugar, IPlantilla {
 
     public boolean checkLugar() {
         boolean booExito = false;
-        if (this != null && this.getiIdLugar() > 0 && this.getiIdLugar() <= IMAXIDS) {
+        if (this != null && this.getiIdLugar() >= 0 && this.getiIdLugar() <= IMAXIDS) {
             booExito = true;
         }
         return booExito;

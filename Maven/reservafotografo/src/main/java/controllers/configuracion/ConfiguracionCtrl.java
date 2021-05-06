@@ -1,7 +1,7 @@
 package controllers.configuracion;
 
 import controllers.configuracion.lugar.LugarCtrl;
-import controllers.configuracion.productos.ProductoPackCtrl;
+import controllers.configuracion.productos.ProductosCtrl;
 import controllers.configuracion.tipoAndEstado.TipoAndEstadoCtrl;
 import models.lugar.Lugar;
 import models.personas.Empresa;
@@ -10,14 +10,14 @@ public class ConfiguracionCtrl {
     
     private EmpresaCtrl oEmpresaCtrl;
     private LugarCtrl oLugarCtrl;
-    private ProductoPackCtrl oProductoPackCtrl;
+    private ProductosCtrl oProductosCtrl;
     private TipoAndEstadoCtrl oTipoAndEstadoCtrl;
 
     public ConfiguracionCtrl(){
 
         oEmpresaCtrl = new EmpresaCtrl();
         oLugarCtrl = new LugarCtrl();
-        oProductoPackCtrl = new ProductoPackCtrl();
+        oProductosCtrl = new ProductosCtrl();
         oTipoAndEstadoCtrl = new TipoAndEstadoCtrl();
     }
 
@@ -29,8 +29,8 @@ public class ConfiguracionCtrl {
         return oLugarCtrl;
     }
 
-    public ProductoPackCtrl getoProductoPackCtrl() {
-        return oProductoPackCtrl;
+    public ProductosCtrl getoProductosCtrl() {
+        return oProductosCtrl;
     }
 
     public TipoAndEstadoCtrl getoTipoAndEstadoCtrl() {

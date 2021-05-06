@@ -176,7 +176,6 @@ public class LugarCtrl {
         return oLugarResult;
     }
 
-    // SE HA CREADO A LA ESPERA SI HAY QUE UTILIZARLO
     public Lugar searchByDireccion(Lugar oLugar) {
         Lugar oLugarResult = null;
         if (oLugar != null && oLugar.getsCalleLugar() != null) {
@@ -213,7 +212,7 @@ public class LugarCtrl {
         return oLugarResult;
     }
 
-    // SOLO SE LISTAN LOS SITION
+    // SOLO SE LISTAN LOS SITIOS
     public List<Lugar> listar() {
         List<Lugar> lLugars = new ArrayList<Lugar>();
         try {

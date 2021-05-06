@@ -7,6 +7,7 @@ import org.apache.commons.lang3.text.WordUtils;
 import controllers.Controller;
 import models.IPlantilla;
 import models.productos.Pack;
+import models.productos.PackProducto;
 import models.productos.Producto;
 import views.Libreria;
 
@@ -29,8 +30,9 @@ public class ProductoAndPackView implements IPlantilla {
 		System.out.println("8. Buscar Pack por nombre");
 		System.out.println("9. Borrar");
 		System.out.println("10. Listar todos los pack");
-		System.out.println("11. Volver atras");
-		return (byte) Libreria.leer("Introduce una opcion", 1, 11, -1, -1, (byte) 1);
+		System.out.println("11. Aniadir productos a un pack");
+		System.out.println("12. Volver atras");
+		return (byte) Libreria.leer("Introduce una opcion", 1, 12, -1, -1, (byte) 1);
 	}
 
 	public static void gestionProductoAndPack(Controller oCtrl) {
@@ -108,6 +110,7 @@ public class ProductoAndPackView implements IPlantilla {
 					if (oPack != null) {
 						System.out.println("El pack buscado existe en la base de datos.");
 						System.out.println(oPack);
+						listarProductoDePack(oCtrl, oPack);
 					} else {
 						System.out.println("El pack no existe en la base de datos.");
 					}
@@ -132,6 +135,7 @@ public class ProductoAndPackView implements IPlantilla {
 							Pack oPackL = searchByNombrePack(oCtrl);
 							if (oPackL != null) {
 								System.out.println(oPackL);
+								listarProductoDePack(oCtrl, oPackL);
 							} else {
 								System.out.println("El pack no existe en la base de datos.");
 							}
@@ -140,10 +144,18 @@ public class ProductoAndPackView implements IPlantilla {
 						System.out.println("No existen packs en la base de datos.");
 					}
 					break;
+				case 11: // Modificar Pack
+					if (asignarProductoToPack(oCtrl)) {
+						System.out.println("El/los prodcutos se han aniadido al pack");
+					} else {
+						System.out.println("No se han aniadido al pack");
+					}
+					break;
 				default:
 					break;
 			}
 		} while (bOpcion != 11);
+
 	}
 
 	// ########### Producto ##############
@@ -183,7 +195,7 @@ public class ProductoAndPackView implements IPlantilla {
 					.valueOf(Libreria.leer("Introduce la descripcion", 0, BMAX255, -1, -1, (byte) 6));
 		} while (!sDescripcionProducto.isEmpty() && sDescripcionProducto.length() > BMAX255);
 
-		return oCtrl.getConfiguracionCtrl().getoProductoPackCtrl().getoProductoCtrl().add(new Producto(sNombreProducto,
+		return oCtrl.getConfiguracionCtrl().getoProductosCtrl().getoProductoCtrl().add(new Producto(sNombreProducto,
 				fPrecioProducto, fCosteProducto, sProveedorProducto, sDescripcionProducto));
 	}
 
@@ -229,7 +241,7 @@ public class ProductoAndPackView implements IPlantilla {
 				} while (!sDescripcionProducto.isEmpty() && sDescripcionProducto.length() > BMAX255);
 				oProducto.setsDescripcionProducto(sDescripcionProducto);
 
-				booExito = oCtrl.getConfiguracionCtrl().getoProductoPackCtrl().getoProductoCtrl().update(oProducto);
+				booExito = oCtrl.getConfiguracionCtrl().getoProductosCtrl().getoProductoCtrl().update(oProducto);
 			}
 		}
 		return booExito;
@@ -243,7 +255,7 @@ public class ProductoAndPackView implements IPlantilla {
 		} while (!sNombreProducto.isEmpty() && sNombreProducto.length() > BMAXNOMBRELARGO);
 		sNombreProducto = WordUtils.capitalizeFully(sNombreProducto);
 
-		return oCtrl.getConfiguracionCtrl().getoProductoPackCtrl().getoProductoCtrl()
+		return oCtrl.getConfiguracionCtrl().getoProductosCtrl().getoProductoCtrl()
 				.searchByPk(new Producto(sNombreProducto));
 	}
 
@@ -256,14 +268,14 @@ public class ProductoAndPackView implements IPlantilla {
 		} while (!sNombreProducto.isEmpty() && sNombreProducto.length() > BMAXNOMBRELARGO);
 		sNombreProducto = WordUtils.capitalizeFully(sNombreProducto);
 
-		bExito = oCtrl.getConfiguracionCtrl().getoProductoPackCtrl().getoProductoCtrl()
+		bExito = oCtrl.getConfiguracionCtrl().getoProductosCtrl().getoProductoCtrl()
 				.remove(new Producto(sNombreProducto));
 
 		return bExito;
 	}
 
 	public static List<Producto> listarProducto(Controller oCtrl) {
-		return oCtrl.getConfiguracionCtrl().getoProductoPackCtrl().getoProductoCtrl().listar();
+		return oCtrl.getConfiguracionCtrl().getoProductosCtrl().getoProductoCtrl().listar();
 
 	}
 
@@ -291,7 +303,7 @@ public class ProductoAndPackView implements IPlantilla {
 			sDescripcionPack = String.valueOf(Libreria.leer("Introduce la descripcion", 0, BMAX255, -1, -1, (byte) 6));
 		} while (!sDescripcionPack.isEmpty() && sDescripcionPack.length() > BMAX255);
 
-		return oCtrl.getConfiguracionCtrl().getoProductoPackCtrl().getoPackCtrl()
+		return oCtrl.getConfiguracionCtrl().getoProductosCtrl().getoPackCtrl()
 				.add(new Pack(sNombrePack, fPrecioPack, sDescripcionPack));
 	}
 
@@ -319,7 +331,7 @@ public class ProductoAndPackView implements IPlantilla {
 			} while (!sDescripcionPack.isEmpty() && sDescripcionPack.length() > BMAX255);
 			oPack.setsDescripcionPack(sDescripcionPack);
 
-			booExito = oCtrl.getConfiguracionCtrl().getoProductoPackCtrl().getoPackCtrl().update(oPack);
+			booExito = oCtrl.getConfiguracionCtrl().getoProductosCtrl().getoPackCtrl().update(oPack);
 		}
 
 		return booExito;
@@ -332,7 +344,7 @@ public class ProductoAndPackView implements IPlantilla {
 		} while (!sNombrePack.isEmpty() && sNombrePack.length() > BMAXNOMBRELARGO);
 		sNombrePack = WordUtils.capitalizeFully(sNombrePack);
 
-		return oCtrl.getConfiguracionCtrl().getoProductoPackCtrl().getoPackCtrl().searchByPk(new Pack(sNombrePack));
+		return oCtrl.getConfiguracionCtrl().getoProductosCtrl().getoPackCtrl().searchByPk(new Pack(sNombrePack));
 	}
 
 	private static boolean removePack(Controller oCtrl) {
@@ -343,13 +355,56 @@ public class ProductoAndPackView implements IPlantilla {
 		} while (!sNombrePack.isEmpty() && sNombrePack.length() > BMAXNOMBRELARGO);
 		sNombrePack = WordUtils.capitalizeFully(sNombrePack);
 
-		bExito = oCtrl.getConfiguracionCtrl().getoProductoPackCtrl().getoPackCtrl().remove(new Pack(sNombrePack));
+		bExito = oCtrl.getConfiguracionCtrl().getoProductosCtrl().getoPackCtrl().remove(new Pack(sNombrePack));
 
 		return bExito;
 	}
 
 	public static List<Pack> listarPack(Controller oCtrl) {
-		return oCtrl.getConfiguracionCtrl().getoProductoPackCtrl().getoPackCtrl().listar();
+		return oCtrl.getConfiguracionCtrl().getoProductosCtrl().getoPackCtrl().listar();
 
+	}
+
+	private static void listarProductoDePack(Controller oCtrl, Pack oPack) {
+		if (oCtrl.getConfiguracionCtrl().getoProductosCtrl().getoPackProductoCtrl().searchByPack(oPack) != null) {
+			System.out.println("# Productos en el pack #");
+			List<PackProducto> lProductos = oCtrl.getConfiguracionCtrl().getoProductosCtrl().getoPackProductoCtrl()
+					.listar(oPack.getsNombrePack());
+			for (PackProducto oPackProducto : lProductos) {
+				System.out.println(oPackProducto.getoProducto().getsNombreProducto());
+			}
+
+		} else {
+			System.out.println("¡Este pack no tiene ningun prodcuto asignado!");
+		}
+	}
+
+	private static boolean asignarProductoToPack(Controller oCtrl) {
+		List<PackProducto> lProductos = null;
+		PackProducto oPackProducto = null;
+		Producto oProducto = null;
+		String sNombreProducto = null;
+
+		if (oCtrl.getConfiguracionCtrl().getoProductosCtrl().getoPackCtrl().listar() != null
+				&& oCtrl.getConfiguracionCtrl().getoProductosCtrl().getoProductoCtrl().listar() != null) {
+
+			Pack oPack = new Pack(String
+					.valueOf(Libreria.leer("Introduce un nombre de pack: ", 1, BMAXNOMBRELARGO, -1, -1, (byte) 6)));
+			System.out.println("¡Cuando quiera dejar de instroducir productos, dejelo en blacno y pulse enter!");
+			do {
+				sNombreProducto = String.valueOf(
+						Libreria.leer("Introduce un nombre de producto: ", 0, BMAXNOMBRELARGO, -1, -1, (byte) 6));
+				if (!sNombreProducto.isEmpty()) {
+					oProducto = new Producto(sNombreProducto);
+					oPackProducto = new PackProducto(oPack, oProducto);
+					lProductos.add(oPackProducto);
+				}
+			} while (!sNombreProducto.isEmpty());
+
+		} else {
+			System.out.println("Tiene que haber creado productos y pack para utilizar esta herramienta");
+		}
+
+		return oCtrl.getConfiguracionCtrl().getoProductosCtrl().getoPackProductoCtrl().add(lProductos);
 	}
 }

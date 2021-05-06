@@ -18,7 +18,7 @@
 /Users/luis/Documents/git-repositories/programacionMedac/Maven/reservafotografo/src/main/java/controllers/configuracion/productos/PackCtrl.java
 /Users/luis/Documents/git-repositories/programacionMedac/Maven/reservafotografo/src/main/java/models/personas/IFotografo.java
 /Users/luis/Documents/git-repositories/programacionMedac/Maven/reservafotografo/src/main/java/models/lugar/ICodigoPostalLocalidadPaisProvincia.java
-/Users/luis/Documents/git-repositories/programacionMedac/Maven/reservafotografo/src/main/java/controllers/configuracion/productos/ProductoPackCtrl.java
+/Users/luis/Documents/git-repositories/programacionMedac/Maven/reservafotografo/src/main/java/controllers/configuracion/productos/ProductosCtrl.java
 /Users/luis/Documents/git-repositories/programacionMedac/Maven/reservafotografo/src/main/java/models/lugar/Localidad.java
 /Users/luis/Documents/git-repositories/programacionMedac/Maven/reservafotografo/src/main/java/models/lugar/Provincia.java
 /Users/luis/Documents/git-repositories/programacionMedac/Maven/reservafotografo/src/main/java/controllers/configuracion/ConfiguracionCtrl.java

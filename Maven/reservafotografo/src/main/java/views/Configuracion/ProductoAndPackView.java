@@ -1,6 +1,6 @@
 package views.Configuracion;
 
-import java.util.List;
+import java.util.*;
 
 import org.apache.commons.lang3.text.WordUtils;
 
@@ -375,12 +375,12 @@ public class ProductoAndPackView implements IPlantilla {
 			}
 
 		} else {
-			System.out.println("¡Este pack no tiene ningun prodcuto asignado!");
+			System.out.println("¡Este pack no tiene ningun producto asignado!");
 		}
 	}
 
 	private static boolean asignarProductoToPack(Controller oCtrl) {
-		List<PackProducto> lProductos = null;
+		List<PackProducto> lProductos = new ArrayList<PackProducto>();
 		PackProducto oPackProducto = null;
 		Producto oProducto = null;
 		String sNombreProducto = null;
@@ -389,15 +389,21 @@ public class ProductoAndPackView implements IPlantilla {
 				&& oCtrl.getConfiguracionCtrl().getoProductosCtrl().getoProductoCtrl().listar() != null) {
 
 			Pack oPack = new Pack(String
-					.valueOf(Libreria.leer("Introduce un nombre de pack: ", 1, BMAXNOMBRELARGO, -1, -1, (byte) 6)));
-			System.out.println("¡Cuando quiera dejar de instroducir productos, dejelo en blacno y pulse enter!");
+					.valueOf(Libreria.leer("Introduce un nombre de pack", 1, BMAXNOMBRELARGO, -1, -1, (byte) 6)));
+			System.out.println("¡Cuando quiera dejar de instroducir productos, dejelo en blanco y pulse ENTER!");
 			do {
 				sNombreProducto = String.valueOf(
-						Libreria.leer("Introduce un nombre de producto: ", 0, BMAXNOMBRELARGO, -1, -1, (byte) 6));
-				if (!sNombreProducto.isEmpty()) {
-					oProducto = new Producto(sNombreProducto);
-					oPackProducto = new PackProducto(oPack, oProducto);
-					lProductos.add(oPackProducto);
+						Libreria.leer("Introduce un nombre de producto", 0, BMAXNOMBRELARGO, -1, -1, (byte) 6));
+		
+				if (oCtrl.getConfiguracionCtrl().getoProductosCtrl().getoProductoCtrl()
+				.searchByPk(new Producto(sNombreProducto)) != null) {
+						oProducto = new Producto(sNombreProducto);
+						oPackProducto = new PackProducto(oPack, oProducto);
+						lProductos.add(oPackProducto);
+				} else {
+					if (!sNombreProducto.isEmpty()) {
+						System.out.println("¡Este producto no esta creado!");
+					}			
 				}
 			} while (!sNombreProducto.isEmpty());
 

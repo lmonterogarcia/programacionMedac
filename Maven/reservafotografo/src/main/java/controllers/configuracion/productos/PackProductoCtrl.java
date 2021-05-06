@@ -97,9 +97,7 @@ public class PackProductoCtrl {
 
 				ResultSet rs = statement.executeQuery();
 				if (rs.next()) {
-					oPackResult = new Pack(oPack.getsNombrePack());
-					oPackResult.setfPrecioPack(rs.getFloat(2));
-					oPackResult.setsDescripcionPack(rs.getString(3));
+					oPackResult = new Pack(rs.getString(1));
 
 				}
 				statement.close();
@@ -114,7 +112,7 @@ public class PackProductoCtrl {
     }
 
 	public List<PackProducto> listar(String sNombrePack) {
-		String sProcedure = "{call listar_nm('PackProducto','" + sNombrePack + "')}";
+		String sProcedure = "{call pack_producto_listar('Pack_Producto','" + sNombrePack + "')}";
 		List<PackProducto> lPackProductos = new ArrayList<PackProducto>();
 		try {
 

@@ -5,8 +5,6 @@ import java.math.RoundingMode;
 
 import models.IPlantilla;
 
-
-
 public class Producto implements IProducto, IPlantilla {
     
     //PK

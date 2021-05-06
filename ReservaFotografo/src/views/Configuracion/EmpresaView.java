@@ -3,9 +3,11 @@ package views.Configuracion;
 import java.util.List;
 import java.util.regex.Pattern;
 
+import org.apache.commons.lang.WordUtils;
+
 import controllers.Controller;
 import models.IPlantilla;
-import models.lugar.Lugar;
+import models.lugar.*;
 import models.personas.Empresa;
 import views.Libreria;
 
@@ -54,7 +56,7 @@ public class EmpresaView implements IPlantilla {
 						System.out.println("La empresa no existe en la base de datos.");
 					}
 					break;
-				case 4: // Borrar
+				case 4: // Borrar (No se borra el Lugar)
 					if (remove(oCtrl)) {
 						System.out.println("La empresa ha sido eliminado con exito.");
 					} else {
@@ -87,7 +89,8 @@ public class EmpresaView implements IPlantilla {
 	}
 
 	private static boolean create(Controller oCtrl) {
-		String sCifNif, sNombreEmpresa, sEmailEmpresa, sTelefonoEmpresa;
+		String sCifNif, sNombreEmpresa, sEmailEmpresa, sTelefonoEmpresa, sCalleLugar, sNumeroLugar,
+				sReferenciaCodigoPostal, sNombreLocalidad, sNombreProvincia, sNombrePais;
 		Lugar oLugar;
 
 		System.out.println("\nIntroduce los datos del empresa: ");
@@ -95,10 +98,8 @@ public class EmpresaView implements IPlantilla {
 		do {
 			sCifNif = String.valueOf(Libreria.leer("Introduce un cif o nif *", 1, BMAXDNI, -1, -1, (byte) 6));
 		} while (!sCifNif.isEmpty() && sCifNif.length() != BMAXDNI && Pattern.matches(SPATRONDNI, sCifNif));
-		do {
-			sNombreEmpresa = String
-					.valueOf(Libreria.leer("Introduce un nombre *", 1, BMAXNOMBRELARGO, -1, -1, (byte) 6));
-		} while (!sNombreEmpresa.isEmpty() && sNombreEmpresa.length() > BMAXNOMBRELARGO);
+		sNombreEmpresa = String.valueOf(Libreria.leer("Introduce un nombre *", 1, BMAXNOMBRELARGO, -1, -1, (byte) 6));
+		sNombreEmpresa = WordUtils.capitalizeFully(sNombreEmpresa);
 		do {
 			sEmailEmpresa = String.valueOf(Libreria.leer("Introduce un email", 0, BMAXEMAIL, -1, -1, (byte) 6));
 		} while (!sEmailEmpresa.isEmpty() && sEmailEmpresa.length() > BMAXEMAIL);
@@ -106,19 +107,39 @@ public class EmpresaView implements IPlantilla {
 			sTelefonoEmpresa = String
 					.valueOf(Libreria.leer("Introduce un telefono", 0, BMAXTELEFONO, -1, -1, (byte) 6));
 		} while (!sTelefonoEmpresa.isEmpty() && sTelefonoEmpresa.length() > BMAXTELEFONO);
-		// NO SE IMPLEMENTA OLUGAR HASTA QUE NO SE CREEN LAS VISTAS Y CONTROLADORES DE
-		// LUGAR
-		oLugar = new Lugar(1, "pruebas", "pruebas"); // #@#@#@#@@#@@#@#@#@#@#@#@#@#@#@#@
 
-		return oCtrl.getConfiguracionCtrl().getoEmpresaCtrl()
-				.add(new Empresa(sCifNif, sNombreEmpresa, sEmailEmpresa, sTelefonoEmpresa, oLugar));
+		// Direccion
+		sCalleLugar = String.valueOf(Libreria.leer("Introduce una calle *", 1, BMAXNOMBRELUGAR, -1, -1, (byte) 6));
+		sCalleLugar = WordUtils.capitalizeFully(sCalleLugar);
+		sNumeroLugar = String
+				.valueOf(Libreria.leer("Introduce el numero de la calle *", 1, BMAXNUMEROLUGAR, -1, -1, (byte) 6));
+		sReferenciaCodigoPostal = String
+				.valueOf(Libreria.leer("Introduce un codigo postal *", 1, BMAXNOMBRELARGO, -1, -1, (byte) 6));
+		sNombreLocalidad = String
+				.valueOf(Libreria.leer("Introduce una localidad *", 1, BMAXNOMBRELUGAR, -1, -1, (byte) 6));
+		sNombreLocalidad = WordUtils.capitalizeFully(sNombreLocalidad);
+		sNombreProvincia = String
+				.valueOf(Libreria.leer("Introduce una provincia *", 1, BMAXNOMBRELUGAR, -1, -1, (byte) 6));
+		sNombreProvincia = WordUtils.capitalizeFully(sNombreProvincia);
+		sNombrePais = String.valueOf(Libreria.leer("Introduce un pais *", 1, BMAXNOMBRELUGAR, -1, -1, (byte) 6));
+		sNombrePais = WordUtils.capitalizeFully(sNombrePais);
+
+		oLugar = new Lugar(null, null, sCalleLugar, sNumeroLugar, 0f, 0f,
+				new CodigoPostalLocalidadPaisProvincia(new Localidad(sNombreLocalidad),
+						new CodigoPostal(sReferenciaCodigoPostal),
+						(new PaisProvincia(new Provincia(sNombreProvincia), new Pais(sNombrePais)))));
+
+		return oCtrl.getConfiguracionCtrl()
+				.createEmpresa(new Empresa(sCifNif, sNombreEmpresa, sEmailEmpresa, sTelefonoEmpresa, oLugar));
 	}
 
 	private static boolean update(Controller oCtrl) {
-		String sNombreEmpresa, sEmailEmpresa, sTelefonoEmrpesa;
-		// Lugar oLugar;
+		String sNombreEmpresa, sEmailEmpresa, sTelefonoEmrpesa, sCalleLugar, sNumeroLugar, sReferenciaCodigoPostal,
+				sNombreLocalidad, sNombreProvincia, sNombrePais;
 		boolean booExito = false;
-		Empresa oEmpresa = searchByCifDni(oCtrl);
+		Empresa oEmpresaAntigua = searchByCifDni(oCtrl);
+		Empresa oEmpresa = new Empresa(oEmpresaAntigua.getsCifNif(), oEmpresaAntigua.getsNombreEmpresa(),
+				oEmpresaAntigua.getsEmailEmpresa(), oEmpresaAntigua.getsTelefonoEmrpesa(), oEmpresaAntigua.getoLugar());
 
 		if (oEmpresa != null) {
 			if (oEmpresa != null && oEmpresa.checkEmpresa()) {
@@ -129,7 +150,7 @@ public class EmpresaView implements IPlantilla {
 							.valueOf(Libreria.leer("Introduce un nombre (" + oEmpresa.getsNombreEmpresa() + ")", 0,
 									BMAXNOMBRELARGO, -1, -1, (byte) 6));
 				} while (!sNombreEmpresa.isEmpty() && sNombreEmpresa.length() > BMAXNOMBRELARGO);
-				oEmpresa.setsNombreEmpresa(sNombreEmpresa);
+				oEmpresa.setsNombreEmpresa(WordUtils.capitalizeFully(sNombreEmpresa));
 
 				do {
 					sEmailEmpresa = String
@@ -145,11 +166,51 @@ public class EmpresaView implements IPlantilla {
 				} while (!sTelefonoEmrpesa.isEmpty() && sTelefonoEmrpesa.length() > BMAXTELEFONO);
 				oEmpresa.setsTelefonoEmrpesa(sTelefonoEmrpesa);
 
-				// NO SE IMPLEMENTA OLUGAR HASTA QUE NO SE CREEN LAS VISTAS Y CONTROLADORES DE
-				// LUGAR
-				// oLugar = new Lugar(1,"pruebas","pruebas"); //#@#@#@#@@#@@#@#@#@#@#@#@#@#@#@#@
+				// Direccion
+				sCalleLugar = String
+						.valueOf(Libreria.leer("Introduce una calle * (" + oEmpresa.getoLugar().getsCalleLugar() + ")",
+								0, BMAXNOMBRELUGAR, -1, -1, (byte) 6));
+				sNumeroLugar = String.valueOf(Libreria.leer(
+						"Introduce el numero de la calle * (" + oEmpresa.getoLugar().getsNumeroLugar() + ")", 0,
+						BMAXNUMEROLUGAR, -1, -1, (byte) 6));
+				sReferenciaCodigoPostal = String.valueOf(Libreria.leer(
+						"Introduce un codigo postal * (" + oEmpresa.getoLugar().getoCodigoPostalLocalidadPaisProvincia()
+								.getoCodigoPostal().getsReferenciaCodigoPostal() + ")",
+						0, BMAXNOMBRELARGO, -1, -1, (byte) 6));
+				sNombreLocalidad = String
+						.valueOf(
+								Libreria.leer(
+										"Introduce una localidad * ("
+												+ oEmpresa.getoLugar().getoCodigoPostalLocalidadPaisProvincia()
+														.getoLocalidad().getsNombreLocalidad()
+												+ ")",
+										0, BMAXNOMBRELUGAR, -1, -1, (byte) 6));
+				sNombreProvincia = String.valueOf(Libreria.leer(
+						"Introduce una provincia *(" + oEmpresa.getoLugar().getoCodigoPostalLocalidadPaisProvincia()
+								.getoPaisProvincia().getoProvincia().getsNombreProvincia() + ")",
+						0, BMAXNOMBRELUGAR, -1, -1, (byte) 6));
+				sNombrePais = String.valueOf(Libreria.leer(
+						"Introduce un pais *(" + oEmpresa.getoLugar().getoCodigoPostalLocalidadPaisProvincia()
+								.getoPaisProvincia().getoPais().getsNombrePais() + ")",
+						0, BMAXNOMBRELUGAR, -1, -1, (byte) 6));
 
-				booExito = oCtrl.getConfiguracionCtrl().getoEmpresaCtrl().update(oEmpresa);
+				sCalleLugar = WordUtils.capitalizeFully(sCalleLugar);
+				sNombreLocalidad = WordUtils.capitalizeFully(sNombreLocalidad);
+				sNombreProvincia = WordUtils.capitalizeFully(sNombreProvincia);
+				sNombrePais = WordUtils.capitalizeFully(sNombrePais);
+
+				oEmpresa.getoLugar().setsCalleLugar(sCalleLugar);
+				oEmpresa.getoLugar().setsNumeroLugar(sNumeroLugar);
+				oEmpresa.getoLugar().getoCodigoPostalLocalidadPaisProvincia().getoCodigoPostal()
+						.setsReferenciaCodigoPostal(sReferenciaCodigoPostal);
+				oEmpresa.getoLugar().getoCodigoPostalLocalidadPaisProvincia().getoLocalidad()
+						.setsNombreLocalidad(sNombreLocalidad);
+				oEmpresa.getoLugar().getoCodigoPostalLocalidadPaisProvincia().getoPaisProvincia().getoProvincia()
+						.setsNombreProvincia(sNombreProvincia);
+				oEmpresa.getoLugar().getoCodigoPostalLocalidadPaisProvincia().getoPaisProvincia().getoPais()
+						.setsNombrePais(sNombrePais);
+
+				booExito = oCtrl.getConfiguracionCtrl().updateEmpresa(oEmpresa);
 			}
 		}
 

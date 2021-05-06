@@ -2,6 +2,8 @@ package views.Configuracion;
 
 import java.util.List;
 
+import org.apache.commons.lang.WordUtils;
+
 import controllers.Controller;
 import models.IPlantilla;
 import models.sesion.Estado;
@@ -136,7 +138,7 @@ public class TipoAndEstadoView implements IPlantilla {
 
 		sNombreTipoSesion = String
 				.valueOf(Libreria.leer("Introduce un nombre *", 1, BMAXNOMBRELARGO, -1, -1, (byte) 6));
-		sNombreTipoSesion = Libreria.primeraMayus(sNombreTipoSesion);
+		sNombreTipoSesion = WordUtils.capitalizeFully(sNombreTipoSesion);
 
 		try {
 			shDuracionTipoSesion = (short) (Libreria.leer("Introduce una duracion *", 0, SHMAXDURACION, -1, -1,
@@ -179,7 +181,7 @@ public class TipoAndEstadoView implements IPlantilla {
 			sNombreTipoSesion = String
 					.valueOf(Libreria.leer("Introduce un nombre ", 1, BMAXNOMBRELARGO, -1, -1, (byte) 6));
 		} while (!sNombreTipoSesion.isEmpty() && sNombreTipoSesion.length() > BMAXDNI);
-		sNombreTipoSesion = Libreria.primeraMayus(sNombreTipoSesion);
+		sNombreTipoSesion = WordUtils.capitalizeFully(sNombreTipoSesion);
 
 		return oCtrl.getConfiguracionCtrl().getoTipoAndEstadoCtrl().getoTipoSesionCtrl()
 				.searchByPk(new TipoSesion(sNombreTipoSesion));
@@ -192,7 +194,7 @@ public class TipoAndEstadoView implements IPlantilla {
 			sNombreTipoSesion = String
 					.valueOf(Libreria.leer("Introduce un nombre ", 1, BMAXNOMBRELARGO, -1, -1, (byte) 6));
 		} while (!sNombreTipoSesion.isEmpty() && sNombreTipoSesion.length() > BMAXDNI);
-		sNombreTipoSesion = Libreria.primeraMayus(sNombreTipoSesion);
+		sNombreTipoSesion = WordUtils.capitalizeFully(sNombreTipoSesion);
 
 		bExito = oCtrl.getConfiguracionCtrl().getoTipoAndEstadoCtrl().getoTipoSesionCtrl()
 				.remove(new TipoSesion(sNombreTipoSesion));
@@ -213,7 +215,7 @@ public class TipoAndEstadoView implements IPlantilla {
 		System.out.println("Campos requeridos *");
 
 		sNombreEstado = String.valueOf(Libreria.leer("Introduce un nombre *", 1, BMAXNOMBRELARGO, -1, -1, (byte) 6));
-		sNombreEstado = Libreria.primeraMayus(sNombreEstado);
+		sNombreEstado = WordUtils.capitalizeFully(sNombreEstado);
 		return oCtrl.getConfiguracionCtrl().getoTipoAndEstadoCtrl().getoEstadoCtrl().add(new Estado(sNombreEstado));
 	}
 
@@ -230,7 +232,7 @@ public class TipoAndEstadoView implements IPlantilla {
 				sNombreEstado = String
 						.valueOf(Libreria.leer("Introduce un nuevo nombre ", 0, BMAXNOMBRELARGO, -1, -1, (byte) 6));
 			} while (!sNombreEstado.isEmpty() && sNombreEstado.length() > BMAXNOMBRELARGO);
-			sNombreEstado = Libreria.primeraMayus(sNombreEstado);
+			sNombreEstado = WordUtils.capitalizeFully(sNombreEstado);
 			oEstado.setsNombreEstado(sNombreEstado);
 
 			booExito = oCtrl.getConfiguracionCtrl().getoTipoAndEstadoCtrl().getoEstadoCtrl().update(oEstado,
@@ -245,7 +247,7 @@ public class TipoAndEstadoView implements IPlantilla {
 		do {
 			sNombreEstado = String.valueOf(Libreria.leer("Introduce un nombre ", 1, BMAXNOMBRELARGO, -1, -1, (byte) 6));
 		} while (!sNombreEstado.isEmpty() && sNombreEstado.length() > BMAXNOMBRELARGO);
-		sNombreEstado = Libreria.primeraMayus(sNombreEstado);
+		sNombreEstado = WordUtils.capitalizeFully(sNombreEstado);
 
 		return oCtrl.getConfiguracionCtrl().getoTipoAndEstadoCtrl().getoEstadoCtrl()
 				.searchByPk(new Estado(sNombreEstado));
@@ -257,7 +259,7 @@ public class TipoAndEstadoView implements IPlantilla {
 		do {
 			sNombreEstado = String.valueOf(Libreria.leer("Introduce un nombre ", 1, BMAXNOMBRELARGO, -1, -1, (byte) 6));
 		} while (!sNombreEstado.isEmpty() && sNombreEstado.length() > BMAXNOMBRELARGO);
-		sNombreEstado = Libreria.primeraMayus(sNombreEstado);
+		sNombreEstado = WordUtils.capitalizeFully(sNombreEstado);
 
 		bExito = oCtrl.getConfiguracionCtrl().getoTipoAndEstadoCtrl().getoEstadoCtrl()
 				.remove(new Estado(sNombreEstado));

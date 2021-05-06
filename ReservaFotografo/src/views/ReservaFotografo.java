@@ -1,5 +1,4 @@
-package views;
-
+﻿package views;
 import controllers.Controller;
 import views.Configuracion.*;
 import views.personas.*;
@@ -19,7 +18,7 @@ public class ReservaFotografo {
 					ContactoView.gestionContato(oCtrl);
 					break;
                  case 2: // Gestion de configuracion (Lugar, productos, empresa y tipo y estado sesion)
-				 	ConfiguracionView.gestionConfiguracion(oCtrl); //NO ESTA TODO IMPLEMENTADO. CUIDADO QUE SE ELIGE.
+					ConfiguracionView.gestionConfiguracion(oCtrl);
 					break;
 				default:
 					System.out.println("Hasta luego.");

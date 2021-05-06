@@ -1,5 +1,0 @@
-SERVER: luismontero.dynamic-dns.net
-PORT: 3306
-DB: reservafotografo
-USER: fotografo
-PASSWORD: Informedac12$

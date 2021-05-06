@@ -2,6 +2,8 @@ package views.Configuracion;
 
 import java.util.List;
 
+import org.apache.commons.lang.WordUtils;
+
 import controllers.Controller;
 import models.IPlantilla;
 import models.productos.Pack;
@@ -154,7 +156,7 @@ public class ProductoAndPackView implements IPlantilla {
 		System.out.println("Campos requeridos *");
 
 		sNombreProducto = String.valueOf(Libreria.leer("Introduce un nombre *", 1, BMAXNOMBRELARGO, -1, -1, (byte) 6));
-		sNombreProducto = Libreria.todasPrimeraMayus(sNombreProducto);
+		sNombreProducto = WordUtils.capitalizeFully(sNombreProducto);
 
 		do {
 			try {
@@ -174,7 +176,7 @@ public class ProductoAndPackView implements IPlantilla {
 			sProveedorProducto = String
 					.valueOf(Libreria.leer("Introduce el proovedor", 0, BMAXNOMBRELARGO, -1, -1, (byte) 6));
 		} while (!sProveedorProducto.isEmpty() && sProveedorProducto.length() > BMAXNOMBRELARGO);
-		sProveedorProducto = Libreria.todasPrimeraMayus(sProveedorProducto);
+		sProveedorProducto = WordUtils.capitalizeFully(sProveedorProducto);
 
 		do {
 			sDescripcionProducto = String
@@ -239,7 +241,7 @@ public class ProductoAndPackView implements IPlantilla {
 			sNombreProducto = String
 					.valueOf(Libreria.leer("Introduce un nombre ", 1, BMAXNOMBRELARGO, -1, -1, (byte) 6));
 		} while (!sNombreProducto.isEmpty() && sNombreProducto.length() > BMAXNOMBRELARGO);
-		sNombreProducto = Libreria.primeraMayus(sNombreProducto);
+		sNombreProducto = WordUtils.capitalizeFully(sNombreProducto);
 
 		return oCtrl.getConfiguracionCtrl().getoProductoPackCtrl().getoProductoCtrl()
 				.searchByPk(new Producto(sNombreProducto));
@@ -252,7 +254,7 @@ public class ProductoAndPackView implements IPlantilla {
 			sNombreProducto = String
 					.valueOf(Libreria.leer("Introduce un nombre ", 1, BMAXNOMBRELARGO, -1, -1, (byte) 6));
 		} while (!sNombreProducto.isEmpty() && sNombreProducto.length() > BMAXNOMBRELARGO);
-		sNombreProducto = Libreria.primeraMayus(sNombreProducto);
+		sNombreProducto = WordUtils.capitalizeFully(sNombreProducto);
 
 		bExito = oCtrl.getConfiguracionCtrl().getoProductoPackCtrl().getoProductoCtrl()
 				.remove(new Producto(sNombreProducto));
@@ -275,7 +277,7 @@ public class ProductoAndPackView implements IPlantilla {
 		System.out.println("Campos requeridos *");
 
 		sNombrePack = String.valueOf(Libreria.leer("Introduce un nombre *", 1, BMAXNOMBRELARGO, -1, -1, (byte) 6));
-		sNombrePack = Libreria.primeraMayus(sNombrePack);
+		sNombrePack = WordUtils.capitalizeFully(sNombrePack);
 
 		do {
 			try {
@@ -328,7 +330,7 @@ public class ProductoAndPackView implements IPlantilla {
 		do {
 			sNombrePack = String.valueOf(Libreria.leer("Introduce un nombre ", 1, BMAXNOMBRELARGO, -1, -1, (byte) 6));
 		} while (!sNombrePack.isEmpty() && sNombrePack.length() > BMAXNOMBRELARGO);
-		sNombrePack = Libreria.primeraMayus(sNombrePack);
+		sNombrePack = WordUtils.capitalizeFully(sNombrePack);
 
 		return oCtrl.getConfiguracionCtrl().getoProductoPackCtrl().getoPackCtrl().searchByPk(new Pack(sNombrePack));
 	}
@@ -339,7 +341,7 @@ public class ProductoAndPackView implements IPlantilla {
 		do {
 			sNombrePack = String.valueOf(Libreria.leer("Introduce un nombre ", 1, BMAXNOMBRELARGO, -1, -1, (byte) 6));
 		} while (!sNombrePack.isEmpty() && sNombrePack.length() > BMAXNOMBRELARGO);
-		sNombrePack = Libreria.primeraMayus(sNombrePack);
+		sNombrePack = WordUtils.capitalizeFully(sNombrePack);
 
 		bExito = oCtrl.getConfiguracionCtrl().getoProductoPackCtrl().getoPackCtrl().remove(new Pack(sNombrePack));
 

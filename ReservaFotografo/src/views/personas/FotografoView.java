@@ -19,7 +19,7 @@ public class FotografoView implements IPlantilla {
 		System.out.println("4. Borrar");
 		System.out.println("5. Listar Fotografos");
 		System.out.println("6. Volver atras");
-		return (byte) Libreria.leer("Introduce una opcion", 1, 5, -1, -1, (byte) 1);
+		return (byte) Libreria.leer("Introduce una opcion", 1, 6, -1, -1, (byte) 1);
 	}
 
 	public static void gestionFotografo(Controller oCtrl) {

@@ -192,7 +192,7 @@ public class LugarCtrl {
                 ResultSet rs = statement.executeQuery();
                 if (rs.next()) {
                     oLugarResult = new Lugar(rs.getInt(1));
-                    oLugarResult.setsNombreLugar(oLugar.getsNombreLugar());
+                    oLugarResult.setsNombreLugar(rs.getString(2));
                     oLugarResult.setsGoogleMapLink(rs.getString(3));
                     oLugarResult.setfLatitud(rs.getFloat(4));
                     oLugarResult.setfLongitud(rs.getFloat(5));
@@ -213,7 +213,7 @@ public class LugarCtrl {
         return oLugarResult;
     }
 
-    // SOLO SE LISTAN LOS SITION
+    // SOLO SE LISTAN LOS SITIOS
     public List<Lugar> listar() {
         List<Lugar> lLugars = new ArrayList<Lugar>();
         try {

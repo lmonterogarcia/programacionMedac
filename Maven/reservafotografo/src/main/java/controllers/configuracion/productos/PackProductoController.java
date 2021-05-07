@@ -4,8 +4,6 @@ import java.sql.*;
 import java.util.*;
 
 import com.google.gson.*;
-import com.google.gson.reflect.TypeToken;
-import com.google.protobuf.Type;
 
 import controllers.Controller;
 import models.productos.Pack;
@@ -16,7 +14,7 @@ public class PackProductoController {
 
 	public boolean add(List<PackProducto> lPackProducto) {
 		boolean bExito = false;
-		if (lPackProducto != null) {
+		if (lPackProducto.size() > 0) {
 
 			Gson oGson = new Gson();
 			String json = "[";
@@ -24,16 +22,6 @@ public class PackProductoController {
 				json += oGson.toJson(oPackProducto) + ",";
 			}
 			json = json.substring(0, (json.length() - 1)) + "]";
-
-			
-
-			/*
-			 * String json = ("\"[{\"PackProducto\":["); for (PackProducto oPackProducto :
-			 * lPackProducto) { json += "{\"sNombrePack\":\"" +
-			 * oPackProducto.getoPack().getsNombrePack() + "\",\"sNombreProducto\":\"" +
-			 * oPackProducto.getoProducto().getsNombreProducto() + "\"},"; } json =
-			 * json.substring(0, (json.length() - 1)) + "]}]\"";
-			 */
 
 			System.out.println(json);
 			bExito = Controller.executeProcedure(json, "{call pack_producto_create(?)}");
@@ -75,14 +63,6 @@ public class PackProductoController {
 				&& oPackProducto.getoProducto().getsNombreProducto() != null) {
 			Gson oGson = new Gson();
 			String json = "[" + oGson.toJson(oPackProducto) + "]";
-			/*
-			 * Type listType = new TypeToken<ArrayList<PackProducto>>() {}.getType();
-			 * ArrayList<PackProducto> yourClassList = new Gson().fromJson(jsonArray,
-			 * listType);
-			 * 
-			 * ArrayList<PackProducto> sampleList = new ArrayList<PackProducto>(); json =
-			 * new Gson().toJson(sampleList);
-			 */
 			try {
 
 				CallableStatement statement = Controller.getConnection()
@@ -119,7 +99,6 @@ public class PackProductoController {
 				ResultSet rs = statement.executeQuery();
 				if (rs.next()) {
 					oPackResult = new Pack(rs.getString(1));
-
 				}
 				statement.close();
 

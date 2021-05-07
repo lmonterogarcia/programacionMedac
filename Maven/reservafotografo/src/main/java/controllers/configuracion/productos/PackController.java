@@ -9,55 +9,56 @@ import controllers.Controller;
 import models.productos.Pack;
 
 public class PackController {
-    
-    public boolean add(Pack oPack) {
-        boolean bExito = false;
+
+	public boolean add(Pack oPack) {
+		boolean bExito = false;
 		if (oPack != null && oPack.checkPack()) {
 
 			Gson oGson = new Gson();
 			String json = "[" + oGson.toJson(oPack) + "]";
 
 			bExito = Controller.executeProcedure(json, "{call pack_create(?)}");
-			
+
 		}
 		return bExito;
-    }
+	}
 
-    public boolean remove(Pack oPack) {
-        boolean bExito = false; 
+	public boolean remove(Pack oPack) {
+		boolean bExito = false;
 		if (oPack != null && oPack.getsNombrePack() != null) {
 
 			Gson oGson = new Gson();
 			String json = "[" + oGson.toJson(oPack) + "]";
 
 			bExito = Controller.executeProcedure(json, "{call remove(?,'sNombrePack','Pack','nombrePack')}");
-			
+
 		}
 		return bExito;
-    }
+	}
 
-    public boolean update(Pack oPack) {
-        boolean bExito = false;
+	public boolean update(Pack oPack) {
+		boolean bExito = false;
 		if (oPack != null && oPack.checkPack()) {
 
 			Gson oGson = new Gson();
 			String json = "[" + oGson.toJson(oPack) + "]";
 
 			bExito = Controller.executeProcedure(json, "{call pack_update(?)}");
-			
+
 		}
 		return bExito;
-    }
+	}
 
-    public Pack searchByPk(Pack oPack) {
-        Pack oPackResult = null;
+	public Pack searchByPk(Pack oPack) {
+		Pack oPackResult = null;
 		if (oPack != null && oPack.getsNombrePack() != null) {
 			Gson oGson = new Gson();
 			String json = "[" + oGson.toJson(oPack) + "]";
 
 			try {
 
-				CallableStatement statement = Controller.getConnection().prepareCall("{call search_by(?,'sNombrePack','Pack','nombrePack')}");
+				CallableStatement statement = Controller.getConnection()
+						.prepareCall("{call search_by(?,'sNombrePack','Pack','nombrePack')}");
 				statement.setString(1, json);
 
 				ResultSet rs = statement.executeQuery();
@@ -76,9 +77,9 @@ public class PackController {
 		}
 
 		return oPackResult;
-    }
+	}
 
-	public List<Pack> listar(){
+	public List<Pack> listar() {
 		List<Pack> lPacks = new ArrayList<Pack>();
 		try {
 

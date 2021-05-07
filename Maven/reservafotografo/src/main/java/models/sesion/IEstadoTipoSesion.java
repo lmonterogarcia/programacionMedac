@@ -6,8 +6,8 @@ public interface IEstadoTipoSesion {
     public void setoTipoSesion(TipoSesion oTipoSesion);
     public Estado getoEstado();
     public void setoEstado(Estado oEstado);
-    public short getShOrden();
-    public void setShOrden(byte bOrden);
+    public short getbOrden();
+    public void setbOrden(byte bOrden);
 
     public boolean checkEstadoTipoSesion();
     public int hashCode();

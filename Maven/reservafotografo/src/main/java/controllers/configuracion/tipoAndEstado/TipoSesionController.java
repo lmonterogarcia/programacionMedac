@@ -51,7 +51,7 @@ public class TipoSesionController {
     }
 
     public TipoSesion searchByPk(TipoSesion oTipoSesion) {
-        TipoSesion oEmpresaResult = null;
+        TipoSesion oTipoSesionResult = null;
 		if (oTipoSesion != null && oTipoSesion.getsNombreTipoSesion() != null) {
 			Gson oGson = new Gson();
 			String json = "[" + oGson.toJson(oTipoSesion) + "]";
@@ -63,8 +63,8 @@ public class TipoSesionController {
 
 				ResultSet rs = statement.executeQuery();
 				if (rs.next()) {
-					oEmpresaResult = new TipoSesion(oTipoSesion.getsNombreTipoSesion());
-					oEmpresaResult.setShDuracionTipoSesion(rs.getShort(2));
+					oTipoSesionResult = new TipoSesion(oTipoSesion.getsNombreTipoSesion());
+					oTipoSesionResult.setShDuracionTipoSesion(rs.getShort(2));
 				}
 				statement.close();
 
@@ -74,7 +74,7 @@ public class TipoSesionController {
 			}
 		}
 
-		return oEmpresaResult;
+		return oTipoSesionResult;
     }
 
 	public List<TipoSesion> listar(){

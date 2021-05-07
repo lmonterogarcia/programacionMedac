@@ -20,7 +20,7 @@ public class EstadoTipoSesion implements IEstadoTipoSesion, IPlantilla {
     public EstadoTipoSesion(Estado oEstado, TipoSesion oTipoSesion, byte bOrden) {
         setoTipoSesion(oTipoSesion);
         setoEstado(oEstado);
-        setShOrden(bOrden);
+        setbOrden(bOrden);
     }
 
     // ###GET and SET###
@@ -45,11 +45,11 @@ public class EstadoTipoSesion implements IEstadoTipoSesion, IPlantilla {
         }
     }
 
-    public short getShOrden() {
+    public short getbOrden() {
         return bOrden;
     }
 
-    public void setShOrden(byte bOrden) {
+    public void setbOrden(byte bOrden) {
         if (bOrden > 0 && bOrden < BMAXORDEN) {
             this.bOrden = bOrden;
         }
@@ -89,7 +89,7 @@ public class EstadoTipoSesion implements IEstadoTipoSesion, IPlantilla {
         String sMensaje = "";
         if (checkEstadoTipoSesion()) {
             sMensaje += oTipoSesion.toString() + oEstado.toString();
-            sMensaje += "\n Orden: " + this.getShOrden();
+            sMensaje += "\n Orden: " + this.getbOrden();
         }
         return sMensaje;
     }

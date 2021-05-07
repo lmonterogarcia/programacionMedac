@@ -22,8 +22,6 @@ public class PackProductoController {
 				json += oGson.toJson(oPackProducto) + ",";
 			}
 			json = json.substring(0, (json.length() - 1)) + "]";
-
-			System.out.println(json);
 			bExito = Controller.executeProcedure(json, "{call pack_producto_create(?)}");
 
 		}
@@ -58,7 +56,7 @@ public class PackProductoController {
 	}
 
 	public PackProducto searchByPk(PackProducto oPackProducto) {
-		PackProducto oProdcutoResult = null;
+		PackProducto oProductoResult = null;
 		if (oPackProducto != null && oPackProducto.getoPack().getsNombrePack() != null
 				&& oPackProducto.getoProducto().getsNombreProducto() != null) {
 			Gson oGson = new Gson();
@@ -71,7 +69,7 @@ public class PackProductoController {
 
 				ResultSet rs = statement.executeQuery();
 				if (rs.next()) {
-					oProdcutoResult = new PackProducto(new Pack(rs.getString(1)), new Producto(rs.getString(2)));
+					oProductoResult = new PackProducto(new Pack(rs.getString(1)), new Producto(rs.getString(2)));
 				}
 				statement.close();
 
@@ -81,7 +79,7 @@ public class PackProductoController {
 			}
 		}
 
-		return oProdcutoResult;
+		return oProductoResult;
 	}
 
 	public Pack searchByPack(Pack oPack) {

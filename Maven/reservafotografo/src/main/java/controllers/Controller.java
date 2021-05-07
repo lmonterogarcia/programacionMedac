@@ -4,7 +4,7 @@ import java.sql.*;
 import java.util.*;
 import java.io.*;
 
-import controllers.configuracion.ConfiguracionCtrl;
+import controllers.configuracion.ConfiguracionController;
 import controllers.personas.*;
 import models.personas.*;
 /*import models.sesion.*;*/
@@ -15,11 +15,11 @@ public class Controller implements IController {
 	private PersonasController oPersonasCtrl;
 	private FotografoController oFotografoCtrl;
 	private ParticipanteController oParticipanteCtrl;
-	private ConfiguracionCtrl oConfiguracionCtrl;
+	private ConfiguracionController oConfiguracionCtrl;
 
 	public Controller() {
 		oPersonasCtrl = new PersonasController();
-		oConfiguracionCtrl = new ConfiguracionCtrl();
+		oConfiguracionCtrl = new ConfiguracionController();
 		oFotografoCtrl = new FotografoController();
 		oParticipanteCtrl = new ParticipanteController();
 	}
@@ -40,7 +40,7 @@ public class Controller implements IController {
 		return oParticipanteCtrl;
 	}
 
-	public ConfiguracionCtrl getConfiguracionCtrl() {
+	public ConfiguracionController getConfiguracionCtrl() {
 		return oConfiguracionCtrl;
 	}
 

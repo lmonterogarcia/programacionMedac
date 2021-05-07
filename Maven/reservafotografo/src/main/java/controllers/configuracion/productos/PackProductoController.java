@@ -12,7 +12,7 @@ import models.productos.Pack;
 import models.productos.PackProducto;
 import models.productos.Producto;
 
-public class PackProductoCtrl {
+public class PackProductoController {
 
 	public boolean add(List<PackProducto> lPackProducto) {
 		boolean bExito = false;
@@ -21,12 +21,12 @@ public class PackProductoCtrl {
 			Gson oGson = new Gson();
 			// String json = oGson.toJson(lPackProducto);
 
-			String json = "[";
+			String json = ("\"[{\"PackProducto\":[");
 			for (PackProducto oPackProducto : lPackProducto) {
 				json += "{\"sNombrePack\":\"" + oPackProducto.getoPack().getsNombrePack() + "\",\"sNombreProducto\":\""
 						+ oPackProducto.getoProducto().getsNombreProducto() + "\"},";
 			}
-			json = json.substring(0, (json.length() - 1)) + "]";
+			json = json.substring(0, (json.length() - 1)) + "]}]\"";
 
 			/*
 			 * for (PackProducto oPackProducto : lPackProducto) { json +=

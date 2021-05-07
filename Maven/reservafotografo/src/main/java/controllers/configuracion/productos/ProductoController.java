@@ -8,7 +8,7 @@ import com.google.gson.Gson;
 import controllers.Controller;
 import models.productos.Producto;
 
-public class ProductoCtrl {
+public class ProductoController {
     
     public boolean add(Producto oProducto) {
         boolean bExito = false;

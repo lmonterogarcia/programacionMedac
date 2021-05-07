@@ -8,7 +8,7 @@ import com.google.gson.Gson;
 import controllers.Controller;
 import models.sesion.Estado;
 
-public class EstadoCtrl {
+public class EstadoController {
     
     // ###### CRUD ######
 

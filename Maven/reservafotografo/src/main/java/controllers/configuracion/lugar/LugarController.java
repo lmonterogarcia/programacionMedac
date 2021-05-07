@@ -10,7 +10,7 @@ import models.lugar.CodigoPostalLocalidadPaisProvincia;
 import models.lugar.Lugar;
 import models.lugar.*;
 
-public class LugarCtrl {
+public class LugarController {
 
     // ###### CRUD ######
 

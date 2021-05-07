@@ -1,39 +1,39 @@
 package controllers.configuracion;
 
-import controllers.configuracion.lugar.LugarCtrl;
-import controllers.configuracion.productos.ProductosCtrl;
-import controllers.configuracion.tipoAndEstado.TipoAndEstadoCtrl;
+import controllers.configuracion.lugar.LugarController;
+import controllers.configuracion.productos.ProductosController;
+import controllers.configuracion.tipoAndEstado.TipoAndEstadoController;
 import models.lugar.Lugar;
 import models.personas.Empresa;
 
-public class ConfiguracionCtrl {
+public class ConfiguracionController {
     
-    private EmpresaCtrl oEmpresaCtrl;
-    private LugarCtrl oLugarCtrl;
-    private ProductosCtrl oProductosCtrl;
-    private TipoAndEstadoCtrl oTipoAndEstadoCtrl;
+    private EmpresaController oEmpresaCtrl;
+    private LugarController oLugarCtrl;
+    private ProductosController oProductosCtrl;
+    private TipoAndEstadoController oTipoAndEstadoCtrl;
 
-    public ConfiguracionCtrl(){
+    public ConfiguracionController(){
 
-        oEmpresaCtrl = new EmpresaCtrl();
-        oLugarCtrl = new LugarCtrl();
-        oProductosCtrl = new ProductosCtrl();
-        oTipoAndEstadoCtrl = new TipoAndEstadoCtrl();
+        oEmpresaCtrl = new EmpresaController();
+        oLugarCtrl = new LugarController();
+        oProductosCtrl = new ProductosController();
+        oTipoAndEstadoCtrl = new TipoAndEstadoController();
     }
 
-    public EmpresaCtrl getoEmpresaCtrl() {
+    public EmpresaController getoEmpresaCtrl() {
         return oEmpresaCtrl;
     }
 
-    public LugarCtrl getoLugarCtrl() {
+    public LugarController getoLugarCtrl() {
         return oLugarCtrl;
     }
 
-    public ProductosCtrl getoProductosCtrl() {
+    public ProductosController getoProductosCtrl() {
         return oProductosCtrl;
     }
 
-    public TipoAndEstadoCtrl getoTipoAndEstadoCtrl() {
+    public TipoAndEstadoController getoTipoAndEstadoCtrl() {
         return oTipoAndEstadoCtrl;
     }
     

@@ -7,7 +7,7 @@ import com.google.gson.Gson;
 import controllers.Controller;
 import models.sesion.TipoSesion;
 
-public class TipoSesionCtrl {
+public class TipoSesionController {
     
     // ###### CRUD ######
 

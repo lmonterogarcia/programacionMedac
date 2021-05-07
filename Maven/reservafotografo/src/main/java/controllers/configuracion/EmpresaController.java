@@ -10,7 +10,7 @@ import controllers.*;
 import models.lugar.Lugar;
 import models.personas.Empresa;
 
-public class EmpresaCtrl implements controllers.ICrudController<Empresa>{
+public class EmpresaController implements controllers.ICrudController<Empresa>{
 
 
 

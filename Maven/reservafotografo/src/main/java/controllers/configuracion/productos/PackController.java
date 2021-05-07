@@ -8,7 +8,7 @@ import com.google.gson.Gson;
 import controllers.Controller;
 import models.productos.Pack;
 
-public class PackCtrl {
+public class PackController {
     
     public boolean add(Pack oPack) {
         boolean bExito = false;

@@ -23,14 +23,17 @@ public class TipoAndEstadoView implements IPlantilla {
 		System.out.println("3. Buscar Tipo de sesion por nombre");
 		System.out.println("4. Borrar");
 		System.out.println("5. Listar tipo de sesiones");
+		System.out.println("6. Aniadir estado a un tipo de sesion");
+		System.out.println("7. Eliminar estado a un tipo de sesion");
+		System.out.println("8. Cambiar estados de un tipo de sesion");
 		System.out.println("---------Estado--------");
-		System.out.println("6. Alta");
-		System.out.println("7. Modificar");
-		System.out.println("8. Buscar Estado por nombre");
-		System.out.println("9. Borrar");
-		System.out.println("10. Listar estados");
-		System.out.println("11. Volver atras");
-		return (byte) Libreria.leer("Introduce una opcion", 1, 11, -1, -1, (byte) 1);
+		System.out.println("9. Alta");
+		System.out.println("10. Modificar");
+		System.out.println("11. Buscar Estado por nombre");
+		System.out.println("12. Borrar");
+		System.out.println("13. Listar estados");
+		System.out.println("14. Volver atras");
+		return (byte) Libreria.leer("Introduce una opcion", 1, 14, -1, -1, (byte) 1);
 	}
 
 	public static void gestionTipoAndEstado(Controller oCtrl) {
@@ -79,22 +82,44 @@ public class TipoAndEstadoView implements IPlantilla {
 					} else {
 						System.out.println("No hay ninguna empresa");
 					}
+				/* EN PROCESO
+				case 6: // Aniadir Estados a Tipo de Sesion
+					if (asignarProductoToPack(oCtrl)) {
+						System.out.println("El/los productos se han aniadido al pack");
+					} else {
+						System.out.println("No se han aniadido productos al pack");
+					}
 					break;
-				case 6: // Alta de Estado
+				case 7: // Eliminar Estados a Tipo de Sesion
+					if (eliminarProductoDelPack(oCtrl)) {
+						System.out.println("El producto se ha eliminado del pack");
+					} else {
+						System.out.println("El producto NO se ha eliminado del pack");
+					}
+					break;
+				case 8: // Cambiar orden entre Estados de un Tipo de sesion
+					if (eliminarProductoDelPack(oCtrl)) {
+						System.out.println("El producto se ha eliminado del pack");
+					} else {
+						System.out.println("El producto NO se ha eliminado del pack");
+					}
+					break;
+				*/
+				case 9: // Alta de Estado
 					if (createEstado(oCtrl)) {
 						System.out.println("El estado de sesion ha sido creado con exito.");
 					} else {
 						System.out.println("El estado de sesion no se ha podido crear.");
 					}
 					break;
-				case 7: // Modificar Estado
+				case 10: // Modificar Estado
 					if (updateEstado(oCtrl)) {
 						System.out.println("El estado de sesion ha sido modificado con exito.");
 					} else {
 						System.out.println("El estado de sesion no se ha podido modificar.");
 					}
 					break;
-				case 8: // Buscar Estado
+				case 11: // Buscar Estado
 					Estado oEstado = searchByNombreEstado(oCtrl);
 					if (oEstado != null) {
 						System.out.println("El estado de sesion buscado existe en la base de datos.");
@@ -103,14 +128,14 @@ public class TipoAndEstadoView implements IPlantilla {
 						System.out.println("El estado de sesion no existe en la base de datos.");
 					}
 					break;
-				case 9: // Borrar Estado
+				case 12: // Borrar Estado
 					if (removeEstado(oCtrl)) {
 						System.out.println("El estado de sesion ha sido eliminado con exito.");
 					} else {
 						System.out.println("El estado de sesion no se ha podido eliminar.");
 					}
 					break;
-				case 10: // Listar
+				case 13: // Listar
 					List<Estado> lEstados = listarEstado(oCtrl);
 					if (lEstados != null && !lEstados.isEmpty()) {
 						System.out.println("\n### Lista de estados ###");
@@ -123,8 +148,8 @@ public class TipoAndEstadoView implements IPlantilla {
 					break;
 				default:
 					break;
-				}
-		} while (bOpcion != 11);
+			}
+		} while (bOpcion != 14);
 	}
 
 	// ########### Tipo Sesion ##############

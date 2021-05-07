@@ -41,7 +41,7 @@ public class ConfiguracionCtrl {
      * # CONTROLLER METHODS EMPRESA
      */
     public boolean createEmpresa(Empresa oEmpresa){
-        boolean booExito = false;
+        /*boolean booExito = false;
         int iIdLugar;
         Lugar oLugar = oLugarCtrl.searchByDireccion(oEmpresa.getoLugar());
 
@@ -57,7 +57,30 @@ public class ConfiguracionCtrl {
                 booExito = true;
             }
         }
-        return booExito;
+        return booExito;*/
+
+
+
+        boolean booExito = false;
+		int iIdLugar;
+		Lugar oLugar;
+
+		if (oEmpresa.getoLugar() != null) {
+			oLugar = getoLugarCtrl().searchByDireccion(oEmpresa.getoLugar());
+			if (oLugar != null) {
+				iIdLugar = oLugar.getiIdLugar();
+			} else {
+				iIdLugar = getoLugarCtrl().add(oEmpresa.getoLugar());
+			}
+
+			oEmpresa.getoLugar().setiIdLugar(iIdLugar);
+		}
+
+		if (getoEmpresaCtrl().add(oEmpresa)) {
+			booExito = true;
+		}
+
+		return booExito;
     }
 
     public boolean updateEmpresa(Empresa oEmpresa) {

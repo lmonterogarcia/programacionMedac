@@ -3,7 +3,9 @@ package controllers.configuracion.productos;
 import java.sql.*;
 import java.util.*;
 
-import com.google.gson.Gson;
+import com.google.gson.*;
+import com.google.gson.reflect.TypeToken;
+import com.google.protobuf.Type;
 
 import controllers.Controller;
 import models.productos.Pack;
@@ -12,17 +14,26 @@ import models.productos.Producto;
 
 public class PackProductoCtrl {
 
-	public boolean add(List <PackProducto> lPackProducto) {
+	public boolean add(List<PackProducto> lPackProducto) {
 		boolean bExito = false;
 		if (lPackProducto != null) {
 
 			Gson oGson = new Gson();
+			// String json = oGson.toJson(lPackProducto);
+
 			String json = "[";
 			for (PackProducto oPackProducto : lPackProducto) {
-				json += oGson.toJson(oPackProducto) + ",";
+				json += "{\"sNombrePack\":\"" + oPackProducto.getoPack().getsNombrePack() + "\",\"sNombreProducto\":\""
+						+ oPackProducto.getoProducto().getsNombreProducto() + "\"},";
 			}
-			 json = json.substring(0, (json.length() - 1)) + "]";
+			json = json.substring(0, (json.length() - 1)) + "]";
 
+			/*
+			 * for (PackProducto oPackProducto : lPackProducto) { json +=
+			 * oGson.toJson(oPackProducto) + ","; } json = json.substring(0, (json.length()
+			 * - 1)) + "]";
+			 */
+			System.out.println(json);
 			bExito = Controller.executeProcedure(json, "{call pack_producto_create(?)}");
 
 		}
@@ -62,7 +73,13 @@ public class PackProductoCtrl {
 				&& oPackProducto.getoProducto().getsNombreProducto() != null) {
 			Gson oGson = new Gson();
 			String json = "[" + oGson.toJson(oPackProducto) + "]";
+/*
+			Type listType = new TypeToken<ArrayList<PackProducto>>() {}.getType();
+			ArrayList<PackProducto> yourClassList = new Gson().fromJson(jsonArray, listType);
 
+			ArrayList<PackProducto> sampleList = new ArrayList<PackProducto>();
+			json = new Gson().toJson(sampleList);
+*/
 			try {
 
 				CallableStatement statement = Controller.getConnection()
@@ -85,14 +102,15 @@ public class PackProductoCtrl {
 	}
 
 	public Pack searchByPack(Pack oPack) {
-        Pack oPackResult = null;
+		Pack oPackResult = null;
 		if (oPack != null && oPack.getsNombrePack() != null) {
 			Gson oGson = new Gson();
 			String json = "[" + oGson.toJson(oPack) + "]";
 
 			try {
 
-				CallableStatement statement = Controller.getConnection().prepareCall("{call search_by(?,'sNombrePack','Pack_Producto','nombrePack')}");
+				CallableStatement statement = Controller.getConnection()
+						.prepareCall("{call search_by(?,'sNombrePack','Pack_Producto','nombrePack')}");
 				statement.setString(1, json);
 
 				ResultSet rs = statement.executeQuery();
@@ -109,7 +127,7 @@ public class PackProductoCtrl {
 		}
 
 		return oPackResult;
-    }
+	}
 
 	public List<PackProducto> listar(String sNombrePack) {
 		String sProcedure = "{call pack_producto_listar('Pack_Producto','" + sNombrePack + "')}";

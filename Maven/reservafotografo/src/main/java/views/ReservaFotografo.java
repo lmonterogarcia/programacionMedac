@@ -19,7 +19,7 @@ public class ReservaFotografo {
 					ContactoView.gestionContato(oCtrl);
 					break;
                  case 2: // Gestion de configuracion (Lugar, productos, empresa y tipo y estado sesion)
-				 	ConfiguracionView.gestionConfiguracion(oCtrl);
+					ConfiguracionView.gestionConfiguracion(oCtrl);
 					break;
 				default:
 					System.out.println("Hasta luego.");

@@ -31,8 +31,9 @@ public class ProductoAndPackView implements IPlantilla {
 		System.out.println("9. Borrar");
 		System.out.println("10. Listar todos los pack");
 		System.out.println("11. Aniadir productos a un pack");
-		System.out.println("12. Volver atras");
-		return (byte) Libreria.leer("Introduce una opcion", 1, 12, -1, -1, (byte) 1);
+		System.out.println("12. Eliminar un producto de un pack");
+		System.out.println("13. Volver atras");
+		return (byte) Libreria.leer("Introduce una opcion", 1, 13, -1, -1, (byte) 1);
 	}
 
 	public static void gestionProductoAndPack(Controller oCtrl) {
@@ -144,17 +145,24 @@ public class ProductoAndPackView implements IPlantilla {
 						System.out.println("No existen packs en la base de datos.");
 					}
 					break;
-				case 11: // Modificar Pack
+				case 11: // Aniadir Productos a Pack
 					if (asignarProductoToPack(oCtrl)) {
-						System.out.println("El/los prodcutos se han aniadido al pack");
+						System.out.println("El/los productos se han aniadido al pack");
 					} else {
 						System.out.println("No se han aniadido al pack");
+					}
+					break;
+					case 12: // Eliminar Producto a Pack
+					if (eliminarProductoDelPack(oCtrl)) {
+						System.out.println("El producto se ha eliminado del pack");
+					} else {
+						System.out.println("El producto NO se ha eliminado del pack");
 					}
 					break;
 				default:
 					break;
 			}
-		} while (bOpcion != 11);
+		} while (bOpcion != 13);
 
 	}
 
@@ -412,5 +420,26 @@ public class ProductoAndPackView implements IPlantilla {
 		}
 
 		return oCtrl.getConfiguracionCtrl().getoProductosCtrl().getoPackProductoCtrl().add(lProductos);
+	}
+
+	private static boolean eliminarProductoDelPack(Controller oCtrl){
+		String sNombrePack, sNombreProducto;
+		do {
+			sNombrePack = String.valueOf(Libreria.leer("Introduce un nombre de pack", 1, BMAXNOMBRELARGO, -1, -1, (byte) 6));
+			if (oCtrl.getConfiguracionCtrl().getoProductosCtrl().getoPackProductoCtrl().searchByPack(new Pack(sNombrePack)) == null) {
+				System.out.println("Ese pack no tiene prodcutos asignados");
+			}
+		} while (oCtrl.getConfiguracionCtrl().getoProductosCtrl().getoPackProductoCtrl().searchByPack(new Pack(sNombrePack)) == null);
+
+		do {
+			sNombreProducto = String.valueOf(Libreria.leer("Introduce un nombre de producto", 1, BMAXNOMBRELARGO, -1, -1, (byte) 6));
+			if (oCtrl.getConfiguracionCtrl().getoProductosCtrl().getoPackProductoCtrl().searchByPk(new PackProducto(new Pack(sNombrePack), new Producto (sNombreProducto))) == null) {
+				System.out.println("Ese prodcuto no esta en el pack");
+			}
+		} while (oCtrl.getConfiguracionCtrl().getoProductosCtrl().getoPackProductoCtrl().searchByPk(new PackProducto(new Pack(sNombrePack), new Producto (sNombreProducto))) == null);
+
+		return oCtrl.getConfiguracionCtrl().getoProductosCtrl().getoPackProductoCtrl().remove(new PackProducto(new Pack(sNombrePack), new Producto (sNombreProducto)));
+		
+
 	}
 }

@@ -20,4 +20,5 @@ BEGIN
 		DELETE FROM  Estado WHERE nombreEstado = nombreEstadoAntiguoParam;
 
     END IF;
+   	COMMIT;
 END

@@ -3,7 +3,6 @@ BEGIN
 	DECLARE vJsonIsValid INT;
     DECLARE vItems INT;
     DECLARE vIndex BIGINT UNSIGNED DEFAULT 0;
-    
     # Variables para parseo del objeto JSON
     DECLARE nombrePackParam VARCHAR(50);
     DECLARE precioPackParam DECIMAL(7,2);
@@ -33,5 +32,6 @@ BEGIN
             END WHILE;
             
         END IF;	
-    END IF;    
+    END IF;
+   	COMMIT;
 END

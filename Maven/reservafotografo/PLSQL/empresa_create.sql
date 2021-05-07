@@ -37,5 +37,6 @@ BEGIN
             END WHILE;
             
         END IF;	
-    END IF;    
+    END IF;
+   	COMMIT;
 END

@@ -33,4 +33,5 @@ BEGIN
             
         END IF;	
     END IF;
+   	COMMIT;
 END

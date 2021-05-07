@@ -19,21 +19,22 @@ public class PackProductoController {
 		if (lPackProducto != null) {
 
 			Gson oGson = new Gson();
-			// String json = oGson.toJson(lPackProducto);
-
-			String json = ("\"[{\"PackProducto\":[");
+			String json = "[";
 			for (PackProducto oPackProducto : lPackProducto) {
-				json += "{\"sNombrePack\":\"" + oPackProducto.getoPack().getsNombrePack() + "\",\"sNombreProducto\":\""
-						+ oPackProducto.getoProducto().getsNombreProducto() + "\"},";
+				json += oGson.toJson(oPackProducto) + ",";
 			}
-			json = json.substring(0, (json.length() - 1)) + "]}]\"";
+			json = json.substring(0, (json.length() - 1)) + "]";
+
+			
 
 			/*
-			 * for (PackProducto oPackProducto : lPackProducto) { json +=
-			 * oGson.toJson(oPackProducto) + ","; } json = json.substring(0, (json.length()
-			 * - 1)) + "]";
-			 * json = json.substring(0, (json.length() - 1)) + "]}]\"";
+			 * String json = ("\"[{\"PackProducto\":["); for (PackProducto oPackProducto :
+			 * lPackProducto) { json += "{\"sNombrePack\":\"" +
+			 * oPackProducto.getoPack().getsNombrePack() + "\",\"sNombreProducto\":\"" +
+			 * oPackProducto.getoProducto().getsNombreProducto() + "\"},"; } json =
+			 * json.substring(0, (json.length() - 1)) + "]}]\"";
 			 */
+
 			System.out.println(json);
 			bExito = Controller.executeProcedure(json, "{call pack_producto_create(?)}");
 
@@ -74,13 +75,14 @@ public class PackProductoController {
 				&& oPackProducto.getoProducto().getsNombreProducto() != null) {
 			Gson oGson = new Gson();
 			String json = "[" + oGson.toJson(oPackProducto) + "]";
-/*
-			Type listType = new TypeToken<ArrayList<PackProducto>>() {}.getType();
-			ArrayList<PackProducto> yourClassList = new Gson().fromJson(jsonArray, listType);
-
-			ArrayList<PackProducto> sampleList = new ArrayList<PackProducto>();
-			json = new Gson().toJson(sampleList);
-*/
+			/*
+			 * Type listType = new TypeToken<ArrayList<PackProducto>>() {}.getType();
+			 * ArrayList<PackProducto> yourClassList = new Gson().fromJson(jsonArray,
+			 * listType);
+			 * 
+			 * ArrayList<PackProducto> sampleList = new ArrayList<PackProducto>(); json =
+			 * new Gson().toJson(sampleList);
+			 */
 			try {
 
 				CallableStatement statement = Controller.getConnection()

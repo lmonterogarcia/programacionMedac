@@ -32,6 +32,7 @@ public class PackProductoController {
 			 * for (PackProducto oPackProducto : lPackProducto) { json +=
 			 * oGson.toJson(oPackProducto) + ","; } json = json.substring(0, (json.length()
 			 * - 1)) + "]";
+			 * json = json.substring(0, (json.length() - 1)) + "]}]\"";
 			 */
 			System.out.println(json);
 			bExito = Controller.executeProcedure(json, "{call pack_producto_create(?)}");

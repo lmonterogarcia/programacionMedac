@@ -127,4 +127,22 @@ public class EstadoTipoSesionController {
 		}
 		return lEstadoTipoSesions;
 	}
+
+	public byte getProximoOrden(TipoSesion oTipoSesion){
+		String sProcedure = "{call estado_tiposesion_proximo_orden('Estado_TipoSesion','" + oTipoSesion.getsNombreTipoSesion() + "')}";
+		byte bOrdenResult = 0;
+		try {
+
+			CallableStatement statement = Controller.getConnection().prepareCall(sProcedure);
+			ResultSet rs = statement.executeQuery();
+			if (rs.next()) {
+				bOrdenResult =rs.getByte(1);
+			}
+			statement.close();
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+			System.out.println(ex);
+		}
+		return (byte)(bOrdenResult + 1);
+	}
 }

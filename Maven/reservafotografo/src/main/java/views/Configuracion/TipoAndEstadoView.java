@@ -85,6 +85,7 @@ public class TipoAndEstadoView implements IPlantilla {
 					} else {
 						System.out.println("No hay ninguna empresa");
 					}
+					break;
 				case 6: // Aniadir Estados a Tipo de Sesion
 					if (asignarEstadoToTipoSesion(oCtrl)) {
 						System.out.println("El/los estados se han aniadido al tipo de sesion");
@@ -101,9 +102,9 @@ public class TipoAndEstadoView implements IPlantilla {
 					break;
 				case 8: // Cambiar orden entre Estados de un Tipo de sesion
 					if (cambiarOrdenEstados(oCtrl)) {
-						System.out.println("El estado se ha eliminado del tipo de sesion");
+						System.out.println("Se ha intercambiado el orden");
 					} else {
-						System.out.println("El estado NO se ha eliminado del tipo de sesion");
+						System.out.println("No se ha intercambiado el orden");
 					}
 					break;
 				case 9: // Alta de Estado
@@ -271,7 +272,7 @@ public class TipoAndEstadoView implements IPlantilla {
 							Libreria.leer("Introduce un estado de sesion", 0, BMAXNOMBRELARGO, -1, -1, (byte) 6));
 
 					if (oCtrl.getConfiguracionCtrl().getoTipoAndEstadoCtrl().getoEstadoCtrl()
-							.searchByPk(oEstado) != null) {
+							.searchByPk(new Estado(sNombreEstado)) != null) {
 
 						oEstado = new Estado(sNombreEstado);
 						oEstadoTipoSesion = new EstadoTipoSesion(oEstado, oTipoSesion, bOrden);
@@ -330,40 +331,44 @@ public class TipoAndEstadoView implements IPlantilla {
 
 	private static boolean cambiarOrdenEstados(Controller oCtrl) {
 		String sNombreTipoSesion, sNombreEstado1, sNombreEstado2;
+		EstadoTipoSesion oEstadoTipoSesion1 = null, oEstadoTipoSesion2 = null;
 		do {
 			sNombreTipoSesion = String.valueOf(
 					Libreria.leer("Introduce un nombre de tipo de sesion", 1, BMAXNOMBRELARGO, -1, -1, (byte) 6));
 			if (oCtrl.getConfiguracionCtrl().getoTipoAndEstadoCtrl().getoEstadoTipoSesionCtrl()
 					.searchByTipoSesion(new TipoSesion(sNombreTipoSesion)) == null) {
-				System.out.println("Ese pack no tiene estados asignados");
+				System.out.println("Ese tipo de sesion no tiene estados asignados");
 			}
 		} while (oCtrl.getConfiguracionCtrl().getoTipoAndEstadoCtrl().getoEstadoTipoSesionCtrl()
 				.searchByTipoSesion(new TipoSesion(sNombreTipoSesion)) == null);
 
-		do {
-			sNombreEstado1 = String.valueOf(
-					Libreria.leer("Introduce el primer nombre de estado", 1, BMAXNOMBRELARGO, -1, -1, (byte) 6));
-			if (oCtrl.getConfiguracionCtrl().getoTipoAndEstadoCtrl().getoEstadoTipoSesionCtrl().searchByPk(
-					new EstadoTipoSesion(new Estado(sNombreEstado1), new TipoSesion(sNombreTipoSesion))) == null) {
-				System.out.println("Ese estado no esta en el tipo de sesion");
-			}
-		} while (oCtrl.getConfiguracionCtrl().getoTipoAndEstadoCtrl().getoEstadoTipoSesionCtrl().searchByPk(
-				new EstadoTipoSesion(new Estado(sNombreEstado1), new TipoSesion(sNombreTipoSesion))) == null);
+		if (oCtrl.getConfiguracionCtrl().getoTipoAndEstadoCtrl().getoEstadoTipoSesionCtrl()
+				.listar(sNombreTipoSesion) != null) {
+			do {
+				sNombreEstado1 = String.valueOf(
+						Libreria.leer("Introduce el primer nombre de estado", 1, BMAXNOMBRELARGO, -1, -1, (byte) 6));
+				if (oCtrl.getConfiguracionCtrl().getoTipoAndEstadoCtrl().getoEstadoTipoSesionCtrl().searchByPk(
+						new EstadoTipoSesion(new Estado(sNombreEstado1), new TipoSesion(sNombreTipoSesion))) == null) {
+					System.out.println("Ese estado no esta en el tipo de sesion");
+				}
+			} while (oCtrl.getConfiguracionCtrl().getoTipoAndEstadoCtrl().getoEstadoTipoSesionCtrl().searchByPk(
+					new EstadoTipoSesion(new Estado(sNombreEstado1), new TipoSesion(sNombreTipoSesion))) == null);
 
-		do {
-			sNombreEstado2 = String.valueOf(
-					Libreria.leer("Introduce el primer nombre de estado", 1, BMAXNOMBRELARGO, -1, -1, (byte) 6));
-			if (oCtrl.getConfiguracionCtrl().getoTipoAndEstadoCtrl().getoEstadoTipoSesionCtrl().searchByPk(
-					new EstadoTipoSesion(new Estado(sNombreEstado2), new TipoSesion(sNombreTipoSesion))) == null) {
-				System.out.println("Ese estado no esta en el tipo de sesion");
-			}
-		} while (oCtrl.getConfiguracionCtrl().getoTipoAndEstadoCtrl().getoEstadoTipoSesionCtrl().searchByPk(
-				new EstadoTipoSesion(new Estado(sNombreEstado2), new TipoSesion(sNombreTipoSesion))) == null);
+			do {
+				sNombreEstado2 = String.valueOf(
+						Libreria.leer("Introduce el segundo nombre de estado", 1, BMAXNOMBRELARGO, -1, -1, (byte) 6));
+				if (oCtrl.getConfiguracionCtrl().getoTipoAndEstadoCtrl().getoEstadoTipoSesionCtrl().searchByPk(
+						new EstadoTipoSesion(new Estado(sNombreEstado2), new TipoSesion(sNombreTipoSesion))) == null) {
+					System.out.println("Ese estado no esta en el tipo de sesion");
+				}
+			} while (oCtrl.getConfiguracionCtrl().getoTipoAndEstadoCtrl().getoEstadoTipoSesionCtrl().searchByPk(
+					new EstadoTipoSesion(new Estado(sNombreEstado2), new TipoSesion(sNombreTipoSesion))) == null);
 
-		EstadoTipoSesion oEstadoTipoSesion1 = new EstadoTipoSesion(new Estado(sNombreEstado1),
-				new TipoSesion(sNombreTipoSesion));
-		EstadoTipoSesion oEstadoTipoSesion2 = new EstadoTipoSesion(new Estado(sNombreEstado2),
-				new TipoSesion(sNombreTipoSesion));
+			oEstadoTipoSesion1 = new EstadoTipoSesion(new Estado(sNombreEstado1), new TipoSesion(sNombreTipoSesion));
+			oEstadoTipoSesion2 = new EstadoTipoSesion(new Estado(sNombreEstado2), new TipoSesion(sNombreTipoSesion));
+		} else {
+			System.out.println("Ese Tipo de sesion no tiene estados asignados");
+		}
 
 		return oCtrl.getConfiguracionCtrl().getoTipoAndEstadoCtrl().getoEstadoTipoSesionCtrl()
 				.update(oEstadoTipoSesion1, oEstadoTipoSesion2);

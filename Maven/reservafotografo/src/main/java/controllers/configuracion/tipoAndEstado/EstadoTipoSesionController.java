@@ -11,8 +11,8 @@ import models.sesion.EstadoTipoSesion;
 import models.sesion.TipoSesion;
 
 public class EstadoTipoSesionController {
-    
-    public boolean add(List<EstadoTipoSesion> lEstadoTipoSesion) {
+
+	public boolean add(List<EstadoTipoSesion> lEstadoTipoSesion) {
 		boolean bExito = false;
 		if (lEstadoTipoSesion.size() > 0) {
 
@@ -30,12 +30,13 @@ public class EstadoTipoSesionController {
 
 	public boolean remove(EstadoTipoSesion oEstadoTipoSesion) {
 		boolean bExito = false;
-		if (oEstadoTipoSesion != null && oEstadoTipoSesion.getbOrden() > 0 && oEstadoTipoSesion.checkEstadoTipoSesion()) {
+		if (oEstadoTipoSesion != null && oEstadoTipoSesion.getoEstado().checkEstado()
+				&& oEstadoTipoSesion.getoTipoSesion().getsNombreTipoSesion() != null) {
 
 			Gson oGson = new Gson();
 			String json = "[" + oGson.toJson(oEstadoTipoSesion) + "]";
 
-			bExito = Controller.executeProcedure(json, "{call pack_estado_tiposesion_remove(?)}");
+			bExito = Controller.executeProcedure(json, "{call estado_tiposesion_remove(?)}");
 
 		}
 		return bExito;
@@ -43,12 +44,15 @@ public class EstadoTipoSesionController {
 
 	public boolean update(EstadoTipoSesion oEstadoTipoSesion1, EstadoTipoSesion oEstadoTipoSesion2) {
 		boolean bExito = false;
-		if (oEstadoTipoSesion1 != null && oEstadoTipoSesion1.checkEstadoTipoSesion() && oEstadoTipoSesion2 != null && oEstadoTipoSesion2.checkEstadoTipoSesion()) {
+		if (oEstadoTipoSesion1 != null && oEstadoTipoSesion1.getoEstado().checkEstado()
+				&& oEstadoTipoSesion1.getoTipoSesion().getsNombreTipoSesion() != null
+				&& oEstadoTipoSesion2.getoEstado().checkEstado()
+				&& oEstadoTipoSesion2.getoTipoSesion().getsNombreTipoSesion() != null) {
 
 			Gson oGson = new Gson();
 			String json = "[" + oGson.toJson(oEstadoTipoSesion1) + "," + oGson.toJson(oEstadoTipoSesion2) + "]";
 
-			bExito = Controller.executeProcedure(json, "{call pack_producto_update(?)}");
+			bExito = Controller.executeProcedure(json, "{call estado_tiposesion_update(?)}");
 
 		}
 		return bExito;
@@ -56,19 +60,21 @@ public class EstadoTipoSesionController {
 
 	public EstadoTipoSesion searchByPk(EstadoTipoSesion oEstadoTipoSesion) {
 		EstadoTipoSesion oEstadoTipoSesionResult = null;
-		if (oEstadoTipoSesion != null && oEstadoTipoSesion.checkEstadoTipoSesion()) {
+		if (oEstadoTipoSesion != null && oEstadoTipoSesion.getoEstado().checkEstado()
+				&& oEstadoTipoSesion.getoTipoSesion().getsNombreTipoSesion() != null) {
 			Gson oGson = new Gson();
 			String json = "[" + oGson.toJson(oEstadoTipoSesion) + "]";
 			try {
 
 				CallableStatement statement = Controller.getConnection()
-						.prepareCall("{call pack_producto_search_by(?)}");
+						.prepareCall("{call estado_tiposesion_search_by(?)}");
 				statement.setString(1, json);
 
 				ResultSet rs = statement.executeQuery();
 				if (rs.next()) {
-					oEstadoTipoSesionResult = new EstadoTipoSesion(new Estado(rs.getString(1)), new TipoSesion(rs.getString(2)));
-                    oEstadoTipoSesionResult.setbOrden(rs.getByte(3));
+					oEstadoTipoSesionResult = new EstadoTipoSesion(new Estado(rs.getString(1)),
+							new TipoSesion(rs.getString(2)));
+					oEstadoTipoSesionResult.setbOrden(rs.getByte(3));
 				}
 				statement.close();
 
@@ -82,20 +88,20 @@ public class EstadoTipoSesionController {
 	}
 
 	public TipoSesion searchByTipoSesion(TipoSesion oTipoSesion) {
-        TipoSesion oTipoSesionResult = null;
+		TipoSesion oTipoSesionResult = null;
 		if (oTipoSesion != null && oTipoSesion.getsNombreTipoSesion() != null) {
 			Gson oGson = new Gson();
 			String json = "[" + oGson.toJson(oTipoSesion) + "]";
 
 			try {
 
-				CallableStatement statement = Controller.getConnection().prepareCall("{call search_by(?,'sNombreTipoSesion','Estado_TipoSesion','nombreTipoSesion')}");
+				CallableStatement statement = Controller.getConnection()
+						.prepareCall("{call search_by(?,'sNombreTipoSesion','Estado_TipoSesion','nombreTipoSesion')}");
 				statement.setString(1, json);
 
 				ResultSet rs = statement.executeQuery();
 				if (rs.next()) {
-					oTipoSesionResult = new TipoSesion(oTipoSesion.getsNombreTipoSesion());
-					oTipoSesionResult.setShDuracionTipoSesion(rs.getShort(2));
+					oTipoSesionResult = new TipoSesion(rs.getString(1));
 				}
 				statement.close();
 
@@ -106,7 +112,7 @@ public class EstadoTipoSesionController {
 		}
 
 		return oTipoSesionResult;
-    }
+	}
 
 	public List<EstadoTipoSesion> listar(String sNombreTipoSesion) {
 		String sProcedure = "{call estado_tiposesion_listar('Estado_TipoSesion','" + sNombreTipoSesion + "')}";
@@ -116,8 +122,9 @@ public class EstadoTipoSesionController {
 			CallableStatement statement = Controller.getConnection().prepareCall(sProcedure);
 			ResultSet rs = statement.executeQuery();
 			while (rs.next()) {
-				EstadoTipoSesion oEstadoTipoSesionResult = new EstadoTipoSesion(new Estado(rs.getString(1)), new TipoSesion(rs.getString(2)));
-                oEstadoTipoSesionResult.setbOrden(rs.getByte(3));
+				EstadoTipoSesion oEstadoTipoSesionResult = new EstadoTipoSesion(new Estado(rs.getString(1)),
+						new TipoSesion(rs.getString(2)));
+				oEstadoTipoSesionResult.setbOrden(rs.getByte(3));
 				lEstadoTipoSesions.add(oEstadoTipoSesionResult);
 			}
 			statement.close();
@@ -128,21 +135,22 @@ public class EstadoTipoSesionController {
 		return lEstadoTipoSesions;
 	}
 
-	public byte getProximoOrden(TipoSesion oTipoSesion){
-		String sProcedure = "{call estado_tiposesion_proximo_orden('Estado_TipoSesion','" + oTipoSesion.getsNombreTipoSesion() + "')}";
+	public byte getProximoOrden(TipoSesion oTipoSesion) {
+		String sProcedure = "{call estado_tiposesion_proximo_orden('Estado_TipoSesion','"
+				+ oTipoSesion.getsNombreTipoSesion() + "')}";
 		byte bOrdenResult = 0;
 		try {
 
 			CallableStatement statement = Controller.getConnection().prepareCall(sProcedure);
 			ResultSet rs = statement.executeQuery();
 			if (rs.next()) {
-				bOrdenResult =rs.getByte(1);
+				bOrdenResult = rs.getByte(1);
 			}
 			statement.close();
 		} catch (SQLException ex) {
 			ex.printStackTrace();
 			System.out.println(ex);
 		}
-		return (byte)(bOrdenResult + 1);
+		return (byte) (bOrdenResult + 1);
 	}
 }

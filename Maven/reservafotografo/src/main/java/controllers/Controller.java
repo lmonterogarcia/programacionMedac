@@ -6,8 +6,9 @@ import java.io.*;
 
 import controllers.configuracion.ConfiguracionController;
 import controllers.personas.*;
+import controllers.sesiones.SesionesController;
 import models.personas.*;
-/*import models.sesion.*;*/
+import models.sesion.*;
 import models.lugar.Lugar;
 
 public class Controller implements IController {
@@ -16,12 +17,14 @@ public class Controller implements IController {
 	private FotografoController oFotografoCtrl;
 	private ParticipanteController oParticipanteCtrl;
 	private ConfiguracionController oConfiguracionCtrl;
+	private SesionesController oSesionesCtrl;
 
 	public Controller() {
 		oPersonasCtrl = new PersonasController();
 		oConfiguracionCtrl = new ConfiguracionController();
 		oFotografoCtrl = new FotografoController();
 		oParticipanteCtrl = new ParticipanteController();
+		oSesionesCtrl = new SesionesController();
 	}
 
 	public static Connection getConnection() {
@@ -42,6 +45,10 @@ public class Controller implements IController {
 
 	public ConfiguracionController getConfiguracionCtrl() {
 		return oConfiguracionCtrl;
+	}
+
+	public SesionesController getSesionesCtrl() {
+		return oSesionesCtrl;
 	}
 
 	/*
@@ -176,6 +183,27 @@ public class Controller implements IController {
 		}
 		return oClienteaResult;
 	}
+
+	// ###### PEDIDOS #######
+
+    public Pedido searchPedido(Pedido oPedido){
+        Pedido oPedidoResult = getSesionesCtrl().getoPedidoCtrl().searchByPk(oPedido);
+		if (oPedidoResult != null) {
+			oPedidoResult.setoEmpresa(getConfiguracionCtrl().getoEmpresaCtrl().searchByPk(oPedidoResult.getoEmpresa()));
+		}
+		return oPedidoResult;
+    }
+
+	public List<Pedido> listarPedidos (){
+		List <Pedido> lPedidos = getSesionesCtrl().getoPedidoCtrl().listar();
+		if (lPedidos.size() > 0) {
+			for (Pedido oPedido : lPedidos) {
+				oPedido.setoEmpresa(getConfiguracionCtrl().getoEmpresaCtrl().searchByPk(oPedido.getoEmpresa()));
+			}
+		}
+		return lPedidos;
+	}
+	
 	/*
 	 * public boolean removeCliente(Cliente oCliente) { return
 	 * getoPersonasCtrl().removeCliente(oCliente, oConnection); } public Cliente

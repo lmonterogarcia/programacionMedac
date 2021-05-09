@@ -41,25 +41,6 @@ public class ConfiguracionController {
      * # CONTROLLER METHODS EMPRESA
      */
     public boolean createEmpresa(Empresa oEmpresa){
-        /*boolean booExito = false;
-        int iIdLugar;
-        Lugar oLugar = oLugarCtrl.searchByDireccion(oEmpresa.getoLugar());
-
-        if (oLugar != null) {
-            iIdLugar = oLugar.getiIdLugar();
-        } else {
-            iIdLugar = oLugarCtrl.add(oEmpresa.getoLugar());
-        }
-
-        if (iIdLugar > 0) {
-            oEmpresa.getoLugar().setiIdLugar(iIdLugar);
-            if (oEmpresaCtrl.add(oEmpresa)) {
-                booExito = true;
-            }
-        }
-        return booExito;*/
-
-
 
         boolean booExito = false;
 		int iIdLugar;

@@ -11,17 +11,33 @@ import models.sesion.Pedido;
 
 public class PedidoController {
     
-    public boolean add(Pedido oPedido) {
-		boolean bExito = false;
-		if (oPedido != null && oPedido.checkPedido()) {
+    public int add(Pedido oPedido) {
+		
+		int iIdPedido = -1;
+        if (oPedido != null && oPedido.checkPedido()) {
 
-			Gson oGson = new Gson();
-			String json = "[" + oGson.toJson(oPedido) + "]";
+            Gson oGson = new Gson();
+            String json = "[" + oGson.toJson(oPedido) + "]";
 
-			bExito = Controller.executeProcedure(json, "{call pedido_create(?)}");
+            try {
 
-		}
-		return bExito;
+                CallableStatement statement = Controller.getConnection()
+                        .prepareCall("{call pedido_create(?)}");
+                statement.setString(1, json);
+
+                ResultSet rs = statement.executeQuery();
+                if (rs.next()) {
+                    iIdPedido = rs.getInt(1);
+                }
+                statement.close();
+
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+                System.out.println(ex);
+            }
+
+        }
+        return iIdPedido;
 	}
 
 	public boolean remove(Pedido oPedido) {

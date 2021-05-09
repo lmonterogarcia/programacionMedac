@@ -168,7 +168,7 @@ public class Controller implements IController {
 			} else {
 				oConfiguracionCtrl.getoLugarCtrl().update(oCliente.getoLugar());
 			}
-			
+
 		}
 		if (getoPersonasCtrl().updateCliente(oCliente)) {
 			booExito = true;
@@ -186,16 +186,18 @@ public class Controller implements IController {
 
 	// ###### PEDIDOS #######
 
-    public Pedido searchPedido(Pedido oPedido){
-        Pedido oPedidoResult = getSesionesCtrl().getoPedidoCtrl().searchByPk(oPedido);
+	public Pedido searchPedido(Pedido oPedido) {
+		Pedido oPedidoResult = getSesionesCtrl().getoPedidoCtrl().searchByPk(oPedido);
 		if (oPedidoResult != null) {
 			oPedidoResult.setoEmpresa(getConfiguracionCtrl().getoEmpresaCtrl().searchByPk(oPedidoResult.getoEmpresa()));
+			oPedidoResult.getoEmpresa()
+					.setoLugar(oConfiguracionCtrl.getoLugarCtrl().searchByPk(oPedidoResult.getoEmpresa().getoLugar()));
 		}
 		return oPedidoResult;
-    }
+	}
 
-	public List<Pedido> listarPedidos (){
-		List <Pedido> lPedidos = getSesionesCtrl().getoPedidoCtrl().listar();
+	public List<Pedido> listarPedidos() {
+		List<Pedido> lPedidos = getSesionesCtrl().getoPedidoCtrl().listar();
 		if (lPedidos.size() > 0) {
 			for (Pedido oPedido : lPedidos) {
 				oPedido.setoEmpresa(getConfiguracionCtrl().getoEmpresaCtrl().searchByPk(oPedido.getoEmpresa()));
@@ -203,7 +205,7 @@ public class Controller implements IController {
 		}
 		return lPedidos;
 	}
-	
+
 	/*
 	 * public boolean removeCliente(Cliente oCliente) { return
 	 * getoPersonasCtrl().removeCliente(oCliente, oConnection); } public Cliente

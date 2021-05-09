@@ -18,7 +18,7 @@ public class Pedido implements IPedido, IPlantilla{
     }
 
     public Pedido(boolean booPagado, Empresa oEmpresa) {
-        this.setiIdPedido(1);
+        this.setiIdPedido(0);
         this.setBooPagado(booPagado);
         this.setoEmpresa(oEmpresa);
     }
@@ -59,7 +59,7 @@ public class Pedido implements IPedido, IPlantilla{
 
     public boolean checkPedido() {
         boolean booExito = false;
-        if (this.getiIdPedido() > 0 && this.getiIdPedido() < IMAXIDS && this.getoEmpresa() !=  null) {
+        if (this.getiIdPedido() >= 0 && this.getiIdPedido() < IMAXIDS && this.getoEmpresa() !=  null) {
             booExito = true;
         }
         return booExito;

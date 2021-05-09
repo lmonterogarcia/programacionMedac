@@ -3,6 +3,7 @@
 import controllers.Controller;
 import views.Configuracion.*;
 import views.personas.*;
+import views.sesiones.SesionesView;
 
 public class ReservaFotografo {
         public static void main(String[] args) throws Exception {
@@ -21,10 +22,13 @@ public class ReservaFotografo {
                  case 2: // Gestion de configuracion (Lugar, productos, empresa y tipo y estado sesion)
 					ConfiguracionView.gestionConfiguracion(oCtrl);
 					break;
+					case 3: // Gestion de Sesiones (Pedidos y Sesiones)
+					SesionesView.gestionSesiones(oCtrl);
+					break;
 				default:
 					System.out.println("Hasta luego.");
 				}
-			} while (bOpcion != 3);
+			} while (bOpcion != 4);
 			oCtrl.closeDb();
                 } else {
                         System.out.println("Error al conectar con la base de datos.");
@@ -37,7 +41,8 @@ public class ReservaFotografo {
 		System.out.println("###############################################");
 		System.out.println("1. Gestion de contactos");
         System.out.println("2. Gestion de configuracion");
-		System.out.println("3. Salir");
-		return (byte) Libreria.leer("Introduce una opcion", 1, 3, -1, -1, (byte) 1);
+		System.out.println("3. Gestion de pedidos y sesiones");
+		System.out.println("4. Salir");
+		return (byte) Libreria.leer("Introduce una opcion", 1, 4, -1, -1, (byte) 1);
 	}
 }

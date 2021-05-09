@@ -12,7 +12,7 @@ import models.sesion.Pedido;
 public class PedidoController {
     
     public int add(Pedido oPedido) {
-		
+	
 		int iIdPedido = -1;
         if (oPedido != null && oPedido.checkPedido()) {
 
@@ -81,7 +81,7 @@ public class PedidoController {
 				ResultSet rs = statement.executeQuery();
 				if (rs.next()) {
 					oPedidoResult = new Pedido(oPedido.getiIdPedido());
-					oPedidoResult.setBooPagado(rs.getBoolean(2));
+					oPedidoResult.setBooPagado((rs.getByte(2) == 0 ? false : true));
 					oPedidoResult.setoEmpresa(new Empresa (rs.getString(3)));
 				}
 				statement.close();

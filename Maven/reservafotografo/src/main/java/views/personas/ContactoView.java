@@ -31,9 +31,9 @@ public class ContactoView {
 
     public static byte subMenuContacto() {
 		System.out.println("");
-		System.out.println("-----------------------");
+		System.out.println("--------------------");
 		System.out.println("Gestion de contactos");
-		System.out.println("-----------------------");
+		System.out.println("--------------------");
 		System.out.println("1. Gestion de clientes");
         System.out.println("2. Gestion de participantes");
 		System.out.println("3. Gestion de fotografos");

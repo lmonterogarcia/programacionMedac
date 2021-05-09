@@ -16,9 +16,9 @@ import models.lugar.*;
 public class ClienteView implements IPlantilla {
 	public static byte subMenuClientes() {
 		System.out.println("");
-		System.out.println("-----------------------");
+		System.out.println("-------------------");
 		System.out.println("Gestion de clientes");
-		System.out.println("-----------------------");
+		System.out.println("-------------------");
 		System.out.println("1. Alta");
 		System.out.println("2. Modificar");
 		System.out.println("3. Buscar usuario por email");

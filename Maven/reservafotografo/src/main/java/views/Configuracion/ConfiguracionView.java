@@ -33,9 +33,9 @@ public class ConfiguracionView {
 
     public static byte subMenuConfiguracion() {
 		System.out.println("");
-		System.out.println("-----------------------");
+		System.out.println("------------------------");
 		System.out.println("Gestion de configuracion");
-		System.out.println("-----------------------");
+		System.out.println("------------------------");
 		System.out.println("1. Gestion de empresa");
         System.out.println("2. Gestion de tipo y estados de sesion");
 		System.out.println("3. Gestion de productos y packs");

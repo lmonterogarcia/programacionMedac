@@ -15,10 +15,10 @@ public class TipoAndEstadoView implements IPlantilla {
 
 	public static byte subMenuTipoAndEstado() {
 		System.out.println("");
-		System.out.println("-----------------------");
+		System.out.println("----------------------------------");
 		System.out.println("Gestion de tipo y estado de sesion");
-		System.out.println("-----------------------");
-		System.out.println("-----Tipo de Sesion----");
+		System.out.println("----------------------------------");
+		System.out.println("-----------Tipo de Sesion---------");
 		System.out.println("1. Alta");
 		System.out.println("2. Modificar");
 		System.out.println("3. Buscar Tipo de sesion por nombre");
@@ -27,7 +27,7 @@ public class TipoAndEstadoView implements IPlantilla {
 		System.out.println("6. Aniadir estado a un tipo de sesion");
 		System.out.println("7. Eliminar estado a un tipo de sesion");
 		System.out.println("8. Cambiar el orden de estados de un tipo de sesion");
-		System.out.println("---------Estado--------");
+		System.out.println("---------------Estado-------------");
 		System.out.println("9. Alta");
 		System.out.println("10. Modificar");
 		System.out.println("11. Buscar Estado por nombre");

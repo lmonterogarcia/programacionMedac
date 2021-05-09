@@ -10,9 +10,9 @@ import views.Libreria;
 public class FotografoView implements IPlantilla {
 	public static byte subMenuFotografo() {
 		System.out.println("");
-		System.out.println("-----------------------");
+		System.out.println("--------------------");
 		System.out.println("Gestion de fotografo");
-		System.out.println("-----------------------");
+		System.out.println("--------------------");
 		System.out.println("1. Alta");
 		System.out.println("2. Modificar");
 		System.out.println("3. Buscar fotografo por dni");

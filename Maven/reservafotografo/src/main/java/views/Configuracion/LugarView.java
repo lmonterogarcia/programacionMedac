@@ -13,9 +13,9 @@ public class LugarView implements IPlantilla{
 
     public static byte subMenuLugar() {
         System.out.println("");
-        System.out.println("-----------------------");
+        System.out.println("----------------");
         System.out.println("Gestion de Sitio");
-        System.out.println("-----------------------");
+        System.out.println("----------------");
         System.out.println("1. Alta");
         System.out.println("2. Modificar");
         System.out.println("3. Buscar sitio por nombre");

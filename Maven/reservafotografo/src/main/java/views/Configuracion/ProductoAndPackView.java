@@ -15,16 +15,16 @@ public class ProductoAndPackView implements IPlantilla {
 
 	public static byte subMenuProductoAndPack() {
 		System.out.println("");
-		System.out.println("-----------------------");
+		System.out.println("----------------------------");
 		System.out.println("Gestion de productos y packs");
-		System.out.println("-----------------------");
-		System.out.println("------Productos------");
+		System.out.println("----------------------------");
+		System.out.println("----------Productos---------");
 		System.out.println("1. Alta");
 		System.out.println("2. Modificar");
 		System.out.println("3. Buscar producto por nombre");
 		System.out.println("4. Borrar");
 		System.out.println("5. Listar todos los productos");
-		System.out.println("---------Pack--------");
+		System.out.println("------------Pack------------");
 		System.out.println("6. Alta");
 		System.out.println("7. Modificar");
 		System.out.println("8. Buscar Pack por nombre");

@@ -13,7 +13,7 @@ public class ParticipanteView implements IPlantilla {
     public static byte subMenuParticipante() {
         System.out.println("");
         System.out.println("-----------------------");
-        System.out.println("Gestion de Participante");
+        System.out.println("Gestion de participante");
         System.out.println("-----------------------");
         System.out.println("1. Alta");
         System.out.println("2. Modificar");

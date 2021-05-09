@@ -259,8 +259,8 @@ public class TipoAndEstadoView implements IPlantilla {
 		if (oCtrl.getConfiguracionCtrl().getoTipoAndEstadoCtrl().getoTipoSesionCtrl().listar() != null
 				&& oCtrl.getConfiguracionCtrl().getoTipoAndEstadoCtrl().getoEstadoCtrl().listar() != null) {
 
-			TipoSesion oTipoSesion = new TipoSesion(String.valueOf(
-					Libreria.leer("Introduce un nombre de tipo de sesion", 1, BMAXNOMBRELARGO, -1, -1, (byte) 6)));
+			TipoSesion oTipoSesion = new TipoSesion(WordUtils.capitalizeFully(String.valueOf(
+					Libreria.leer("Introduce un nombre de tipo de sesion", 1, BMAXNOMBRELARGO, -1, -1, (byte) 6))));
 
 			if (oCtrl.getConfiguracionCtrl().getoTipoAndEstadoCtrl().getoTipoSesionCtrl()
 					.searchByPk(oTipoSesion) != null) {
@@ -268,8 +268,8 @@ public class TipoAndEstadoView implements IPlantilla {
 						.getProximoOrden(oTipoSesion);
 				System.out.println("¡Cuando quiera dejar de instroducir estados, dejelo en blanco y pulse ENTER!");
 				do {
-					sNombreEstado = String.valueOf(
-							Libreria.leer("Introduce un estado de sesion", 0, BMAXNOMBRELARGO, -1, -1, (byte) 6));
+					sNombreEstado = WordUtils.capitalizeFully(String.valueOf(
+							Libreria.leer("Introduce un estado de sesion", 0, BMAXNOMBRELARGO, -1, -1, (byte) 6)));
 
 					if (oCtrl.getConfiguracionCtrl().getoTipoAndEstadoCtrl().getoEstadoCtrl()
 							.searchByPk(new Estado(sNombreEstado)) != null) {
@@ -305,8 +305,8 @@ public class TipoAndEstadoView implements IPlantilla {
 	private static boolean eliminarEstadoToTipoSesion(Controller oCtrl) {
 		String sNombreTipoSesion, sNombreEstado;
 		do {
-			sNombreTipoSesion = String.valueOf(
-					Libreria.leer("Introduce un nombre de tipo de sesion", 1, BMAXNOMBRELARGO, -1, -1, (byte) 6));
+			sNombreTipoSesion = WordUtils.capitalizeFully(String.valueOf(
+					Libreria.leer("Introduce un nombre de tipo de sesion", 1, BMAXNOMBRELARGO, -1, -1, (byte) 6)));
 			if (oCtrl.getConfiguracionCtrl().getoTipoAndEstadoCtrl().getoEstadoTipoSesionCtrl()
 					.searchByTipoSesion(new TipoSesion(sNombreTipoSesion)) == null) {
 				System.out.println("Ese pack no tiene estados asignados");
@@ -315,8 +315,8 @@ public class TipoAndEstadoView implements IPlantilla {
 				.searchByTipoSesion(new TipoSesion(sNombreTipoSesion)) == null);
 
 		do {
-			sNombreEstado = String
-					.valueOf(Libreria.leer("Introduce un nombre de estado", 1, BMAXNOMBRELARGO, -1, -1, (byte) 6));
+			sNombreEstado = WordUtils.capitalizeFully(String
+					.valueOf(Libreria.leer("Introduce un nombre de estado", 1, BMAXNOMBRELARGO, -1, -1, (byte) 6)));
 			if (oCtrl.getConfiguracionCtrl().getoTipoAndEstadoCtrl().getoEstadoTipoSesionCtrl().searchByPk(
 					new EstadoTipoSesion(new Estado(sNombreEstado), new TipoSesion(sNombreTipoSesion))) == null) {
 				System.out.println("Ese estado no esta en el tipo de sesion");
@@ -333,8 +333,8 @@ public class TipoAndEstadoView implements IPlantilla {
 		String sNombreTipoSesion, sNombreEstado1, sNombreEstado2;
 		EstadoTipoSesion oEstadoTipoSesion1 = null, oEstadoTipoSesion2 = null;
 		do {
-			sNombreTipoSesion = String.valueOf(
-					Libreria.leer("Introduce un nombre de tipo de sesion", 1, BMAXNOMBRELARGO, -1, -1, (byte) 6));
+			sNombreTipoSesion = WordUtils.capitalizeFully(String.valueOf(
+					Libreria.leer("Introduce un nombre de tipo de sesion", 1, BMAXNOMBRELARGO, -1, -1, (byte) 6)));
 			if (oCtrl.getConfiguracionCtrl().getoTipoAndEstadoCtrl().getoEstadoTipoSesionCtrl()
 					.searchByTipoSesion(new TipoSesion(sNombreTipoSesion)) == null) {
 				System.out.println("Ese tipo de sesion no tiene estados asignados");
@@ -345,8 +345,8 @@ public class TipoAndEstadoView implements IPlantilla {
 		if (oCtrl.getConfiguracionCtrl().getoTipoAndEstadoCtrl().getoEstadoTipoSesionCtrl()
 				.listar(sNombreTipoSesion) != null) {
 			do {
-				sNombreEstado1 = String.valueOf(
-						Libreria.leer("Introduce el primer nombre de estado", 1, BMAXNOMBRELARGO, -1, -1, (byte) 6));
+				sNombreEstado1 = WordUtils.capitalizeFully(String.valueOf(
+						Libreria.leer("Introduce el primer nombre de estado", 1, BMAXNOMBRELARGO, -1, -1, (byte) 6)));
 				if (oCtrl.getConfiguracionCtrl().getoTipoAndEstadoCtrl().getoEstadoTipoSesionCtrl().searchByPk(
 						new EstadoTipoSesion(new Estado(sNombreEstado1), new TipoSesion(sNombreTipoSesion))) == null) {
 					System.out.println("Ese estado no esta en el tipo de sesion");
@@ -355,8 +355,8 @@ public class TipoAndEstadoView implements IPlantilla {
 					new EstadoTipoSesion(new Estado(sNombreEstado1), new TipoSesion(sNombreTipoSesion))) == null);
 
 			do {
-				sNombreEstado2 = String.valueOf(
-						Libreria.leer("Introduce el segundo nombre de estado", 1, BMAXNOMBRELARGO, -1, -1, (byte) 6));
+				sNombreEstado2 = WordUtils.capitalizeFully(String.valueOf(
+						Libreria.leer("Introduce el segundo nombre de estado", 1, BMAXNOMBRELARGO, -1, -1, (byte) 6)));
 				if (oCtrl.getConfiguracionCtrl().getoTipoAndEstadoCtrl().getoEstadoTipoSesionCtrl().searchByPk(
 						new EstadoTipoSesion(new Estado(sNombreEstado2), new TipoSesion(sNombreTipoSesion))) == null) {
 					System.out.println("Ese estado no esta en el tipo de sesion");

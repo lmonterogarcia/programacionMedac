@@ -240,14 +240,14 @@ public class ProductoAndPackView implements IPlantilla {
 							.valueOf(Libreria.leer("Introduce el proovedor (" + oProducto.getsProveedorProducto() + ")",
 									0, BMAXNOMBRELARGO, -1, -1, (byte) 6));
 				} while (!sProveedorProducto.isEmpty() && sProveedorProducto.length() > BMAXNOMBRELARGO);
-				oProducto.setsProveedorProducto(sProveedorProducto);
+				oProducto.setsProveedorProducto(WordUtils.capitalizeFully(sProveedorProducto));
 
 				do {
 					sDescripcionProducto = String.valueOf(
 							Libreria.leer("Introduce la descripcion (" + oProducto.getsDescripcionProducto() + ")", 0,
 									BMAX255, -1, -1, (byte) 6));
 				} while (!sDescripcionProducto.isEmpty() && sDescripcionProducto.length() > BMAX255);
-				oProducto.setsDescripcionProducto(sDescripcionProducto);
+				oProducto.setsDescripcionProducto(WordUtils.capitalize(sDescripcionProducto));
 
 				booExito = oCtrl.getConfiguracionCtrl().getoProductosCtrl().getoProductoCtrl().update(oProducto);
 			}
@@ -310,6 +310,7 @@ public class ProductoAndPackView implements IPlantilla {
 		do {
 			sDescripcionPack = String.valueOf(Libreria.leer("Introduce la descripcion", 0, BMAX255, -1, -1, (byte) 6));
 		} while (!sDescripcionPack.isEmpty() && sDescripcionPack.length() > BMAX255);
+		sDescripcionPack = WordUtils.capitalize(sDescripcionPack);
 
 		return oCtrl.getConfiguracionCtrl().getoProductosCtrl().getoPackCtrl()
 				.add(new Pack(sNombrePack, fPrecioPack, sDescripcionPack));
@@ -337,7 +338,7 @@ public class ProductoAndPackView implements IPlantilla {
 						.valueOf(Libreria.leer("Introduce la descripcion (" + oPack.getsDescripcionPack() + ")", 0,
 								BMAX255, -1, -1, (byte) 6));
 			} while (!sDescripcionPack.isEmpty() && sDescripcionPack.length() > BMAX255);
-			oPack.setsDescripcionPack(sDescripcionPack);
+			oPack.setsDescripcionPack(WordUtils.capitalize(sDescripcionPack));
 
 			booExito = oCtrl.getConfiguracionCtrl().getoProductosCtrl().getoPackCtrl().update(oPack);
 		}
@@ -396,22 +397,22 @@ public class ProductoAndPackView implements IPlantilla {
 		if (oCtrl.getConfiguracionCtrl().getoProductosCtrl().getoPackCtrl().listar() != null
 				&& oCtrl.getConfiguracionCtrl().getoProductosCtrl().getoProductoCtrl().listar() != null) {
 
-			Pack oPack = new Pack(
-					String.valueOf(Libreria.leer("Introduce un nombre de pack", 1, BMAXNOMBRELARGO, -1, -1, (byte) 6)));
+			Pack oPack = new Pack(WordUtils.capitalizeFully(String
+					.valueOf(Libreria.leer("Introduce un nombre de pack", 1, BMAXNOMBRELARGO, -1, -1, (byte) 6))));
 
 			if (oCtrl.getConfiguracionCtrl().getoProductosCtrl().getoPackCtrl().searchByPk(oPack) != null) {
 
 				System.out.println("¡Cuando quiera dejar de instroducir productos, dejelo en blanco y pulse ENTER!");
 				do {
-					sNombreProducto = String.valueOf(
-							Libreria.leer("Introduce un nombre de producto", 0, BMAXNOMBRELARGO, -1, -1, (byte) 6));
+					sNombreProducto = WordUtils.capitalizeFully(String.valueOf(
+							Libreria.leer("Introduce un nombre de producto", 0, BMAXNOMBRELARGO, -1, -1, (byte) 6)));
 
 					if (oCtrl.getConfiguracionCtrl().getoProductosCtrl().getoProductoCtrl()
 							.searchByPk(new Producto(sNombreProducto)) != null) {
 
 						oProducto = new Producto(sNombreProducto);
 						oPackProducto = new PackProducto(oPack, oProducto);
-						
+
 						if (oCtrl.getConfiguracionCtrl().getoProductosCtrl().getoPackProductoCtrl()
 								.searchByPk(oPackProducto) == null) {
 							lProductos.add(oPackProducto);
@@ -437,8 +438,8 @@ public class ProductoAndPackView implements IPlantilla {
 	private static boolean eliminarProductoDelPack(Controller oCtrl) {
 		String sNombrePack, sNombreProducto;
 		do {
-			sNombrePack = String
-					.valueOf(Libreria.leer("Introduce un nombre de pack", 1, BMAXNOMBRELARGO, -1, -1, (byte) 6));
+			sNombrePack = WordUtils.capitalizeFully(
+					String.valueOf(Libreria.leer("Introduce un nombre de pack", 1, BMAXNOMBRELARGO, -1, -1, (byte) 6)));
 			if (oCtrl.getConfiguracionCtrl().getoProductosCtrl().getoPackProductoCtrl()
 					.searchByPack(new Pack(sNombrePack)) == null) {
 				System.out.println("Ese pack no tiene productos asignados");
@@ -447,8 +448,8 @@ public class ProductoAndPackView implements IPlantilla {
 				.searchByPack(new Pack(sNombrePack)) == null);
 
 		do {
-			sNombreProducto = String
-					.valueOf(Libreria.leer("Introduce un nombre de producto", 1, BMAXNOMBRELARGO, -1, -1, (byte) 6));
+			sNombreProducto = WordUtils.capitalizeFully(String
+					.valueOf(Libreria.leer("Introduce un nombre de producto", 1, BMAXNOMBRELARGO, -1, -1, (byte) 6)));
 			if (oCtrl.getConfiguracionCtrl().getoProductosCtrl().getoPackProductoCtrl()
 					.searchByPk(new PackProducto(new Pack(sNombrePack), new Producto(sNombreProducto))) == null) {
 				System.out.println("Ese producto no esta en el pack");

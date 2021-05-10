@@ -1,4 +1,4 @@
-lugar_search_by_direccionCREATE DEFINER=`fotografo`@`%` PROCEDURE `reservafotografo`.`lugar_search_by_direccion`(IN oObject JSON)
+CREATE DEFINER=`fotografo`@`%` PROCEDURE `reservafotografo`.`lugar_search_by_direccion`(IN oObject JSON)
 BEGIN
 	
 	DECLARE vJsonIsValid INT;

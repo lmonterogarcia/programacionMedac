@@ -16,7 +16,6 @@ BEGIN
 		SET nombreEstadoAntiguoParam = JSON_UNQUOTE(JSON_EXTRACT(oObject, CONCAT('$[', 1, '].sNombreEstado')));
                 
 		INSERT INTO Estado VALUES (nombreEstadoParam);
-		-- Cuando se conecte con la tabla NM se tiene que verificar que se cambien bien las relaciones....
 		DELETE FROM  Estado WHERE nombreEstado = nombreEstadoAntiguoParam;
 
     END IF;

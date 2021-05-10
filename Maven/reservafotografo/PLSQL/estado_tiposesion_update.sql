@@ -24,11 +24,13 @@ BEGIN
             WHILE vIndex < vItems DO
                 SET nombreEstadoParam = JSON_UNQUOTE(JSON_EXTRACT(oObject, CONCAT('$[', vIndex, '].oEstado.sNombreEstado')));
                 SET nombreTipoSesionParam = JSON_UNQUOTE(JSON_EXTRACT(oObject, CONCAT('$[', vIndex, '].oTipoSesion.sNombreTipoSesion')));
-               	SET ordenParam = JSON_UNQUOTE(JSON_EXTRACT(oObject, CONCAT('$[', vIndex, '].bOrden')));
+               	-- SET ordenParam = JSON_UNQUOTE(JSON_EXTRACT(oObject, CONCAT('$[', vIndex, '].bOrden')));
+               	SELECT orden INTO ordenParam FROM Estado_TipoSesion WHERE nombreEstado = nombreEstadoParam AND nombreTipoSesion = nombreTipoSesionParam;
                
                	SET nombreEstadoParam2 = JSON_UNQUOTE(JSON_EXTRACT(oObject, CONCAT('$[', vIndex + 1, '].oEstado.sNombreEstado')));
                 SET nombreTipoSesionParam2 = JSON_UNQUOTE(JSON_EXTRACT(oObject, CONCAT('$[', vIndex + 1, '].oTipoSesion.sNombreTipoSesion')));
-               	SET ordenParam2 = JSON_UNQUOTE(JSON_EXTRACT(oObject, CONCAT('$[', vIndex + 1, '].bOrden')));
+               	-- SET ordenParam2 = JSON_UNQUOTE(JSON_EXTRACT(oObject, CONCAT('$[', vIndex + 1, '].bOrden')));
+               	SELECT orden INTO ordenParam2 FROM Estado_TipoSesion WHERE nombreEstado = nombreEstadoParam2 AND nombreTipoSesion = nombreTipoSesionParam2;
                 
                 UPDATE Estado_TipoSesion 
                 SET orden = ordenParam2

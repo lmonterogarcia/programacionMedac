@@ -23,7 +23,7 @@ BEGIN
                 SET nombreTipoSesionParam = JSON_UNQUOTE(JSON_EXTRACT(oObject, CONCAT('$[', vIndex, '].oTipoSesion.sNombreTipoSesion')));
                	SET ordenParam = JSON_UNQUOTE(JSON_EXTRACT(oObject, CONCAT('$[', vIndex, '].bOrden')));
                
-            	DELETE FROM Estado_TipoSesion  WHERE nombreEstado = nombreEstadoParam AND nombreTipoSesion = nombreTipoSesionParam AND orden = ordenParam;
+            	DELETE FROM Estado_TipoSesion WHERE nombreEstado = `nombreEstadoParam` AND nombreTipoSesion = `nombreTipoSesionParam`;
                	
                 SET vIndex = vIndex + 1;                
             END WHILE;            

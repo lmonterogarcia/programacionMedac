@@ -1,4 +1,4 @@
-CREATE PROCEDURE reservafotografo.estado_tiposesion_create(IN oObject JSON)
+CREATE DEFINER=`fotografo`@`%` PROCEDURE `reservafotografo`.`estado_tiposesion_create`(IN oObject JSON)
 BEGIN
 	DECLARE vJsonIsValid INT;
     DECLARE vItems INT;

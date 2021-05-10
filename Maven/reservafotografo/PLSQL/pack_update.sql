@@ -24,8 +24,6 @@ BEGIN
                 SET nombrePackParam = JSON_UNQUOTE(JSON_EXTRACT(oObject, CONCAT('$[', vIndex, '].sNombrePack')));
                 SET precioPackParam = JSON_UNQUOTE(JSON_EXTRACT(oObject, CONCAT('$[', vIndex, '].fPrecioPack')));
                 SET descripcionPackParam = JSON_UNQUOTE(JSON_EXTRACT(oObject, CONCAT('$[', vIndex, '].sDescripcionPack')));
-               
-                -- AQUI TENDRA QUE IR LA LLAMADA AL PROCEDIMEITNO PARA CREAR EL LUGAR CUANDO SE IMPLEMENTE
                 
                 UPDATE Pack 
                 SET

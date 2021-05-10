@@ -20,7 +20,7 @@ public class ParticipanteSesionController {
                         + oParticipanteSesion.getoParticipante().getiIdContacto() + "\"},";
             }
             json = json.substring(0, (json.length() - 1)) + "]";
-            bExito = Controller.executeProcedure(json, "{call Participante_sesion_create(?)}");
+            bExito = Controller.executeProcedure(json, "{call participante_sesion_create(?)}");
 
         }
         return bExito;
@@ -34,7 +34,7 @@ public class ParticipanteSesionController {
             String json = "[{\"iIdSesion\":" + oParticipanteSesion.getoSesion().getiIdSesion()
                     + ",\"idParticipante\":\"" + oParticipanteSesion.getoParticipante().getiIdContacto() + "\"}]";
 
-            bExito = Controller.executeProcedure(json, "{call Participante_sesion_remove(?)}");
+            bExito = Controller.executeProcedure(json, "{call participante_sesion_remove(?)}");
 
         }
         return bExito;
@@ -51,7 +51,7 @@ public class ParticipanteSesionController {
             try {
 
                 CallableStatement statement = Controller.getConnection()
-                        .prepareCall("{call Participante_sesion_search_by(?)}");
+                        .prepareCall("{call participante_sesion_search_by(?)}");
                 statement.setString(1, json);
 
                 ResultSet rs = statement.executeQuery();

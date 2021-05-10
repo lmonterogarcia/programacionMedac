@@ -20,7 +20,7 @@ public class PackSesionController {
                         + oPackSesion.getoPack().getsNombrePack() + "\"},";
             }
             json = json.substring(0, (json.length() - 1)) + "]";
-            bExito = Controller.executeProcedure(json, "{call Pack_sesion_create(?)}");
+            bExito = Controller.executeProcedure(json, "{call pack_sesion_create(?)}");
 
         }
         return bExito;
@@ -34,7 +34,7 @@ public class PackSesionController {
             String json = "[{\"iIdSesion\":" + oPackSesion.getoSesion().getiIdSesion() + ",\"nombrePack\":\""
                     + oPackSesion.getoPack().getsNombrePack() + "\"}]";
 
-            bExito = Controller.executeProcedure(json, "{call Pack_sesion_remove(?)}");
+            bExito = Controller.executeProcedure(json, "{call pack_sesion_remove(?)}");
 
         }
         return bExito;
@@ -50,7 +50,7 @@ public class PackSesionController {
 
             try {
 
-                CallableStatement statement = Controller.getConnection().prepareCall("{call Pack_sesion_search_by(?)}");
+                CallableStatement statement = Controller.getConnection().prepareCall("{call pack_sesion_search_by(?)}");
                 statement.setString(1, json);
 
                 ResultSet rs = statement.executeQuery();

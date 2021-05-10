@@ -20,7 +20,7 @@ public class ProductoSesionController {
                         + oProductoSesion.getoProducto().getsNombreProducto() + "\"},";
             }
             json = json.substring(0, (json.length() - 1)) + "]";
-            bExito = Controller.executeProcedure(json, "{call Producto_sesion_create(?)}");
+            bExito = Controller.executeProcedure(json, "{call producto_sesion_create(?)}");
 
         }
         return bExito;
@@ -34,7 +34,7 @@ public class ProductoSesionController {
             String json = "[{\"iIdSesion\":" + oProductoSesion.getoSesion().getiIdSesion() + ",\"nombreProducto\":\""
                     + oProductoSesion.getoProducto().getsNombreProducto() + "\"}]";
 
-            bExito = Controller.executeProcedure(json, "{call Producto_sesion_remove(?)}");
+            bExito = Controller.executeProcedure(json, "{call producto_sesion_remove(?)}");
 
         }
         return bExito;
@@ -50,7 +50,7 @@ public class ProductoSesionController {
             try {
 
                 CallableStatement statement = Controller.getConnection()
-                        .prepareCall("{call Producto_sesion_search_by(?)}");
+                        .prepareCall("{call producto_sesion_search_by(?)}");
                 statement.setString(1, json);
 
                 ResultSet rs = statement.executeQuery();

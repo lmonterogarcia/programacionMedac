@@ -22,7 +22,7 @@ public class SesionesView {
             default:
             }
 
-        } while (bOpcion != 5);
+        } while (bOpcion != 3);
     }
 
     public static byte subMenuConfiguracion() {

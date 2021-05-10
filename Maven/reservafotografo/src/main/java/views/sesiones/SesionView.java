@@ -72,6 +72,10 @@ public class SesionView implements IPlantilla {
                     if (oSesion != null) {
                         System.out.println("La sesion buscado existe en la base de datos.");
                         System.out.println(oSesion);
+                        listarFotografoDeSesion(oCtrl, oSesion);
+                        listarParticipanteDeSesion(oCtrl, oSesion);
+                        listarFotografoDeSesion(oCtrl, oSesion);
+                        listarPackDeSesion(oCtrl, oSesion);
                     } else {
                         System.out.println("La sesion no existe en la base de datos.");
                     }
@@ -111,7 +115,62 @@ public class SesionView implements IPlantilla {
                         System.out.println("No hay ninguna sesion");
                     }
                     break;
-
+                case 7: // Asignar Fotografo
+                    if (asignarFotografo(oCtrl)) {
+                        System.out.println("El fotografo ha sido asignado de la sesion.");
+                    } else {
+                        System.out.println("El fotografo NO ha sido asignado de la sesion.");
+                    }
+                    break;
+                case 8: // Eliminar Fotografo
+                    if (eliminarFotografo(oCtrl)) {
+                        System.out.println("El fotografo ha sido eliminado de la sesion.");
+                    } else {
+                        System.out.println("El fotografo ha sido eliminado de la sesion.");
+                    }
+                    break;
+                case 9: // Asignar Paticipante
+                    if (asignarParticipante(oCtrl)) {
+                        System.out.println("El participante ha sido asignado de la sesion.");
+                    } else {
+                        System.out.println("El participante NO ha sido asignado de la sesion.");
+                    }
+                    break;
+                case 10: // Eliminar Participante
+                    if (eliminarParticipante(oCtrl)) {
+                        System.out.println("El participante ha sido eliminado de la sesion.");
+                    } else {
+                        System.out.println("El participante NO ha sido eliminado de la sesion.");
+                    }
+                    break;
+                case 11: // Asignar Prodcuto
+                    if (asignarProducto(oCtrl)) {
+                        System.out.println("El producto ha sido asignado de la sesion.");
+                    } else {
+                        System.out.println("El producto NO ha sido asignado de la sesion.");
+                    }
+                    break;
+                case 12: // Eliminar Producto
+                    if (eliminarProducto(oCtrl)) {
+                        System.out.println("El producto ha sido eliminado de la sesion.");
+                    } else {
+                        System.out.println("El producto NO ha sido eliminado de la sesion.");
+                    }
+                    break;
+                case 13: // Borrar
+                    if (asignarSesion(oCtrl)) {
+                        System.out.println("El pack ha sido asignado de la sesion.");
+                    } else {
+                        System.out.println("El pack ha sido NO asignado de la sesion.");
+                    }
+                    break;
+                case 14: // Borrar
+                    if (elinimarSesion(oCtrl)) {
+                        System.out.println("El pack ha sido eliminado de la sesion.");
+                    } else {
+                        System.out.println("El pack ha sido NO eliminado de la sesion.");
+                    }
+                    break;
                 default:
                     break;
             }
@@ -239,8 +298,10 @@ public class SesionView implements IPlantilla {
             // Estado
             do {
 
-                oEstado = new Estado(WordUtils.capitalizeFully(String.valueOf(
-                        Libreria.leer("Modifica un estado de sesion (" + oSesion.getoEstadoTipoSesion().getoEstado().getsNombreEstado() + ")", 0, BMAXNOMBRELARGO, -1, -1, (byte) 6))));
+                oEstado = new Estado(WordUtils.capitalizeFully(String.valueOf(Libreria.leer(
+                        "Modifica un estado de sesion ("
+                                + oSesion.getoEstadoTipoSesion().getoEstado().getsNombreEstado() + ")",
+                        0, BMAXNOMBRELARGO, -1, -1, (byte) 6))));
                 if (oEstado.getsNombreEstado() != null) {
                     if (oCtrl.getConfiguracionCtrl().getoTipoAndEstadoCtrl().getoEstadoCtrl()
                             .searchByPk(oEstado) != null) {
@@ -257,7 +318,8 @@ public class SesionView implements IPlantilla {
 
             // Lugar
             if (String
-                    .valueOf(Libreria.leer("¿Quiere modificar el lugar de la sesion? (s/n) (" + oSesion.getoLugar().getsNombreLugar() + "): ", -1, -1, -1, -1, (byte) 7))
+                    .valueOf(Libreria.leer("¿Quiere modificar el lugar de la sesion? (s/n) ("
+                            + oSesion.getoLugar().getsNombreLugar() + "): ", -1, -1, -1, -1, (byte) 7))
                     .equalsIgnoreCase("s")) {
                 do {
                     do {
@@ -272,10 +334,9 @@ public class SesionView implements IPlantilla {
             }
 
             // Fecha
-            if (String
-                    .valueOf(
-                            Libreria.leer("¿Quiere introducir la fecha de la sesion? (s/n) (" + oSesion.getoFechaSesion() + "): ", -1, -1, -1, -1, (byte) 7))
-                    .equalsIgnoreCase("s")) {
+            if (String.valueOf(Libreria.leer(
+                    "¿Quiere introducir la fecha de la sesion? (s/n) (" + oSesion.getoFechaSesion() + "): ", -1, -1, -1,
+                    -1, (byte) 7)).equalsIgnoreCase("s")) {
                 do {
                     try {
                         iDia = (int) Libreria.leer("Introduce el dia *", 1, 31, -1, -1, (byte) 3);
@@ -292,8 +353,9 @@ public class SesionView implements IPlantilla {
             }
 
             // Hora
-            if (String
-                    .valueOf(Libreria.leer("¿Quiere introducir la hora de la sesion? (s/n) (" + oSesion.getoHoraSesion() + "): ", -1, -1, -1, -1, (byte) 7))
+            if (String.valueOf(
+                    Libreria.leer("¿Quiere introducir la hora de la sesion? (s/n) (" + oSesion.getoHoraSesion() + "): ",
+                            -1, -1, -1, -1, (byte) 7))
                     .equalsIgnoreCase("s")) {
                 do {
                     try {
@@ -339,6 +401,93 @@ public class SesionView implements IPlantilla {
 
     public static List<Sesion> listarSesion(Controller oCtrl) {
         return oCtrl.listarSesion();
+    }
+
+    // ###### FOTOGRAFO ######
+
+    private static void listarFotografoDeSesion(Controller oCtrl, Sesion oSesion) {
+        if (oCtrl.getSesionesCtrl().getoFotografoSesionCtrl().searchBySesion(oSesion) != null) {
+            System.out.println("# Fotografos de la sesion #");
+            List<FotografoSesion> lFotografos = oCtrl.getSesionesCtrl().getoFotografoSesionCtrl()
+                    .listar(oSesion.getiIdSesion());
+            for (FotografoSesion oFotografoSesion : lFotografos) {
+                System.out.println(oFotografoSesion.getoFotografo().getsNombreFotografo());
+            }
+
+        } else {
+            System.out.println("¡Este pack no tiene ningun fotografo asignado!");
+        }
+    }
+
+    private static boolean asignarFotografo(Controller oCtrl) {
+        List<FotografoSesion> lFotografos = new ArrayList<FotografoSesion>();
+        FotografoSesion oFotografoSesion = null;
+        Fotografo oFotografo = null;
+        String sDniFotografo = null;
+
+        if (oCtrl.getSesionesCtrl().getoSesionCtrl().listar() != null && oCtrl.getoFotografoCtrl().listar() != null) {
+
+            Sesion oSesion = new Sesion(
+                    (int) (Libreria.leer("Introduce un id de sesion", 1, IMAXIDS, -1, -1, (byte) 3)));
+
+            if (oCtrl.getSesionesCtrl().getoSesionCtrl().searchByPk(oSesion) != null) {
+
+                System.out.println("¡Cuando quiera dejar de instroducir fotografos, dejelo en blanco y pulse ENTER!");
+                do {
+                    sDniFotografo = (String.valueOf(
+                            Libreria.leer("Introduce el dni del fotografo", BMINDNI, BMAXDNI, -1, -1, (byte) 6)));
+
+                    if (oCtrl.getoFotografoCtrl().searchByPk(new Fotografo(sDniFotografo)) != null) {
+
+                        oFotografo = new Fotografo(sDniFotografo);
+                        oFotografoSesion = new FotografoSesion(oFotografo, oSesion);
+
+                        if (oCtrl.getSesionesCtrl().getoFotografoSesionCtrl().searchByPk(oFotografoSesion) == null) {
+                            lFotografos.add(oFotografoSesion);
+                        } else {
+                            System.out.println("Ese Fotografo ya esta asignado a la sesion");
+                        }
+
+                    } else {
+                        if (!sDniFotografo.isEmpty()) {
+                            System.out.println("¡Este fotografo no esta creado!");
+                        }
+                    }
+                } while (!sDniFotografo.isEmpty());
+            } else {
+                System.out.println("No existe una sesion con esa id.");
+            }
+
+        } else {
+            System.out.println("Tiene que haber creado sesiones y fotografo para utilizar esta herramienta");
+        }
+
+        return oCtrl.getSesionesCtrl().getoFotografoSesionCtrl().add(lFotografos);
+    }
+
+    private static boolean eliminarFotografo(Controller oCtrl) {
+        String sDniFotografo;
+        int iIdSesion;
+
+        do {
+            iIdSesion = (int)(Libreria.leer("Introduce un id de sesion", 1, IMAXIDS, -1, -1, (byte) 3));
+            if (oCtrl.getSesionesCtrl().getoFotografoSesionCtrl().searchBySesion(new Sesion(iIdSesion)) == null) {
+                System.out.println("Ese Sesion no tiene fotografos asignados");
+            }
+        } while (oCtrl.getSesionesCtrl().getoFotografoSesionCtrl().searchBySesion(new Sesion(iIdSesion)) == null);
+
+        do {
+            sDniFotografo = String
+                    .valueOf(Libreria.leer("Introduce el dni del fotogrado", BMINDNI, BMAXDNI, -1, -1, (byte) 6));
+            if (oCtrl.getSesionesCtrl().getoFotografoSesionCtrl().searchByPk(
+                    new FotografoSesion(new Fotografo(sDniFotografo), new Sesion(iIdSesion))) == null) {
+                System.out.println("Ese producto no esta en el pack");
+            }
+        } while (oCtrl.getSesionesCtrl().getoFotografoSesionCtrl().searchByPk(
+            new FotografoSesion(new Fotografo(sDniFotografo), new Sesion(iIdSesion))) == null);
+
+        return oCtrl.getSesionesCtrl().getoFotografoSesionCtrl().remove(new FotografoSesion(new Fotografo(sDniFotografo), new Sesion(iIdSesion)));
+
     }
 
 }

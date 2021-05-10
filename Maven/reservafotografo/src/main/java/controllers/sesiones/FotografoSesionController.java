@@ -93,7 +93,7 @@ public class FotografoSesionController {
 		return oSesionResult;
 	}
 
-	public List<FotografoSesion> listar(String iIdSesion) {
+	public List<FotografoSesion> listar(int iIdSesion) {
 		String sProcedure = "{call nm_sesion_listar('Fotografo_Sesion','" + iIdSesion + "')}";
 		List<FotografoSesion> lFotografoSesions = new ArrayList<FotografoSesion>();
 		try {

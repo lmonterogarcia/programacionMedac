@@ -31,7 +31,7 @@ public class Sesion implements ISesion, IPlantilla{
         setoPedido(oPedido);
     }
 
-    public Sesion(int iIdSesion, Cliente oCliente, Pedido oPedido, LocalDate oFechaSesion, LocalTime oHoraSesion,
+    public Sesion(Cliente oCliente, Pedido oPedido, LocalDate oFechaSesion, LocalTime oHoraSesion,
             Lugar oLugar, EstadoTipoSesion oEstadoTipoSesion) {
         setiIdSesion(1);
         setoCliente(oCliente);
@@ -89,7 +89,7 @@ public class Sesion implements ISesion, IPlantilla{
     }
 
     public void setoHoraSesion(LocalTime oHoraSesion) {
-        if (oHoraSesion != null && oHoraSesion.isAfter(LocalTime.now())) {
+        if (oHoraSesion != null) {
             this.oHoraSesion = oHoraSesion;
         }
     }

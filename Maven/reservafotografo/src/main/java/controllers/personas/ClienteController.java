@@ -7,6 +7,8 @@ import java.sql.*;
 import java.sql.Date;
 import java.util.*;
 
+import com.google.gson.Gson;
+
 import controllers.Controller;
 
 public class ClienteController implements controllers.ICrudController<Cliente> {
@@ -224,6 +226,39 @@ public class ClienteController implements controllers.ICrudController<Cliente> {
 			stmt.close();
 		} catch (SQLException e) {
 			oClienteResult = null;
+		}
+
+		return oClienteResult;
+	}
+
+	public Cliente searchById(Cliente oCliente) {
+		
+		Cliente oClienteResult = null;
+		if (oCliente !=  null && oCliente.getiIdContacto() > 0) {
+			String json = "[{\"iIdContacto\":" + oCliente.getiIdContacto() + "}]";
+
+			try {
+				CallableStatement statement = Controller.getConnection()
+							.prepareCall("{call search_by(?,'iIdContacto','Cliente','idCliente')}");
+					statement.setString(1, json);
+	
+					ResultSet rs = statement.executeQuery();
+				if (rs.next()) {
+					oClienteResult = new Cliente(rs.getInt(1));
+					oClienteResult.setoFechaCreacion(rs.getTimestamp(2).toLocalDateTime()); 
+					oClienteResult.setsDniContacto(rs.getString(3));
+					oClienteResult.setsNombreContacto(rs.getString(4));
+					oClienteResult.setsApellido1Contacto(rs.getString(5));
+					oClienteResult.setsApellido2Contacto(rs.getString(6));
+					oClienteResult.setsTelefonoContacto(rs.getString(7));
+					oClienteResult.setoFechaNacimientoContacto(rs.getDate(8) != null ? rs.getDate(8).toLocalDate() : null);
+					oClienteResult.setoUsuario(new Usuario(rs.getString(9)));
+					oClienteResult.setoLugar(new Lugar(rs.getInt(10), null, null));
+				}
+				statement.close();
+			} catch (SQLException e) {
+				oClienteResult = null;
+			}
 		}
 
 		return oClienteResult;

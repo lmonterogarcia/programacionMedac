@@ -115,17 +115,6 @@ public class PedidoView implements IPlantilla {
                 } else {
                     booPagado = false;
                 }
-                // do {
-                // sLetra = String
-                // .valueOf(Libreria.leer("¿Ha sido pagado?(s/n) (" + (oPedido.isBooPagado() ==
-                // true ? "pagado" : "no pagado") + ")",
-                // 1, 1, -1, -1, (byte) 6));
-                // if (sLetra == "s" || sLetra == "S") {
-                // booPagado = true;
-                // } else if (sLetra == "n" || sLetra == "N") {
-                // booPagado = false;
-                // }
-                // } while (sLetra != "s" && sLetra != "S" && sLetra != "n" && sLetra != "N");
                 oPedido.setBooPagado(booPagado);
                 booExito = oCtrl.getSesionesCtrl().getoPedidoCtrl().update(oPedido);
             }

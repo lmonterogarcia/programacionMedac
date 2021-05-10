@@ -82,38 +82,5 @@ public class PersonasController {
     }
 
 
-
-    /*
-     * # CONTROLLER METHODS FOTOGRAFO
-
-    public boolean addFotografo(Fotografo oFotografo) {
-        return oFotografoCtrl.add(oFotografo);
-    }
-
-    public boolean removeFotografo(Fotografo oFotografo) {
-        return oFotografoCtrl.remove(oFotografo);
-    }
-
-    public Fotografo searchFotografo(Fotografo oFotografo) {
-        return oFotografoCtrl.searchByPk(oFotografo);
-    }*/
-
-
-
-    /*
-    * # CONTROLLER METHODS PARTICIPANTE
-    
-    public boolean addParticipante(Participante oParticipante) {
-        return oParticipanteCtrl.add(oParticipante);
-    }
-
-    public boolean removeParticipante(Participante oParticipante) {
-        return oParticipanteCtrl.remove(oParticipante);
-    }
-
-    public Participante searchParticipante(Participante oParticipante) {
-        return oParticipanteCtrl.searchByPk(oParticipante);
-    }*/
-
     
 }

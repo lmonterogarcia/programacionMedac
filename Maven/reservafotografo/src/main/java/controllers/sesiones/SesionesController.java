@@ -1,5 +1,7 @@
 package controllers.sesiones;
 
+import models.sesion.Sesion;
+
 public class SesionesController {
     
     private SesionController oSesionCtrl;
@@ -42,5 +44,14 @@ public class SesionesController {
         return oPackSesionCtrl;
     }
 
-    
+    // ###### SESION ######
+
+    public Sesion searchSesion(Sesion oSesion){
+        Sesion oSesionResult = getoSesionCtrl().searchByPk(oSesion);
+        if (oSesionResult != null) {
+            oSesionResult.setoPedido(getoPedidoCtrl().searchByPk(oSesionResult.getoPedido()));
+        }
+
+        return oSesionResult;
+    }
 }

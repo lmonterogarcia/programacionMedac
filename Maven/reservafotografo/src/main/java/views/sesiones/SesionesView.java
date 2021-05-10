@@ -17,7 +17,7 @@ public class SesionesView {
                 PedidoView.gestionPedido(oCtrl);
                 break;
             case 2: // Gestion de tipo y estado de Sesion
-                //SesionView.gestionSesion(oCtrl);
+                SesionView.gestionSesion(oCtrl);
                 break;
             default:
             }

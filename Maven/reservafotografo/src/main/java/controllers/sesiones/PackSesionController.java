@@ -94,7 +94,7 @@ public class PackSesionController {
         return oSesionResult;
     }
 
-    public List<PackSesion> listar(String iIdSesion) {
+    public List<PackSesion> listar(int iIdSesion) {
         String sProcedure = "{call nm_sesion_listar('Pack_Sesion','" + iIdSesion + "')}";
         List<PackSesion> lPackSesions = new ArrayList<PackSesion>();
         try {

@@ -29,7 +29,7 @@ public class FotografoSesionController {
 	public boolean remove(FotografoSesion oFotografoSesion) {
 		boolean bExito = false;
 		if (oFotografoSesion != null && oFotografoSesion.getoSesion().getiIdSesion() > 0
-				&& oFotografoSesion.getoFotografo().getsNombreFotografo() != null) {
+				&& oFotografoSesion.getoFotografo().getsDniFotografo() != null) {
 
 			String json = "[{\"iIdSesion\":" + oFotografoSesion.getoSesion().getiIdSesion() + ",\"dniFotografo\":\""
 					+ oFotografoSesion.getoFotografo().getsDniFotografo() + "\"}]";
@@ -43,7 +43,7 @@ public class FotografoSesionController {
 	public FotografoSesion searchByPk(FotografoSesion oFotografoSesion) {
 		FotografoSesion oFotografoResult = null;
 		if (oFotografoSesion != null && oFotografoSesion.getoSesion().getiIdSesion() > 0
-				&& oFotografoSesion.getoFotografo().getsNombreFotografo() != null) {
+				&& oFotografoSesion.getoFotografo().getsDniFotografo() != null) {
 			String json = "[{\"iIdSesion\":" + oFotografoSesion.getoSesion().getiIdSesion() + ",\"dniFotografo\":\""
 					+ oFotografoSesion.getoFotografo().getsDniFotografo() + "\"}]";
 			try {

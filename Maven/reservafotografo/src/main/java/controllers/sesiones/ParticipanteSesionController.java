@@ -97,7 +97,7 @@ public class ParticipanteSesionController {
         return oSesionResult;
     }
 
-    public List<ParticipanteSesion> listar(String iIdSesion) {
+    public List<ParticipanteSesion> listar(int iIdSesion) {
         String sProcedure = "{call nm_sesion_listar('Participante_Sesion','" + iIdSesion + "')}";
         List<ParticipanteSesion> lParticipanteSesions = new ArrayList<ParticipanteSesion>();
         try {
@@ -105,8 +105,8 @@ public class ParticipanteSesionController {
             CallableStatement statement = Controller.getConnection().prepareCall(sProcedure);
             ResultSet rs = statement.executeQuery();
             while (rs.next()) {
-                ParticipanteSesion oParticipanteSesion = new ParticipanteSesion(new Participante(rs.getInt(2)),
-                        new Sesion(rs.getInt(1)));
+                ParticipanteSesion oParticipanteSesion = new ParticipanteSesion(new Participante(rs.getInt(1)),
+                        new Sesion(rs.getInt(2)));
                 lParticipanteSesions.add(oParticipanteSesion);
             }
             statement.close();

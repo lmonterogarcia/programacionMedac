@@ -94,7 +94,7 @@ public class ProductoSesionController {
         return oSesionResult;
     }
 
-    public List<ProductoSesion> listar(String iIdSesion) {
+    public List<ProductoSesion> listar(int iIdSesion) {
         String sProcedure = "{call nm_sesion_listar('Producto_Sesion','" + iIdSesion + "')}";
         List<ProductoSesion> lProductoSesions = new ArrayList<ProductoSesion>();
         try {

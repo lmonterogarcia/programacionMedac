@@ -9,6 +9,8 @@ import controllers.Controller;
 import models.IPlantilla;
 import models.lugar.Lugar;
 import models.personas.*;
+import models.productos.Pack;
+import models.productos.Producto;
 import models.sesion.*;
 import views.Libreria;
 
@@ -74,7 +76,7 @@ public class SesionView implements IPlantilla {
                         System.out.println(oSesion);
                         listarFotografoDeSesion(oCtrl, oSesion);
                         listarParticipanteDeSesion(oCtrl, oSesion);
-                        listarFotografoDeSesion(oCtrl, oSesion);
+                        listarProductoDeSesion(oCtrl, oSesion);
                         listarPackDeSesion(oCtrl, oSesion);
                     } else {
                         System.out.println("La sesion no existe en la base de datos.");
@@ -157,15 +159,15 @@ public class SesionView implements IPlantilla {
                         System.out.println("El producto NO ha sido eliminado de la sesion.");
                     }
                     break;
-                case 13: // Borrar
-                    if (asignarSesion(oCtrl)) {
+                case 13: // Asignar Pack
+                    if (asignarPack(oCtrl)) {
                         System.out.println("El pack ha sido asignado de la sesion.");
                     } else {
                         System.out.println("El pack ha sido NO asignado de la sesion.");
                     }
                     break;
-                case 14: // Borrar
-                    if (elinimarSesion(oCtrl)) {
+                case 14: // Elinimar Pack
+                    if (eliminarPack(oCtrl)) {
                         System.out.println("El pack ha sido eliminado de la sesion.");
                     } else {
                         System.out.println("El pack ha sido NO eliminado de la sesion.");
@@ -174,7 +176,7 @@ public class SesionView implements IPlantilla {
                 default:
                     break;
             }
-        } while (bOpcion != 6 || bOpcion != 0);
+        } while (bOpcion != 15 || bOpcion != 0);
 
     }
 
@@ -408,14 +410,13 @@ public class SesionView implements IPlantilla {
     private static void listarFotografoDeSesion(Controller oCtrl, Sesion oSesion) {
         if (oCtrl.getSesionesCtrl().getoFotografoSesionCtrl().searchBySesion(oSesion) != null) {
             System.out.println("# Fotografos de la sesion #");
-            List<FotografoSesion> lFotografos = oCtrl.getSesionesCtrl().getoFotografoSesionCtrl()
-                    .listar(oSesion.getiIdSesion());
+            List<FotografoSesion> lFotografos = oCtrl.listarFotografoSesion(oSesion);
             for (FotografoSesion oFotografoSesion : lFotografos) {
                 System.out.println(oFotografoSesion.getoFotografo().getsNombreFotografo());
             }
 
         } else {
-            System.out.println("¡Este pack no tiene ningun fotografo asignado!");
+            System.out.println("¡Esta sesion no tiene ningun fotografo asignado!");
         }
     }
 
@@ -435,7 +436,7 @@ public class SesionView implements IPlantilla {
                 System.out.println("¡Cuando quiera dejar de instroducir fotografos, dejelo en blanco y pulse ENTER!");
                 do {
                     sDniFotografo = (String.valueOf(
-                            Libreria.leer("Introduce el dni del fotografo", BMINDNI, BMAXDNI, -1, -1, (byte) 6)));
+                            Libreria.leer("Introduce el dni del fotografo", 0, BMAXDNI, -1, -1, (byte) 6)));
 
                     if (oCtrl.getoFotografoCtrl().searchByPk(new Fotografo(sDniFotografo)) != null) {
 
@@ -444,6 +445,7 @@ public class SesionView implements IPlantilla {
 
                         if (oCtrl.getSesionesCtrl().getoFotografoSesionCtrl().searchByPk(oFotografoSesion) == null) {
                             lFotografos.add(oFotografoSesion);
+                            System.out.println("Fotografo preparado");
                         } else {
                             System.out.println("Ese Fotografo ya esta asignado a la sesion");
                         }
@@ -479,14 +481,275 @@ public class SesionView implements IPlantilla {
         do {
             sDniFotografo = String
                     .valueOf(Libreria.leer("Introduce el dni del fotogrado", BMINDNI, BMAXDNI, -1, -1, (byte) 6));
-            if (oCtrl.getSesionesCtrl().getoFotografoSesionCtrl().searchByPk(
-                    new FotografoSesion(new Fotografo(sDniFotografo), new Sesion(iIdSesion))) == null) {
-                System.out.println("Ese producto no esta en el pack");
+            if (oCtrl.getSesionesCtrl().getoFotografoSesionCtrl().searchByPk(new FotografoSesion(new Fotografo(sDniFotografo), new Sesion(iIdSesion))) == null) {
+                System.out.println("Ese Fotografo no esta asignado a esa sesion");
             }
         } while (oCtrl.getSesionesCtrl().getoFotografoSesionCtrl().searchByPk(
             new FotografoSesion(new Fotografo(sDniFotografo), new Sesion(iIdSesion))) == null);
 
         return oCtrl.getSesionesCtrl().getoFotografoSesionCtrl().remove(new FotografoSesion(new Fotografo(sDniFotografo), new Sesion(iIdSesion)));
+
+    }
+
+    // ###### Participante ######
+
+    private static void listarParticipanteDeSesion(Controller oCtrl, Sesion oSesion) {
+        if (oCtrl.getSesionesCtrl().getoParticipanteSesionCtrl().searchBySesion(oSesion) != null) {
+            System.out.println("# Participantes de la sesion #");
+            List<ParticipanteSesion> lParticipantes = oCtrl.listarParticipanteSesion(oSesion);
+            for (ParticipanteSesion oParticipanteSesion : lParticipantes) {
+                System.out.println(oParticipanteSesion.getoParticipante().getsNombreContacto() + " " + oParticipanteSesion.getoParticipante().getsApellido1Contacto());
+            }
+
+        } else {
+            System.out.println("¡Esta sesion no tiene ningun participante asignado!");
+        }
+    }
+
+    private static boolean asignarParticipante(Controller oCtrl) {
+        List<ParticipanteSesion> lParticipantes = new ArrayList<ParticipanteSesion>();
+        ParticipanteSesion oParticipanteSesion = null;
+        Participante oParticipante = null;
+        String sDniParticipante = null;
+
+        if (oCtrl.getSesionesCtrl().getoSesionCtrl().listar() != null && oCtrl.getoParticipanteCtrl().listar() != null) {
+
+            Sesion oSesion = new Sesion(
+                    (int) (Libreria.leer("Introduce un id de sesion", 1, IMAXIDS, -1, -1, (byte) 3)));
+
+            if (oCtrl.getSesionesCtrl().getoSesionCtrl().searchByPk(oSesion) != null) {
+
+                System.out.println("¡Cuando quiera dejar de instroducir participantes, dejelo en blanco y pulse ENTER!");
+                do {
+                    sDniParticipante = (String.valueOf(
+                            Libreria.leer("Introduce el dni del participante", 0, BMAXDNI, -1, -1, (byte) 6)));
+
+                    if (oCtrl.getoParticipanteCtrl().searchByPk(new Participante(1, sDniParticipante)) != null) {
+
+                        oParticipante = oCtrl.getoParticipanteCtrl().searchByPk(new Participante(1, sDniParticipante));
+                        oParticipanteSesion = new ParticipanteSesion(oParticipante, oSesion);
+
+                        if (oCtrl.getSesionesCtrl().getoParticipanteSesionCtrl().searchByPk(oParticipanteSesion) == null) {
+                            lParticipantes.add(oParticipanteSesion);
+                            System.out.println("Participante preparado");
+                        } else {
+                            System.out.println("Ese Participante ya esta asignado a la sesion");
+                        }
+
+                    } else {
+                        if (!sDniParticipante.isEmpty()) {
+                            System.out.println("¡Este participante no esta creado!");
+                        }
+                    }
+                } while (!sDniParticipante.isEmpty());
+            } else {
+                System.out.println("No existe una sesion con esa id.");
+            }
+
+        } else {
+            System.out.println("Tiene que haber creado sesiones y participante para utilizar esta herramienta");
+        }
+
+        return oCtrl.getSesionesCtrl().getoParticipanteSesionCtrl().add(lParticipantes);
+    }
+
+    private static boolean eliminarParticipante(Controller oCtrl) {
+        String sDniParticipante;
+        int iIdSesion;
+        Participante oParticipante;
+
+        do {
+            iIdSesion = (int)(Libreria.leer("Introduce un id de sesion", 1, IMAXIDS, -1, -1, (byte) 3));
+            if (oCtrl.getSesionesCtrl().getoParticipanteSesionCtrl().searchBySesion(new Sesion(iIdSesion)) == null) {
+                System.out.println("Ese Sesion no tiene participantes asignados");
+            }
+        } while (oCtrl.getSesionesCtrl().getoParticipanteSesionCtrl().searchBySesion(new Sesion(iIdSesion)) == null);
+
+        do {
+            sDniParticipante = String
+                    .valueOf(Libreria.leer("Introduce el dni del participante", BMINDNI, BMAXDNI, -1, -1, (byte) 6));
+                    oParticipante = oCtrl.getoParticipanteCtrl().searchByPk(new Participante(1, sDniParticipante));
+            if (oCtrl.getSesionesCtrl().getoParticipanteSesionCtrl().searchByPk(new ParticipanteSesion(oParticipante, new Sesion(iIdSesion))) == null) {
+                System.out.println("Ese Participante no esta asignado a esa sesion");
+            }
+
+        } while (oCtrl.getSesionesCtrl().getoParticipanteSesionCtrl().searchByPk(
+            new ParticipanteSesion(oParticipante, new Sesion(iIdSesion))) == null);
+
+        return oCtrl.getSesionesCtrl().getoParticipanteSesionCtrl().remove(new ParticipanteSesion(oParticipante, new Sesion(iIdSesion)));
+
+    }
+
+
+    // ###### Producto ######
+
+    private static void listarProductoDeSesion(Controller oCtrl, Sesion oSesion) {
+        if (oCtrl.getSesionesCtrl().getoProductoSesionCtrl().searchBySesion(oSesion) != null) {
+            System.out.println("# Productos de la sesion #");
+            List<ProductoSesion> lProductos = oCtrl.getSesionesCtrl().getoProductoSesionCtrl().listar(oSesion.getiIdSesion());
+            for (ProductoSesion oProductoSesion : lProductos) {
+                System.out.println(oProductoSesion.getoProducto().getsNombreProducto());
+            }
+
+        } else {
+            System.out.println("¡Este pack no tiene ningun producto asignado!");
+        }
+    }
+
+    private static boolean asignarProducto(Controller oCtrl) {
+        List<ProductoSesion> lProductos = new ArrayList<ProductoSesion>();
+        ProductoSesion oProductoSesion = null;
+        Producto oProducto = null;
+        String sDniProducto = null;
+
+        if (oCtrl.getSesionesCtrl().getoSesionCtrl().listar() != null && oCtrl.getConfiguracionCtrl().getoProductosCtrl().getoProductoCtrl().listar() != null) {
+
+            Sesion oSesion = new Sesion(
+                    (int) (Libreria.leer("Introduce un id de sesion", 1, IMAXIDS, -1, -1, (byte) 3)));
+
+            if (oCtrl.getSesionesCtrl().getoSesionCtrl().searchByPk(oSesion) != null) {
+
+                System.out.println("¡Cuando quiera dejar de instroducir productos, dejelo en blanco y pulse ENTER!");
+                do {
+                    sDniProducto = (String.valueOf(
+                            Libreria.leer("Introduce el nombre del producto", 0, BMAXDNI, -1, -1, (byte) 6)));
+
+                    if (oCtrl.getConfiguracionCtrl().getoProductosCtrl().getoProductoCtrl().searchByPk(new Producto(sDniProducto)) != null) {
+
+                        oProducto = new Producto(sDniProducto);
+                        oProductoSesion = new ProductoSesion(oSesion, oProducto);
+
+                        if (oCtrl.getSesionesCtrl().getoProductoSesionCtrl().searchByPk(oProductoSesion) == null) {
+                            lProductos.add(oProductoSesion);
+                            System.out.println("Producto preparado");
+                        } else {
+                            System.out.println("Ese Producto ya esta asignado a la sesion");
+                        }
+
+                    } else {
+                        if (!sDniProducto.isEmpty()) {
+                            System.out.println("¡Este producto no esta creado!");
+                        }
+                    }
+                } while (!sDniProducto.isEmpty());
+            } else {
+                System.out.println("No existe una sesion con esa id.");
+            }
+
+        } else {
+            System.out.println("Tiene que haber creado sesiones y producto para utilizar esta herramienta");
+        }
+
+        return oCtrl.getSesionesCtrl().getoProductoSesionCtrl().add(lProductos);
+    }
+
+    private static boolean eliminarProducto(Controller oCtrl) {
+        String sDniProducto;
+        int iIdSesion;
+
+        do {
+            iIdSesion = (int)(Libreria.leer("Introduce un id de sesion", 1, IMAXIDS, -1, -1, (byte) 3));
+            if (oCtrl.getSesionesCtrl().getoProductoSesionCtrl().searchBySesion(new Sesion(iIdSesion)) == null) {
+                System.out.println("Ese Sesion no tiene productos asignados");
+            }
+        } while (oCtrl.getSesionesCtrl().getoProductoSesionCtrl().searchBySesion(new Sesion(iIdSesion)) == null);
+
+        do {
+            sDniProducto = String
+                    .valueOf(Libreria.leer("Introduce el nombre del producto", 1, BMAXNOMBRELARGO, -1, -1, (byte) 6));
+            if (oCtrl.getSesionesCtrl().getoProductoSesionCtrl().searchByPk(new ProductoSesion(new Sesion(iIdSesion), new Producto(sDniProducto))) == null) {
+                System.out.println("Ese Producto no esta asignado a esa sesion");
+            }
+        } while (oCtrl.getSesionesCtrl().getoProductoSesionCtrl().searchByPk(
+            new ProductoSesion(new Sesion(iIdSesion), new Producto(sDniProducto))) == null);
+
+        return oCtrl.getSesionesCtrl().getoProductoSesionCtrl().remove(new ProductoSesion(new Sesion(iIdSesion), new Producto(sDniProducto)));
+
+    }
+
+    // ###### Pack ######
+
+    private static void listarPackDeSesion(Controller oCtrl, Sesion oSesion) {
+        if (oCtrl.getSesionesCtrl().getoPackSesionCtrl().searchBySesion(oSesion) != null) {
+            System.out.println("# Packs de la sesion #");
+            List<PackSesion> lPacks = oCtrl.getSesionesCtrl().getoPackSesionCtrl().listar(oSesion.getiIdSesion());
+            for (PackSesion oPackSesion : lPacks) {
+                System.out.println(oPackSesion.getoPack().getsNombrePack());
+            }
+
+        } else {
+            System.out.println("¡Este pack no tiene ningun pack asignado!");
+        }
+    }
+
+    private static boolean asignarPack(Controller oCtrl) {
+        List<PackSesion> lPacks = new ArrayList<PackSesion>();
+        PackSesion oPackSesion = null;
+        Pack oPack = null;
+        String sDniPack = null;
+
+        if (oCtrl.getSesionesCtrl().getoSesionCtrl().listar() != null && oCtrl.getConfiguracionCtrl().getoProductosCtrl().getoPackCtrl().listar() != null) {
+
+            Sesion oSesion = new Sesion(
+                    (int) (Libreria.leer("Introduce un id de sesion", 1, IMAXIDS, -1, -1, (byte) 3)));
+
+            if (oCtrl.getSesionesCtrl().getoSesionCtrl().searchByPk(oSesion) != null) {
+
+                System.out.println("¡Cuando quiera dejar de instroducir packs, dejelo en blanco y pulse ENTER!");
+                do {
+                    sDniPack = (String.valueOf(
+                            Libreria.leer("Introduce el nombre del pack", 0, BMAXDNI, -1, -1, (byte) 6)));
+
+                    if (oCtrl.getConfiguracionCtrl().getoProductosCtrl().getoPackCtrl().searchByPk(new Pack(sDniPack)) != null) {
+
+                        oPack = new Pack(sDniPack);
+                        oPackSesion = new PackSesion(oPack, oSesion);
+
+                        if (oCtrl.getSesionesCtrl().getoPackSesionCtrl().searchByPk(oPackSesion) == null) {
+                            lPacks.add(oPackSesion);
+                            System.out.println("Pack preparado");
+                        } else {
+                            System.out.println("Ese Pack ya esta asignado a la sesion");
+                        }
+
+                    } else {
+                        if (!sDniPack.isEmpty()) {
+                            System.out.println("¡Este pack no esta creado!");
+                        }
+                    }
+                } while (!sDniPack.isEmpty());
+            } else {
+                System.out.println("No existe una sesion con esa id.");
+            }
+
+        } else {
+            System.out.println("Tiene que haber creado sesiones y pack para utilizar esta herramienta");
+        }
+
+        return oCtrl.getSesionesCtrl().getoPackSesionCtrl().add(lPacks);
+    }
+
+    private static boolean eliminarPack(Controller oCtrl) {
+        String sNombrePack;
+        int iIdSesion;
+
+        do {
+            iIdSesion = (int)(Libreria.leer("Introduce un id de sesion", 1, IMAXIDS, -1, -1, (byte) 3));
+            if (oCtrl.getSesionesCtrl().getoPackSesionCtrl().searchBySesion(new Sesion(iIdSesion)) == null) {
+                System.out.println("Esta Sesion no tiene packs asignados");
+            }
+        } while (oCtrl.getSesionesCtrl().getoPackSesionCtrl().searchBySesion(new Sesion(iIdSesion)) == null);
+
+        do {
+            sNombrePack = String
+                    .valueOf(Libreria.leer("Introduce el nombre del pack", 1, BMAXNOMBRELARGO, -1, -1, (byte) 6));
+            if (oCtrl.getSesionesCtrl().getoPackSesionCtrl().searchByPk(new PackSesion(new Pack(sNombrePack), new Sesion(iIdSesion))) == null) {
+                System.out.println("Este Pack no esta asignado a esa sesion");
+            }
+        } while (oCtrl.getSesionesCtrl().getoPackSesionCtrl().searchByPk(
+            new PackSesion(new Pack(sNombrePack), new Sesion(iIdSesion))) == null);
+
+        return oCtrl.getSesionesCtrl().getoPackSesionCtrl().remove(new PackSesion(new Pack(sNombrePack), new Sesion(iIdSesion)));
 
     }
 

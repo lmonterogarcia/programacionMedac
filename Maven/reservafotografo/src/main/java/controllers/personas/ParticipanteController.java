@@ -4,6 +4,8 @@ import java.sql.*;
 import java.sql.Date;
 import java.util.*;
 
+import com.google.gson.Gson;
+
 import controllers.Controller;
 import models.personas.Participante;
 
@@ -219,6 +221,38 @@ public class ParticipanteController {
             oParticipanteResult = null;
         }
 
+        return oParticipanteResult;
+    }
+
+    public Participante searchById(Participante oParticipante) {
+        Participante oParticipanteResult = null;
+        if (oParticipante != null && oParticipante.getiIdContacto() > 0) {
+            
+			String json = "[{\"idParticipante\":" + oParticipante.getiIdContacto() + "}]";
+
+			try {
+
+				CallableStatement statement = Controller.getConnection().prepareCall("{call search_by(?,'idParticipante','Participante','idParticipante')}");
+				statement.setString(1, json);
+
+                ResultSet rs = statement.executeQuery();
+            if (rs.next()) {
+                oParticipanteResult = new Participante(rs.getInt(1));
+                oParticipanteResult.setoFechaCreacion(rs.getTimestamp(2).toLocalDateTime());
+                oParticipanteResult.setsDniContacto(oParticipante.getsDniContacto());
+                oParticipanteResult.setsNombreContacto(rs.getString(4));
+                oParticipanteResult.setsApellido1Contacto(rs.getString(5));
+                oParticipanteResult.setsApellido2Contacto(rs.getString(6));
+                oParticipanteResult.setsTelefonoContacto(rs.getString(7));
+                oParticipanteResult
+                        .setoFechaNacimientoContacto(rs.getDate(8) != null ? rs.getDate(8).toLocalDate() : null);
+                oParticipanteResult.setsEmailParticipante(rs.getString(9));
+            }
+            statement.close();
+        } catch (SQLException e) {
+            oParticipanteResult = null;
+        }
+    }
         return oParticipanteResult;
     }
 

@@ -226,4 +226,24 @@ public class Controller implements IController {
         }
         return lSesiones;
     }
+
+	public List <FotografoSesion> listarFotografoSesion(Sesion oSesion){
+		List <FotografoSesion> lFotografoSesion = getSesionesCtrl().getoFotografoSesionCtrl().listar(oSesion.getiIdSesion());
+		if (lFotografoSesion.size() > 0) {
+			for (FotografoSesion oFotografoSesion : lFotografoSesion) {
+				oFotografoSesion.setoFotografo(getoFotografoCtrl().searchByPk(oFotografoSesion.getoFotografo()));
+			}
+		}
+		return lFotografoSesion;
+	}
+
+	public List <ParticipanteSesion> listarParticipanteSesion(Sesion oSesion){
+		List <ParticipanteSesion> lParticipanteSesion = getSesionesCtrl().getoParticipanteSesionCtrl().listar(oSesion.getiIdSesion());
+		if (lParticipanteSesion.size() > 0) {
+			for (ParticipanteSesion oFotografoSesion : lParticipanteSesion) {
+				oFotografoSesion.setoParticipante(getoParticipanteCtrl().searchById(oFotografoSesion.getoParticipante()));
+			}
+		}
+		return lParticipanteSesion;
+	}
 }

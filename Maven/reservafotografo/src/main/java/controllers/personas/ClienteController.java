@@ -7,8 +7,6 @@ import java.sql.*;
 import java.sql.Date;
 import java.util.*;
 
-import com.google.gson.Gson;
-
 import controllers.Controller;
 
 public class ClienteController implements controllers.ICrudController<Cliente> {
